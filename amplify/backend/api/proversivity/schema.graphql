@@ -1,0 +1,149 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+
+type UserPreferences @model @auth(rules: [ { allow: owner} ]){
+  id: ID!
+  User: String
+  DisplayName: String
+  DarkMode: Boolean
+}
+
+type Resume @model @searchable @auth(rules: [ { allow: owner} ]){
+  id: ID!
+  userProvidedID: String
+  Title: String
+  Author: String
+  SharePool: SharePool @hasOne
+  PersonalData: PersonalData @hasOne
+  Overview: Overview @hasOne
+  Experience: [Experience] @manyToMany(relationName: "ResumeExperience")
+  Education: [Education] @manyToMany(relationName: "ResumeEducation")
+  Skills: [String]
+  Status: ResumeStatus
+}
+
+type SharePool @model @auth(rules: [ { allow: owner} ]){
+  id: ID!
+  DelegatedOwners: [String]
+  Viewers: [String]
+  AuthorizedUserPools: [UserPoolMeta] @hasMany
+}
+
+type UserPoolMeta @model @auth(rules: [ { allow: owner} ]){
+  id: ID!
+  authorizationScope: Scope
+}
+
+type PersonalData @model @auth(rules: [ { allow: owner} ]){
+  id: ID!
+  Owner: String
+  First: String
+  Middle: String
+  Last:String
+  Acronyms:String
+  Address: Address @hasOne
+  Contact: Contact @hasOne
+  JobTitle: String
+  LinkedIn: String
+  Reddit: String
+  Twitter: String
+  Facebook: String
+  Github: String
+}
+
+type Address @model @auth(rules: [ {allow: owner} ]){
+  id: ID!
+  Street: String
+  City: String
+  State: String
+  Zip: String
+}
+
+type Contact @model @auth(rules: [ { allow: owner} ]){
+  id: ID!
+  email: String
+  phone: String
+}
+
+type Overview @model @auth(rules: [ { allow: owner} ]){
+  id: ID!
+  Summary: Summary @hasOne
+  Accomplishments: [Accomplishments] @hasMany
+  Resume: Resume @belongsTo
+}
+
+type Summary @model @auth(rules: [{allow: owner}]){
+  id: ID!
+  Summary: String
+}
+
+type Accomplishments @model @auth(rules: [{allow: owner}]){
+  id: ID!
+  Accomplishment: String
+}
+
+type Experience @model @auth(rules: [ { allow: owner} ]){
+  id: ID!
+  Company: String
+  Start: AWSDate
+  End: AWSDate
+  IsCurrent: Boolean
+  JobTitle: String
+  Organization: String
+  Title: String
+  BulletPoints: [String]
+  Resumes: [Resume] @manyToMany(relationName: "ResumeExperience")
+}
+
+type Education @model @auth(rules: [ { allow: owner } ]){
+  id: ID!
+  Degree: DegreeType
+  School: String
+  Start: AWSDate
+  End: AWSDate
+  Overview: String
+  Resumes: [Resume] @manyToMany(relationName: "ResumeEducation")
+}
+
+type UIKey @model @auth(rules: [ { allow: owner} ]){
+  id: ID!
+  MuiKey: String!
+}
+
+enum DegreeType {
+  AA
+  AS 
+  AAS 
+  BSC
+  BA
+  BFA
+  MA
+  MS
+  MBA
+  PHD
+  MD
+  JD
+  CERT
+  OTHER
+}
+
+enum ResumeStatus{
+  DRAFT
+  RELEASED
+  DEPRECATED
+}
+
+enum Scope {
+  READ
+  WRITE
+  UPDATE
+  DELETE
+}
+
+type Message @model {
+  id: ID!
+  author: String!
+  body: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}

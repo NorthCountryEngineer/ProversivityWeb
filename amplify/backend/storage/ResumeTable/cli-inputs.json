@@ -1,0 +1,18 @@
+{
+  "resourceName": "ResumeTable",
+  "tableName": "ResumeTable",
+  "partitionKey": {
+    "fieldName": "ResumeID",
+    "fieldType": "string"
+  },
+  "gsi": [
+    {
+      "name": "ResumeID",
+      "partitionKey": {
+        "fieldName": "ResumeID",
+        "fieldType": "string"
+      }
+    }
+  ],
+  "triggerFunctions": []
+}

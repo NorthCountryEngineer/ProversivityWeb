@@ -1,0 +1,18 @@
+{
+  "resourceName": "ProversitivyServiceDynamo",
+  "tableName": "ProversitivyServiceDynamo",
+  "partitionKey": {
+    "fieldName": "ID",
+    "fieldType": "string"
+  },
+  "gsi": [
+    {
+      "name": "ProversivityTableGSI",
+      "partitionKey": {
+        "fieldName": "ID",
+        "fieldType": "string"
+      }
+    }
+  ],
+  "triggerFunctions": []
+}

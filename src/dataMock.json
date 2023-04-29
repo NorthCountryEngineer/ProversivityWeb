@@ -1,0 +1,125 @@
+[
+    {
+        "MetaData": {
+            "Name": "Eric Yager",
+            "Title": "Software Development Manager",
+            "Image": "",
+            "Email": "eric.p.yager@outlook.com",
+            "Phone": "+1(315)854-6887",
+            "URL": "https://www.proversivity.com/Resume",
+            "Overview": "Software engineering / development manager with 14 years’ professional experience, currently working in Amazon’s People Experience Technology organization. I bring 3 years’ of engineering manager experience primarily focusing on backend and full-stack application development. I also bring 2 years’ experience as a software engineer primarily focusing on backend development with Python and C#. ",
+            "Address": {
+              "Address": "3574 CR-17",
+              "Zip": "13630",
+              "City": "DeKalb Junction",
+              "State": "NY",
+              "Country": "US"
+            },
+            "SocialMedia": [{
+              "network": "LINKEDIN",
+              "username": "eric-yager-pmp",
+              "url": "https://www.linkedin.com/in/eric-yager-pmp"
+            }]
+        },
+        "Experience":[
+            {
+                "CompanyName": "Amazon",
+                "JobTitle": "Software Development Manager",
+                "Summary": "Starting in 2020, worked as site tech lead for Air Science and Technology (AST) in Nashville (BNA-12 office) managing engineers and engineering managers across 4 product teams. Currently leading cross functional engineering team to build an ML based insights engine and organizational design web application in Amazon’s People Experience Technology (PxT) business.",
+                "StartDate": "2010-04-01",
+                "IsCurrentRole": true,
+                "EndDate": "",
+                "highlights": [
+                    [
+                        "Expanded AST’s footprint in Nashville by 8 SDEs and established/grew a 4th product team to manage excess cargo space on aircraft through an internal and externally facing booking portal between April 2020 and May 2022.",
+                            [
+                                "Reduced infrastructure spending by 24% through operational excellence initiative in 2021 to replace legacy lambda based service to elastic containers",
+                                "Reduced average engineer meeting load by 9 hours per engineer per week by working with product teams to overhaul engineering build processes and establishing kanban processes for project management"
+                            ]
+                    ],
+                    [
+                        "Joined PxT in May of 2022 to start an engineering team within a data science/analytics organization. Currently building data driven organizational design web application for use by all of Amazon’s L7+ managers and HR partners starting in Q2-2023.",
+                        [
+                            "Established new team through external and internal hiring before kicking off build in September 2022",
+                            "Worked with greater organization (75 engineer org) to establish wiki documentation standards, standardizing documentation for 7 engineering product teams",
+                            "Established Operational Excellence program for parent organization. Established oncall handover process, service health dashboard standards, overhauled paging procedures, and guided teams on establishing runbooks and runbook procedures",
+                            "Worked with Business Intelligence Engineering (BIE) team to establish standards and job transition pipeline for BIEs interested in becoming software engineers. Allowed for engineering team growth during Amazon’s Q4/Q1 hiring freeze through internal growth"
+                        ]
+                    ]
+                ]
+            },
+            {
+                "CompanyName": "Dell Technologies",
+                "JobTitle": "Software Engineer",
+                "Summary": "Software Engineer in Dell’s Server Procurement organization assigned to establish and ultimately grow an engineering team focused on digital transformation for Server Procurement supply chain operations. Aside from engineering experience focused on both full-stack and backend projects using NodeJS, Django (Python web library), Flask (Python library), ASP.net, MSSQL, and Pivotal platform products, established military partnership with Fort Hood to provide Program Manager internships within Dell for separating servicemembers.",
+                "StartDate": "2018-10-01",
+                "IsCurrentRole": false,
+                "EndDate": "2020-04-01",
+                "highlights": [
+                    [
+                        "Web Application/Microservice development along with backend development using NodeJS, Django, Flask, and ASP.net. ",
+                        [
+                            "Created web based tool to replace Excel+macros for 85 Dell supply chain analysts to project supply chain development and management milestones across 6.2mm individual server parts. Drove down manual processing time by 42 monthly hours per supply chain analyst.",
+                            "Built data pipelines and MSSQL based data sources of record for supply chain data using Azure Data Factory"
+                        ]
+                    ],
+                    [
+                        "Created and scaled technical infrastructure for application, web, and data engineering development including Azure services, MSSQL, and PKS",
+                        [
+                            "Team had no development process nor tools. Established a deployment pipeline using Pivotal services on Azure, reducing production deployment timelines from 3.5 hours to 45 minutes on average"
+                        ]
+                    ]
+                ]
+            },
+            {
+                "CompanyName": "United States Army",
+                "JobTitle": "Officer (2LT-MAJ)",
+                "Summary": "Officer in the US Army with 5 years’ as a conventional lead and 6 years as a special operations lead. Managed tactical teams (4-8 direct reports), large teams (18-24 direct reports), and managed managers (2-6 managers, 48-120 sub-reports) during progressive career. ",
+                "StartDate": "2018-10-01",
+                "IsCurrentRole": false,
+                "EndDate": "2020-04-01",
+                "highlights": [
+                    [
+                        "Special Operations officer supporting US DoD initiatives across Central and South America",
+                        [
+                            "Worked with Palantir (3P software provider for DoD) to create low bandwidth web UI for geospatial analysis and reporting with sharepoint automation to store and retrieve report data for 12 teams spread across low-bandwidth regions of Central and South America"
+                        ]
+                    ],
+                    [
+                        "Special Operations officer supporting US DoD initiatives across Southwest Asia.",
+                        [
+                            "Established base of operations in Turkey to support counter-ISIS measures in Syria and led 4 person team in charge of civil support in northern Aleppo, liaising with State Department and foreign government entities to establish cross-border supply chains between Turkey and Syria",
+                            "Led 12 person cross-functional team in charge of foreign internal defense within Ghazni Province of Afghanistan"
+                        ]
+                    ]
+                ]
+            }
+        ],
+        "education": [
+            {
+                "institution": "Syracuse University",
+                "area": "Business Administration (MBA)",
+                "studyType": "Masters",
+                "startDate": "2017",
+                "endDate": "2020",
+                "score": "3.71"
+            },
+            {
+                "institution": "Syracuse University",
+                "area": "Business Analytics (MSc)",
+                "studyType": "Masters",
+                "startDate": "2017",
+                "endDate": "2019",
+                "score": "3.82"
+            },
+            {
+                "institution": "Plattsburgh State University",
+                "area": "Criminal Justics (BSc)",
+                "studyType": "Bachelor",
+                "startDate": "2002",
+                "endDate": "2006",
+                "score": "N/A"
+            }
+        ]
+    }
+]
