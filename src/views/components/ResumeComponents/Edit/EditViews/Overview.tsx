@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { API, Cache, graphqlOperation } from 'aws-amplify'
 import Box from '@mui/material/Box';
-import { Overview, OverviewTemplate } from '../../../../models/Service/ResumeModel';
+import { Overview, OverviewTemplate } from '../../../../../models/Service/ResumeModel';
 import { convertToRaw, EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../Style/Overview.css'
 import draftToMarkdown from 'draftjs-to-markdown';
-import { updateOverview } from '../../../../graphql/mutations';
+import { updateOverview } from '../../../../../graphql/mutations';
 import showdown from 'showdown'
 
 export default function EditOverview() {

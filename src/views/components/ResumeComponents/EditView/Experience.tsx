@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material'
 import Divider from '@mui/material/Divider';
-import MockData from '../../../dataMock.json'
+import MockData from '../../../../dataMock.json'
 
 export default function Experience(){
     let ExperienceArray:any = MockData[0]["Experience"]

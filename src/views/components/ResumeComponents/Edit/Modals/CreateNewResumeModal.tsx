@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import Button  from '@mui/material/Button';
 import Grid  from '@mui/material/Grid';
 import Stack from '@mui/material/Stack'
-import { createResume } from '../../../../graphql/mutations';
+import { createResume } from '../../../../../graphql/mutations';
 import { API,Auth } from 'aws-amplify';
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';

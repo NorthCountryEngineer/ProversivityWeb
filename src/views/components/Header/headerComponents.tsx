@@ -30,7 +30,6 @@ export const menuItems:MenuItemType[] = [
         icon: <Brightness4/>,
     },
 ];
-  
 
 /**
  * A functional component that renders a sidebar using Material-UI's Drawer component.

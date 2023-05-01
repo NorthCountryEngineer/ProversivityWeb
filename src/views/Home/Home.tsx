@@ -1,35 +1,35 @@
-import { makeStyles } from '@mui/styles';
-import { HomeContactForm } from "./HomeComponents";
+import { CalloutBoxes, FounderName } from "./HomeComponents";
+import { Box } from "@mui/system";
 
-export function Home() {
+export default function Home() {
   const isMobile = window.innerWidth <= 600;
-  const useStyles = makeStyles(() => ({
-    paper: {
-      padding: 2,
-      textAlign: 'center',
-      width: '100%',
-      maxWidth: 600,
-      margin: 'auto',
-      marginTop: 100,
-    },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      marginTop: 2,
-    },
-    textField: {
-      margin: 1,
-      width: '100%',
-    },
-    button: {
-      margin: 2,
-    },
-}));
 
-const classStyles = useStyles();
+  const callouts = [
+    {
+      title: "Find Top Engineering Talent for Your Projects",
+      bulletPoints: [
+        "Access to skilled and verified talent",
+        "Flexible hiring options",
+        "User-friendly experience",
+      ],
+      buttonText: "Sign Up",
+    },
+    {
+      title: "Join the Platform and Find Opportunities to Showcase Your Skills",
+      bulletPoints: [
+        "Access to a wider customer base",
+        "Flexible work arrangements",
+        "The ability to earn more income",
+      ],
+      buttonText: "Join Now",
+      image: "your-photo-url.jpg",
+    },
+  ];
 
   return (
-    <HomeContactForm mobile={isMobile} classStyles={classStyles}/>
+    <>
+      <FounderName />
+      <CalloutBoxes isMobile={isMobile} callouts={callouts} />
+    </>
   );
-}
+};

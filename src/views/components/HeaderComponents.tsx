@@ -1,6 +1,6 @@
 import { alpha, Box, Paper, Theme, Typography } from "@mui/material"
 import { loadFont } from "@remotion/google-fonts/Raleway";
-import { getWindowDimensions } from "../functions/Service/ResponsiveFunctions";
+import { getWindowDimensions } from "../../functions/Service/ResponsiveFunctions";
 
 const { fontFamily } = loadFont();
 

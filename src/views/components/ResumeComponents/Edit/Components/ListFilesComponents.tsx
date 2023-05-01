@@ -16,7 +16,6 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
 const drawerWidth = 240;
 
 interface ResumeInterface {
