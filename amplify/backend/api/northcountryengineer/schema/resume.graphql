@@ -27,6 +27,10 @@ type SharePool
   Viewers: [String]
   # List of user pools that can access the associated Resume
   AuthorizedUserPools: [UserPoolMeta] @hasMany
+  # Access the resume record that this user pool belongs to using a resume field on each UserPoolMeta record. 
+  resume: Resume @belongsTo(fields: ["resumeId"])
+  # ID of the Resume record that this UserPoolMeta record belongs to
+  resumeId: ID! 
 }
 
 type UserPoolMeta
@@ -34,10 +38,6 @@ type UserPoolMeta
 {
   id: ID!
   authorizationScope: Scope
-  # Access the resume record that this user pool belongs to using a resume field on each UserPoolMeta record. 
-  resume: Resume @belongsTo(fields: ["resumeId"])
-  # ID of the Resume record that this UserPoolMeta record belongs to
-  resumeId: ID! 
 }
 
 
@@ -89,7 +89,6 @@ type Overview
 
 type Summary 
   @model 
-  [{ allow: owner }]) 
 {
   id: ID!
   Summary: String
@@ -119,7 +118,7 @@ type Experience
 }
 
 
-type Education @model @auth(
+type Education @model
   # Only the owner can perform CRUD operations
 {
   id: ID!

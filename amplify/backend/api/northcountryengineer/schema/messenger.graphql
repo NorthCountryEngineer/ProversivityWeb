@@ -1,7 +1,6 @@
 type Message @model {
   id: ID!
   text: String!
-  createdAt: DateTime!
+  createdAt: AWSDateTime!
   ownerId: ID!
-  owner: User!
 }
