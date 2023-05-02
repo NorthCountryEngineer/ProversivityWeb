@@ -1,5 +1,4 @@
-type UserPreferences @model
-{
+type UserPreferences @model{
   id: ID!
   User: ID! # The ID of the user who owns this UserPreferences object
   DisplayName: String
