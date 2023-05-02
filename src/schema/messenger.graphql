@@ -1,0 +1,7 @@
+type Message @model {
+  id: ID!
+  text: String!
+  createdAt: DateTime!
+  ownerId: ID!
+  owner: User!
+}

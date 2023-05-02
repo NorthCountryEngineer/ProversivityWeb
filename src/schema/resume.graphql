@@ -1,0 +1,169 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+
+type Resume
+  @model  # Marks the type as a model to generate DynamoDB table, resolvers, and mutations
+{
+  id: ID!
+  userProvidedID: String
+  Title: String
+  Author: String
+  SharePool: SharePool @hasOne
+  PersonalData: PersonalData @hasOne
+  Overview: Overview @hasOne
+  Experience: [Experience] @manyToMany(relationName: "ResumeExperience")
+  Education: [Education] @manyToMany(relationName: "ResumeEducation")
+  Skills: [String]
+  Status: ResumeStatus
+}
+
+type SharePool
+  @model
+{
+  id: ID!
+  # List of user IDs that the owner has delegated permission to CRUD the associated Resume
+  DelegatedOwners: [String]
+  # List of user IDs that can view the associated Resume
+  Viewers: [String]
+  # List of user pools that can access the associated Resume
+  AuthorizedUserPools: [UserPoolMeta] @hasMany
+}
+
+type UserPoolMeta
+  @model
+{
+  id: ID!
+  authorizationScope: Scope
+  # Access the resume record that this user pool belongs to using a resume field on each UserPoolMeta record. 
+  resume: Resume @belongsTo(fields: ["resumeId"])
+  # ID of the Resume record that this UserPoolMeta record belongs to
+  resumeId: ID! 
+}
+
+
+type PersonalData
+  @model
+{
+  id: ID!
+  Owner: String
+  First: String
+  Middle: String
+  Last: String
+  Acronyms: String
+  Address: Address @hasOne
+  Contact: Contact @hasOne
+  JobTitle: String
+  LinkedIn: String
+  Reddit: String
+  Twitter: String
+  Facebook: String
+  Github: String
+}
+
+type Address 
+  @model 
+{
+  id: ID!
+  Street: String
+  City: String
+  State: String
+  Zip: String
+}
+
+type Contact 
+  @model 
+{
+  id: ID!
+  email: String
+  phone: String
+}
+
+type Overview 
+  @model 
+{
+  id: ID!
+  Summary: Summary @hasOne
+  Accomplishments: [Accomplishments] @hasMany
+  Resume: Resume @belongsTo
+}
+
+type Summary 
+  @model 
+  [{ allow: owner }]) 
+{
+  id: ID!
+  Summary: String
+}
+
+type Accomplishments 
+  @model 
+{
+  id: ID!
+  Accomplishment: String
+}
+
+type Experience 
+  @model 
+{
+  id: ID!
+  Company: String
+  Start: AWSDate
+  End: AWSDate
+  IsCurrent: Boolean
+  JobTitle: String
+  Organization: String
+  Title: String
+  BulletPoints: [String]
+  # Define many-to-many relationship with Resume
+  Resumes: [Resume] @manyToMany(relationName: "ResumeExperience")
+}
+
+
+type Education @model @auth(
+  # Only the owner can perform CRUD operations
+{
+  id: ID!
+  Degree: DegreeType
+  School: String
+  Start: AWSDate
+  End: AWSDate
+  Overview: String
+  # Define many-to-many relationship with Resume
+  Resumes: [Resume] @manyToMany(relationName: "ResumeEducation")
+}
+
+type UIKey @model 
+{
+  id: ID!
+  MuiKey: String!
+}
+
+enum DegreeType {
+  AA
+  AS 
+  AAS 
+  BSC
+  BA
+  BFA
+  MA
+  MS
+  MBA
+  PHD
+  MD
+  JD
+  CERT
+  OTHER
+}
+
+enum ResumeStatus{
+  DRAFT
+  RELEASED
+  DEPRECATED
+}
+
+enum Scope {
+  READ
+  WRITE
+  UPDATE
+  DELETE
+}

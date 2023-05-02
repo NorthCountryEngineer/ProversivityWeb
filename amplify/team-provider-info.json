@@ -1,41 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-proversivity-dev-65300-authRole",
-      "UnauthRoleArn": "arn:aws:iam::179682925980:role/amplify-proversivity-dev-65300-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::179682925980:role/amplify-proversivity-dev-65300-authRole",
+      "AuthRoleName": "amplify-northcountryengineer-dev-173943-authRole",
+      "UnauthRoleArn": "arn:aws:iam::179682925980:role/amplify-northcountryengineer-dev-173943-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::179682925980:role/amplify-northcountryengineer-dev-173943-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-proversivity-dev-65300-deployment",
-      "UnauthRoleName": "amplify-proversivity-dev-65300-unauthRole",
-      "StackName": "amplify-proversivity-dev-65300",
-      "StackId": "arn:aws:cloudformation:us-east-1:179682925980:stack/amplify-proversivity-dev-65300/85b47e70-5a9c-11ed-8b83-0ecf505780af",
-      "AmplifyAppId": "d3gkb24srr9ntq",
-      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-proversivity-dev-65300-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+      "DeploymentBucketName": "amplify-northcountryengineer-dev-173943-deployment",
+      "UnauthRoleName": "amplify-northcountryengineer-dev-173943-unauthRole",
+      "StackName": "amplify-northcountryengineer-dev-173943",
+      "StackId": "arn:aws:cloudformation:us-east-1:179682925980:stack/amplify-northcountryengineer-dev-173943/b03b6a00-e868-11ed-af5d-0af2c76cc20b",
+      "AmplifyAppId": "dm2nhm2kldgw"
     },
     "categories": {
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d3gkb24srr9ntq",
-          "type": "cicd"
-        }
-      },
       "auth": {
-        "proversivity534d512a": {},
-        "userPoolGroups": {}
-      },
-      "storage": {
-        "ProversitivyServiceDynamo": {},
-        "ResumeTable": {}
-      },
-      "api": {
-        "AdminQueries": {},
-        "proversivity": {}
-      },
-      "function": {
-        "AdminQueriesa55977ce": {
-          "deploymentBucketName": "amplify-proversivity-dev-65300-deployment",
-          "s3Key": "amplify-builds/AdminQueriesa55977ce-35635132624873544368-build.zip"
-        }
+        "northcountryengineer9d2f1aef": {}
       }
     }
   }
