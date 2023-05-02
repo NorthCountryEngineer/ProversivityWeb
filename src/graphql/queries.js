@@ -30,6 +30,37 @@ export const listMessages = /* GraphQL */ `
     }
   }
 `;
+export const getUserPreferences = /* GraphQL */ `
+  query GetUserPreferences($id: ID!) {
+    getUserPreferences(id: $id) {
+      id
+      User
+      DisplayName
+      DarkMode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUserPreferences = /* GraphQL */ `
+  query ListUserPreferences(
+    $filter: ModelUserPreferencesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserPreferences(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        User
+        DisplayName
+        DarkMode
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getResume = /* GraphQL */ `
   query GetResume($id: ID!) {
     getResume(id: $id) {
@@ -797,37 +828,6 @@ export const listUIKeys = /* GraphQL */ `
       items {
         id
         MuiKey
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getUserPreferences = /* GraphQL */ `
-  query GetUserPreferences($id: ID!) {
-    getUserPreferences(id: $id) {
-      id
-      User
-      DisplayName
-      DarkMode
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listUserPreferences = /* GraphQL */ `
-  query ListUserPreferences(
-    $filter: ModelUserPreferencesFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUserPreferences(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        User
-        DisplayName
-        DarkMode
         createdAt
         updatedAt
       }

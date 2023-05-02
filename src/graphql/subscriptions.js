@@ -34,6 +34,48 @@ export const onDeleteMessage = /* GraphQL */ `
     }
   }
 `;
+export const onCreateUserPreferences = /* GraphQL */ `
+  subscription OnCreateUserPreferences(
+    $filter: ModelSubscriptionUserPreferencesFilterInput
+  ) {
+    onCreateUserPreferences(filter: $filter) {
+      id
+      User
+      DisplayName
+      DarkMode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserPreferences = /* GraphQL */ `
+  subscription OnUpdateUserPreferences(
+    $filter: ModelSubscriptionUserPreferencesFilterInput
+  ) {
+    onUpdateUserPreferences(filter: $filter) {
+      id
+      User
+      DisplayName
+      DarkMode
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserPreferences = /* GraphQL */ `
+  subscription OnDeleteUserPreferences(
+    $filter: ModelSubscriptionUserPreferencesFilterInput
+  ) {
+    onDeleteUserPreferences(filter: $filter) {
+      id
+      User
+      DisplayName
+      DarkMode
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateResume = /* GraphQL */ `
   subscription OnCreateResume($filter: ModelSubscriptionResumeFilterInput) {
     onCreateResume(filter: $filter) {
@@ -1361,48 +1403,6 @@ export const onDeleteUIKey = /* GraphQL */ `
     onDeleteUIKey(filter: $filter) {
       id
       MuiKey
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateUserPreferences = /* GraphQL */ `
-  subscription OnCreateUserPreferences(
-    $filter: ModelSubscriptionUserPreferencesFilterInput
-  ) {
-    onCreateUserPreferences(filter: $filter) {
-      id
-      User
-      DisplayName
-      DarkMode
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateUserPreferences = /* GraphQL */ `
-  subscription OnUpdateUserPreferences(
-    $filter: ModelSubscriptionUserPreferencesFilterInput
-  ) {
-    onUpdateUserPreferences(filter: $filter) {
-      id
-      User
-      DisplayName
-      DarkMode
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteUserPreferences = /* GraphQL */ `
-  subscription OnDeleteUserPreferences(
-    $filter: ModelSubscriptionUserPreferencesFilterInput
-  ) {
-    onDeleteUserPreferences(filter: $filter) {
-      id
-      User
-      DisplayName
-      DarkMode
       createdAt
       updatedAt
     }
