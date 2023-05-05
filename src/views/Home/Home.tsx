@@ -1,7 +1,8 @@
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import { CalloutBoxes, FounderName } from "./HomeComponents";
 import { Box } from "@mui/system";
 
-export default function Home() {
+function Home() {
   const isMobile = window.innerWidth <= 600;
 
   const callouts = [
@@ -33,3 +34,6 @@ export default function Home() {
     </>
   );
 };
+
+
+export default withAuthenticator(Home)

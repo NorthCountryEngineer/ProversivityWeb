@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API, Cache, graphqlOperation } from 'aws-amplify'
+import { API, Cache, Hub, graphqlOperation } from 'aws-amplify'
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CreateNewResumeModal } from './components/ResumeComponents/Edit/Modals/CreateNewResumeModal';
@@ -9,7 +9,6 @@ import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { deleteResumeByID, listResumesCallWithHook } from './components/ResumeComponents/Edit/Functions/HandleListResumes';
-import { handleTitleUpdate } from '../functions/Service/DynamicTitling';
 import CreateResume from './CreateResume';
 import { Main } from './components/ResumeComponents/Edit/Components/ListFilesComponents';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -27,7 +26,15 @@ import CloudDoneIcon from '@mui/icons-material/CloudDone';
 import { getResume } from '../graphql/queries';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 
-
+export function handleTitleUpdate(updatedTitle:String){
+    Hub.dispatch(
+        'TitleUpdate', 
+        { 
+            event: 'updateTitle', 
+            data: {color:'blue'}, 
+            message:`${updatedTitle}`
+    });
+}
 interface ResumeInterface {
     id:String
     title:String

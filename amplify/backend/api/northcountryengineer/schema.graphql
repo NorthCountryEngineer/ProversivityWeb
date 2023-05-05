@@ -5,18 +5,14 @@ type Message @model {
   ownerId: ID!
 }
 
-type UserPreferences @model{
+type UserPreferences @model {
   id: ID!
-  User: ID! # The ID of the user who owns this UserPreferences object
+  User: ID!
   DisplayName: String
   DarkMode: Boolean
 }
 
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-
-type Resume
-  @model  # Marks the type as a model to generate DynamoDB table, resolvers, and mutations
+type Resume @model
 {
   id: ID!
   userProvidedID: String
@@ -31,32 +27,23 @@ type Resume
   Status: ResumeStatus
 }
 
-type SharePool
-  @model
+type SharePool @model
 {
   id: ID!
-  # List of user IDs that the owner has delegated permission to CRUD the associated Resume
   DelegatedOwners: [String]
-  # List of user IDs that can view the associated Resume
   Viewers: [String]
-  # List of user pools that can access the associated Resume
   AuthorizedUserPools: [UserPoolMeta] @hasMany
-  # Access the resume record that this user pool belongs to using a resume field on each UserPoolMeta record. 
   resume: Resume @belongsTo(fields: ["resumeId"])
-  # ID of the Resume record that this UserPoolMeta record belongs to
   resumeId: ID! 
 }
 
-type UserPoolMeta
-  @model
+type UserPoolMeta @model
 {
   id: ID!
   authorizationScope: Scope
 }
 
-
-type PersonalData
-  @model
+type PersonalData @model
 {
   id: ID!
   Owner: String
@@ -74,8 +61,7 @@ type PersonalData
   Github: String
 }
 
-type Address 
-  @model 
+type Address  @model 
 {
   id: ID!
   Street: String
@@ -84,16 +70,14 @@ type Address
   Zip: String
 }
 
-type Contact 
-  @model 
+type Contact  @model 
 {
   id: ID!
   email: String
   phone: String
 }
 
-type Overview 
-  @model 
+type Overview  @model 
 {
   id: ID!
   Summary: Summary @hasOne
@@ -101,22 +85,19 @@ type Overview
   Resume: Resume @belongsTo
 }
 
-type Summary 
-  @model 
+type Summary  @model 
 {
   id: ID!
   Summary: String
 }
 
-type Accomplishments 
-  @model 
+type Accomplishments  @model 
 {
   id: ID!
   Accomplishment: String
 }
 
-type Experience 
-  @model 
+type Experience  @model 
 {
   id: ID!
   Company: String
@@ -127,13 +108,11 @@ type Experience
   Organization: String
   Title: String
   BulletPoints: [String]
-  # Define many-to-many relationship with Resume
   Resumes: [Resume] @manyToMany(relationName: "ResumeExperience")
 }
 
 
 type Education @model
-  # Only the owner can perform CRUD operations
 {
   id: ID!
   Degree: DegreeType
@@ -141,7 +120,6 @@ type Education @model
   Start: AWSDate
   End: AWSDate
   Overview: String
-  # Define many-to-many relationship with Resume
   Resumes: [Resume] @manyToMany(relationName: "ResumeEducation")
 }
 

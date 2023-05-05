@@ -10,10 +10,11 @@ import { Box, Fab, Stack, Typography } from "@mui/material";
 import { Drawer, Button, Divider, List, ListItem, ListItemIcon, ListItemText, ListItemButton, Switch, Menu } from '@mui/material';
 import { ManageAccounts, ChevronRight, NoteAdd, EmojiNature, Brightness4, Menu as MenuIcon } from '@mui/icons-material';
 
-import type { MenuItem as MenuItemType } from './headerTypes';
+import type { MenuItemProps, ProversivityAppBarProps } from './headerTypes';
 import { useState } from "react";
+import { useDrawerFab } from "./headerHooks";
 
-export const menuItems:MenuItemType[] = [
+export const menuItems:MenuItemProps[] = [
     {
         href: '/Resumes',
         label: 'Resume Tool',
@@ -42,7 +43,8 @@ export const menuItems:MenuItemType[] = [
  * @returns {JSX.Element} The rendered sidebar component.
  */
 export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems }) => {
-    const [anchorEl, setAnchorEl] = useState(null);
+    
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -53,10 +55,9 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
     };
   
     return (
+      <>
       <Box sx={{ width: drawerWidth }}>
-  
         <Menu
-          anchorEl={anchorEl}
           open={drawerOpen}
           onClose={()=>handleClose()}
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -75,9 +76,9 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
             </MenuItem>
         </Menu>
       </Box>
+      </>
     );
   };
-
 
 /**
  * A functional component that renders a FAB button for user management, with the option to hide it.
@@ -110,11 +111,11 @@ export function UserManagementFab({ drawerFabHidden, handleDrawerOpen }: any) {
 }
 
 /**
- * A component that renders the North Country Engineer logo and dynamic title.
+ * A React component that renders the North Country Engineer logo and dynamic title with the specified font.
  * @param {Object} props - The input props for the component.
  * @param {string} props.dynamicTitle - The dynamic title to be displayed next to the logo.
  * @param {string} props.font - The font to be used for the title.
- * @returns {JSX.Element} - The rendered North Country Engineer logo and title.
+ * @returns {JSX.Element} - The rendered North Country Engineer logo and dynamic title.
  */
 export const NorthCountryEngineerLogoAndTitle = ({ dynamicTitle, font }) => {
     return (
@@ -148,16 +149,37 @@ export const NorthCountryEngineerLogoAndTitle = ({ dynamicTitle, font }) => {
 };
 
 /**
- * Renders a customized AppBar for the Proversivity website, which includes the NorthCountryEngineerLogoAndTitle component.
+ * Renders a customized AppBar for the Proversivity website, which includes the NorthCountryEngineerLogoAndTitle component and a Sidebar component.
+ * 
  * @param {string} dynamicTitle - The dynamic title to be displayed in the AppBar.
  * @param {string} font - The font to be used for the dynamicTitle.
+ * @param {number} drawerWidth - The width of the Sidebar drawer in pixels.
+ * @param {boolean} drawerOpen - A boolean indicating whether the Sidebar drawer is open or closed.
+ * @param {boolean} drawerFabHidden - A boolean indicating whether the UserManagementFab should be hidden.
+ * @param {function} toggleDrawer - A callback function that toggles the Sidebar drawer.
+ * @param {object[]} menuItems - An array of objects representing the menu items to be displayed in the Sidebar.
+ * 
  * @returns {JSX.Element} - A customized AppBar component.
  */
-export const ProversivityAppBar = ({ dynamicTitle, font }) => {
-    const isMobile = useMediaQuery((theme:any) => theme.breakpoints.down("sm"));
-    const justifyContent = isMobile ? "center" : "flex-start";
+export const ProversivityAppBar = ({ 
+  dynamicTitle, 
+  font, 
+  drawerWidth,
+  menuItems
+}: ProversivityAppBarProps) => {
+
+  const { 
+    drawerOpen, 
+    drawerFabHidden, 
+    toggleDrawer,
+    isMobile,
+    justifyContent,
+  } = useDrawerFab();
+
   
-    return (
+  
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <AppBar
         position="fixed"
         color="transparent"
@@ -173,10 +195,26 @@ export const ProversivityAppBar = ({ dynamicTitle, font }) => {
             <Grid item xs={3.5}>
               <NorthCountryEngineerLogoAndTitle dynamicTitle={dynamicTitle} font={font} />
             </Grid>
+            <Grid item xs={6.5} />
+            <Grid item xs={2}>
+              <UserManagementFab 
+                  drawerFabHidden = {drawerFabHidden}
+                  handleDrawerOpen = {() => toggleDrawer()}
+              />
+            </Grid>
+          
           </Grid>
-        </Toolbar>  
+        </Toolbar>
+        <Sidebar
+            drawerWidth={drawerWidth}
+            drawerOpen={drawerOpen}
+            toggleDrawer={toggleDrawer}
+            font={font}
+            menuItems={menuItems}
+        />   
       </AppBar>
-    );
+    </Box>
+  );
 };
   
 

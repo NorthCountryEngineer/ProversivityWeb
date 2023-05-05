@@ -1,39 +1,25 @@
 import { useDrawerFab, useTitleUpdate } from './headerHooks';
 import { Sidebar, UserManagementFab, ProversivityAppBar, menuItems } from './headerComponents';
-import { drawerWidth } from '../../../config/UI/UIComponentSettings';
 import { loadFont as SourceCodePro } from "@remotion/google-fonts/Farro";
 import { Box } from '@mui/material';
 
-const SourceCodeProFont = SourceCodePro().fontFamily
+// Import the Source Code Pro font family
+const SourceCodeProFont = SourceCodePro().fontFamily;
 
+const drawerWidth = 400;
+
+// Define the Header component
 export function Header() {
+  // Get the dynamic title using the useTitleUpdate hook
+  const dynamicTitle = useTitleUpdate("Engineering the North Country");
 
-    const { 
-        drawerOpen, 
-        drawerFabHidden, 
-        toggleDrawer
-    } = useDrawerFab();
-
-    const dynamicTitle = useTitleUpdate("Engineering the North Country"); 
-    
-    return (
-        <>
-            <UserManagementFab 
-                drawerFabHidden = {drawerFabHidden}
-                handleDrawerOpen = {() => toggleDrawer()}
-            />
-
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <ProversivityAppBar dynamicTitle={dynamicTitle} font={SourceCodeProFont} />
-
-                <Sidebar
-                    drawerWidth={drawerWidth}
-                    drawerOpen={drawerOpen}
-                    toggleDrawer={toggleDrawer}
-                    font={SourceCodeProFont}
-                    menuItems={menuItems}
-                /> 
-            </Box>
-        </>
-    );
+  // Render the ProversivityAppBar component with the dynamic title, font, drawer width, and menu items
+  return (
+    <ProversivityAppBar 
+      dynamicTitle={dynamicTitle} 
+      font={SourceCodeProFont} 
+      drawerWidth={drawerWidth}
+      menuItems={menuItems}
+    />
+  );
 }

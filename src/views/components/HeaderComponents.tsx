@@ -1,8 +1,15 @@
 import { alpha, Box, Paper, Theme, Typography } from "@mui/material"
 import { loadFont } from "@remotion/google-fonts/Raleway";
-import { getWindowDimensions } from "../../functions/Service/ResponsiveFunctions";
 
 const { fontFamily } = loadFont();
+
+function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
 
 const windowSize = getWindowDimensions()
 console.log(windowSize)
