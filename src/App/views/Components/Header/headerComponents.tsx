@@ -2,17 +2,14 @@ import Image from "mui-image";
 import Grid from '@mui/material/Grid';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Link } from 'react-router-dom';
-import { IconButton, MenuItem, useMediaQuery } from '@mui/material';
-import { alpha } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
-import { Box, Fab, Stack, Typography } from "@mui/material";
-import { Drawer, Button, Divider, List, ListItem, ListItemIcon, ListItemText, ListItemButton, Switch, Menu } from '@mui/material';
-import { ManageAccounts, ChevronRight, NoteAdd, EmojiNature, Brightness4, Menu as MenuIcon } from '@mui/icons-material';
-
-import type { MenuItemProps, ProversivityAppBarProps } from './headerTypes';
 import { useState } from "react";
+import { MenuItem } from '@mui/material';
 import { useDrawerFab } from "./headerHooks";
+import { Box, Fab, Stack, Typography } from "@mui/material";
+import { ListItemIcon, ListItemText, Menu } from '@mui/material';
+import { ManageAccounts, ChevronRight, NoteAdd, EmojiNature, Brightness4 } from '@mui/icons-material';
+
+import type { MenuItemProps, ProversivityAppBarProps } from './headerTypes'
 
 export const menuItems:MenuItemProps[] = [
     {
@@ -56,26 +53,26 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
   
     return (
       <>
-      <Box sx={{ width: drawerWidth }}>
-        <Menu
-          open={drawerOpen}
-          onClose={()=>handleClose()}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        >
-            {menuItems.map((item, index) => (
-                <MenuItem key={index} onClick={handleClose}>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.label} />
-                </MenuItem>
-            ))}
-  
-            <MenuItem onClick={()=>toggleDrawer()}>
-                <ChevronRight />
-                <ListItemText primary="Close" />
-            </MenuItem>
-        </Menu>
-      </Box>
+        <Box sx={{ width: drawerWidth }}>
+          <Menu
+            open={drawerOpen}
+            onClose={()=>handleClose()}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          >
+              {menuItems.map((item, index) => (
+                  <MenuItem key={index} onClick={handleClose}>
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText primary={item.label} />
+                  </MenuItem>
+              ))}
+    
+              <MenuItem onClick={()=>toggleDrawer()}>
+                  <ChevronRight />
+                  <ListItemText primary="Close" />
+              </MenuItem>
+          </Menu>
+        </Box>
       </>
     );
   };

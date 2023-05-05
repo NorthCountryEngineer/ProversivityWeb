@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { createUIKey } from "../graphql/mutations";
+import { createUIKey } from "../../graphql/mutations";
 import { API } from "aws-amplify";
 
 

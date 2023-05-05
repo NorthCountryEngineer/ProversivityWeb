@@ -1,7 +1,6 @@
-import { useDrawerFab, useTitleUpdate } from './headerHooks';
-import { Sidebar, UserManagementFab, ProversivityAppBar, menuItems } from './headerComponents';
+import { useTitleUpdate } from "./headerHooks";
+import { ProversivityAppBar, menuItems } from './headerComponents';
 import { loadFont as SourceCodePro } from "@remotion/google-fonts/Farro";
-import { Box } from '@mui/material';
 
 // Import the Source Code Pro font family
 const SourceCodeProFont = SourceCodePro().fontFamily;

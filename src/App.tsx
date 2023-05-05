@@ -1,12 +1,12 @@
 import { RouterProvider } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Box, Backdrop, CircularProgress } from '@mui/material';
-import { Header } from './views/components/Header';
-import { router } from './router';
-import theme from './App/BaseTheme';
+import { Header } from './App/views/Components/Header';
+import { router } from './App/router';
+import theme from './App/theme/BaseTheme';
 import './App/App.css';
 import { AppHooks } from './App/App.hooks';
-import { homePageStyleProps } from './models/Service/PropTypes';
+import { homePageStyleProps } from './App/models/Service/PropTypes';
 import { useEffect } from 'react';
 import { Auth } from 'aws-amplify';
 

@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import { Home } from "./views/Home";
-import Resume from './views/Resume'
-import ListResumes from './views/ListResumes';
+import Resume from './views/Tools/ResumeTool/Resume'
+import ListResumes from './views/Tools/ResumeTool/ListResumes';
 import Admin from "./views/Admin";
 import LoginSignup from "./views/LoginSignup";
 

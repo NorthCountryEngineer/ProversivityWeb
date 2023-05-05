@@ -1,6 +1,6 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { deleteResume } from "../../../../../graphql/mutations";
-import { listResumes } from "../../../../../graphql/queries";
+import { deleteResume } from "../../../../../../graphql/mutations";
+import { listResumes } from "../../../../../../graphql/queries";
 
 interface ResumeInterface {
     id:String

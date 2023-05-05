@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
-import Overview from './components/ResumeComponents/EditView/Overview'
-import Experience from './components/ResumeComponents/EditView/Experience'
+import Overview from '../../Components/ResumeComponents/EditView/Overview'
+import Experience from '../../Components/ResumeComponents/EditView/Experience'
 import Paper from '@mui/material/Paper'
 import { Box, Grid, Modal } from '@mui/material'
 import Divider from '@mui/material/Divider';
 import { API, graphqlOperation } from 'aws-amplify'
-import { getResume } from '../graphql/queries'
+import { getResume } from '../../../../graphql/queries'
 import CircularProgress from '@mui/material/CircularProgress';
 import CloudDoneIcon from '@mui/icons-material/CloudDone'
-import { ResumeTemplate } from '../models/Service/ResumeModel'
-import EditHeader from './components/ResumeComponents/Edit/EditViews/Personal'
-import EditOverview from './components/ResumeComponents/Edit/EditViews/Overview'
+import { ResumeTemplate } from '../../../models/Service/ResumeModel'
+import EditHeader from '../../Components/ResumeComponents/Edit/EditViews/Personal'
+import EditOverview from '../../Components/ResumeComponents/Edit/EditViews/Overview'
 import { Cache } from 'aws-amplify';
-import PersonalDataComponent from './components/ResumeComponents/EditView/PersonalData'
+import PersonalDataComponent from '../../Components/ResumeComponents/EditView/PersonalData'
 
 export default function Resume(){
     const [loading, updateLoading] = useState<Boolean>(false)

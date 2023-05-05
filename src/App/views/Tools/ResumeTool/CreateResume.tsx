@@ -7,10 +7,10 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import TabsContext from '@mui/lab/TabContext'
 import Container from '@mui/material/Container';
-import Education from './components/ResumeComponents/Edit/EditViews/Education'
-import Experience from './components/ResumeComponents/Edit/EditViews/Experience';
-import Overview from './components/ResumeComponents/Edit/EditViews/Overview';
-import Skills from './components/ResumeComponents/Edit/EditViews/Skills';
+import Education from '../../Components/ResumeComponents/Edit/EditViews/Education'
+import Experience from '../../Components/ResumeComponents/Edit/EditViews/Experience';
+import Overview from '../../Components/ResumeComponents/Edit/EditViews/Overview';
+import Skills from '../../Components/ResumeComponents/Edit/EditViews/Skills';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 
 function CreateResume({ResumeID}:any){

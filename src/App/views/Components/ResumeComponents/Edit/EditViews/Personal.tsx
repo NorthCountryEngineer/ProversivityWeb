@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 import { AddressTemplate, ContactTemplate, PersonalDataTemplate } from '../../../../../models/Service/ResumeModel';
 import { CircularProgress, Divider, Fade, FormControlLabel } from '@mui/material';
 import { API, Cache, graphqlOperation } from 'aws-amplify';
-import { updateAddress as updateAddressAPI, updateContact as updateContactAPI, updatePersonalData } from '../../../../../graphql/mutations';
+import { updateAddress as updateAddressAPI, updateContact as updateContactAPI, updatePersonalData } from '../../../../../../graphql/mutations';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
 import { green } from '@mui/material/colors';
 import CircleIcon from '@mui/icons-material/Circle';

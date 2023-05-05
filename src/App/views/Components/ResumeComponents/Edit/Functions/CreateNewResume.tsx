@@ -1,6 +1,6 @@
 import { API, graphqlOperation } from "aws-amplify"
-import { createAccomplishments, createAddress, createContact, createEducation, createOverview, createPersonalData, createResume, createResumeEducation, createResumeExperience, createSummary, updateAccomplishments, updateOverview, updatePersonalData, updateResume } from "../../../../../graphql/mutations"
-import { createExperience } from "../../../../../graphql/mutations"
+import { createAccomplishments, createAddress, createContact, createEducation, createOverview, createPersonalData, createResume, createResumeEducation, createResumeExperience, createSummary, updateAccomplishments, updateOverview, updatePersonalData, updateResume } from "../../../../../../graphql/mutations"
+import { createExperience } from "../../../../../../graphql/mutations"
 
 type ResumeInputTemplate = {
     Author: string,

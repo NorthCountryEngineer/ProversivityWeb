@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react'
 import { API, Cache, Hub, graphqlOperation } from 'aws-amplify'
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import { CreateNewResumeModal } from './components/ResumeComponents/Edit/Modals/CreateNewResumeModal';
+import { CreateNewResumeModal } from '../../Components/ResumeComponents/Edit/Modals/CreateNewResumeModal';
 import { DataGrid, GridCloseIcon, GridColDef } from '@mui/x-data-grid';
 import { alpha, Button, ButtonGroup, CSSObject, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Theme, Toolbar, Typography, useTheme } from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { deleteResumeByID, listResumesCallWithHook } from './components/ResumeComponents/Edit/Functions/HandleListResumes';
+import { deleteResumeByID, listResumesCallWithHook } from '../../Components/ResumeComponents/Edit/Functions/HandleListResumes';
 import CreateResume from './CreateResume';
-import { Main } from './components/ResumeComponents/Edit/Components/ListFilesComponents';
+import { Main } from '../../Components/ResumeComponents/Edit/Components/ListFilesComponents';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import ReactQuill, { Quill } from 'react-quill';
@@ -23,7 +23,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
-import { getResume } from '../graphql/queries';
+import { getResume } from '../../../../graphql/queries';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 
 export function handleTitleUpdate(updatedTitle:String){

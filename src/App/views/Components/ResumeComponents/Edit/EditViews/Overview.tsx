@@ -7,7 +7,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../Style/Overview.css'
 import draftToMarkdown from 'draftjs-to-markdown';
-import { updateOverview } from '../../../../../graphql/mutations';
+import { updateOverview } from '../../../../../../graphql/mutations';
 import showdown from 'showdown'
 
 export default function EditOverview() {
