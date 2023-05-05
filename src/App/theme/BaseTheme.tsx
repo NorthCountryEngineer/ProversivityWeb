@@ -1,4 +1,5 @@
 import { PaletteMode } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -30,13 +31,21 @@ declare module '@mui/material/styles' {
   }
 }
 
-
-const theme = (mode: PaletteMode) => ({
+export const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
   status: {
     danger: '#e53e3e',
   },
   palette: {
-    mode: mode,
+    mode: "light",
     primary: {
       main: '#FCFCFC',
       darker: '#EEEEEE',
@@ -63,6 +72,3 @@ const theme = (mode: PaletteMode) => ({
     },
   },
 });
-
-
-export default theme;

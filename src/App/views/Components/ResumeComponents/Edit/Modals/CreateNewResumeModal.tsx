@@ -56,7 +56,12 @@ export function CreateNewResumeModal({setOpen,isOpen,setter,updateCurrentResume}
     }
 
     async function CreateNewResume(){
-        let currentUser = await Auth.currentAuthenticatedUser()
+        let currentUser:any 
+        try{
+            currentUser = await Auth.currentAuthenticatedUser()
+        }catch(error){
+            console.error(error)
+        }
         NewResume.Author = currentUser.username
         let createNewResume:any
 

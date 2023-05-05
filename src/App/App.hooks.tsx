@@ -2,17 +2,16 @@ import { useState, useMemo, useEffect } from 'react';
 import { Preferences } from './models/Service/UserModel';
 import { Auth, Hub } from 'aws-amplify';
 import { createTheme } from '@mui/material';
-import theme from './theme/BaseTheme';
+import {theme} from './theme/BaseTheme';
 
-type AuthenticatedState = {
+export type AuthenticatedState = {
   isAuthenticated: boolean,
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-type AppHooksResult = {
+export type AppHooksResult = {
   attributes: Preferences,
   targetImage: number,
-  themeWithuserAttributes: any,
   currentView: string,
   authenticated: AuthenticatedState
 };
@@ -31,14 +30,12 @@ function randomInteger(min:number, max:number) { // min and max included
 export const AppHooks = (): AppHooksResult => {
   const [attributes, setAttributes] = useState<Preferences>(initialUserAttributes)
   const [targetImage, updateTargetImage] = useState<number>(randomInteger(1,4))
-  const themeWithuserAttributes = useMemo(() => createTheme(theme(attributes.DarkMode?'dark':'light')), [attributes]);
   const [currentView, setCurrentView] = useState(String(String(window.location).split("/").pop()))
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
     .then((user) => {
-      console.log('User is authenticated:', user)
       setIsAuthenticated(true)
     })
     .catch(() => console.log('User is not authenticated.'));
@@ -62,7 +59,6 @@ export const AppHooks = (): AppHooksResult => {
   return {
     attributes,
     targetImage,
-    themeWithuserAttributes,
     currentView,
     authenticated: { isAuthenticated, setIsAuthenticated }
   };

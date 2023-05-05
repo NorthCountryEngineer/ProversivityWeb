@@ -2,13 +2,26 @@ import {createBrowserRouter} from "react-router-dom";
 import { Home } from "./views/Home";
 import Resume from './views/Tools/ResumeTool/Resume'
 import ListResumes from './views/Tools/ResumeTool/ListResumes';
-import Admin from "./views/Admin";
-import LoginSignup from "./views/LoginSignup";
+import { Authentication } from "./views/Authentication/Authentication";
+import { About } from "./views/About/About";
+import { Admin } from "./views/Admin/Admin";
 
 export const paths: any = [
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/Admin",
+      element: <Admin />
+    },
+    {
+      path: "/Login",
+      element: <Authentication />
+    },
+    {
+      path: "/About",
+      element: <About />
     },
     {
       path: "/Resume",
@@ -22,14 +35,6 @@ export const paths: any = [
       path: "/Resumes",
       element: <ListResumes />,
     },
-    {
-      path: "/Admin",
-      element: <Admin />
-    },
-    {
-      path: "/Login",
-      element: <LoginSignup />
-    }
   ]
 
 export const router = createBrowserRouter(paths);

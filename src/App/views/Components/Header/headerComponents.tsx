@@ -2,14 +2,16 @@ import Image from "mui-image";
 import Grid from '@mui/material/Grid';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { useState } from "react";
-import { MenuItem } from '@mui/material';
+import { useEffect, useState } from "react";
+import { Button, MenuItem } from '@mui/material';
 import { useDrawerFab } from "./headerHooks";
 import { Box, Fab, Stack, Typography } from "@mui/material";
 import { ListItemIcon, ListItemText, Menu } from '@mui/material';
-import { ManageAccounts, ChevronRight, NoteAdd, EmojiNature, Brightness4 } from '@mui/icons-material';
+import { ManageAccounts, ChevronRight, NoteAdd, EmojiNature, Brightness4, ExitToApp } from '@mui/icons-material';
 
 import type { MenuItemProps, ProversivityAppBarProps } from './headerTypes'
+import {theme} from "../../../theme/BaseTheme";
+import { Auth } from "aws-amplify";
 
 export const menuItems:MenuItemProps[] = [
     {
@@ -37,45 +39,57 @@ export const menuItems:MenuItemProps[] = [
  * @param {function} props.toggleDrawer - A function to toggle the state of the sidebar drawer.
  * @param {string} props.font - The font to be used for the sidebar.
  * @param {Array} props.menuItems - An array of objects representing the menu items in the sidebar.
+ * @param {function} props.handleLogout - A function to handle the logout functionality.
  * @returns {JSX.Element} The rendered sidebar component.
  */
-export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems }) => {
-    
+export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems}) => {
+  
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-  
-    return (
-      <>
-        <Box sx={{ width: drawerWidth }}>
-          <Menu
-            open={drawerOpen}
-            onClose={()=>handleClose()}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          >
-              {menuItems.map((item, index) => (
-                  <MenuItem key={index} onClick={handleClose}>
-                      <ListItemIcon>{item.icon}</ListItemIcon>
-                      <ListItemText primary={item.label} />
-                  </MenuItem>
-              ))}
-    
-              <MenuItem onClick={()=>toggleDrawer()}>
-                  <ChevronRight />
-                  <ListItemText primary="Close" />
-              </MenuItem>
-          </Menu>
-        </Box>
-      </>
-    );
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = async() => {
+    return(await Auth.signOut())
+  }
+
+  return (
+    <>
+      <Box sx={{ width: drawerWidth }}>
+        <Menu
+          open={drawerOpen}
+          onClose={()=>handleClose()}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+            {menuItems.map((item, index) => (
+                <MenuItem key={index} onClick={handleClose}>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.label} />
+                </MenuItem>
+            ))}
+
+            <MenuItem onClick={()=>toggleDrawer()}>
+                <ChevronRight />
+                <ListItemText primary="Close" />
+            </MenuItem>
+            
+            <MenuItem onClick={handleLogout}>
+                <ListItemIcon>
+                  <ExitToApp />
+                </ListItemIcon>
+                <ListItemText primary="Log Out" />
+            </MenuItem>
+        </Menu>
+      </Box>
+    </>
+  );
+};
 
 /**
  * A functional component that renders a FAB button for user management, with the option to hide it.
@@ -85,27 +99,39 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
  * @returns {JSX.Element} The rendered FAB button component.
  */
 export function UserManagementFab({ drawerFabHidden, handleDrawerOpen }: any) {
-    return (
-        <Fab
-            variant="extended"
-            color="primary"
-            size="small"
-            sx={{
-                top: 10,
-                right: 10,
-                marginLeft: 0,
-                position: "absolute",
-                display: drawerFabHidden ? "none" : "block",
-                zIndex: (theme) => theme.zIndex.drawer + 11,
-            }}
-
-            onClick={handleDrawerOpen}
-            aria-label="add"
-         >
-            <ManageAccounts sx={{ mr: 1 }} />
-        </Fab>
-    );
+  return (
+    <Fab
+      variant="circular"
+      color="primary"
+      size="large"
+      sx={{
+        position: "absolute",
+        bottom: "25px",
+        right: "50px",
+        zIndex: (theme) => theme.zIndex.drawer + 11,
+        boxShadow: "0px 3px 3px rgba(0, 0, 0, 0.25)",
+        display: drawerFabHidden ? "none" : "block",
+        // set styles for small screens
+        [theme.breakpoints.down("sm")]: {
+          bottom: "75px",
+          right: "25px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          "& .MuiSvgIcon-root": {
+            marginBottom: "8px",
+          },
+        },
+      }}
+      onClick={handleDrawerOpen}
+      aria-label="add"
+    >
+      <ManageAccounts />
+    </Fab>
+  );
 }
+  
+   
 
 /**
  * A React component that renders the North Country Engineer logo and dynamic title with the specified font.
@@ -172,8 +198,6 @@ export const ProversivityAppBar = ({
     isMobile,
     justifyContent,
   } = useDrawerFab();
-
-  
   
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -188,19 +212,20 @@ export const ProversivityAppBar = ({
         elevation={0}
       >
         <Toolbar>
-          <Grid container sx={{ alignItems: "center", justifyContent }}>
-            <Grid item xs={3.5}>
-              <NorthCountryEngineerLogoAndTitle dynamicTitle={dynamicTitle} font={font} />
-            </Grid>
-            <Grid item xs={6.5} />
-            <Grid item xs={2}>
-              <UserManagementFab 
-                  drawerFabHidden = {drawerFabHidden}
-                  handleDrawerOpen = {() => toggleDrawer()}
-              />
-            </Grid>
           
+        <Grid container sx={{ alignItems: justifyContent }}>
+          <Grid item xs={3.5}>
+            <NorthCountryEngineerLogoAndTitle dynamicTitle={dynamicTitle} font={font} />
           </Grid>
+          <Grid item xs={6.5} />
+          <Grid item xs={2} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
+            <UserManagementFab 
+              drawerFabHidden={drawerFabHidden}
+              handleDrawerOpen={() => toggleDrawer()}
+            />
+          </Grid>
+        </Grid>
+
         </Toolbar>
         <Sidebar
             drawerWidth={drawerWidth}

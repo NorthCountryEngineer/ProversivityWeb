@@ -1,36 +1,31 @@
 import { RouterProvider } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Box, Backdrop, CircularProgress } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline, Box } from '@mui/material';
 import { Header } from './App/views/Components/Header';
 import { router } from './App/router';
-import theme from './App/theme/BaseTheme';
 import './App/App.css';
 import { AppHooks } from './App/App.hooks';
 import { homePageStyleProps } from './App/models/Service/PropTypes';
-import { useEffect } from 'react';
-import { Auth } from 'aws-amplify';
+import { LoadingScreen } from './App/views/Components/Landing';
+import { theme } from './App/theme/BaseTheme';
 
-function App() {
-  const { attributes, targetImage, themeWithuserAttributes, currentView, authenticated } = AppHooks();
+export default function App() {
+  const { attributes, targetImage, currentView, authenticated } = AppHooks();
 
-  useEffect(()=>{
-    Auth.currentAuthenticatedUser()
-      .then(user => console.log('User is authenticated:', user))
-      .catch(() => console.log('User is not authenticated.'));
-  })
+  if (false) {
+    return <LoadingScreen logoSrc="/public/Images/Logo_NCE_Light.png" />;
+  }
+
   return (
     <div style={currentView=='' ? {} : homePageStyleProps(attributes.DarkMode, targetImage)}>
-
-        <ThemeProvider theme={themeWithuserAttributes}>
+        <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Header />
+          <Header isAuthenticated={authenticated}/>
           <Box sx={{ paddingTop: '115px' }}>
             <RouterProvider router={router} />
           </Box>
         </ThemeProvider>
-
     </div>
   );
 }
 
-export default App;
