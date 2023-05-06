@@ -3,15 +3,15 @@ import Grid from '@mui/material/Grid';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useEffect, useState } from "react";
-import { Button, MenuItem } from '@mui/material';
-import { useDrawerFab } from "./headerHooks";
+import { Avatar, Button, IconButton, Link, MenuItem } from '@mui/material';
+import { ProversivityAppBarHooks } from "./headerHooks";
 import { Box, Fab, Stack, Typography } from "@mui/material";
 import { ListItemIcon, ListItemText, Menu } from '@mui/material';
-import { ManageAccounts, ChevronRight, NoteAdd, EmojiNature, Brightness4, ExitToApp } from '@mui/icons-material';
-
-import type { MenuItemProps, ProversivityAppBarProps } from './headerTypes'
+import { ManageAccounts, ChevronRight, NoteAdd, EmojiNature, Brightness4, ExitToApp, AccountCircle, PersonAdd, Login } from '@mui/icons-material';
+import type { MenuItemProps, HeaderProps } from './headerTypes'
 import {theme} from "../../../theme/BaseTheme";
 import { Auth } from "aws-amplify";
+import useAuthentication from "../../Authentication/AuthenticationHooks";
 
 export const menuItems:MenuItemProps[] = [
     {
@@ -184,30 +184,68 @@ export const NorthCountryEngineerLogoAndTitle = ({ dynamicTitle, font }) => {
  * 
  * @returns {JSX.Element} - A customized AppBar component.
  */
-export const ProversivityAppBar = ({ 
-  dynamicTitle, 
-  font, 
-  drawerWidth,
-  menuItems
-}: ProversivityAppBarProps) => {
-
+export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}: HeaderProps) => {
   const { 
     drawerOpen, 
     drawerFabHidden, 
     toggleDrawer,
     isMobile,
-    justifyContent,
-  } = useDrawerFab();
+    justifyContent
+  } = ProversivityAppBarHooks();
+
+  const isAuthenticated = useAuthentication();
+
+  const dynamicButton = () => {
+    try{
+      if(isAuthenticated){
+        return(
+          <UserManagementFab 
+            drawerFabHidden={drawerFabHidden}
+            handleDrawerOpen={() => toggleDrawer()}
+          />
+        )
+      }
+      else{
+        return(
+          <Button
+            sx={{
+              marginTop: '25px',
+              color: 'rgba(2, 142, 196, 255)',
+              outline: 'none',
+              background: 'none',
+              '& > .MuiButton-startIcon': {
+                fontSize: '4rem', // set the icon size to 2rem
+                marginRight: '4px' // add a margin between icon and text
+              }
+            }}
+          >
+            <Stack direction="column" spacing={2}>
+              <div><Login /> <PersonAdd fontSize="large" /></div>
+              Sign in / Sign up
+            </Stack>
+          </Button>
+
+
+        )
+      }
+      
+    }catch(error){
+      return(
+        <div>There's an issue man</div>
+      )
+    }
+  }
   
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <AppBar
         position="fixed"
-        color="transparent"
+        color="inherit"
         sx={{
           top: 0,
           height: "125px",
-          zIndex: (theme) => theme.zIndex.drawer + 10
+          zIndex: (theme) => theme.zIndex.drawer + 10,
+          backgroundColor: "rgba(255, 255, 255, 0.8)"
         }}
         elevation={0}
       >
@@ -219,10 +257,7 @@ export const ProversivityAppBar = ({
           </Grid>
           <Grid item xs={6.5} />
           <Grid item xs={2} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
-            <UserManagementFab 
-              drawerFabHidden={drawerFabHidden}
-              handleDrawerOpen={() => toggleDrawer()}
-            />
+            {dynamicButton()}
           </Grid>
         </Grid>
 
@@ -238,6 +273,3 @@ export const ProversivityAppBar = ({
     </Box>
   );
 };
-  
-
-

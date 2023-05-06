@@ -81,9 +81,9 @@ export const useDynamicTitle = () => {
  *   - isMobile: A boolean indicating whether the current screen size is considered "mobile".
  *   - justifyContent: A string representing the justifyContent CSS property, based on the screen size.
  */
-export function useDrawerFab() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [drawerFabHidden, setDrawerFabHidden] = useState(false);
+export function ProversivityAppBarHooks() {
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [drawerFabHidden, setDrawerFabHidden] = useState(false)
 
   // Determine whether the current screen size is considered "mobile".
   const isMobile = useMediaQuery((theme:any) => theme.breakpoints.down("sm"));

@@ -1,6 +1,4 @@
-export interface HeaderProps {
-  DarkMode: boolean | undefined;
-}
+import { AuthenticatedState } from "../../../App.hooks";
 
 export interface MenuItemProps {
     href: string;
@@ -8,9 +6,13 @@ export interface MenuItemProps {
     icon: React.ReactNode;
 }
 
-export type ProversivityAppBarProps = {
+export type HeaderProps = {
   dynamicTitle: string;
   font: string;
   drawerWidth: number;
   menuItems: MenuItem[];
 };
+
+export type ProversivityAppBarProps = {
+  isAuthenticated: boolean;
+}

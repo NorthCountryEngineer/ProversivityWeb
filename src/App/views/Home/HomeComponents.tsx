@@ -5,7 +5,7 @@ export const CalloutBoxes = ({ isMobile, callouts }: HomepageCalloutsProps) => {
   return (
     <Box
         sx={{
-          minHeight: "100vh",
+          minHeight: "110vh",
           backgroundImage: `url(${process.env.PUBLIC_URL}/Images/Home_Wallpaper.png)`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
