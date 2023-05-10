@@ -11,7 +11,7 @@ export type AuthenticatedState = {
 
 export type AppHooksResult = {
   attributes: Preferences,
-  targetImage: number,
+  targetImage: string,
   currentView: string,
   authenticated: AuthenticatedState
 };
@@ -29,7 +29,7 @@ function randomInteger(min:number, max:number) { // min and max included
 
 export const AppHooks = (): AppHooksResult => {
   const [attributes, setAttributes] = useState<Preferences>(initialUserAttributes)
-  const [targetImage, updateTargetImage] = useState<number>(randomInteger(1,4))
+  const [targetImage, updateTargetImage] = useState("/public/Images/BarnInterior.png")
   const [currentView, setCurrentView] = useState(String(String(window.location).split("/").pop()))
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 

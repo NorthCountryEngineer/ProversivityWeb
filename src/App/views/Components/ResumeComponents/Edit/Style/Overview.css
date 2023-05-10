@@ -24,17 +24,3 @@
   .toolbar-class {
     border: 1px solid #ccc;
   }
-
-.rdw-editor-toolbar {
-  background-color:white;
-  color: black;
-}
-
-.rdw-dropdownoption-default {
-  background-color: white;
-  color: black;
-}
-
-.public-DraftStyleDefault-block {
-  color:black
-}

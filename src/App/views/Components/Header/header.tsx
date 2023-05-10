@@ -10,7 +10,6 @@ const SourceCodeProFont = SourceCodePro().fontFamily;
 
 const drawerWidth = 400;
 
-
 // Define the Header component
 export function Header({title}) {
 

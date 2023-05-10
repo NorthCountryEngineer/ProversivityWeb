@@ -67,7 +67,9 @@ function App() {
 
     // Check if a title exists in local storage and update the state
     const storedTitle = localStorage.getItem('pageTitle');
-    if (storedTitle) setPageTitle(storedTitle);
+    if (storedTitle) {
+      setPageTitle(Array.isArray(storedTitle) ? storedTitle.join('\n') : storedTitle);
+    }
     else localStorage.setItem('pageTitle', 'North Country Engineer')
     
     // Register an event listener to remove the title from local storage when the user leaves the page
@@ -87,8 +89,10 @@ function App() {
     return <LoadingScreen logoSrc="/public/Images/Logo_NCE_Light.png" />;
   }
 
+
+
   return (
-    <div style={currentView == '' ? {} : homePageStyleProps(attributes.DarkMode, targetImage)}>
+    <div style={homePageStyleProps(targetImage)}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Header title={pageTitle}/>

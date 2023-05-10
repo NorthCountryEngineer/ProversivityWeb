@@ -8,10 +8,10 @@ export type ResumeComponentHandlerProps = {
   Data?:any;
 }
 
-export const homePageStyleProps = (DarkMode:Boolean, targetImage:number) => {
+export const homePageStyleProps = (targetImage:string) => {
   return(
     {
-      backgroundImage: DarkMode ? `url(/DarkBackground/${targetImage}.jpeg)` : `url(/LightBackground/${targetImage}.jpeg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/Images/BarnInterior.png)`,
       height:'100vh',
       marginTop:'0px',
       fontSize:'25px',
@@ -19,5 +19,4 @@ export const homePageStyleProps = (DarkMode:Boolean, targetImage:number) => {
       backgroundRepeat: 'no-repeat',
     }
   )
-  
 };

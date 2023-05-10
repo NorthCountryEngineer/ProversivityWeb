@@ -3,12 +3,13 @@ import { CalloutBoxes } from "./HomeComponents";
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "../../theme/BaseTheme"
 import { AccountBox, Chat, FindInPage, Send, ThumbUp, Verified } from "@mui/icons-material";
+import { Typography } from "@mui/material";
 
 function Home() {
   const isMobile = window.innerWidth <= 600;
 
   useEffect(()=>{
-    localStorage.setItem('pageTitle', 'North Country Engineer')
+    localStorage.setItem('pageTitle', ['NYC Quality Tech.','NNY Prices.'].join('\n'))
   },[])
 
   const callouts = [  
@@ -17,15 +18,15 @@ function Home() {
       steps: [
         {
           icon: <FindInPage />,        
-          text:  "Connect with local service providers who can help you with your needs.",  
+          text:  "Connect with talented people right here in the New York North Country who can help you with your needs.",  
         },      
         {        
           icon: <Chat />,        
-          text:  "Reach out to service providers and discuss details",      
+          text:  "Reach out and have a conversation about what you need right in the app",      
         },      
         {       
           icon: <ThumbUp />,        
-          text: "Browse proposals and choose the service provider you want",      
+          text: "Browse your options and choose the right person for your job",      
         },
         {
           icon: <Send />,
@@ -69,6 +70,7 @@ function Home() {
   return (
     
     <ThemeProvider theme={theme}>
+      <div style={{height:"115px"}} />
       <CalloutBoxes isMobile={isMobile} callouts={callouts} />
     </ThemeProvider>
   );

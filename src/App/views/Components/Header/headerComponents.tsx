@@ -119,35 +119,36 @@ export function UserManagementFab({ drawerFabHidden, handleDrawerOpen }: any) {
  * @returns {JSX.Element} - The rendered North Country Engineer logo and dynamic title.
  */
 export const NorthCountryEngineerLogoAndTitle = ({ dynamicTitle, font }) => {
-    return (
-      <Stack direction="row" alignItems="center">
-        <Box
-          sx={{
-            height: 105,
-            width: 105,
-            display: "contents",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-            <Image
-                src="/Images/Logo_NCE_Light.png"
-                fit="inherit"
-                showLoading={true}
-                errorIcon={true}
-                duration={5000}
-                bgColor="transparent"
-                style={{ width: 105, height: 105, paddingTop: "2px"}}
-            />
+  return (
+    <Stack direction="row" alignItems="center">
+      <Box
+        sx={{
+          height: 105,
+          width: 105,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginRight: 2, // Add a fixed distance between the logo and text
+        }}
+      >
+        <Image
+          src="/Images/Logo_NCE_Light.png"
+          fit="inherit"
+          showLoading={true}
+          errorIcon={true}
+          duration={5000}
+          bgColor="transparent"
+          style={{ width: 105, height: 105, paddingTop: "2px" }}
+        />
+      </Box>
 
-        </Box>
-  
-        <Typography variant="h5" fontFamily={font}>
-          {dynamicTitle}&#8482;
-        </Typography>
-      </Stack>
-    );
+      <Typography variant="h5" fontFamily={font} sx={{ whiteSpace: 'pre-line' }}>
+        {dynamicTitle}&#8482;
+      </Typography>
+    </Stack>
+  );
 };
+
 
 /**
  * Renders a customized AppBar for the Proversivity website, which includes the NorthCountryEngineerLogoAndTitle component and a Sidebar component.
@@ -209,7 +210,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
       
     }catch(error){
       return(
-        <div>There's an issue man</div>
+        <div>Please contact eric@northcountryengineer.com</div>
       )
     }
   }
@@ -230,7 +231,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
         <Toolbar>
           
         <Grid container sx={{ alignItems: justifyContent }}>
-          <Grid item xs={3.5}>
+          <Grid item xs={3.5} justifyContent="flex-start">
             <NorthCountryEngineerLogoAndTitle dynamicTitle={dynamicTitle} font={font} />
           </Grid>
           <Grid item xs={6.5} />

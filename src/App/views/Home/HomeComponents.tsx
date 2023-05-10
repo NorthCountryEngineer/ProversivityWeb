@@ -5,25 +5,23 @@ import Image from "mui-image";
 export const CalloutBoxes = ({ isMobile, callouts }: HomepageCalloutsProps) => {
   return (
     <Box
-        sx={{
-          minHeight: "110vh",
-          backgroundImage: `url(${process.env.PUBLIC_URL}/Images/BarnInterior.png)`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
+      sx={{
+        minHeight: "10vh", // Adjust the height as needed
+        display: "flex",
+        justifyContent: "center", // Adjust the vertical alignment as needed
+        alignItems: "center",
+        flexDirection: isMobile ? "column" : "row", // Adjust the direction based on device
+        gap: 2, // Add gap between callout boxes if desired
+        p: 2, // Adjust padding as needed
+      }}
     >
       {callouts.map((callout, index) => (
         <Box
           key={index}
           sx={{
-            width: '650px',
-            height: '600px',
+            width: '550px',
+            height: '650px',
             p: 5,
-            m: 3,
             bgcolor: 'primary.main',
             boxShadow: 1,
             alignItems: 'center',
