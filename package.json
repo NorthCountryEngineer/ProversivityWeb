@@ -2,11 +2,6 @@
   "name": "proversivity",
   "version": "0.9.1",
   "private": true,
-  "resolutions": {
-    "**/fsevents": "^2.3.2",
-    "**/rollup-plugin-babel": "^4.4.0",
-    "**/rollup-plugin-node-resolve": "^5.2.0"
-  },
   "dependencies": {
     "@aws-amplify/cli": "^11.1.0",
     "@aws-amplify/ui-react": "^4.3.2",
