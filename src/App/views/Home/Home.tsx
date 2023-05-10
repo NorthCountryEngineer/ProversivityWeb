@@ -14,21 +14,21 @@ function Home() {
     {
       title: "Find Top Engineering Talent for Your Projects",
       bulletPoints: [
-        "Access to skilled and verified talent",
-        "Flexible hiring options",
-        "User-friendly experience",
+        "Connect with local service providers by either posting a project request or browsing through our directory of providers.",
+        "Receive proposals from interested service providers, or reach out to them directly to discuss your project.",
+        "Choose the right provider for you and coordinate directly with them to get the job done.",
       ],
-      buttonText: "Sign Up",
+      buttonText: "Learn more about becoming a customer",
       image: `/Images/BarnInterior.png`
     },
     {
       title: "Join the Platform and Find Opportunities to Showcase Your Skills",
       bulletPoints: [
-        "Access to a wider customer base",
-        "Flexible work arrangements",
-        "The ability to earn more income",
+        "Create a skills profile and take assessments to earn verificatio badges and showcase your expertise to potential customers.",
+        "Browse customer project requests and submit proposals with your desired rates for the jobs you're interested in.",
+        "Coordinate directly with the customer and get paid securely through the app on a schedule you both agree to",
       ],
-      buttonText: "Join Now",
+      buttonText: "Learn more about being a service provider",
       image: `/Images/BarnInterior.png`,
     },
   ];
