@@ -10,15 +10,14 @@ const SourceCodeProFont = SourceCodePro().fontFamily;
 
 const drawerWidth = 400;
 
+
 // Define the Header component
-export function Header() {
-  // Get the dynamic title using the useTitleUpdate hook
-  const dynamicTitle = useTitleUpdate("Engineering the North Country");
+export function Header({title}) {
 
   // Render the ProversivityAppBar component with the dynamic title, font, drawer width, and menu items
   return (
     <ProversivityAppBar 
-      dynamicTitle={dynamicTitle} 
+      dynamicTitle={title} 
       font={SourceCodeProFont} 
       drawerWidth={drawerWidth}
       menuItems={menuItems}

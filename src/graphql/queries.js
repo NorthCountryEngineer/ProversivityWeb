@@ -835,6 +835,249 @@ export const listUIKeys = /* GraphQL */ `
     }
   }
 `;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      email
+      firstName
+      lastName
+      customerProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        address
+        phone
+        interests
+        createdAt
+        updatedAt
+      }
+      serviceProviderProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        companyName
+        address
+        phone
+        skills
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      userCustomerProfileId
+      userServiceProviderProfileId
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      nextToken
+    }
+  }
+`;
+export const getCustomer = /* GraphQL */ `
+  query GetCustomer($id: ID!) {
+    getCustomer(id: $id) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      address
+      phone
+      interests
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCustomers = /* GraphQL */ `
+  query ListCustomers(
+    $filter: ModelCustomerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCustomers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        address
+        phone
+        interests
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getServiceProvider = /* GraphQL */ `
+  query GetServiceProvider($id: ID!) {
+    getServiceProvider(id: $id) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      companyName
+      address
+      phone
+      skills
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listServiceProviders = /* GraphQL */ `
+  query ListServiceProviders(
+    $filter: ModelServiceProviderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listServiceProviders(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        companyName
+        address
+        phone
+        skills
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getResumeExperience = /* GraphQL */ `
   query GetResumeExperience($id: ID!) {
     getResumeExperience(id: $id) {

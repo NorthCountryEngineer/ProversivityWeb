@@ -1,7 +1,14 @@
-import { CalloutBoxes, FounderName } from "./HomeComponents";
+import { useEffect } from "react";
+import { CalloutBoxes } from "./HomeComponents";
+import { ThemeProvider } from '@mui/material/styles';
+import theme from "../../theme/BaseTheme"
 
 function Home() {
   const isMobile = window.innerWidth <= 600;
+
+  useEffect(()=>{
+    localStorage.setItem('pageTitle', 'Engineering the New York North Country')
+  },[])
 
   const callouts = [
     {
@@ -12,6 +19,7 @@ function Home() {
         "User-friendly experience",
       ],
       buttonText: "Sign Up",
+      image: `/Images/BarnInterior.png`
     },
     {
       title: "Join the Platform and Find Opportunities to Showcase Your Skills",
@@ -21,15 +29,15 @@ function Home() {
         "The ability to earn more income",
       ],
       buttonText: "Join Now",
-      image: "your-photo-url.jpg",
+      image: `/Images/BarnInterior.png`,
     },
   ];
 
   return (
-    <>
-      <FounderName />
+    
+    <ThemeProvider theme={theme}>
       <CalloutBoxes isMobile={isMobile} callouts={callouts} />
-    </>
+    </ThemeProvider>
   );
 };
 

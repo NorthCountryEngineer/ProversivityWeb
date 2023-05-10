@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Auth, Hub } from "aws-amplify";
-import { useMediaQuery } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
+import theme from "../../../theme/BaseTheme";
 
 /**
  * A custom hook that returns the current view based on the current URL.
@@ -86,7 +87,8 @@ export function ProversivityAppBarHooks() {
   const [drawerFabHidden, setDrawerFabHidden] = useState(false)
 
   // Determine whether the current screen size is considered "mobile".
-  const isMobile = useMediaQuery((theme:any) => theme.breakpoints.down("sm"));
+  const breakpoint = useTheme().breakpoints.values.sm;
+  const isMobile = useMediaQuery(`(max-width:${breakpoint}px)`);
 
   // Set the justifyContent CSS property based on the screen size.
   const justifyContent = isMobile ? "center" : "flex-start";

@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { Preferences } from './models/Service/UserModel';
 import { Auth, Hub } from 'aws-amplify';
 import { createTheme } from '@mui/material';
-import {theme} from './theme/BaseTheme';
+import theme from './theme/BaseTheme';
 
 export type AuthenticatedState = {
   isAuthenticated: boolean,

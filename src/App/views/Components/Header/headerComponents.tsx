@@ -3,31 +3,21 @@ import Grid from '@mui/material/Grid';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useEffect, useState } from "react";
-import { Avatar, Button, IconButton, Link, MenuItem } from '@mui/material';
+import { Avatar, Button, ClickAwayListener, IconButton, Link, MenuItem } from '@mui/material';
 import { ProversivityAppBarHooks } from "./headerHooks";
 import { Box, Fab, Stack, Typography } from "@mui/material";
 import { ListItemIcon, ListItemText, Menu } from '@mui/material';
 import { ManageAccounts, ChevronRight, NoteAdd, EmojiNature, Brightness4, ExitToApp, AccountCircle, PersonAdd, Login } from '@mui/icons-material';
 import type { MenuItemProps, HeaderProps } from './headerTypes'
-import {theme} from "../../../theme/BaseTheme";
+import theme from "../../../theme/BaseTheme"
 import { Auth } from "aws-amplify";
 import useAuthentication from "../../Authentication/AuthenticationHooks";
 
 export const menuItems:MenuItemProps[] = [
     {
         href: '/Resumes',
-        label: 'Resume Tool',
+        label: 'Manage My Account',
         icon: <NoteAdd/>,
-    },
-    {
-        href: '/FarmCam',
-        label: 'FarmWatch Tool (invite only)',
-        icon: <EmojiNature/>,
-    },
-    {
-        href: '',
-        label: 'Dark Mode',
-        icon: <Brightness4/>,
     },
 ];
 
@@ -54,16 +44,20 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
     setAnchorEl(null);
   };
 
-  const handleLogout = async() => {
-    return(await Auth.signOut())
-  }
+  const handleLogout = async () => {
+    await Auth.signOut();
+    localStorage.clear();
+    window.location.href = "/";
+  };
 
   return (
-    <>
+    <ClickAwayListener onClickAway={handleClose}>
       <Box sx={{ width: drawerWidth }}>
         <Menu
           open={drawerOpen}
-          onClose={()=>handleClose()}
+          onClose={handleClose}
+          onBackdropClick={()=>toggleDrawer()}
+          anchorEl={anchorEl}
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
@@ -87,7 +81,7 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
             </MenuItem>
         </Menu>
       </Box>
-    </>
+    </ClickAwayListener>
   );
 };
 
@@ -100,34 +94,18 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
  */
 export function UserManagementFab({ drawerFabHidden, handleDrawerOpen }: any) {
   return (
-    <Fab
-      variant="circular"
-      color="primary"
-      size="large"
+    <Avatar
       sx={{
         position: "absolute",
         bottom: "25px",
         right: "50px",
-        zIndex: (theme) => theme.zIndex.drawer + 11,
+        zIndex: 1111,
         boxShadow: "0px 3px 3px rgba(0, 0, 0, 0.25)",
         display: drawerFabHidden ? "none" : "block",
-        // set styles for small screens
-        [theme.breakpoints.down("sm")]: {
-          bottom: "75px",
-          right: "25px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          "& .MuiSvgIcon-root": {
-            marginBottom: "8px",
-          },
-        },
       }}
       onClick={handleDrawerOpen}
       aria-label="add"
-    >
-      <ManageAccounts />
-    </Fab>
+   / >
   );
 }
   
@@ -194,6 +172,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
   } = ProversivityAppBarHooks();
 
   const isAuthenticated = useAuthentication();
+  console.log("HeaderComponents isAuthenticated: ", isAuthenticated)
 
   const dynamicButton = () => {
     try{
@@ -220,11 +199,10 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
             }}
           >
             <Stack direction="column" spacing={2}>
-              <div><Login /> <PersonAdd fontSize="large" /></div>
+              <div className="button" onClick={() => window.location.href = "/Login"}><Login /> <PersonAdd fontSize="large" /></div>
               Sign in / Sign up
             </Stack>
           </Button>
-
 
         )
       }
@@ -243,8 +221,8 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
         color="inherit"
         sx={{
           top: 0,
-          height: "125px",
-          zIndex: (theme) => theme.zIndex.drawer + 10,
+          height: "115px",
+          zIndex: 1110,
           backgroundColor: "rgba(255, 255, 255, 0.8)"
         }}
         elevation={0}

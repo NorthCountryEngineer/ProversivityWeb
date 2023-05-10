@@ -1492,6 +1492,447 @@ export const deleteUIKey = /* GraphQL */ `
     }
   }
 `;
+export const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    createUser(input: $input, condition: $condition) {
+      id
+      email
+      firstName
+      lastName
+      customerProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        address
+        phone
+        interests
+        createdAt
+        updatedAt
+      }
+      serviceProviderProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        companyName
+        address
+        phone
+        skills
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      userCustomerProfileId
+      userServiceProviderProfileId
+    }
+  }
+`;
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    updateUser(input: $input, condition: $condition) {
+      id
+      email
+      firstName
+      lastName
+      customerProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        address
+        phone
+        interests
+        createdAt
+        updatedAt
+      }
+      serviceProviderProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        companyName
+        address
+        phone
+        skills
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      userCustomerProfileId
+      userServiceProviderProfileId
+    }
+  }
+`;
+export const deleteUser = /* GraphQL */ `
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    deleteUser(input: $input, condition: $condition) {
+      id
+      email
+      firstName
+      lastName
+      customerProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        address
+        phone
+        interests
+        createdAt
+        updatedAt
+      }
+      serviceProviderProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        companyName
+        address
+        phone
+        skills
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      userCustomerProfileId
+      userServiceProviderProfileId
+    }
+  }
+`;
+export const createCustomer = /* GraphQL */ `
+  mutation CreateCustomer(
+    $input: CreateCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    createCustomer(input: $input, condition: $condition) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      address
+      phone
+      interests
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCustomer = /* GraphQL */ `
+  mutation UpdateCustomer(
+    $input: UpdateCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    updateCustomer(input: $input, condition: $condition) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      address
+      phone
+      interests
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCustomer = /* GraphQL */ `
+  mutation DeleteCustomer(
+    $input: DeleteCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    deleteCustomer(input: $input, condition: $condition) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      address
+      phone
+      interests
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createServiceProvider = /* GraphQL */ `
+  mutation CreateServiceProvider(
+    $input: CreateServiceProviderInput!
+    $condition: ModelServiceProviderConditionInput
+  ) {
+    createServiceProvider(input: $input, condition: $condition) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      companyName
+      address
+      phone
+      skills
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateServiceProvider = /* GraphQL */ `
+  mutation UpdateServiceProvider(
+    $input: UpdateServiceProviderInput!
+    $condition: ModelServiceProviderConditionInput
+  ) {
+    updateServiceProvider(input: $input, condition: $condition) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      companyName
+      address
+      phone
+      skills
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteServiceProvider = /* GraphQL */ `
+  mutation DeleteServiceProvider(
+    $input: DeleteServiceProviderInput!
+    $condition: ModelServiceProviderConditionInput
+  ) {
+    deleteServiceProvider(input: $input, condition: $condition) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      companyName
+      address
+      phone
+      skills
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createResumeExperience = /* GraphQL */ `
   mutation CreateResumeExperience(
     $input: CreateResumeExperienceInput!

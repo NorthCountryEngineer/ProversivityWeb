@@ -12,8 +12,7 @@ type UserPreferences @model {
   DarkMode: Boolean
 }
 
-type Resume @model
-{
+type Resume @model{
   id: ID!
   userProvidedID: String
   Title: String
@@ -27,8 +26,7 @@ type Resume @model
   Status: ResumeStatus
 }
 
-type SharePool @model
-{
+type SharePool @model{
   id: ID!
   DelegatedOwners: [String]
   Viewers: [String]
@@ -37,14 +35,12 @@ type SharePool @model
   resumeId: ID! 
 }
 
-type UserPoolMeta @model
-{
+type UserPoolMeta @model{
   id: ID!
   authorizationScope: Scope
 }
 
-type PersonalData @model
-{
+type PersonalData @model{
   id: ID!
   Owner: String
   First: String
@@ -61,8 +57,7 @@ type PersonalData @model
   Github: String
 }
 
-type Address  @model 
-{
+type Address  @model {
   id: ID!
   Street: String
   City: String
@@ -70,35 +65,30 @@ type Address  @model
   Zip: String
 }
 
-type Contact  @model 
-{
+type Contact  @model {
   id: ID!
   email: String
   phone: String
 }
 
-type Overview  @model 
-{
+type Overview  @model {
   id: ID!
   Summary: Summary @hasOne
   Accomplishments: [Accomplishments] @hasMany
   Resume: Resume @belongsTo
 }
 
-type Summary  @model 
-{
+type Summary  @model {
   id: ID!
   Summary: String
 }
 
-type Accomplishments  @model 
-{
+type Accomplishments  @model {
   id: ID!
   Accomplishment: String
 }
 
-type Experience  @model 
-{
+type Experience  @model {
   id: ID!
   Company: String
   Start: AWSDate
@@ -112,8 +102,7 @@ type Experience  @model
 }
 
 
-type Education @model
-{
+type Education @model{
   id: ID!
   Degree: DegreeType
   School: String
@@ -123,11 +112,40 @@ type Education @model
   Resumes: [Resume] @manyToMany(relationName: "ResumeEducation")
 }
 
-type UIKey @model 
-{
+type UIKey @model {
   id: ID!
   MuiKey: String!
 }
+
+type User @model {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  customerProfile: Customer @hasOne
+  serviceProviderProfile: ServiceProvider @hasOne
+}
+
+type Customer @model {
+  id: ID!
+  user: User! @belongsTo(fields: ["userID"])
+  userID: ID!
+  address: String
+  phone: String
+  interests: [String!]
+}
+
+type ServiceProvider @model {
+  id: ID!
+  user: User! @belongsTo(fields: ["userID"])
+  userID: ID!
+  companyName: String
+  address: String
+  phone: String
+  skills: [String!]
+}
+
+
 
 enum DegreeType {
   AA

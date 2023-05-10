@@ -1408,6 +1408,426 @@ export const onDeleteUIKey = /* GraphQL */ `
     }
   }
 `;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+    onCreateUser(filter: $filter) {
+      id
+      email
+      firstName
+      lastName
+      customerProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        address
+        phone
+        interests
+        createdAt
+        updatedAt
+      }
+      serviceProviderProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        companyName
+        address
+        phone
+        skills
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      userCustomerProfileId
+      userServiceProviderProfileId
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+    onUpdateUser(filter: $filter) {
+      id
+      email
+      firstName
+      lastName
+      customerProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        address
+        phone
+        interests
+        createdAt
+        updatedAt
+      }
+      serviceProviderProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        companyName
+        address
+        phone
+        skills
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      userCustomerProfileId
+      userServiceProviderProfileId
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+    onDeleteUser(filter: $filter) {
+      id
+      email
+      firstName
+      lastName
+      customerProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        address
+        phone
+        interests
+        createdAt
+        updatedAt
+      }
+      serviceProviderProfile {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+        }
+        userID
+        companyName
+        address
+        phone
+        skills
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      userCustomerProfileId
+      userServiceProviderProfileId
+    }
+  }
+`;
+export const onCreateCustomer = /* GraphQL */ `
+  subscription OnCreateCustomer($filter: ModelSubscriptionCustomerFilterInput) {
+    onCreateCustomer(filter: $filter) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      address
+      phone
+      interests
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCustomer = /* GraphQL */ `
+  subscription OnUpdateCustomer($filter: ModelSubscriptionCustomerFilterInput) {
+    onUpdateCustomer(filter: $filter) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      address
+      phone
+      interests
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCustomer = /* GraphQL */ `
+  subscription OnDeleteCustomer($filter: ModelSubscriptionCustomerFilterInput) {
+    onDeleteCustomer(filter: $filter) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      address
+      phone
+      interests
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateServiceProvider = /* GraphQL */ `
+  subscription OnCreateServiceProvider(
+    $filter: ModelSubscriptionServiceProviderFilterInput
+  ) {
+    onCreateServiceProvider(filter: $filter) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      companyName
+      address
+      phone
+      skills
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateServiceProvider = /* GraphQL */ `
+  subscription OnUpdateServiceProvider(
+    $filter: ModelSubscriptionServiceProviderFilterInput
+  ) {
+    onUpdateServiceProvider(filter: $filter) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      companyName
+      address
+      phone
+      skills
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteServiceProvider = /* GraphQL */ `
+  subscription OnDeleteServiceProvider(
+    $filter: ModelSubscriptionServiceProviderFilterInput
+  ) {
+    onDeleteServiceProvider(filter: $filter) {
+      id
+      user {
+        id
+        email
+        firstName
+        lastName
+        customerProfile {
+          id
+          userID
+          address
+          phone
+          interests
+          createdAt
+          updatedAt
+        }
+        serviceProviderProfile {
+          id
+          userID
+          companyName
+          address
+          phone
+          skills
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        userCustomerProfileId
+        userServiceProviderProfileId
+      }
+      userID
+      companyName
+      address
+      phone
+      skills
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateResumeExperience = /* GraphQL */ `
   subscription OnCreateResumeExperience(
     $filter: ModelSubscriptionResumeExperienceFilterInput
