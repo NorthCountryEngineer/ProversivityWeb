@@ -13,10 +13,13 @@
     },
     "categories": {
       "auth": {
-        "northcountryengineer9d2f1aef": {}
+        "northcountryengineer3418583f": {}
       },
       "api": {
         "northcountryengineer": {}
+      },
+      "storage": {
+        "nceBlogFiles": {}
       }
     }
   }

@@ -43,11 +43,9 @@ export const AppHooks = (): AppHooksResult => {
     Hub.listen('auth', (data) => {
       switch (data.payload.event) {
         case 'signIn':
-          console.log('user signed in');
           setIsAuthenticated(true);
           break;
         case 'signOut':
-          console.log('user signed out');
           setIsAuthenticated(false);
           break;
         default:

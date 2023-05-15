@@ -19,7 +19,6 @@ function App() {
   async function getCurrentUser() {
     try {
       const user = await Auth.currentAuthenticatedUser();
-      console.log(user.attributes.email)
       setEmail(user.attributes.email)
       return user;
     } catch (error) {
@@ -32,19 +31,23 @@ function App() {
     try {
       const response:any = await API.graphql(graphqlOperation(getUser, { id: sub }));
       return response;
+
     } 
     catch (error) {
       return {error:error};
     }
   }
 
-  async function createNewUser(email){
-    try{
-      const newUser = await API.graphql(graphqlOperation(createUser, {email:email}))
-      console.log(newUser)
-      return(newUser)
-    }catch(error){
-      console.log(error)
+  async function createNewUser(emailAddress) {
+    try {
+      const input = {
+        email: emailAddress,
+      };
+      console.log(input.email)
+      const newUser = await API.graphql(graphqlOperation(createUser, {input}));
+      return newUser;
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -52,10 +55,20 @@ function App() {
     getCurrentUser().then((user) => {
       try{
         getUserAttributes(user.attributes.sub).then((userCredentials)=>{
-          if(userCredentials.error){
+          console.log(userCredentials)
+          if(userCredentials.getUser==null){
+            try {
+              const input = {
+                email: user.attributes.email,
+              };
+              let newUser = createNewUser(input)
+              console.log(newUser)
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          else if(userCredentials.error){
             console.log("Error retrieving user credentials: ", userCredentials.error)
-            let newUser = createNewUser(email)
-            console.log(newUser)
           }
         })
       }catch(error){

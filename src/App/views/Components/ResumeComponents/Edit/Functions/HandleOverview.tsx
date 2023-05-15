@@ -8,8 +8,8 @@ import Button from '@mui/material/Button';
   } from '@mui/x-data-grid-pro';
 
 import { API, graphqlOperation } from 'aws-amplify'
-import { getResume } from '../../../../../../graphql/queries';
-import { createResume, updateResume } from '../../../../../../graphql/mutations'
+//import { getResume } from '../../../../../../graphql/queries';
+//import { createResume, updateResume } from '../../../../../../graphql/mutations'
 import { randomId } from '@mui/x-data-grid-generator';
 import AddIcon from '@mui/icons-material/Add';
 import { Editor } from 'react-draft-wysiwyg';

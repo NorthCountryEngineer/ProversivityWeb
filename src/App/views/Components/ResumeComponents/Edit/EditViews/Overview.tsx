@@ -7,7 +7,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../Style/Overview.css'
 import draftToMarkdown from 'draftjs-to-markdown';
-import { updateOverview } from '../../../../../../graphql/mutations';
+//import { updateOverview } from '../../../../../../graphql/mutations';
 import showdown from 'showdown'
 
 export default function EditOverview() {
@@ -19,15 +19,11 @@ export default function EditOverview() {
 
   useEffect(() => {
 
-    console.log(typeof(String(JSON.stringify(convertToRaw(editorState.getCurrentContent())))))
-
     let cachedResume = Cache.getItem('resume')
-    console.log(cachedResume)
     let {Resume,createdAt,overviewResumeId,owner,updatedAt,...OverviewData} = cachedResume.temporaryResume.data.getResume.Overview
     setOverview(OverviewData)
     setLastSavedOverview(OverviewData) 
     let Heartbeat = setInterval(()=>{
-      console.log(editorState.getCurrentContent())
       saveOverview()
     },5000)
     return()=> {
@@ -38,15 +34,12 @@ export default function EditOverview() {
   function saveMarkdownToHook():any{
     {setEditorState(editorState)}
     setOverview({...overview, Summary: {id: "", Summary: editorState && draftToMarkdown(convertToRaw(editorState.getCurrentContent()))}}) //using markdown to save space in datastore
-    console.log(overview.Summary.Summary)
     let converter = new showdown.Converter()
-    console.log(converter.makeHtml(overview.Summary.Summary))
     
     //console.log({...overview, Summary: editorState && draftToMarkdown(convertToRaw(editorState.getCurrentContent()))}, overview)
   }
 
   const saveOverview = async() =>{
-    console.log(overview.Summary, lastSavedOverview.Summary)
     if(overview.Summary === lastSavedOverview.Summary){
       console.log("Skipped, equal")
     }
@@ -57,7 +50,7 @@ export default function EditOverview() {
       console.log(overview,lastSavedOverview,test)
       try{
           console.log("Input: ", { input: overview } )
-          overviewUpdate = await API.graphql(graphqlOperation(updateOverview, { input: overview } ))
+          overviewUpdate = {}//await API.graphql(graphqlOperation(updateOverview, { input: overview } ))
           setLastSavedOverview(overview)
           setLoading(false)
       } catch(error){

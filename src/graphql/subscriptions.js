@@ -1,1416 +1,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateMessage = /* GraphQL */ `
-  subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
-    onCreateMessage(filter: $filter) {
-      id
-      text
-      createdAt
-      ownerId
-      updatedAt
-    }
-  }
-`;
-export const onUpdateMessage = /* GraphQL */ `
-  subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
-    onUpdateMessage(filter: $filter) {
-      id
-      text
-      createdAt
-      ownerId
-      updatedAt
-    }
-  }
-`;
-export const onDeleteMessage = /* GraphQL */ `
-  subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
-    onDeleteMessage(filter: $filter) {
-      id
-      text
-      createdAt
-      ownerId
-      updatedAt
-    }
-  }
-`;
-export const onCreateUserPreferences = /* GraphQL */ `
-  subscription OnCreateUserPreferences(
-    $filter: ModelSubscriptionUserPreferencesFilterInput
-  ) {
-    onCreateUserPreferences(filter: $filter) {
-      id
-      User
-      DisplayName
-      DarkMode
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateUserPreferences = /* GraphQL */ `
-  subscription OnUpdateUserPreferences(
-    $filter: ModelSubscriptionUserPreferencesFilterInput
-  ) {
-    onUpdateUserPreferences(filter: $filter) {
-      id
-      User
-      DisplayName
-      DarkMode
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteUserPreferences = /* GraphQL */ `
-  subscription OnDeleteUserPreferences(
-    $filter: ModelSubscriptionUserPreferencesFilterInput
-  ) {
-    onDeleteUserPreferences(filter: $filter) {
-      id
-      User
-      DisplayName
-      DarkMode
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateResume = /* GraphQL */ `
-  subscription OnCreateResume($filter: ModelSubscriptionResumeFilterInput) {
-    onCreateResume(filter: $filter) {
-      id
-      userProvidedID
-      Title
-      Author
-      SharePool {
-        id
-        DelegatedOwners
-        Viewers
-        AuthorizedUserPools {
-          nextToken
-        }
-        resume {
-          id
-          userProvidedID
-          Title
-          Author
-          Skills
-          Status
-          createdAt
-          updatedAt
-          resumeSharePoolId
-          resumePersonalDataId
-          resumeOverviewId
-        }
-        resumeId
-        createdAt
-        updatedAt
-      }
-      PersonalData {
-        id
-        Owner
-        First
-        Middle
-        Last
-        Acronyms
-        Address {
-          id
-          Street
-          City
-          State
-          Zip
-          createdAt
-          updatedAt
-        }
-        Contact {
-          id
-          email
-          phone
-          createdAt
-          updatedAt
-        }
-        JobTitle
-        LinkedIn
-        Reddit
-        Twitter
-        Facebook
-        Github
-        createdAt
-        updatedAt
-        personalDataAddressId
-        personalDataContactId
-      }
-      Overview {
-        id
-        Summary {
-          id
-          Summary
-          createdAt
-          updatedAt
-        }
-        Accomplishments {
-          nextToken
-        }
-        Resume {
-          id
-          userProvidedID
-          Title
-          Author
-          Skills
-          Status
-          createdAt
-          updatedAt
-          resumeSharePoolId
-          resumePersonalDataId
-          resumeOverviewId
-        }
-        createdAt
-        updatedAt
-        overviewSummaryId
-        overviewResumeId
-      }
-      Experience {
-        items {
-          id
-          resumeId
-          experienceId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      Education {
-        items {
-          id
-          resumeId
-          educationId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      Skills
-      Status
-      createdAt
-      updatedAt
-      resumeSharePoolId
-      resumePersonalDataId
-      resumeOverviewId
-    }
-  }
-`;
-export const onUpdateResume = /* GraphQL */ `
-  subscription OnUpdateResume($filter: ModelSubscriptionResumeFilterInput) {
-    onUpdateResume(filter: $filter) {
-      id
-      userProvidedID
-      Title
-      Author
-      SharePool {
-        id
-        DelegatedOwners
-        Viewers
-        AuthorizedUserPools {
-          nextToken
-        }
-        resume {
-          id
-          userProvidedID
-          Title
-          Author
-          Skills
-          Status
-          createdAt
-          updatedAt
-          resumeSharePoolId
-          resumePersonalDataId
-          resumeOverviewId
-        }
-        resumeId
-        createdAt
-        updatedAt
-      }
-      PersonalData {
-        id
-        Owner
-        First
-        Middle
-        Last
-        Acronyms
-        Address {
-          id
-          Street
-          City
-          State
-          Zip
-          createdAt
-          updatedAt
-        }
-        Contact {
-          id
-          email
-          phone
-          createdAt
-          updatedAt
-        }
-        JobTitle
-        LinkedIn
-        Reddit
-        Twitter
-        Facebook
-        Github
-        createdAt
-        updatedAt
-        personalDataAddressId
-        personalDataContactId
-      }
-      Overview {
-        id
-        Summary {
-          id
-          Summary
-          createdAt
-          updatedAt
-        }
-        Accomplishments {
-          nextToken
-        }
-        Resume {
-          id
-          userProvidedID
-          Title
-          Author
-          Skills
-          Status
-          createdAt
-          updatedAt
-          resumeSharePoolId
-          resumePersonalDataId
-          resumeOverviewId
-        }
-        createdAt
-        updatedAt
-        overviewSummaryId
-        overviewResumeId
-      }
-      Experience {
-        items {
-          id
-          resumeId
-          experienceId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      Education {
-        items {
-          id
-          resumeId
-          educationId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      Skills
-      Status
-      createdAt
-      updatedAt
-      resumeSharePoolId
-      resumePersonalDataId
-      resumeOverviewId
-    }
-  }
-`;
-export const onDeleteResume = /* GraphQL */ `
-  subscription OnDeleteResume($filter: ModelSubscriptionResumeFilterInput) {
-    onDeleteResume(filter: $filter) {
-      id
-      userProvidedID
-      Title
-      Author
-      SharePool {
-        id
-        DelegatedOwners
-        Viewers
-        AuthorizedUserPools {
-          nextToken
-        }
-        resume {
-          id
-          userProvidedID
-          Title
-          Author
-          Skills
-          Status
-          createdAt
-          updatedAt
-          resumeSharePoolId
-          resumePersonalDataId
-          resumeOverviewId
-        }
-        resumeId
-        createdAt
-        updatedAt
-      }
-      PersonalData {
-        id
-        Owner
-        First
-        Middle
-        Last
-        Acronyms
-        Address {
-          id
-          Street
-          City
-          State
-          Zip
-          createdAt
-          updatedAt
-        }
-        Contact {
-          id
-          email
-          phone
-          createdAt
-          updatedAt
-        }
-        JobTitle
-        LinkedIn
-        Reddit
-        Twitter
-        Facebook
-        Github
-        createdAt
-        updatedAt
-        personalDataAddressId
-        personalDataContactId
-      }
-      Overview {
-        id
-        Summary {
-          id
-          Summary
-          createdAt
-          updatedAt
-        }
-        Accomplishments {
-          nextToken
-        }
-        Resume {
-          id
-          userProvidedID
-          Title
-          Author
-          Skills
-          Status
-          createdAt
-          updatedAt
-          resumeSharePoolId
-          resumePersonalDataId
-          resumeOverviewId
-        }
-        createdAt
-        updatedAt
-        overviewSummaryId
-        overviewResumeId
-      }
-      Experience {
-        items {
-          id
-          resumeId
-          experienceId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      Education {
-        items {
-          id
-          resumeId
-          educationId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      Skills
-      Status
-      createdAt
-      updatedAt
-      resumeSharePoolId
-      resumePersonalDataId
-      resumeOverviewId
-    }
-  }
-`;
-export const onCreateSharePool = /* GraphQL */ `
-  subscription OnCreateSharePool(
-    $filter: ModelSubscriptionSharePoolFilterInput
-  ) {
-    onCreateSharePool(filter: $filter) {
-      id
-      DelegatedOwners
-      Viewers
-      AuthorizedUserPools {
-        items {
-          id
-          authorizationScope
-          createdAt
-          updatedAt
-          sharePoolAuthorizedUserPoolsId
-        }
-        nextToken
-      }
-      resume {
-        id
-        userProvidedID
-        Title
-        Author
-        SharePool {
-          id
-          DelegatedOwners
-          Viewers
-          resumeId
-          createdAt
-          updatedAt
-        }
-        PersonalData {
-          id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
-          createdAt
-          updatedAt
-          personalDataAddressId
-          personalDataContactId
-        }
-        Overview {
-          id
-          createdAt
-          updatedAt
-          overviewSummaryId
-          overviewResumeId
-        }
-        Experience {
-          nextToken
-        }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
-        createdAt
-        updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
-      }
-      resumeId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSharePool = /* GraphQL */ `
-  subscription OnUpdateSharePool(
-    $filter: ModelSubscriptionSharePoolFilterInput
-  ) {
-    onUpdateSharePool(filter: $filter) {
-      id
-      DelegatedOwners
-      Viewers
-      AuthorizedUserPools {
-        items {
-          id
-          authorizationScope
-          createdAt
-          updatedAt
-          sharePoolAuthorizedUserPoolsId
-        }
-        nextToken
-      }
-      resume {
-        id
-        userProvidedID
-        Title
-        Author
-        SharePool {
-          id
-          DelegatedOwners
-          Viewers
-          resumeId
-          createdAt
-          updatedAt
-        }
-        PersonalData {
-          id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
-          createdAt
-          updatedAt
-          personalDataAddressId
-          personalDataContactId
-        }
-        Overview {
-          id
-          createdAt
-          updatedAt
-          overviewSummaryId
-          overviewResumeId
-        }
-        Experience {
-          nextToken
-        }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
-        createdAt
-        updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
-      }
-      resumeId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSharePool = /* GraphQL */ `
-  subscription OnDeleteSharePool(
-    $filter: ModelSubscriptionSharePoolFilterInput
-  ) {
-    onDeleteSharePool(filter: $filter) {
-      id
-      DelegatedOwners
-      Viewers
-      AuthorizedUserPools {
-        items {
-          id
-          authorizationScope
-          createdAt
-          updatedAt
-          sharePoolAuthorizedUserPoolsId
-        }
-        nextToken
-      }
-      resume {
-        id
-        userProvidedID
-        Title
-        Author
-        SharePool {
-          id
-          DelegatedOwners
-          Viewers
-          resumeId
-          createdAt
-          updatedAt
-        }
-        PersonalData {
-          id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
-          createdAt
-          updatedAt
-          personalDataAddressId
-          personalDataContactId
-        }
-        Overview {
-          id
-          createdAt
-          updatedAt
-          overviewSummaryId
-          overviewResumeId
-        }
-        Experience {
-          nextToken
-        }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
-        createdAt
-        updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
-      }
-      resumeId
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateUserPoolMeta = /* GraphQL */ `
-  subscription OnCreateUserPoolMeta(
-    $filter: ModelSubscriptionUserPoolMetaFilterInput
-  ) {
-    onCreateUserPoolMeta(filter: $filter) {
-      id
-      authorizationScope
-      createdAt
-      updatedAt
-      sharePoolAuthorizedUserPoolsId
-    }
-  }
-`;
-export const onUpdateUserPoolMeta = /* GraphQL */ `
-  subscription OnUpdateUserPoolMeta(
-    $filter: ModelSubscriptionUserPoolMetaFilterInput
-  ) {
-    onUpdateUserPoolMeta(filter: $filter) {
-      id
-      authorizationScope
-      createdAt
-      updatedAt
-      sharePoolAuthorizedUserPoolsId
-    }
-  }
-`;
-export const onDeleteUserPoolMeta = /* GraphQL */ `
-  subscription OnDeleteUserPoolMeta(
-    $filter: ModelSubscriptionUserPoolMetaFilterInput
-  ) {
-    onDeleteUserPoolMeta(filter: $filter) {
-      id
-      authorizationScope
-      createdAt
-      updatedAt
-      sharePoolAuthorizedUserPoolsId
-    }
-  }
-`;
-export const onCreatePersonalData = /* GraphQL */ `
-  subscription OnCreatePersonalData(
-    $filter: ModelSubscriptionPersonalDataFilterInput
-  ) {
-    onCreatePersonalData(filter: $filter) {
-      id
-      Owner
-      First
-      Middle
-      Last
-      Acronyms
-      Address {
-        id
-        Street
-        City
-        State
-        Zip
-        createdAt
-        updatedAt
-      }
-      Contact {
-        id
-        email
-        phone
-        createdAt
-        updatedAt
-      }
-      JobTitle
-      LinkedIn
-      Reddit
-      Twitter
-      Facebook
-      Github
-      createdAt
-      updatedAt
-      personalDataAddressId
-      personalDataContactId
-    }
-  }
-`;
-export const onUpdatePersonalData = /* GraphQL */ `
-  subscription OnUpdatePersonalData(
-    $filter: ModelSubscriptionPersonalDataFilterInput
-  ) {
-    onUpdatePersonalData(filter: $filter) {
-      id
-      Owner
-      First
-      Middle
-      Last
-      Acronyms
-      Address {
-        id
-        Street
-        City
-        State
-        Zip
-        createdAt
-        updatedAt
-      }
-      Contact {
-        id
-        email
-        phone
-        createdAt
-        updatedAt
-      }
-      JobTitle
-      LinkedIn
-      Reddit
-      Twitter
-      Facebook
-      Github
-      createdAt
-      updatedAt
-      personalDataAddressId
-      personalDataContactId
-    }
-  }
-`;
-export const onDeletePersonalData = /* GraphQL */ `
-  subscription OnDeletePersonalData(
-    $filter: ModelSubscriptionPersonalDataFilterInput
-  ) {
-    onDeletePersonalData(filter: $filter) {
-      id
-      Owner
-      First
-      Middle
-      Last
-      Acronyms
-      Address {
-        id
-        Street
-        City
-        State
-        Zip
-        createdAt
-        updatedAt
-      }
-      Contact {
-        id
-        email
-        phone
-        createdAt
-        updatedAt
-      }
-      JobTitle
-      LinkedIn
-      Reddit
-      Twitter
-      Facebook
-      Github
-      createdAt
-      updatedAt
-      personalDataAddressId
-      personalDataContactId
-    }
-  }
-`;
-export const onCreateAddress = /* GraphQL */ `
-  subscription OnCreateAddress($filter: ModelSubscriptionAddressFilterInput) {
-    onCreateAddress(filter: $filter) {
-      id
-      Street
-      City
-      State
-      Zip
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateAddress = /* GraphQL */ `
-  subscription OnUpdateAddress($filter: ModelSubscriptionAddressFilterInput) {
-    onUpdateAddress(filter: $filter) {
-      id
-      Street
-      City
-      State
-      Zip
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteAddress = /* GraphQL */ `
-  subscription OnDeleteAddress($filter: ModelSubscriptionAddressFilterInput) {
-    onDeleteAddress(filter: $filter) {
-      id
-      Street
-      City
-      State
-      Zip
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateContact = /* GraphQL */ `
-  subscription OnCreateContact($filter: ModelSubscriptionContactFilterInput) {
-    onCreateContact(filter: $filter) {
-      id
-      email
-      phone
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateContact = /* GraphQL */ `
-  subscription OnUpdateContact($filter: ModelSubscriptionContactFilterInput) {
-    onUpdateContact(filter: $filter) {
-      id
-      email
-      phone
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteContact = /* GraphQL */ `
-  subscription OnDeleteContact($filter: ModelSubscriptionContactFilterInput) {
-    onDeleteContact(filter: $filter) {
-      id
-      email
-      phone
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateOverview = /* GraphQL */ `
-  subscription OnCreateOverview($filter: ModelSubscriptionOverviewFilterInput) {
-    onCreateOverview(filter: $filter) {
-      id
-      Summary {
-        id
-        Summary
-        createdAt
-        updatedAt
-      }
-      Accomplishments {
-        items {
-          id
-          Accomplishment
-          createdAt
-          updatedAt
-          overviewAccomplishmentsId
-        }
-        nextToken
-      }
-      Resume {
-        id
-        userProvidedID
-        Title
-        Author
-        SharePool {
-          id
-          DelegatedOwners
-          Viewers
-          resumeId
-          createdAt
-          updatedAt
-        }
-        PersonalData {
-          id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
-          createdAt
-          updatedAt
-          personalDataAddressId
-          personalDataContactId
-        }
-        Overview {
-          id
-          createdAt
-          updatedAt
-          overviewSummaryId
-          overviewResumeId
-        }
-        Experience {
-          nextToken
-        }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
-        createdAt
-        updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
-      }
-      createdAt
-      updatedAt
-      overviewSummaryId
-      overviewResumeId
-    }
-  }
-`;
-export const onUpdateOverview = /* GraphQL */ `
-  subscription OnUpdateOverview($filter: ModelSubscriptionOverviewFilterInput) {
-    onUpdateOverview(filter: $filter) {
-      id
-      Summary {
-        id
-        Summary
-        createdAt
-        updatedAt
-      }
-      Accomplishments {
-        items {
-          id
-          Accomplishment
-          createdAt
-          updatedAt
-          overviewAccomplishmentsId
-        }
-        nextToken
-      }
-      Resume {
-        id
-        userProvidedID
-        Title
-        Author
-        SharePool {
-          id
-          DelegatedOwners
-          Viewers
-          resumeId
-          createdAt
-          updatedAt
-        }
-        PersonalData {
-          id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
-          createdAt
-          updatedAt
-          personalDataAddressId
-          personalDataContactId
-        }
-        Overview {
-          id
-          createdAt
-          updatedAt
-          overviewSummaryId
-          overviewResumeId
-        }
-        Experience {
-          nextToken
-        }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
-        createdAt
-        updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
-      }
-      createdAt
-      updatedAt
-      overviewSummaryId
-      overviewResumeId
-    }
-  }
-`;
-export const onDeleteOverview = /* GraphQL */ `
-  subscription OnDeleteOverview($filter: ModelSubscriptionOverviewFilterInput) {
-    onDeleteOverview(filter: $filter) {
-      id
-      Summary {
-        id
-        Summary
-        createdAt
-        updatedAt
-      }
-      Accomplishments {
-        items {
-          id
-          Accomplishment
-          createdAt
-          updatedAt
-          overviewAccomplishmentsId
-        }
-        nextToken
-      }
-      Resume {
-        id
-        userProvidedID
-        Title
-        Author
-        SharePool {
-          id
-          DelegatedOwners
-          Viewers
-          resumeId
-          createdAt
-          updatedAt
-        }
-        PersonalData {
-          id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
-          createdAt
-          updatedAt
-          personalDataAddressId
-          personalDataContactId
-        }
-        Overview {
-          id
-          createdAt
-          updatedAt
-          overviewSummaryId
-          overviewResumeId
-        }
-        Experience {
-          nextToken
-        }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
-        createdAt
-        updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
-      }
-      createdAt
-      updatedAt
-      overviewSummaryId
-      overviewResumeId
-    }
-  }
-`;
-export const onCreateSummary = /* GraphQL */ `
-  subscription OnCreateSummary($filter: ModelSubscriptionSummaryFilterInput) {
-    onCreateSummary(filter: $filter) {
-      id
-      Summary
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSummary = /* GraphQL */ `
-  subscription OnUpdateSummary($filter: ModelSubscriptionSummaryFilterInput) {
-    onUpdateSummary(filter: $filter) {
-      id
-      Summary
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSummary = /* GraphQL */ `
-  subscription OnDeleteSummary($filter: ModelSubscriptionSummaryFilterInput) {
-    onDeleteSummary(filter: $filter) {
-      id
-      Summary
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateAccomplishments = /* GraphQL */ `
-  subscription OnCreateAccomplishments(
-    $filter: ModelSubscriptionAccomplishmentsFilterInput
-  ) {
-    onCreateAccomplishments(filter: $filter) {
-      id
-      Accomplishment
-      createdAt
-      updatedAt
-      overviewAccomplishmentsId
-    }
-  }
-`;
-export const onUpdateAccomplishments = /* GraphQL */ `
-  subscription OnUpdateAccomplishments(
-    $filter: ModelSubscriptionAccomplishmentsFilterInput
-  ) {
-    onUpdateAccomplishments(filter: $filter) {
-      id
-      Accomplishment
-      createdAt
-      updatedAt
-      overviewAccomplishmentsId
-    }
-  }
-`;
-export const onDeleteAccomplishments = /* GraphQL */ `
-  subscription OnDeleteAccomplishments(
-    $filter: ModelSubscriptionAccomplishmentsFilterInput
-  ) {
-    onDeleteAccomplishments(filter: $filter) {
-      id
-      Accomplishment
-      createdAt
-      updatedAt
-      overviewAccomplishmentsId
-    }
-  }
-`;
-export const onCreateExperience = /* GraphQL */ `
-  subscription OnCreateExperience(
-    $filter: ModelSubscriptionExperienceFilterInput
-  ) {
-    onCreateExperience(filter: $filter) {
-      id
-      Company
-      Start
-      End
-      IsCurrent
-      JobTitle
-      Organization
-      Title
-      BulletPoints
-      Resumes {
-        items {
-          id
-          resumeId
-          experienceId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateExperience = /* GraphQL */ `
-  subscription OnUpdateExperience(
-    $filter: ModelSubscriptionExperienceFilterInput
-  ) {
-    onUpdateExperience(filter: $filter) {
-      id
-      Company
-      Start
-      End
-      IsCurrent
-      JobTitle
-      Organization
-      Title
-      BulletPoints
-      Resumes {
-        items {
-          id
-          resumeId
-          experienceId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteExperience = /* GraphQL */ `
-  subscription OnDeleteExperience(
-    $filter: ModelSubscriptionExperienceFilterInput
-  ) {
-    onDeleteExperience(filter: $filter) {
-      id
-      Company
-      Start
-      End
-      IsCurrent
-      JobTitle
-      Organization
-      Title
-      BulletPoints
-      Resumes {
-        items {
-          id
-          resumeId
-          experienceId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateEducation = /* GraphQL */ `
-  subscription OnCreateEducation(
-    $filter: ModelSubscriptionEducationFilterInput
-  ) {
-    onCreateEducation(filter: $filter) {
-      id
-      Degree
-      School
-      Start
-      End
-      Overview
-      Resumes {
-        items {
-          id
-          resumeId
-          educationId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateEducation = /* GraphQL */ `
-  subscription OnUpdateEducation(
-    $filter: ModelSubscriptionEducationFilterInput
-  ) {
-    onUpdateEducation(filter: $filter) {
-      id
-      Degree
-      School
-      Start
-      End
-      Overview
-      Resumes {
-        items {
-          id
-          resumeId
-          educationId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteEducation = /* GraphQL */ `
-  subscription OnDeleteEducation(
-    $filter: ModelSubscriptionEducationFilterInput
-  ) {
-    onDeleteEducation(filter: $filter) {
-      id
-      Degree
-      School
-      Start
-      End
-      Overview
-      Resumes {
-        items {
-          id
-          resumeId
-          educationId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateUIKey = /* GraphQL */ `
-  subscription OnCreateUIKey($filter: ModelSubscriptionUIKeyFilterInput) {
-    onCreateUIKey(filter: $filter) {
-      id
-      MuiKey
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateUIKey = /* GraphQL */ `
-  subscription OnUpdateUIKey($filter: ModelSubscriptionUIKeyFilterInput) {
-    onUpdateUIKey(filter: $filter) {
-      id
-      MuiKey
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteUIKey = /* GraphQL */ `
-  subscription OnDeleteUIKey($filter: ModelSubscriptionUIKeyFilterInput) {
-    onDeleteUIKey(filter: $filter) {
-      id
-      MuiKey
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onCreateUser(filter: $filter, owner: $owner) {
       id
       email
       firstName
@@ -1426,6 +22,8 @@ export const onCreateUser = /* GraphQL */ `
           updatedAt
           userCustomerProfileId
           userServiceProviderProfileId
+          userBlogPageId
+          owner
         }
         userID
         address
@@ -1433,6 +31,7 @@ export const onCreateUser = /* GraphQL */ `
         interests
         createdAt
         updatedAt
+        owner
       }
       serviceProviderProfile {
         id
@@ -1445,6 +44,8 @@ export const onCreateUser = /* GraphQL */ `
           updatedAt
           userCustomerProfileId
           userServiceProviderProfileId
+          userBlogPageId
+          owner
         }
         userID
         companyName
@@ -1453,17 +54,47 @@ export const onCreateUser = /* GraphQL */ `
         skills
         createdAt
         updatedAt
+        owner
+      }
+      blogPage {
+        id
+        title
+        overview
+        author {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+          userBlogPageId
+          owner
+        }
+        authorId
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       createdAt
       updatedAt
       userCustomerProfileId
       userServiceProviderProfileId
+      userBlogPageId
+      owner
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onUpdateUser(filter: $filter, owner: $owner) {
       id
       email
       firstName
@@ -1479,6 +110,8 @@ export const onUpdateUser = /* GraphQL */ `
           updatedAt
           userCustomerProfileId
           userServiceProviderProfileId
+          userBlogPageId
+          owner
         }
         userID
         address
@@ -1486,6 +119,7 @@ export const onUpdateUser = /* GraphQL */ `
         interests
         createdAt
         updatedAt
+        owner
       }
       serviceProviderProfile {
         id
@@ -1498,6 +132,8 @@ export const onUpdateUser = /* GraphQL */ `
           updatedAt
           userCustomerProfileId
           userServiceProviderProfileId
+          userBlogPageId
+          owner
         }
         userID
         companyName
@@ -1506,17 +142,47 @@ export const onUpdateUser = /* GraphQL */ `
         skills
         createdAt
         updatedAt
+        owner
+      }
+      blogPage {
+        id
+        title
+        overview
+        author {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+          userBlogPageId
+          owner
+        }
+        authorId
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       createdAt
       updatedAt
       userCustomerProfileId
       userServiceProviderProfileId
+      userBlogPageId
+      owner
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onDeleteUser(filter: $filter, owner: $owner) {
       id
       email
       firstName
@@ -1532,6 +198,8 @@ export const onDeleteUser = /* GraphQL */ `
           updatedAt
           userCustomerProfileId
           userServiceProviderProfileId
+          userBlogPageId
+          owner
         }
         userID
         address
@@ -1539,6 +207,7 @@ export const onDeleteUser = /* GraphQL */ `
         interests
         createdAt
         updatedAt
+        owner
       }
       serviceProviderProfile {
         id
@@ -1551,6 +220,8 @@ export const onDeleteUser = /* GraphQL */ `
           updatedAt
           userCustomerProfileId
           userServiceProviderProfileId
+          userBlogPageId
+          owner
         }
         userID
         companyName
@@ -1559,17 +230,47 @@ export const onDeleteUser = /* GraphQL */ `
         skills
         createdAt
         updatedAt
+        owner
+      }
+      blogPage {
+        id
+        title
+        overview
+        author {
+          id
+          email
+          firstName
+          lastName
+          createdAt
+          updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+          userBlogPageId
+          owner
+        }
+        authorId
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
       createdAt
       updatedAt
       userCustomerProfileId
       userServiceProviderProfileId
+      userBlogPageId
+      owner
     }
   }
 `;
 export const onCreateCustomer = /* GraphQL */ `
-  subscription OnCreateCustomer($filter: ModelSubscriptionCustomerFilterInput) {
-    onCreateCustomer(filter: $filter) {
+  subscription OnCreateCustomer(
+    $filter: ModelSubscriptionCustomerFilterInput
+    $owner: String
+  ) {
+    onCreateCustomer(filter: $filter, owner: $owner) {
       id
       user {
         id
@@ -1584,6 +285,7 @@ export const onCreateCustomer = /* GraphQL */ `
           interests
           createdAt
           updatedAt
+          owner
         }
         serviceProviderProfile {
           id
@@ -1594,11 +296,23 @@ export const onCreateCustomer = /* GraphQL */ `
           skills
           createdAt
           updatedAt
+          owner
+        }
+        blogPage {
+          id
+          title
+          overview
+          authorId
+          createdAt
+          updatedAt
+          owner
         }
         createdAt
         updatedAt
         userCustomerProfileId
         userServiceProviderProfileId
+        userBlogPageId
+        owner
       }
       userID
       address
@@ -1606,12 +320,16 @@ export const onCreateCustomer = /* GraphQL */ `
       interests
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateCustomer = /* GraphQL */ `
-  subscription OnUpdateCustomer($filter: ModelSubscriptionCustomerFilterInput) {
-    onUpdateCustomer(filter: $filter) {
+  subscription OnUpdateCustomer(
+    $filter: ModelSubscriptionCustomerFilterInput
+    $owner: String
+  ) {
+    onUpdateCustomer(filter: $filter, owner: $owner) {
       id
       user {
         id
@@ -1626,6 +344,7 @@ export const onUpdateCustomer = /* GraphQL */ `
           interests
           createdAt
           updatedAt
+          owner
         }
         serviceProviderProfile {
           id
@@ -1636,11 +355,23 @@ export const onUpdateCustomer = /* GraphQL */ `
           skills
           createdAt
           updatedAt
+          owner
+        }
+        blogPage {
+          id
+          title
+          overview
+          authorId
+          createdAt
+          updatedAt
+          owner
         }
         createdAt
         updatedAt
         userCustomerProfileId
         userServiceProviderProfileId
+        userBlogPageId
+        owner
       }
       userID
       address
@@ -1648,12 +379,16 @@ export const onUpdateCustomer = /* GraphQL */ `
       interests
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteCustomer = /* GraphQL */ `
-  subscription OnDeleteCustomer($filter: ModelSubscriptionCustomerFilterInput) {
-    onDeleteCustomer(filter: $filter) {
+  subscription OnDeleteCustomer(
+    $filter: ModelSubscriptionCustomerFilterInput
+    $owner: String
+  ) {
+    onDeleteCustomer(filter: $filter, owner: $owner) {
       id
       user {
         id
@@ -1668,6 +403,7 @@ export const onDeleteCustomer = /* GraphQL */ `
           interests
           createdAt
           updatedAt
+          owner
         }
         serviceProviderProfile {
           id
@@ -1678,11 +414,23 @@ export const onDeleteCustomer = /* GraphQL */ `
           skills
           createdAt
           updatedAt
+          owner
+        }
+        blogPage {
+          id
+          title
+          overview
+          authorId
+          createdAt
+          updatedAt
+          owner
         }
         createdAt
         updatedAt
         userCustomerProfileId
         userServiceProviderProfileId
+        userBlogPageId
+        owner
       }
       userID
       address
@@ -1690,14 +438,16 @@ export const onDeleteCustomer = /* GraphQL */ `
       interests
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreateServiceProvider = /* GraphQL */ `
   subscription OnCreateServiceProvider(
     $filter: ModelSubscriptionServiceProviderFilterInput
+    $owner: String
   ) {
-    onCreateServiceProvider(filter: $filter) {
+    onCreateServiceProvider(filter: $filter, owner: $owner) {
       id
       user {
         id
@@ -1712,6 +462,7 @@ export const onCreateServiceProvider = /* GraphQL */ `
           interests
           createdAt
           updatedAt
+          owner
         }
         serviceProviderProfile {
           id
@@ -1722,11 +473,23 @@ export const onCreateServiceProvider = /* GraphQL */ `
           skills
           createdAt
           updatedAt
+          owner
+        }
+        blogPage {
+          id
+          title
+          overview
+          authorId
+          createdAt
+          updatedAt
+          owner
         }
         createdAt
         updatedAt
         userCustomerProfileId
         userServiceProviderProfileId
+        userBlogPageId
+        owner
       }
       userID
       companyName
@@ -1735,14 +498,16 @@ export const onCreateServiceProvider = /* GraphQL */ `
       skills
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateServiceProvider = /* GraphQL */ `
   subscription OnUpdateServiceProvider(
     $filter: ModelSubscriptionServiceProviderFilterInput
+    $owner: String
   ) {
-    onUpdateServiceProvider(filter: $filter) {
+    onUpdateServiceProvider(filter: $filter, owner: $owner) {
       id
       user {
         id
@@ -1757,6 +522,7 @@ export const onUpdateServiceProvider = /* GraphQL */ `
           interests
           createdAt
           updatedAt
+          owner
         }
         serviceProviderProfile {
           id
@@ -1767,11 +533,23 @@ export const onUpdateServiceProvider = /* GraphQL */ `
           skills
           createdAt
           updatedAt
+          owner
+        }
+        blogPage {
+          id
+          title
+          overview
+          authorId
+          createdAt
+          updatedAt
+          owner
         }
         createdAt
         updatedAt
         userCustomerProfileId
         userServiceProviderProfileId
+        userBlogPageId
+        owner
       }
       userID
       companyName
@@ -1780,14 +558,16 @@ export const onUpdateServiceProvider = /* GraphQL */ `
       skills
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteServiceProvider = /* GraphQL */ `
   subscription OnDeleteServiceProvider(
     $filter: ModelSubscriptionServiceProviderFilterInput
+    $owner: String
   ) {
-    onDeleteServiceProvider(filter: $filter) {
+    onDeleteServiceProvider(filter: $filter, owner: $owner) {
       id
       user {
         id
@@ -1802,6 +582,7 @@ export const onDeleteServiceProvider = /* GraphQL */ `
           interests
           createdAt
           updatedAt
+          owner
         }
         serviceProviderProfile {
           id
@@ -1812,11 +593,23 @@ export const onDeleteServiceProvider = /* GraphQL */ `
           skills
           createdAt
           updatedAt
+          owner
+        }
+        blogPage {
+          id
+          title
+          overview
+          authorId
+          createdAt
+          updatedAt
+          owner
         }
         createdAt
         updatedAt
         userCustomerProfileId
         userServiceProviderProfileId
+        userBlogPageId
+        owner
       }
       userID
       companyName
@@ -1825,483 +618,418 @@ export const onDeleteServiceProvider = /* GraphQL */ `
       skills
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onCreateResumeExperience = /* GraphQL */ `
-  subscription OnCreateResumeExperience(
-    $filter: ModelSubscriptionResumeExperienceFilterInput
+export const onCreateBlogPage = /* GraphQL */ `
+  subscription OnCreateBlogPage(
+    $filter: ModelSubscriptionBlogPageFilterInput
+    $owner: String
   ) {
-    onCreateResumeExperience(filter: $filter) {
+    onCreateBlogPage(filter: $filter, owner: $owner) {
       id
-      resumeId
-      experienceId
-      resume {
+      title
+      overview
+      author {
         id
-        userProvidedID
-        Title
-        Author
-        SharePool {
+        email
+        firstName
+        lastName
+        customerProfile {
           id
-          DelegatedOwners
-          Viewers
-          resumeId
+          userID
+          address
+          phone
+          interests
           createdAt
           updatedAt
+          owner
         }
-        PersonalData {
+        serviceProviderProfile {
           id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
+          userID
+          companyName
+          address
+          phone
+          skills
           createdAt
           updatedAt
-          personalDataAddressId
-          personalDataContactId
+          owner
         }
-        Overview {
+        blogPage {
           id
+          title
+          overview
+          authorId
           createdAt
           updatedAt
-          overviewSummaryId
-          overviewResumeId
+          owner
         }
-        Experience {
-          nextToken
-        }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
         createdAt
         updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
+        userCustomerProfileId
+        userServiceProviderProfileId
+        userBlogPageId
+        owner
       }
-      experience {
-        id
-        Company
-        Start
-        End
-        IsCurrent
-        JobTitle
-        Organization
-        Title
-        BulletPoints
-        Resumes {
-          nextToken
+      authorId
+      posts {
+        items {
+          id
+          title
+          content
+          blogPageId
+          createdAt
+          updatedAt
+          blogPagePostsId
+          owner
         }
-        createdAt
-        updatedAt
+        nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onUpdateResumeExperience = /* GraphQL */ `
-  subscription OnUpdateResumeExperience(
-    $filter: ModelSubscriptionResumeExperienceFilterInput
+export const onUpdateBlogPage = /* GraphQL */ `
+  subscription OnUpdateBlogPage(
+    $filter: ModelSubscriptionBlogPageFilterInput
+    $owner: String
   ) {
-    onUpdateResumeExperience(filter: $filter) {
+    onUpdateBlogPage(filter: $filter, owner: $owner) {
       id
-      resumeId
-      experienceId
-      resume {
+      title
+      overview
+      author {
         id
-        userProvidedID
-        Title
-        Author
-        SharePool {
+        email
+        firstName
+        lastName
+        customerProfile {
           id
-          DelegatedOwners
-          Viewers
-          resumeId
+          userID
+          address
+          phone
+          interests
           createdAt
           updatedAt
+          owner
         }
-        PersonalData {
+        serviceProviderProfile {
           id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
+          userID
+          companyName
+          address
+          phone
+          skills
           createdAt
           updatedAt
-          personalDataAddressId
-          personalDataContactId
+          owner
         }
-        Overview {
+        blogPage {
           id
+          title
+          overview
+          authorId
           createdAt
           updatedAt
-          overviewSummaryId
-          overviewResumeId
+          owner
         }
-        Experience {
-          nextToken
-        }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
         createdAt
         updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
+        userCustomerProfileId
+        userServiceProviderProfileId
+        userBlogPageId
+        owner
       }
-      experience {
-        id
-        Company
-        Start
-        End
-        IsCurrent
-        JobTitle
-        Organization
-        Title
-        BulletPoints
-        Resumes {
-          nextToken
+      authorId
+      posts {
+        items {
+          id
+          title
+          content
+          blogPageId
+          createdAt
+          updatedAt
+          blogPagePostsId
+          owner
         }
-        createdAt
-        updatedAt
+        nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onDeleteResumeExperience = /* GraphQL */ `
-  subscription OnDeleteResumeExperience(
-    $filter: ModelSubscriptionResumeExperienceFilterInput
+export const onDeleteBlogPage = /* GraphQL */ `
+  subscription OnDeleteBlogPage(
+    $filter: ModelSubscriptionBlogPageFilterInput
+    $owner: String
   ) {
-    onDeleteResumeExperience(filter: $filter) {
+    onDeleteBlogPage(filter: $filter, owner: $owner) {
       id
-      resumeId
-      experienceId
-      resume {
+      title
+      overview
+      author {
         id
-        userProvidedID
-        Title
-        Author
-        SharePool {
+        email
+        firstName
+        lastName
+        customerProfile {
           id
-          DelegatedOwners
-          Viewers
-          resumeId
+          userID
+          address
+          phone
+          interests
           createdAt
           updatedAt
+          owner
         }
-        PersonalData {
+        serviceProviderProfile {
           id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
+          userID
+          companyName
+          address
+          phone
+          skills
           createdAt
           updatedAt
-          personalDataAddressId
-          personalDataContactId
+          owner
         }
-        Overview {
+        blogPage {
           id
+          title
+          overview
+          authorId
           createdAt
           updatedAt
-          overviewSummaryId
-          overviewResumeId
+          owner
         }
-        Experience {
-          nextToken
-        }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
         createdAt
         updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
+        userCustomerProfileId
+        userServiceProviderProfileId
+        userBlogPageId
+        owner
       }
-      experience {
-        id
-        Company
-        Start
-        End
-        IsCurrent
-        JobTitle
-        Organization
-        Title
-        BulletPoints
-        Resumes {
-          nextToken
+      authorId
+      posts {
+        items {
+          id
+          title
+          content
+          blogPageId
+          createdAt
+          updatedAt
+          blogPagePostsId
+          owner
         }
-        createdAt
-        updatedAt
+        nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
-export const onCreateResumeEducation = /* GraphQL */ `
-  subscription OnCreateResumeEducation(
-    $filter: ModelSubscriptionResumeEducationFilterInput
+export const onCreateBlog = /* GraphQL */ `
+  subscription OnCreateBlog(
+    $filter: ModelSubscriptionBlogFilterInput
+    $owner: String
   ) {
-    onCreateResumeEducation(filter: $filter) {
+    onCreateBlog(filter: $filter, owner: $owner) {
       id
-      resumeId
-      educationId
-      resume {
+      title
+      content
+      blogPage {
         id
-        userProvidedID
-        Title
-        Author
-        SharePool {
+        title
+        overview
+        author {
           id
-          DelegatedOwners
-          Viewers
-          resumeId
+          email
+          firstName
+          lastName
           createdAt
           updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+          userBlogPageId
+          owner
         }
-        PersonalData {
-          id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
-          createdAt
-          updatedAt
-          personalDataAddressId
-          personalDataContactId
-        }
-        Overview {
-          id
-          createdAt
-          updatedAt
-          overviewSummaryId
-          overviewResumeId
-        }
-        Experience {
+        authorId
+        posts {
           nextToken
         }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
         createdAt
         updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
+        owner
       }
-      education {
+      blogPageId
+      media {
+        bucket
+        region
+        key
         id
-        Degree
-        School
-        Start
-        End
-        Overview
-        Resumes {
-          nextToken
-        }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      blogPagePostsId
+      owner
     }
   }
 `;
-export const onUpdateResumeEducation = /* GraphQL */ `
-  subscription OnUpdateResumeEducation(
-    $filter: ModelSubscriptionResumeEducationFilterInput
+export const onUpdateBlog = /* GraphQL */ `
+  subscription OnUpdateBlog(
+    $filter: ModelSubscriptionBlogFilterInput
+    $owner: String
   ) {
-    onUpdateResumeEducation(filter: $filter) {
+    onUpdateBlog(filter: $filter, owner: $owner) {
       id
-      resumeId
-      educationId
-      resume {
+      title
+      content
+      blogPage {
         id
-        userProvidedID
-        Title
-        Author
-        SharePool {
+        title
+        overview
+        author {
           id
-          DelegatedOwners
-          Viewers
-          resumeId
+          email
+          firstName
+          lastName
           createdAt
           updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+          userBlogPageId
+          owner
         }
-        PersonalData {
-          id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
-          createdAt
-          updatedAt
-          personalDataAddressId
-          personalDataContactId
-        }
-        Overview {
-          id
-          createdAt
-          updatedAt
-          overviewSummaryId
-          overviewResumeId
-        }
-        Experience {
+        authorId
+        posts {
           nextToken
         }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
         createdAt
         updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
+        owner
       }
-      education {
+      blogPageId
+      media {
+        bucket
+        region
+        key
         id
-        Degree
-        School
-        Start
-        End
-        Overview
-        Resumes {
-          nextToken
-        }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      blogPagePostsId
+      owner
     }
   }
 `;
-export const onDeleteResumeEducation = /* GraphQL */ `
-  subscription OnDeleteResumeEducation(
-    $filter: ModelSubscriptionResumeEducationFilterInput
+export const onDeleteBlog = /* GraphQL */ `
+  subscription OnDeleteBlog(
+    $filter: ModelSubscriptionBlogFilterInput
+    $owner: String
   ) {
-    onDeleteResumeEducation(filter: $filter) {
+    onDeleteBlog(filter: $filter, owner: $owner) {
       id
-      resumeId
-      educationId
-      resume {
+      title
+      content
+      blogPage {
         id
-        userProvidedID
-        Title
-        Author
-        SharePool {
+        title
+        overview
+        author {
           id
-          DelegatedOwners
-          Viewers
-          resumeId
+          email
+          firstName
+          lastName
           createdAt
           updatedAt
+          userCustomerProfileId
+          userServiceProviderProfileId
+          userBlogPageId
+          owner
         }
-        PersonalData {
-          id
-          Owner
-          First
-          Middle
-          Last
-          Acronyms
-          JobTitle
-          LinkedIn
-          Reddit
-          Twitter
-          Facebook
-          Github
-          createdAt
-          updatedAt
-          personalDataAddressId
-          personalDataContactId
-        }
-        Overview {
-          id
-          createdAt
-          updatedAt
-          overviewSummaryId
-          overviewResumeId
-        }
-        Experience {
+        authorId
+        posts {
           nextToken
         }
-        Education {
-          nextToken
-        }
-        Skills
-        Status
         createdAt
         updatedAt
-        resumeSharePoolId
-        resumePersonalDataId
-        resumeOverviewId
+        owner
       }
-      education {
+      blogPageId
+      media {
+        bucket
+        region
+        key
         id
-        Degree
-        School
-        Start
-        End
-        Overview
-        Resumes {
-          nextToken
-        }
         createdAt
         updatedAt
+        owner
       }
       createdAt
       updatedAt
+      blogPagePostsId
+      owner
+    }
+  }
+`;
+export const onCreateS3Object = /* GraphQL */ `
+  subscription OnCreateS3Object(
+    $filter: ModelSubscriptionS3ObjectFilterInput
+    $owner: String
+  ) {
+    onCreateS3Object(filter: $filter, owner: $owner) {
+      bucket
+      region
+      key
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateS3Object = /* GraphQL */ `
+  subscription OnUpdateS3Object(
+    $filter: ModelSubscriptionS3ObjectFilterInput
+    $owner: String
+  ) {
+    onUpdateS3Object(filter: $filter, owner: $owner) {
+      bucket
+      region
+      key
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteS3Object = /* GraphQL */ `
+  subscription OnDeleteS3Object(
+    $filter: ModelSubscriptionS3ObjectFilterInput
+    $owner: String
+  ) {
+    onDeleteS3Object(filter: $filter, owner: $owner) {
+      bucket
+      region
+      key
+      id
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;

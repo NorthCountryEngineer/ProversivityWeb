@@ -23,7 +23,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
-import { getResume } from '../../../../graphql/queries';
+//import { getResume } from '../../../../graphql/queries';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 
 export function handleTitleUpdate(updatedTitle:String){
@@ -96,7 +96,7 @@ function ListResumes(){
     async function handleUpdateCurrentResume(ResumeID:string){
         console.log("Resume opened")
         setDrawerOpen(!drawerOpen)
-        let temporaryResume:any = await API.graphql(graphqlOperation(getResume, {id: ResumeID}))
+        let temporaryResume:any = {}//await API.graphql(graphqlOperation(getResume, {id: ResumeID}))
         Cache.setItem('resume', {temporaryResume}, { priority: 1 });
     }
 

@@ -4,8 +4,8 @@ import Experience from '../../Components/ResumeComponents/EditView/Experience'
 import Paper from '@mui/material/Paper'
 import { Box, Grid, Modal } from '@mui/material'
 import Divider from '@mui/material/Divider';
-import { API, graphqlOperation } from 'aws-amplify'
-import { getResume } from '../../../../graphql/queries'
+//import { API, graphqlOperation } from 'aws-amplify'
+//import { getResume } from '../../../../graphql/queries'
 import CircularProgress from '@mui/material/CircularProgress';
 import CloudDoneIcon from '@mui/icons-material/CloudDone'
 import { ResumeTemplate } from '../../../models/Service/ResumeModel'
@@ -77,8 +77,7 @@ export default function Resume(){
         console.log(temporaryResume.temporaryResume.data)
         try{
             if(temporaryResume){
-                updateResume(temporaryResume.temporaryResume.data.getResume)
-                console.log("Reload Resume called. Resume data in Resume.tsx: ", resumeData)
+                updateResume({}/*temporaryResume.temporaryResume.data.getResume*/)
                 handleUpdateLoading()
                 if(resumeData.PersonalData===null) alert("Personal data didn't load")
             }else{

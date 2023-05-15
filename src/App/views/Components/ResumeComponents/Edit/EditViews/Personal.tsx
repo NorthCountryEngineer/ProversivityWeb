@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 import { AddressTemplate, ContactTemplate, PersonalDataTemplate } from '../../../../../models/Service/ResumeModel';
 import { CircularProgress, Divider, Fade, FormControlLabel } from '@mui/material';
 import { API, Cache, graphqlOperation } from 'aws-amplify';
-import { updateAddress as updateAddressAPI, updateContact as updateContactAPI, updatePersonalData } from '../../../../../../graphql/mutations';
+//import {  updateAddress as updateAddressAPI, updateContact as updateContactAPI, updatePersonalData } from '../../../../../../graphql/mutations';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
 import { green } from '@mui/material/colors';
 import CircleIcon from '@mui/icons-material/Circle';
@@ -61,7 +61,7 @@ export default function EditHeader() {
         try{
             let {createdAt, updatedAt, owner, ...Address}:any = address
             let addressInput = { id: baseData.personalDataAddressId, ...Address}
-            addressUpdate = await API.graphql(graphqlOperation(updateAddressAPI, {input: addressInput}))
+            addressUpdate = {}////await API.graphql(graphqlOperation(updateAddressAPI, {input: addressInput}))
         }catch(error){
             updateErrorState(true)
             console.error("Error updating address: ", error, "Attempted request: ", {id: baseData.personalDataAddressId, ...address})
@@ -75,7 +75,7 @@ export default function EditHeader() {
         try{
             let {createdAt, updatedAt, owner, ...Contact}:any = contact
             let contactInput = {id: baseData.personalDataContactId, ...Contact }
-            contactUpdate = await API.graphql(graphqlOperation(updateContactAPI, { input: contactInput }))
+            contactUpdate = {}//await API.graphql(graphqlOperation(updateContactAPI, { input: contactInput }))
             setLoading(false)
         }catch(error){
             updateErrorState(true)
@@ -88,7 +88,7 @@ export default function EditHeader() {
         let resumeUpdate: any = {}
         try{
             const {Address, Contact, owner, personalDataAddressId, personalDataContactId, updatedAt, createdAt, ...resumeCallData}:any = baseData
-            resumeUpdate = await API.graphql(graphqlOperation(updatePersonalData, { input: resumeCallData } ))
+            resumeUpdate = {}//await API.graphql(graphqlOperation(updatePersonalData, { input: resumeCallData } ))
             console.log("Resume Update: ", resumeUpdate)
             setLoading(false)
         } catch(error){

@@ -1,6 +1,6 @@
 import { API, graphqlOperation } from "aws-amplify"
-import { createAccomplishments, createAddress, createContact, createEducation, createOverview, createPersonalData, createResume, createResumeEducation, createResumeExperience, createSummary, updateAccomplishments, updateOverview, updatePersonalData, updateResume } from "../../../../../../graphql/mutations"
-import { createExperience } from "../../../../../../graphql/mutations"
+//import { createAccomplishments, createAddress, createContact, createEducation, createOverview, createPersonalData, createResume, createResumeEducation, createResumeExperience, createSummary, updateAccomplishments, updateOverview, updatePersonalData, updateResume } from "../../../../../../graphql/mutations"
+//import { createExperience } from "../../../../../../graphql/mutations"
 
 type ResumeInputTemplate = {
     Author: string,
@@ -23,15 +23,15 @@ export async function CreateNewResumeAPICalls(ResumeInput:ResumeInputTemplate, p
 
     try{
         updateProgress(33,"Creating initial resume components")
-        let newExperienceCall:any = await API.graphql(graphqlOperation(createExperience, {input: {}}))
-        let newContactCall:any = await API.graphql(graphqlOperation(createContact, {input: {}}))
-        let newEducationCall:any = await API.graphql(graphqlOperation(createEducation, {input: {}}))
-        let newAddressCall:any = await API.graphql(graphqlOperation(createAddress, {input: {}}))
-        let newOverviewCall:any = await API.graphql(graphqlOperation(createOverview, {input: {}}))
-        let newPersonalDataCall:any = await API.graphql(graphqlOperation(createPersonalData, {input:  {}}))
-        let newSummaryCall:any = await API.graphql(graphqlOperation(createSummary, {input:  {}}))
-        let newAccomplishmentCall:any = await API.graphql(graphqlOperation(createAccomplishments, {input:  {}}))
-        let newResumeCall:any = await API.graphql(graphqlOperation(createResume, {input: resumeInput}))
+        let newExperienceCall:any = {}//await API.graphql(graphqlOperation(createExperience, {input: {}}))
+        let newContactCall:any = {}//await API.graphql(graphqlOperation(createContact, {input: {}}))
+        let newEducationCall:any = {}//await API.graphql(graphqlOperation(createEducation, {input: {}}))
+        let newAddressCall:any = {}//await API.graphql(graphqlOperation(createAddress, {input: {}}))
+        let newOverviewCall:any = {}//await API.graphql(graphqlOperation(createOverview, {input: {}}))
+        let newPersonalDataCall:any = {}//await API.graphql(graphqlOperation(createPersonalData, {input:  {}}))
+        let newSummaryCall:any = {}//await API.graphql(graphqlOperation(createSummary, {input:  {}}))
+        let newAccomplishmentCall:any = {}//await API.graphql(graphqlOperation(createAccomplishments, {input:  {}}))
+        let newResumeCall:any = {}//await API.graphql(graphqlOperation(createResume, {input: resumeInput}))
        
 
         if(newExperienceCall && newContactCall && newEducationCall && newAddressCall && newOverviewCall && newPersonalDataCall && newResumeCall&&newSummaryCall&&newAccomplishmentCall){
@@ -54,13 +54,13 @@ export async function CreateNewResumeAPICalls(ResumeInput:ResumeInputTemplate, p
     }
 
     try{
-        let linkResumeEducationCall:any = await API.graphql(graphqlOperation(createResumeEducation, {input: {educationID: returnTokens.education, resumeID: returnTokens.resume}}))
-        let linkResumeExperienceCall:any = await API.graphql(graphqlOperation(createResumeExperience, {input: {experienceID: returnTokens.experience, resumeID: returnTokens.resume}}))
-        let linkResumeOverviewPersonalDataCall:any = await API.graphql(graphqlOperation(updateResume, {input: {resumeOverviewId: returnTokens.overview, resumePersonalDataId: returnTokens.personalData, id: returnTokens.resume}}))
-        let linkOverviewResumeCall:any = await API.graphql(graphqlOperation(updateOverview, {input: {overviewResumeId: returnTokens.resume, overviewSummaryId: returnTokens.summary, id: returnTokens.overview}}))
-        let linkPersonalDataResumeCall:any = await API.graphql(graphqlOperation(updatePersonalData, {input: {personalDataContactId: returnTokens.contact, personalDataAddressId: returnTokens.address, id: returnTokens.personalData}}))
-        let linkSummaryOverviewCall:any = await API.graphql(graphqlOperation(updateOverview, {input: {id: returnTokens.overview, overviewSummaryId: returnTokens.summary, overviewResumeId: returnTokens.resume}}))
-        let linkOverviewAccomplishment:any = await API.graphql(graphqlOperation(updateAccomplishments, {input: {id: returnTokens.accomplishments, overviewAccomplishmentsId: returnTokens.overview}}))
+        let linkResumeEducationCall:any = {}//await API.graphql(graphqlOperation(createResumeEducation, {input: {educationID: returnTokens.education, resumeID: returnTokens.resume}}))
+        let linkResumeExperienceCall:any = {}//await API.graphql(graphqlOperation(createResumeExperience, {input: {experienceID: returnTokens.experience, resumeID: returnTokens.resume}}))
+        let linkResumeOverviewPersonalDataCall:any = {}//await API.graphql(graphqlOperation(updateResume, {input: {resumeOverviewId: returnTokens.overview, resumePersonalDataId: returnTokens.personalData, id: returnTokens.resume}}))
+        let linkOverviewResumeCall:any = {}//await API.graphql(graphqlOperation(updateOverview, {input: {overviewResumeId: returnTokens.resume, overviewSummaryId: returnTokens.summary, id: returnTokens.overview}}))
+        let linkPersonalDataResumeCall:any = {}//await API.graphql(graphqlOperation(updatePersonalData, {input: {personalDataContactId: returnTokens.contact, personalDataAddressId: returnTokens.address, id: returnTokens.personalData}}))
+        let linkSummaryOverviewCall:any = {}//await API.graphql(graphqlOperation(updateOverview, {input: {id: returnTokens.overview, overviewSummaryId: returnTokens.summary, overviewResumeId: returnTokens.resume}}))
+        let linkOverviewAccomplishment:any = {}//await API.graphql(graphqlOperation(updateAccomplishments, {input: {id: returnTokens.accomplishments, overviewAccomplishmentsId: returnTokens.overview}}))
 
         if(linkResumeEducationCall &&
             linkResumeExperienceCall &&
@@ -84,7 +84,7 @@ export async function CreateNewResumeAPICalls(ResumeInput:ResumeInputTemplate, p
 export function handleAmplifyGraphQLCall(graphQLFunction:any, input:any={}){
     console.log("making call")
     try{
-        let returnPayload = API.graphql(graphqlOperation(graphQLFunction, {input: input}))
+        let returnPayload = {}//API.graphql(graphqlOperation(graphQLFunction, {input: input}))
         return(returnPayload)
     }catch(error){
         console.error(error)

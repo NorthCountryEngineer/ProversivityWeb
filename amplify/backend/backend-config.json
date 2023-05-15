@@ -7,24 +7,26 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "northcountryengineer9d2f1aef"
+          "resourceName": "northcountryengineer3418583f"
         }
       ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
             {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authnorthcountryengineer9d2f1aef"
-              }
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2024-05-10T19:43:59.386Z",
+                "apiKeyExpirationDays": 365,
+                "description": "TestKeyOnly"
+              },
+              "authenticationType": "API_KEY"
             }
           ],
           "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
-            },
-            "authenticationType": "API_KEY"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authnorthcountryengineer3418583f"
+            }
           }
         }
       },
@@ -33,7 +35,7 @@
     }
   },
   "auth": {
-    "northcountryengineer9d2f1aef": {
+    "northcountryengineer3418583f": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -58,6 +60,13 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "storage": {
+    "nceBlogFiles": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

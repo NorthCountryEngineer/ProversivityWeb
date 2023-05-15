@@ -1,0 +1,16 @@
+{
+  "resourceName": "nceBlogFiles",
+  "policyUUID": "229e4053",
+  "bucketName": "nceblogbucket",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

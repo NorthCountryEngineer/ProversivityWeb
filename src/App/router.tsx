@@ -2,7 +2,7 @@ import {createBrowserRouter} from "react-router-dom";
 import { Home } from "./views/Home";
 import Resume from './views/Tools/ResumeTool/Resume'
 import ListResumes from './views/Tools/ResumeTool/ListResumes';
-import { Authentication } from "./views/Authentication/Authentication";
+import { Authentication } from "./views/Authentication";
 import { About } from "./views/About/About";
 import { Admin } from "./views/Admin/Admin";
 

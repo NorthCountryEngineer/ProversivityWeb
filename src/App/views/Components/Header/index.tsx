@@ -1,3 +1,4 @@
 export * from "./header";
 export * from './headerHooks'
-export type {HeaderProps, MenuItemProps} from './headerTypes'
+export * from './headerComponents'
+export type {HeaderProps, MenuItemProps} from './headerTypes.d'

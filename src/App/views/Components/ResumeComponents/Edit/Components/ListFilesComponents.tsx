@@ -106,7 +106,6 @@ export default function PersistentDrawerLeft() {
                     aria-label="Edit Resume" 
                     component="label"
                     onClick={() => {
-                      console.log(cellValues)
                       updateCurrentResume(cellValues.row.id)
                     }}
                 >
@@ -127,7 +126,7 @@ export default function PersistentDrawerLeft() {
                     aria-label="Edit Resume" 
                     component="label"
                     onClick={() => {
-                        console.log(cellValues.row)
+                        //console.log(cellValues.row)
                     }}
                 >
                     <OpenInNewIcon />

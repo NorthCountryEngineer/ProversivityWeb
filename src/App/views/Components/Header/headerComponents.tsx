@@ -7,18 +7,19 @@ import { Avatar, Button, ClickAwayListener, IconButton, Link, MenuItem } from '@
 import { ProversivityAppBarHooks } from "./headerHooks";
 import { Box, Fab, Stack, Typography } from "@mui/material";
 import { ListItemIcon, ListItemText, Menu } from '@mui/material';
-import { ManageAccounts, ChevronRight, NoteAdd, EmojiNature, Brightness4, ExitToApp, AccountCircle, PersonAdd, Login } from '@mui/icons-material';
+import { NoteAdd, ExitToApp, Login, Person } from '@mui/icons-material';
 import type { MenuItemProps, HeaderProps } from './headerTypes'
 import theme from "../../../theme/BaseTheme"
 import { Auth } from "aws-amplify";
-import useAuthentication from "../../Authentication/AuthenticationHooks";
+import { useAuthentication } from "../../Authentication/AuthenticationHooks";
+
 
 export const menuItems:MenuItemProps[] = [
     {
         href: '/Resumes',
         label: 'Manage My Account',
         icon: <NoteAdd/>,
-    },
+    }
 ];
 
 /**
@@ -67,11 +68,6 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
                     <ListItemText primary={item.label} />
                 </MenuItem>
             ))}
-
-            <MenuItem onClick={()=>toggleDrawer()}>
-                <ChevronRight />
-                <ListItemText primary="Close" />
-            </MenuItem>
             
             <MenuItem onClick={handleLogout}>
                 <ListItemIcon>
@@ -172,43 +168,40 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
     justifyContent
   } = ProversivityAppBarHooks();
 
-  const isAuthenticated = useAuthentication();
-  console.log("HeaderComponents isAuthenticated: ", isAuthenticated)
+  const isAuthenticated = useAuthentication(); 
+
+  const handleUserButton = () => {
+    if(isAuthenticated){
+      toggleDrawer()
+    }else{
+      window.location.href="/Login"
+    }
+  }
 
   const dynamicButton = () => {
     try{
-      if(isAuthenticated){
-        return(
-          <UserManagementFab 
-            drawerFabHidden={drawerFabHidden}
-            handleDrawerOpen={() => toggleDrawer()}
-          />
-        )
-      }
-      else{
-        return(
-          <Button
-            sx={{
-              marginTop: '25px',
-              color: 'rgba(2, 142, 196, 255)',
-              outline: 'none',
-              background: 'none',
-              '& > .MuiButton-startIcon': {
-                fontSize: '4rem', // set the icon size to 2rem
-                marginRight: '4px' // add a margin between icon and text
-              }
-            }}
-          >
-            <Stack direction="column" spacing={2}>
-              <div className="button" onClick={() => window.location.href = "/Login"}><Login /> <PersonAdd fontSize="large" /></div>
-              Sign in / Sign up
-            </Stack>
-          </Button>
-
-        )
-      }
-      
-    }catch(error){
+      return(
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{
+            marginTop: '25px',
+            borderRadius: '50%',
+            width: '64px',
+            height: '64px',
+          }}
+          onClick={() => handleUserButton()}
+        >
+          <Stack direction="column" spacing={0} alignItems="center">
+            {isAuthenticated ? 
+              <Person fontSize="large" style={{ color: 'white' }} /> 
+            : 
+              <Login fontSize="large" style={{ color: 'white' }} />
+            }
+          </Stack>
+        </Button>
+      )} 
+    catch(error){
       return(
         <div>Please contact eric@northcountryengineer.com</div>
       )
@@ -234,8 +227,8 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
           <Grid item xs={3.5} justifyContent="flex-start">
             <NorthCountryEngineerLogoAndTitle dynamicTitle={dynamicTitle} font={font} />
           </Grid>
-          <Grid item xs={6.5} />
-          <Grid item xs={2} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
+          <Grid item xs={8} />
+          <Grid item xs={.5} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
             {dynamicButton()}
           </Grid>
         </Grid>

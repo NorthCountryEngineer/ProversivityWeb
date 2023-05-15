@@ -1,6 +1,6 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { deleteResume } from "../../../../../../graphql/mutations";
-import { listResumes } from "../../../../../../graphql/queries";
+//import { deleteResume } from "../../../../../../graphql/mutations";
+//import { listResumes } from "../../../../../../graphql/queries";
 
 interface ResumeInterface {
     id:String
@@ -9,7 +9,7 @@ interface ResumeInterface {
 
 export async function listResumesCallWithHook(setter:any) {
     try {
-        const listResumesCall:any = await API.graphql(graphqlOperation(listResumes))
+        const listResumesCall:any = {}//await API.graphql(graphqlOperation(listResumes))
         let resumesCallItems:any = listResumesCall.data.listResumes.items
         let tempData:ResumeInterface[] = []
         resumesCallItems.forEach((resume:any) => {
@@ -25,7 +25,7 @@ export async function listResumesCallWithHook(setter:any) {
 export async function deleteResumeByID(resumeID:String,updateTableData:any,updateCurrentResume:any){
     let resumeCall:any
     try{
-        resumeCall = await API.graphql(graphqlOperation(deleteResume, {input: {id: resumeID}}))
+        resumeCall = {}//await API.graphql(graphqlOperation(deleteResume, {input: {id: resumeID}}))
         if(resumeCall){
             listResumesCallWithHook(updateTableData)
             updateCurrentResume()

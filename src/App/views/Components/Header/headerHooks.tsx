@@ -27,7 +27,7 @@ export const useCurrentView = () => {
  * @returns {string | undefined} - The email address of the authenticated user, or undefined if no user is authenticated.
  */
 export const useUserEmail = () => {
-  const [userEmail, setUserEmail] = useState<String>();
+  const [userEmail, setUserEmail] = useState();
 
   /**
    * Retrieves the email address of the currently authenticated user using the AWS Amplify Auth library.
@@ -108,31 +108,6 @@ export function ProversivityAppBarHooks() {
       justifyContent
   };
 }
-
-/**
- * A hook that listens for title updates from AWS Amplify's Hub and returns the dynamic title.
- * @param {string} initialTitle - The initial title to use if there is no message in the payload.
- * @returns {string} - The dynamic title.
- */
-export function useTitleUpdate(initialTitle: string) {
-  const [dynamicTitle, setDynamicTitle] = useState(initialTitle);
-
-  useEffect(() => {
-      // Register a listener for "TitleUpdate" events using AWS Amplify's Hub
-      Hub.listen('TitleUpdate', data => {
-          // When a "TitleUpdate" event is triggered, update the dynamic title with the message payload or the initial title
-          setDynamicTitle(data.payload.message ?? initialTitle);
-      });
-
-      // Deregister the listener when the component is unmounted to prevent memory leaks
-      return () => {
-          Hub.remove('TitleUpdate', () => {});
-      };
-  }, [initialTitle]);
-
-  return dynamicTitle;
-}
-
 
 
   
