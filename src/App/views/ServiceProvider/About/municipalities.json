@@ -1,0 +1,4762 @@
+[
+  {
+    "village": "Adams",
+    "county": "Jefferson",
+    "population": "1,633",
+    "land": "1.447",
+    "town": "Adams",
+    "type": "Village"
+  },
+  {
+    "village": "Addison",
+    "county": "Steuben",
+    "population": "1,561",
+    "land": "1.893",
+    "town": "Addison",
+    "type": "Village"
+  },
+  {
+    "village": "Afton",
+    "county": "Chenango",
+    "population": "794",
+    "land": "1.527",
+    "town": "Afton",
+    "type": "Village"
+  },
+  {
+    "village": "Airmont",
+    "county": "Rockland",
+    "population": "10,166",
+    "land": "4.643",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "Akron",
+    "county": "Erie",
+    "population": "2,888",
+    "land": "1.976",
+    "town": "Newstead",
+    "type": "Village"
+  },
+  {
+    "village": "Albany",
+    "county": "Albany",
+    "population": "99,224",
+    "land": "21.40",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Albion",
+    "county": "Orleans",
+    "population": "5,637",
+    "land": "2.920",
+    "town": "Albion & Gaines",
+    "type": "Village"
+  },
+  {
+    "village": "Alden",
+    "county": "Erie",
+    "population": "2,604",
+    "land": "2.718",
+    "town": "Alden",
+    "type": "Village"
+  },
+  {
+    "village": "Alexander",
+    "county": "Genesee",
+    "population": "518",
+    "land": "0.437",
+    "town": "Alexander",
+    "type": "Village"
+  },
+  {
+    "village": "Alexandria Bay",
+    "county": "Jefferson",
+    "population": "924",
+    "land": "0.766",
+    "town": "Alexandria",
+    "type": "Village"
+  },
+  {
+    "village": "Alfred",
+    "county": "Allegany",
+    "population": "4,026",
+    "land": "1.190",
+    "town": "Alfred",
+    "type": "Village"
+  },
+  {
+    "village": "Allegany",
+    "county": "Cattaraugus",
+    "population": "1,544",
+    "land": "0.705",
+    "town": "Allegany",
+    "type": "Village"
+  },
+  {
+    "village": "Almond",
+    "county": "Multiple",
+    "population": "415",
+    "land": "0.564",
+    "town": "Almond & Hornellsville",
+    "type": "Village"
+  },
+  {
+    "village": "Altamont",
+    "county": "Albany",
+    "population": "1,675",
+    "land": "1.186",
+    "town": "Guilderland",
+    "type": "Village"
+  },
+  {
+    "village": "Ames",
+    "county": "Montgomery",
+    "population": "138",
+    "land": "0.131",
+    "town": "Canajoharie",
+    "type": "Village"
+  },
+  {
+    "village": "Amityville",
+    "county": "Suffolk",
+    "population": "9,500",
+    "land": "2.113",
+    "town": "Babylon",
+    "type": "Village"
+  },
+  {
+    "village": "Amsterdam",
+    "county": "Montgomery",
+    "population": "18,219",
+    "land": "5.87",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Andover",
+    "county": "Allegany",
+    "population": "890",
+    "land": "1.001",
+    "town": "Andover",
+    "type": "Village"
+  },
+  {
+    "village": "Angelica",
+    "county": "Allegany",
+    "population": "723",
+    "land": "2.152",
+    "town": "Angelica",
+    "type": "Village"
+  },
+  {
+    "village": "Angola",
+    "county": "Erie",
+    "population": "2,046",
+    "land": "1.417",
+    "town": "Evans",
+    "type": "Village"
+  },
+  {
+    "village": "Antwerp",
+    "county": "Jefferson",
+    "population": "506",
+    "land": "1.035",
+    "town": "Antwerp",
+    "type": "Village"
+  },
+  {
+    "village": "Arcade",
+    "county": "Wyoming",
+    "population": "1,908",
+    "land": "2.649",
+    "town": "Arcade",
+    "type": "Village"
+  },
+  {
+    "village": "Ardsley",
+    "county": "Westchester",
+    "population": "5,079",
+    "land": "1.323",
+    "town": "Greenburgh",
+    "type": "Village"
+  },
+  {
+    "village": "Argyle",
+    "county": "Washington",
+    "population": "289",
+    "land": "0.350",
+    "town": "Argyle",
+    "type": "Village"
+  },
+  {
+    "village": "Arkport",
+    "county": "Steuben",
+    "population": "745",
+    "land": "0.694",
+    "town": "Hornellsville",
+    "type": "Village"
+  },
+  {
+    "village": "Asharoken",
+    "county": "Suffolk",
+    "population": "592",
+    "land": "1.471",
+    "town": "Huntington",
+    "type": "Village"
+  },
+  {
+    "village": "Athens",
+    "county": "Greene",
+    "population": "1,586",
+    "land": "3.420",
+    "town": "Athens",
+    "type": "Village"
+  },
+  {
+    "village": "Atlantic Beach",
+    "county": "Nassau",
+    "population": "1,707",
+    "land": "0.439",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Attica",
+    "county": "Multiple",
+    "population": "2,450",
+    "land": "1.691",
+    "town": "Alexander & Attica",
+    "type": "Village"
+  },
+  {
+    "village": "Auburn",
+    "county": "Cayuga",
+    "population": "26,866",
+    "land": "8.34",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Aurora",
+    "county": "Cayuga",
+    "population": "607",
+    "land": "0.919",
+    "town": "Ledyard",
+    "type": "Village"
+  },
+  {
+    "village": "Avoca",
+    "county": "Steuben",
+    "population": "809",
+    "land": "1.326",
+    "town": "Avoca",
+    "type": "Village"
+  },
+  {
+    "village": "Avon",
+    "county": "Livingston",
+    "population": "3,399",
+    "land": "3.099",
+    "town": "Avon",
+    "type": "Village"
+  },
+  {
+    "village": "Babylon",
+    "county": "Suffolk",
+    "population": "12,188",
+    "land": "2.445",
+    "town": "Babylon",
+    "type": "Village"
+  },
+  {
+    "village": "Bainbridge",
+    "county": "Chenango",
+    "population": "1,251",
+    "land": "1.239",
+    "town": "Bainbridge",
+    "type": "Village"
+  },
+  {
+    "village": "Baldwinsville",
+    "county": "Onondaga",
+    "population": "7,898",
+    "land": "3.092",
+    "town": "Lysander & Van Buren",
+    "type": "Village"
+  },
+  {
+    "village": "Ballston Spa",
+    "county": "Saratoga",
+    "population": "5,111",
+    "land": "1.599",
+    "town": "Ballston & Milton",
+    "type": "Village"
+  },
+  {
+    "village": "Barker",
+    "county": "Niagara",
+    "population": "575",
+    "land": "0.420",
+    "town": "Somerset",
+    "type": "Village"
+  },
+  {
+    "village": "Batavia",
+    "county": "Genesee",
+    "population": "15,600",
+    "land": "5.20",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Bath",
+    "county": "Steuben",
+    "population": "5,571",
+    "land": "3.175",
+    "town": "Bath",
+    "type": "Village"
+  },
+  {
+    "village": "Baxter Estates",
+    "county": "Nassau",
+    "population": "991",
+    "land": "0.182",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Bayville",
+    "county": "Nassau",
+    "population": "6,748",
+    "land": "1.450",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Beacon",
+    "county": "Dutchess",
+    "population": "13,769",
+    "land": "4.74",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Belle Terre",
+    "county": "Suffolk",
+    "population": "808",
+    "land": "0.885",
+    "town": "Brookhaven",
+    "type": "Village"
+  },
+  {
+    "village": "Bellerose",
+    "county": "Nassau",
+    "population": "1,173",
+    "land": "0.125",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Bellport",
+    "county": "Suffolk",
+    "population": "2,203",
+    "land": "1.445",
+    "town": "Brookhaven",
+    "type": "Village"
+  },
+  {
+    "village": "Belmont",
+    "county": "Allegany",
+    "population": "856",
+    "land": "0.996",
+    "town": "Amity",
+    "type": "Village"
+  },
+  {
+    "village": "Bemus Point",
+    "county": "Chautauqua",
+    "population": "306",
+    "land": "0.436",
+    "town": "Ellery",
+    "type": "Village"
+  },
+  {
+    "village": "Bergen",
+    "county": "Genesee",
+    "population": "1,208",
+    "land": "0.737",
+    "town": "Bergen",
+    "type": "Village"
+  },
+  {
+    "village": "Binghamton",
+    "county": "Broome",
+    "population": "47,969",
+    "land": "10.48",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Black River",
+    "county": "Jefferson",
+    "population": "1,232",
+    "land": "1.791",
+    "town": "Le Ray & Rutland",
+    "type": "Village"
+  },
+  {
+    "village": "Blasdell",
+    "county": "Erie",
+    "population": "2,539",
+    "land": "1.123",
+    "town": "Hamburg",
+    "type": "Village"
+  },
+  {
+    "village": "Bloomfield",
+    "county": "Ontario",
+    "population": "1,277",
+    "land": "1.397",
+    "town": "East Bloomfield",
+    "type": "Village"
+  },
+  {
+    "village": "Bloomingburg",
+    "county": "Sullivan",
+    "population": "1,032",
+    "land": "0.688",
+    "town": "Mamakating",
+    "type": "Village"
+  },
+  {
+    "village": "Bolivar",
+    "county": "Allegany",
+    "population": "1,010",
+    "land": "0.798",
+    "town": "Bolivar",
+    "type": "Village"
+  },
+  {
+    "village": "Boonville",
+    "county": "Oneida",
+    "population": "2,020",
+    "land": "1.729",
+    "town": "Boonville",
+    "type": "Village"
+  },
+  {
+    "village": "Brewster",
+    "county": "Putnam",
+    "population": "2,508",
+    "land": "0.467",
+    "town": "Southeast",
+    "type": "Village"
+  },
+  {
+    "village": "Briarcliff Manor",
+    "county": "Westchester",
+    "population": "7,569",
+    "land": "5.962",
+    "town": "Mount Pleasant & Ossining",
+    "type": "Village"
+  },
+  {
+    "village": "Brightwaters",
+    "county": "Suffolk",
+    "population": "3,181",
+    "land": "0.976",
+    "town": "Islip",
+    "type": "Village"
+  },
+  {
+    "village": "Broadalbin",
+    "county": "Fulton",
+    "population": "1,384",
+    "land": "1.122",
+    "town": "Broadalbin & Mayfield",
+    "type": "Village"
+  },
+  {
+    "village": "Brockport",
+    "county": "Monroe",
+    "population": "7,104",
+    "land": "2.161",
+    "town": "Clarkson & Sweden",
+    "type": "Village"
+  },
+  {
+    "village": "Brocton",
+    "county": "Chautauqua",
+    "population": "1,286",
+    "land": "1.710",
+    "town": "Portland",
+    "type": "Village"
+  },
+  {
+    "village": "Bronxville",
+    "county": "Westchester",
+    "population": "6,656",
+    "land": "0.962",
+    "town": "Eastchester",
+    "type": "Village"
+  },
+  {
+    "village": "Brookville",
+    "county": "Nassau",
+    "population": "2,939",
+    "land": "3.937",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Brownville",
+    "county": "Jefferson",
+    "population": "930",
+    "land": "0.673",
+    "town": "Brownville",
+    "type": "Village"
+  },
+  {
+    "village": "Brushton",
+    "county": "Franklin",
+    "population": "443",
+    "land": "0.276",
+    "town": "Moira",
+    "type": "Village"
+  },
+  {
+    "village": "Buchanan",
+    "county": "Westchester",
+    "population": "2,302",
+    "land": "1.382",
+    "town": "Cortlandt",
+    "type": "Village"
+  },
+  {
+    "village": "Buffalo",
+    "county": "Erie",
+    "population": "278,349",
+    "land": "40.38",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Burdett",
+    "county": "Schuyler",
+    "population": "331",
+    "land": "0.962",
+    "town": "Hector",
+    "type": "Village"
+  },
+  {
+    "village": "Burke",
+    "county": "Franklin",
+    "population": "160",
+    "land": "0.290",
+    "town": "Burke",
+    "type": "Village"
+  },
+  {
+    "village": "Caledonia",
+    "county": "Livingston",
+    "population": "2,080",
+    "land": "2.097",
+    "town": "Caledonia",
+    "type": "Village"
+  },
+  {
+    "village": "Cambridge",
+    "county": "Washington",
+    "population": "1,788",
+    "land": "1.678",
+    "town": "Cambridge & White Creek",
+    "type": "Village"
+  },
+  {
+    "village": "Camden",
+    "county": "Oneida",
+    "population": "2,196",
+    "land": "2.436",
+    "town": "Camden",
+    "type": "Village"
+  },
+  {
+    "village": "Camillus",
+    "county": "Onondaga",
+    "population": "1,222",
+    "land": "0.390",
+    "town": "Camillus",
+    "type": "Village"
+  },
+  {
+    "village": "Canajoharie",
+    "county": "Montgomery",
+    "population": "2,037",
+    "land": "1.330",
+    "town": "Canajoharie",
+    "type": "Village"
+  },
+  {
+    "village": "Canandaigua",
+    "county": "Ontario",
+    "population": "10,576",
+    "land": "4.56",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Canaseraga",
+    "county": "Allegany",
+    "population": "460",
+    "land": "1.062",
+    "town": "Burns",
+    "type": "Village"
+  },
+  {
+    "village": "Canastota",
+    "county": "Madison",
+    "population": "4,556",
+    "land": "3.351",
+    "town": "Lenox",
+    "type": "Village"
+  },
+  {
+    "village": "Candor",
+    "county": "Tioga",
+    "population": "786",
+    "land": "0.441",
+    "town": "Candor",
+    "type": "Village"
+  },
+  {
+    "village": "Canisteo",
+    "county": "Steuben",
+    "population": "2,176",
+    "land": "0.934",
+    "town": "Canisteo",
+    "type": "Village"
+  },
+  {
+    "village": "Canton",
+    "county": "St. Lawrence",
+    "population": "7,155",
+    "land": "3.576",
+    "town": "Canton",
+    "type": "Village"
+  },
+  {
+    "village": "Cape Vincent",
+    "county": "Jefferson",
+    "population": "699",
+    "land": "0.724",
+    "town": "Cape Vincent",
+    "type": "Village"
+  },
+  {
+    "village": "Carthage",
+    "county": "Jefferson",
+    "population": "3,236",
+    "land": "2.508",
+    "town": "Wilna",
+    "type": "Village"
+  },
+  {
+    "village": "Cassadaga",
+    "county": "Chautauqua",
+    "population": "573",
+    "land": "0.839",
+    "town": "Stockton",
+    "type": "Village"
+  },
+  {
+    "village": "Castile",
+    "county": "Wyoming",
+    "population": "970",
+    "land": "1.352",
+    "town": "Castile",
+    "type": "Village"
+  },
+  {
+    "village": "Castleton-on-Hudson",
+    "county": "Rensselaer",
+    "population": "1,477",
+    "land": "0.714",
+    "town": "Schodack",
+    "type": "Village"
+  },
+  {
+    "village": "Castorland",
+    "county": "Lewis",
+    "population": "334",
+    "land": "0.321",
+    "town": "Denmark",
+    "type": "Village"
+  },
+  {
+    "village": "Cato",
+    "county": "Cayuga",
+    "population": "517",
+    "land": "0.989",
+    "town": "Cato & Ira",
+    "type": "Village"
+  },
+  {
+    "village": "Catskill",
+    "county": "Greene",
+    "population": "3,745",
+    "land": "2.280",
+    "town": "Catskill",
+    "type": "Village"
+  },
+  {
+    "village": "Cattaraugus",
+    "county": "Cattaraugus",
+    "population": "960",
+    "land": "1.117",
+    "town": "New Albion",
+    "type": "Village"
+  },
+  {
+    "village": "Cayuga",
+    "county": "Cayuga",
+    "population": "472",
+    "land": "0.904",
+    "town": "Aurelius",
+    "type": "Village"
+  },
+  {
+    "village": "Cayuga Heights",
+    "county": "Tompkins",
+    "population": "4,114",
+    "land": "1.767",
+    "town": "Ithaca",
+    "type": "Village"
+  },
+  {
+    "village": "Cazenovia",
+    "county": "Madison",
+    "population": "2,767",
+    "land": "1.873",
+    "town": "Cazenovia",
+    "type": "Village"
+  },
+  {
+    "village": "Cedarhurst",
+    "county": "Nassau",
+    "population": "7,374",
+    "land": "0.675",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Celoron",
+    "county": "Chautauqua",
+    "population": "1,069",
+    "land": "0.747",
+    "town": "Ellicott",
+    "type": "Village"
+  },
+  {
+    "village": "Central Square",
+    "county": "Oswego",
+    "population": "1,862",
+    "land": "1.906",
+    "town": "Hastings",
+    "type": "Village"
+  },
+  {
+    "village": "Centre Island",
+    "county": "Nassau",
+    "population": "407",
+    "land": "1.090",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Champlain",
+    "county": "Clinton",
+    "population": "1,170",
+    "land": "1.390",
+    "town": "Champlain",
+    "type": "Village"
+  },
+  {
+    "village": "Chateaugay",
+    "county": "Franklin",
+    "population": "735",
+    "land": "1.083",
+    "town": "Chateaugay",
+    "type": "Village"
+  },
+  {
+    "village": "Chatham",
+    "county": "Columbia",
+    "population": "1,529",
+    "land": "1.237",
+    "town": "Chatham & Ghent",
+    "type": "Village"
+  },
+  {
+    "village": "Chaumont",
+    "county": "Jefferson",
+    "population": "615",
+    "land": "0.971",
+    "town": "Lyme",
+    "type": "Village"
+  },
+  {
+    "village": "Cherry Valley",
+    "county": "Otsego",
+    "population": "467",
+    "land": "0.510",
+    "town": "Cherry Valley",
+    "type": "Village"
+  },
+  {
+    "village": "Chester",
+    "county": "Orange",
+    "population": "3,993",
+    "land": "2.148",
+    "town": "Chester & Goshen",
+    "type": "Village"
+  },
+  {
+    "village": "Chestnut Ridge",
+    "county": "Rockland",
+    "population": "10,505",
+    "land": "4.968",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "Chittenango",
+    "county": "Madison",
+    "population": "4,896",
+    "land": "2.441",
+    "town": "Sullivan",
+    "type": "Village"
+  },
+  {
+    "village": "Churchville",
+    "county": "Monroe",
+    "population": "2,091",
+    "land": "1.153",
+    "town": "Riga",
+    "type": "Village"
+  },
+  {
+    "village": "Clayton",
+    "county": "Jefferson",
+    "population": "1,705",
+    "land": "1.613",
+    "town": "Clayton",
+    "type": "Village"
+  },
+  {
+    "village": "Clayville",
+    "county": "Oneida",
+    "population": "339",
+    "land": "0.439",
+    "town": "Paris",
+    "type": "Village"
+  },
+  {
+    "village": "Cleveland",
+    "county": "Oswego",
+    "population": "732",
+    "land": "1.131",
+    "town": "Constantia",
+    "type": "Village"
+  },
+  {
+    "village": "Clifton Springs",
+    "county": "Ontario",
+    "population": "2,209",
+    "land": "1.519",
+    "town": "Manchester & Phelps",
+    "type": "Village"
+  },
+  {
+    "village": "Clinton",
+    "county": "Oneida",
+    "population": "1,683",
+    "land": "0.626",
+    "town": "Kirkland",
+    "type": "Village"
+  },
+  {
+    "village": "Clyde",
+    "county": "Wayne",
+    "population": "2,171",
+    "land": "2.198",
+    "town": "Galen",
+    "type": "Village"
+  },
+  {
+    "village": "Cobleskill",
+    "county": "Schoharie",
+    "population": "4,173",
+    "land": "3.572",
+    "town": "Cobleskill",
+    "type": "Village"
+  },
+  {
+    "village": "Cohocton",
+    "county": "Steuben",
+    "population": "703",
+    "land": "1.501",
+    "town": "Cohocton",
+    "type": "Village"
+  },
+  {
+    "village": "Cohoes",
+    "county": "Albany",
+    "population": "18,147",
+    "land": "3.77",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Cold Brook",
+    "county": "Herkimer",
+    "population": "250",
+    "land": "0.439",
+    "town": "Russia",
+    "type": "Village"
+  },
+  {
+    "village": "Cold Spring",
+    "county": "Putnam",
+    "population": "1,986",
+    "land": "0.594",
+    "town": "Philipstown",
+    "type": "Village"
+  },
+  {
+    "village": "Colonie",
+    "county": "Albany",
+    "population": "7,781",
+    "land": "3.242",
+    "town": "Colonie",
+    "type": "Village"
+  },
+  {
+    "village": "Constableville",
+    "county": "Lewis",
+    "population": "293",
+    "land": "1.118",
+    "town": "West Turin",
+    "type": "Village"
+  },
+  {
+    "village": "Cooperstown",
+    "county": "Otsego",
+    "population": "1,794",
+    "land": "1.635",
+    "town": "Middlefield & Otsego",
+    "type": "Village"
+  },
+  {
+    "village": "Copenhagen",
+    "county": "Lewis",
+    "population": "631",
+    "land": "1.176",
+    "town": "Denmark",
+    "type": "Village"
+  },
+  {
+    "village": "Corfu",
+    "county": "Genesee",
+    "population": "689",
+    "land": "0.995",
+    "town": "Darien & Pembroke",
+    "type": "Village"
+  },
+  {
+    "village": "Corinth",
+    "county": "Saratoga",
+    "population": "2,562",
+    "land": "1.067",
+    "town": "Corinth",
+    "type": "Village"
+  },
+  {
+    "village": "Corning",
+    "county": "Steuben",
+    "population": "10,551",
+    "land": "3.08",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Cornwall-on-Hudson",
+    "county": "Orange",
+    "population": "3,075",
+    "land": "1.987",
+    "town": "Cornwall",
+    "type": "Village"
+  },
+  {
+    "village": "Cortland",
+    "county": "Cortland",
+    "population": "17,556",
+    "land": "3.89",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Cove Neck",
+    "county": "Nassau",
+    "population": "293",
+    "land": "1.284",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Coxsackie",
+    "county": "Greene",
+    "population": "2,746",
+    "land": "2.172",
+    "town": "Coxsackie",
+    "type": "Village"
+  },
+  {
+    "village": "Croghan",
+    "county": "Lewis",
+    "population": "639",
+    "land": "0.434",
+    "town": "Croghan & New Bremen",
+    "type": "Village"
+  },
+  {
+    "village": "Croton-on-Hudson",
+    "county": "Westchester",
+    "population": "8,327",
+    "land": "4.642",
+    "town": "Cortlandt",
+    "type": "Village"
+  },
+  {
+    "village": "Cuba",
+    "county": "Allegany",
+    "population": "1,517",
+    "land": "1.216",
+    "town": "Cuba",
+    "type": "Village"
+  },
+  {
+    "village": "Dannemora",
+    "county": "Clinton",
+    "population": "3,287",
+    "land": "1.148",
+    "town": "Dannemora & Saranac",
+    "type": "Village"
+  },
+  {
+    "village": "Dansville",
+    "county": "Livingston",
+    "population": "4,433",
+    "land": "2.608",
+    "town": "North Dansville & Sparta",
+    "type": "Village"
+  },
+  {
+    "village": "Deferiet",
+    "county": "Jefferson",
+    "population": "245",
+    "land": "0.650",
+    "town": "Wilna",
+    "type": "Village"
+  },
+  {
+    "village": "Delanson",
+    "county": "Schenectady",
+    "population": "335",
+    "land": "0.644",
+    "town": "Duanesburg",
+    "type": "Village"
+  },
+  {
+    "village": "Delevan",
+    "county": "Cattaraugus",
+    "population": "1,043",
+    "land": "0.994",
+    "town": "Yorkshire",
+    "type": "Village"
+  },
+  {
+    "village": "Delhi",
+    "county": "Delaware",
+    "population": "2,721",
+    "land": "3.142",
+    "town": "Delhi",
+    "type": "Village"
+  },
+  {
+    "village": "Depew",
+    "county": "Erie",
+    "population": "15,178",
+    "land": "5.074",
+    "town": "Cheektowaga & Lancaster",
+    "type": "Village"
+  },
+  {
+    "village": "Deposit",
+    "county": "Multiple",
+    "population": "1,387",
+    "land": "1.263",
+    "town": "Deposit & Sanford",
+    "type": "Village"
+  },
+  {
+    "village": "Dering Harbor",
+    "county": "Suffolk",
+    "population": "50",
+    "land": "0.246",
+    "town": "Shelter Island",
+    "type": "Village"
+  },
+  {
+    "village": "DeRuyter",
+    "county": "Madison",
+    "population": "408",
+    "land": "0.344",
+    "town": "DeRuyter",
+    "type": "Village"
+  },
+  {
+    "village": "Dexter",
+    "county": "Jefferson",
+    "population": "1,004",
+    "land": "0.692",
+    "town": "Brownville",
+    "type": "Village"
+  },
+  {
+    "village": "Dobbs Ferry",
+    "county": "Westchester",
+    "population": "11,541",
+    "land": "2.429",
+    "town": "Greenburgh",
+    "type": "Village"
+  },
+  {
+    "village": "Dolgeville",
+    "county": "Multiple",
+    "population": "2,042",
+    "land": "1.791",
+    "town": "Manheim & Oppenheim",
+    "type": "Village"
+  },
+  {
+    "village": "Dresden",
+    "county": "Yates",
+    "population": "293",
+    "land": "0.302",
+    "town": "Torrey",
+    "type": "Village"
+  },
+  {
+    "village": "Dryden",
+    "county": "Tompkins",
+    "population": "1,887",
+    "land": "1.756",
+    "town": "Dryden",
+    "type": "Village"
+  },
+  {
+    "village": "Dundee",
+    "county": "Yates",
+    "population": "1,690",
+    "land": "1.124",
+    "town": "Starkey",
+    "type": "Village"
+  },
+  {
+    "village": "Dunkirk",
+    "county": "Chautauqua",
+    "population": "12,743",
+    "land": "4.54",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Earlville",
+    "county": "Chenango & Madison",
+    "population": "774",
+    "land": "1.079",
+    "town": "Hamilton & Sherburne",
+    "type": "Village"
+  },
+  {
+    "village": "East Aurora",
+    "county": "Erie",
+    "population": "5,998",
+    "land": "2.512",
+    "town": "Aurora",
+    "type": "Village"
+  },
+  {
+    "village": "East Hampton",
+    "county": "Suffolk",
+    "population": "1,517",
+    "land": "4.764",
+    "town": "East Hampton",
+    "type": "Village"
+  },
+  {
+    "village": "East Hills",
+    "county": "Nassau",
+    "population": "7,284",
+    "land": "2.273",
+    "town": "North Hempstead & Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "East Nassau",
+    "county": "Rensselaer",
+    "population": "559",
+    "land": "4.863",
+    "town": "Nassau",
+    "type": "Village"
+  },
+  {
+    "village": "East Rochester",
+    "county": "Monroe",
+    "population": "6,334",
+    "land": "1.325",
+    "town": "East Rochester",
+    "type": "Village"
+  },
+  {
+    "village": "East Rockaway",
+    "county": "Nassau",
+    "population": "10,159",
+    "land": "1.017",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "East Syracuse",
+    "county": "Onondaga",
+    "population": "3,078",
+    "land": "1.622",
+    "town": "DeWitt",
+    "type": "Village"
+  },
+  {
+    "village": "East Williston",
+    "county": "Nassau",
+    "population": "2,645",
+    "land": "0.569",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Elba",
+    "county": "Genesee",
+    "population": "558",
+    "land": "1.017",
+    "town": "Elba",
+    "type": "Village"
+  },
+  {
+    "village": "Elbridge",
+    "county": "Onondaga",
+    "population": "921",
+    "land": "1.126",
+    "town": "Elbridge",
+    "type": "Village"
+  },
+  {
+    "village": "Ellenville",
+    "county": "Ulster",
+    "population": "4,167",
+    "land": "8.725",
+    "town": "Wawarsing",
+    "type": "Village"
+  },
+  {
+    "village": "Ellicottville",
+    "county": "Cattaraugus",
+    "population": "256",
+    "land": "0.820",
+    "town": "Ellicottville",
+    "type": "Village"
+  },
+  {
+    "village": "Ellisburg",
+    "county": "Jefferson",
+    "population": "186",
+    "land": "1.015",
+    "town": "Ellisburg",
+    "type": "Village"
+  },
+  {
+    "village": "Elmira",
+    "county": "Chemung",
+    "population": "26,523",
+    "land": "7.25",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Elmira Heights",
+    "county": "Chemung",
+    "population": "3,916",
+    "land": "1.146",
+    "town": "Elmira & Horseheads",
+    "type": "Village"
+  },
+  {
+    "village": "Elmsford",
+    "county": "Westchester",
+    "population": "5,239",
+    "land": "1.027",
+    "town": "Greenburgh",
+    "type": "Village"
+  },
+  {
+    "village": "Endicott",
+    "county": "Broome",
+    "population": "13,667",
+    "land": "3.194",
+    "town": "Union",
+    "type": "Village"
+  },
+  {
+    "village": "Esperance",
+    "county": "Schoharie",
+    "population": "346",
+    "land": "0.491",
+    "town": "Esperance",
+    "type": "Village"
+  },
+  {
+    "village": "Evans Mills",
+    "county": "Jefferson",
+    "population": "678",
+    "land": "0.829",
+    "town": "Le Ray",
+    "type": "Village"
+  },
+  {
+    "village": "Fabius",
+    "county": "Onondaga",
+    "population": "309",
+    "land": "0.398",
+    "town": "Fabius",
+    "type": "Village"
+  },
+  {
+    "village": "Fair Haven",
+    "county": "Cayuga",
+    "population": "760",
+    "land": "1.755",
+    "town": "Sterling",
+    "type": "Village"
+  },
+  {
+    "village": "Fairport",
+    "county": "Monroe",
+    "population": "5,501",
+    "land": "1.589",
+    "town": "Perinton",
+    "type": "Village"
+  },
+  {
+    "village": "Falconer",
+    "county": "Chautauqua",
+    "population": "2,269",
+    "land": "1.093",
+    "town": "Ellicott",
+    "type": "Village"
+  },
+  {
+    "village": "Farmingdale",
+    "county": "Nassau",
+    "population": "8,466",
+    "land": "1.121",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Farnham",
+    "county": "Erie",
+    "population": "381",
+    "land": "1.207",
+    "town": "Brant",
+    "type": "Village"
+  },
+  {
+    "village": "Fayetteville",
+    "county": "Onondaga",
+    "population": "4,225",
+    "land": "1.746",
+    "town": "Manlius",
+    "type": "Village"
+  },
+  {
+    "village": "Fishkill",
+    "county": "Dutchess",
+    "population": "2,166",
+    "land": "0.820",
+    "town": "Fishkill",
+    "type": "Village"
+  },
+  {
+    "village": "Fleischmanns",
+    "county": "Delaware",
+    "population": "210",
+    "land": "0.655",
+    "town": "Middletown",
+    "type": "Village"
+  },
+  {
+    "village": "Floral Park",
+    "county": "Nassau",
+    "population": "16,172",
+    "land": "1.417",
+    "town": "Hempstead & North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Florida",
+    "county": "Orange",
+    "population": "2,888",
+    "land": "2.251",
+    "town": "Goshen & Warwick",
+    "type": "Village"
+  },
+  {
+    "village": "Flower Hill",
+    "county": "Nassau",
+    "population": "4,794",
+    "land": "1.618",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Fonda",
+    "county": "Montgomery",
+    "population": "668",
+    "land": "0.539",
+    "town": "Mohawk",
+    "type": "Village"
+  },
+  {
+    "village": "Fort Ann",
+    "county": "Washington",
+    "population": "460",
+    "land": "0.293",
+    "town": "Fort Ann",
+    "type": "Village"
+  },
+  {
+    "village": "Fort Edward",
+    "county": "Washington",
+    "population": "3,108",
+    "land": "1.756",
+    "town": "Fort Edward",
+    "type": "Village"
+  },
+  {
+    "village": "Fort Johnson",
+    "county": "Montgomery",
+    "population": "401",
+    "land": "0.737",
+    "town": "Amsterdam",
+    "type": "Village"
+  },
+  {
+    "village": "Fort Plain",
+    "county": "Montgomery",
+    "population": "1,930",
+    "land": "1.346",
+    "town": "Canajoharie & Minden",
+    "type": "Village"
+  },
+  {
+    "village": "Frankfort",
+    "county": "Herkimer",
+    "population": "2,320",
+    "land": "1.014",
+    "town": "Frankfort",
+    "type": "Village"
+  },
+  {
+    "village": "Franklin",
+    "county": "Delaware",
+    "population": "258",
+    "land": "0.339",
+    "town": "Franklin",
+    "type": "Village"
+  },
+  {
+    "village": "Franklinville",
+    "county": "Cattaraugus",
+    "population": "1,652",
+    "land": "1.100",
+    "town": "Franklinville",
+    "type": "Village"
+  },
+  {
+    "village": "Fredonia",
+    "county": "Chautauqua",
+    "population": "9,585",
+    "land": "5.189",
+    "town": "Pomfret",
+    "type": "Village"
+  },
+  {
+    "village": "Freeport",
+    "county": "Nassau",
+    "population": "44,472",
+    "land": "4.628",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Freeville",
+    "county": "Tompkins",
+    "population": "498",
+    "land": "1.058",
+    "town": "Dryden",
+    "type": "Village"
+  },
+  {
+    "village": "Fulton",
+    "county": "Oswego",
+    "population": "11,389",
+    "land": "3.92",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Fultonville",
+    "county": "Montgomery",
+    "population": "742",
+    "land": "0.477",
+    "town": "Glen",
+    "type": "Village"
+  },
+  {
+    "village": "Gainesville",
+    "county": "Wyoming",
+    "population": "211",
+    "land": "0.856",
+    "town": "Gainesville",
+    "type": "Village"
+  },
+  {
+    "village": "Galway",
+    "county": "Saratoga",
+    "population": "165",
+    "land": "0.256",
+    "town": "Galway",
+    "type": "Village"
+  },
+  {
+    "village": "Garden City",
+    "county": "Nassau",
+    "population": "23,272",
+    "land": "5.330",
+    "town": "Hempstead & North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Geneseo",
+    "county": "Livingston",
+    "population": "7,574",
+    "land": "2.839",
+    "town": "Geneseo",
+    "type": "Village"
+  },
+  {
+    "village": "Geneva",
+    "county": "Multiple[A]",
+    "population": "12,812",
+    "land": "4.21",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Gilbertsville",
+    "county": "Otsego",
+    "population": "308",
+    "land": "1.003",
+    "town": "Butternuts",
+    "type": "Village"
+  },
+  {
+    "village": "Glen Cove",
+    "county": "Nassau",
+    "population": "28,365",
+    "land": "6.66",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Glens Falls",
+    "county": "Warren",
+    "population": "14,830",
+    "land": "3.85",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Glen Park",
+    "county": "Jefferson",
+    "population": "452",
+    "land": "0.708",
+    "town": "Brownville & Pamelia",
+    "type": "Village"
+  },
+  {
+    "village": "Gloversville",
+    "county": "Fulton",
+    "population": "15,131",
+    "land": "5.05",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Goshen",
+    "county": "Orange",
+    "population": "5,777",
+    "land": "3.330",
+    "town": "Goshen",
+    "type": "Village"
+  },
+  {
+    "village": "Gouverneur",
+    "county": "St. Lawrence",
+    "population": "3,526",
+    "land": "2.191",
+    "town": "Gouverneur",
+    "type": "Village"
+  },
+  {
+    "village": "Gowanda",
+    "county": "Multiple",
+    "population": "2,513",
+    "land": "1.593",
+    "town": "Collins & Persia",
+    "type": "Village"
+  },
+  {
+    "village": "Grand View-on-Hudson",
+    "county": "Rockland",
+    "population": "246",
+    "land": "0.176",
+    "town": "Orangetown",
+    "type": "Village"
+  },
+  {
+    "village": "Granville",
+    "county": "Washington",
+    "population": "2,404",
+    "land": "1.570",
+    "town": "Granville",
+    "type": "Village"
+  },
+  {
+    "village": "Great Neck",
+    "county": "Nassau",
+    "population": "11,145",
+    "land": "1.329",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Great Neck Estates",
+    "county": "Nassau",
+    "population": "2,990",
+    "land": "0.757",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Great Neck Plaza",
+    "county": "Nassau",
+    "population": "7,482",
+    "land": "0.312",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Green Island",
+    "county": "Albany",
+    "population": "2,934",
+    "land": "0.747",
+    "town": "Green Island",
+    "type": "Village"
+  },
+  {
+    "village": "Greene",
+    "county": "Chenango",
+    "population": "1,463",
+    "land": "1.068",
+    "town": "Greene",
+    "type": "Village"
+  },
+  {
+    "village": "Greenport",
+    "county": "Suffolk",
+    "population": "2,583",
+    "land": "0.956",
+    "town": "Southold",
+    "type": "Village"
+  },
+  {
+    "village": "Greenwich",
+    "county": "Washington",
+    "population": "1,651",
+    "land": "1.477",
+    "town": "Easton & Greenwich",
+    "type": "Village"
+  },
+  {
+    "village": "Greenwood Lake",
+    "county": "Orange",
+    "population": "2,994",
+    "land": "2.048",
+    "town": "Warwick",
+    "type": "Village"
+  },
+  {
+    "village": "Groton",
+    "county": "Tompkins",
+    "population": "2,145",
+    "land": "1.738",
+    "town": "Groton",
+    "type": "Village"
+  },
+  {
+    "village": "Hagaman",
+    "county": "Montgomery",
+    "population": "1,117",
+    "land": "1.498",
+    "town": "Amsterdam",
+    "type": "Village"
+  },
+  {
+    "village": "Hamburg",
+    "county": "Erie",
+    "population": "9,696",
+    "land": "2.486",
+    "town": "Hamburg",
+    "type": "Village"
+  },
+  {
+    "village": "Hamilton",
+    "county": "Madison",
+    "population": "4,107",
+    "land": "2.486",
+    "town": "Eaton, Hamilton & Madison",
+    "type": "Village"
+  },
+  {
+    "village": "Hammond",
+    "county": "St. Lawrence",
+    "population": "273",
+    "land": "0.586",
+    "town": "Hammond",
+    "type": "Village"
+  },
+  {
+    "village": "Hammondsport",
+    "county": "Steuben",
+    "population": "583",
+    "land": "0.345",
+    "town": "Urbana",
+    "type": "Village"
+  },
+  {
+    "village": "Hancock",
+    "county": "Delaware",
+    "population": "908",
+    "land": "1.502",
+    "town": "Hancock",
+    "type": "Village"
+  },
+  {
+    "village": "Hannibal",
+    "county": "Oswego",
+    "population": "535",
+    "land": "1.152",
+    "town": "Hannibal",
+    "type": "Village"
+  },
+  {
+    "village": "Harriman",
+    "county": "Orange",
+    "population": "2,714",
+    "land": "1.004",
+    "town": "Monroe & Woodbury",
+    "type": "Village"
+  },
+  {
+    "village": "Harrison",
+    "county": "Westchester",
+    "population": "28,218",
+    "land": "16.766",
+    "town": "Harrison",
+    "type": "Village"
+  },
+  {
+    "village": "Hastings-on-Hudson",
+    "county": "Westchester",
+    "population": "8,590",
+    "land": "1.952",
+    "town": "Greenburgh",
+    "type": "Village"
+  },
+  {
+    "village": "Haverstraw",
+    "county": "Rockland",
+    "population": "12,323",
+    "land": "1.980",
+    "town": "Haverstraw",
+    "type": "Village"
+  },
+  {
+    "village": "Head of the Harbor",
+    "county": "Suffolk",
+    "population": "1,520",
+    "land": "2.807",
+    "town": "Smithtown",
+    "type": "Village"
+  },
+  {
+    "village": "Hempstead",
+    "county": "Nassau",
+    "population": "59,169",
+    "land": "3.682",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Herkimer",
+    "county": "Herkimer",
+    "population": "7,234",
+    "land": "2.588",
+    "town": "Herkimer",
+    "type": "Village"
+  },
+  {
+    "village": "Heuvelton",
+    "county": "St. Lawrence",
+    "population": "722",
+    "land": "0.761",
+    "town": "Oswegatchie",
+    "type": "Village"
+  },
+  {
+    "village": "Hewlett Bay Park",
+    "county": "Nassau",
+    "population": "494",
+    "land": "0.337",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Hewlett Harbor",
+    "county": "Nassau",
+    "population": "1,290",
+    "land": "0.726",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Hewlett Neck",
+    "county": "Nassau",
+    "population": "569",
+    "land": "0.193",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Highland Falls",
+    "county": "Orange",
+    "population": "3,684",
+    "land": "1.090",
+    "town": "Highlands",
+    "type": "Village"
+  },
+  {
+    "village": "Hillburn",
+    "county": "Rockland",
+    "population": "930",
+    "land": "2.251",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "Hilton",
+    "county": "Monroe",
+    "population": "6,027",
+    "land": "1.780",
+    "town": "Parma",
+    "type": "Village"
+  },
+  {
+    "village": "Hobart",
+    "county": "Delaware",
+    "population": "351",
+    "land": "0.498",
+    "town": "Stamford",
+    "type": "Village"
+  },
+  {
+    "village": "Holland Patent",
+    "county": "Oneida",
+    "population": "416",
+    "land": "0.506",
+    "town": "Trenton",
+    "type": "Village"
+  },
+  {
+    "village": "Holley",
+    "county": "Orleans",
+    "population": "1,754",
+    "land": "1.268",
+    "town": "Murray",
+    "type": "Village"
+  },
+  {
+    "village": "Homer",
+    "county": "Cortland",
+    "population": "3,210",
+    "land": "1.925",
+    "town": "Cortlandville & Homer",
+    "type": "Village"
+  },
+  {
+    "village": "Honeoye Falls",
+    "county": "Monroe",
+    "population": "2,706",
+    "land": "2.543",
+    "town": "Mendon",
+    "type": "Village"
+  },
+  {
+    "village": "Hoosick Falls",
+    "county": "Rensselaer",
+    "population": "3,216",
+    "land": "1.598",
+    "town": "Hoosick",
+    "type": "Village"
+  },
+  {
+    "village": "Hornell",
+    "county": "Steuben",
+    "population": "8,263",
+    "land": "3.28",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Horseheads",
+    "county": "Chemung",
+    "population": "6,606",
+    "land": "3.887",
+    "town": "Horseheads",
+    "type": "Village"
+  },
+  {
+    "village": "Hudson",
+    "county": "Columbia",
+    "population": "5,894",
+    "land": "2.33",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Hudson Falls",
+    "county": "Washington",
+    "population": "7,427",
+    "land": "1.832",
+    "town": "Kingsbury",
+    "type": "Village"
+  },
+  {
+    "village": "Hunter",
+    "county": "Greene",
+    "population": "429",
+    "land": "1.735",
+    "town": "Hunter",
+    "type": "Village"
+  },
+  {
+    "village": "Huntington Bay",
+    "county": "Suffolk",
+    "population": "1,446",
+    "land": "0.998",
+    "town": "Huntington",
+    "type": "Village"
+  },
+  {
+    "village": "Ilion",
+    "county": "Herkimer",
+    "population": "7,646",
+    "land": "2.493",
+    "town": "Frankfort & German Flatts",
+    "type": "Village"
+  },
+  {
+    "village": "Interlaken",
+    "county": "Seneca",
+    "population": "595",
+    "land": "0.267",
+    "town": "Covert",
+    "type": "Village"
+  },
+  {
+    "village": "Irvington",
+    "county": "Westchester",
+    "population": "6,652",
+    "land": "2.773",
+    "town": "Greenburgh",
+    "type": "Village"
+  },
+  {
+    "village": "Island Park",
+    "county": "Nassau",
+    "population": "4,928",
+    "land": "0.445",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Islandia",
+    "county": "Suffolk",
+    "population": "3,567",
+    "land": "2.220",
+    "town": "Islip",
+    "type": "Village"
+  },
+  {
+    "village": "Ithaca",
+    "county": "Tompkins",
+    "population": "32,108",
+    "land": "5.39",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Jamestown",
+    "county": "Chautauqua",
+    "population": "28,712",
+    "land": "8.90",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Jeffersonville",
+    "county": "Sullivan",
+    "population": "368",
+    "land": "0.405",
+    "town": "Callicoon",
+    "type": "Village"
+  },
+  {
+    "village": "Johnstown",
+    "county": "Fulton",
+    "population": "8,204",
+    "land": "4.82",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Johnson City",
+    "county": "Broome",
+    "population": "15,343",
+    "land": "4.536",
+    "town": "Union",
+    "type": "Village"
+  },
+  {
+    "village": "Jordan",
+    "county": "Onondaga",
+    "population": "1,192",
+    "land": "1.146",
+    "town": "Elbridge",
+    "type": "Village"
+  },
+  {
+    "village": "Kaser",
+    "county": "Rockland",
+    "population": "5,491",
+    "land": "0.172",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "Kenmore",
+    "county": "Erie",
+    "population": "15,205",
+    "land": "1.435",
+    "town": "Tonawanda",
+    "type": "Village"
+  },
+  {
+    "village": "Kensington",
+    "county": "Nassau",
+    "population": "1,226",
+    "land": "0.254",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Kinderhook",
+    "county": "Columbia",
+    "population": "1,170",
+    "land": "2.104",
+    "town": "Kinderhook",
+    "type": "Village"
+  },
+  {
+    "village": "Kings Point",
+    "county": "Nassau",
+    "population": "5,619",
+    "land": "3.355",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Kingston",
+    "county": "Ulster",
+    "population": "24,069",
+    "land": "7.48",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Kiryas Joel",
+    "county": "Orange",
+    "population": "32,954",
+    "land": "1.462",
+    "town": "Palm Tree",
+    "type": "Village"
+  },
+  {
+    "village": "Lacona",
+    "county": "Oswego",
+    "population": "657",
+    "land": "1.110",
+    "town": "Sandy Creek",
+    "type": "Village"
+  },
+  {
+    "village": "Lackawanna",
+    "county": "Erie",
+    "population": "19,949",
+    "land": "6.55",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Lake George",
+    "county": "Warren",
+    "population": "1,008",
+    "land": "0.586",
+    "town": "Lake George",
+    "type": "Village"
+  },
+  {
+    "village": "Lake Grove",
+    "county": "Suffolk",
+    "population": "11,072",
+    "land": "2.947",
+    "town": "Brookhaven",
+    "type": "Village"
+  },
+  {
+    "village": "Lake Placid",
+    "county": "Essex",
+    "population": "2,205",
+    "land": "1.371",
+    "town": "North Elba",
+    "type": "Village"
+  },
+  {
+    "village": "Lake Success",
+    "county": "Nassau",
+    "population": "2,828",
+    "land": "1.845",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Lakewood",
+    "county": "Chautauqua",
+    "population": "3,002",
+    "land": "1.976",
+    "town": "Busti",
+    "type": "Village"
+  },
+  {
+    "village": "Lancaster",
+    "county": "Erie",
+    "population": "10,027",
+    "land": "2.698",
+    "town": "Lancaster",
+    "type": "Village"
+  },
+  {
+    "village": "Lansing",
+    "county": "Tompkins",
+    "population": "3,648",
+    "land": "4.610",
+    "town": "Lansing",
+    "type": "Village"
+  },
+  {
+    "village": "Larchmont",
+    "county": "Westchester",
+    "population": "6,630",
+    "land": "1.077",
+    "town": "Mamaroneck",
+    "type": "Village"
+  },
+  {
+    "village": "Lattingtown",
+    "county": "Nassau",
+    "population": "1,881",
+    "land": "3.755",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Laurel Hollow",
+    "county": "Nassau",
+    "population": "1,940",
+    "land": "2.958",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Laurens",
+    "county": "Otsego",
+    "population": "185",
+    "land": "0.128",
+    "town": "Laurens",
+    "type": "Village"
+  },
+  {
+    "village": "Lawrence",
+    "county": "Nassau",
+    "population": "6,809",
+    "land": "3.719",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Le Roy",
+    "county": "Genesee",
+    "population": "4,300",
+    "land": "2.688",
+    "town": "Le Roy",
+    "type": "Village"
+  },
+  {
+    "village": "Leicester",
+    "county": "Livingston",
+    "population": "440",
+    "land": "0.367",
+    "town": "Leicester",
+    "type": "Village"
+  },
+  {
+    "village": "Lewiston",
+    "county": "Niagara",
+    "population": "2,531",
+    "land": "1.097",
+    "town": "Lewiston",
+    "type": "Village"
+  },
+  {
+    "village": "Liberty",
+    "county": "Sullivan",
+    "population": "4,700",
+    "land": "2.602",
+    "town": "Liberty",
+    "type": "Village"
+  },
+  {
+    "village": "Lima",
+    "county": "Livingston",
+    "population": "2,094",
+    "land": "1.346",
+    "town": "Lima",
+    "type": "Village"
+  },
+  {
+    "village": "Lindenhurst",
+    "county": "Suffolk",
+    "population": "27,148",
+    "land": "3.760",
+    "town": "Babylon",
+    "type": "Village"
+  },
+  {
+    "village": "Lisle",
+    "county": "Broome",
+    "population": "348",
+    "land": "0.936",
+    "town": "Lisle",
+    "type": "Village"
+  },
+  {
+    "village": "Little Falls",
+    "county": "Herkimer",
+    "population": "4,605",
+    "land": "3.84",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Little Valley",
+    "county": "Cattaraugus",
+    "population": "1,058",
+    "land": "1.002",
+    "town": "Little Valley",
+    "type": "Village"
+  },
+  {
+    "village": "Liverpool",
+    "county": "Onondaga",
+    "population": "2,242",
+    "land": "0.757",
+    "town": "Salina",
+    "type": "Village"
+  },
+  {
+    "village": "Livonia",
+    "county": "Livingston",
+    "population": "1,472",
+    "land": "1.007",
+    "town": "Livonia",
+    "type": "Village"
+  },
+  {
+    "village": "Lloyd Harbor",
+    "county": "Suffolk",
+    "population": "3,571",
+    "land": "9.363",
+    "town": "Huntington",
+    "type": "Village"
+  },
+  {
+    "village": "Lockport",
+    "county": "Niagara",
+    "population": "20,876",
+    "land": "8.40",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Lodi",
+    "county": "Seneca",
+    "population": "254",
+    "land": "0.551",
+    "town": "Lodi",
+    "type": "Village"
+  },
+  {
+    "village": "Long Beach",
+    "county": "Nassau",
+    "population": "35,029",
+    "land": "2.22",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Lowville",
+    "county": "Lewis",
+    "population": "3,272",
+    "land": "1.911",
+    "town": "Lowville",
+    "type": "Village"
+  },
+  {
+    "village": "Lynbrook",
+    "county": "Nassau",
+    "population": "20,438",
+    "land": "2.014",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Lyndonville",
+    "county": "Orleans",
+    "population": "771",
+    "land": "1.024",
+    "town": "Yates",
+    "type": "Village"
+  },
+  {
+    "village": "Lyons Falls",
+    "county": "Lewis",
+    "population": "570",
+    "land": "0.971",
+    "town": "Lyonsdale & West Turin",
+    "type": "Village"
+  },
+  {
+    "village": "Madison",
+    "county": "Madison",
+    "population": "311",
+    "land": "0.502",
+    "town": "Madison",
+    "type": "Village"
+  },
+  {
+    "village": "Malone",
+    "county": "Franklin",
+    "population": "5,483",
+    "land": "3.111",
+    "town": "Malone",
+    "type": "Village"
+  },
+  {
+    "village": "Malverne",
+    "county": "Nassau",
+    "population": "8,560",
+    "land": "1.058",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Mamaroneck",
+    "county": "Westchester",
+    "population": "20,151",
+    "land": "3.170",
+    "town": "Mamaroneck & Rye",
+    "type": "Village"
+  },
+  {
+    "village": "Manchester",
+    "county": "Ontario",
+    "population": "1,640",
+    "land": "1.176",
+    "town": "Manchester",
+    "type": "Village"
+  },
+  {
+    "village": "Manlius",
+    "county": "Onondaga",
+    "population": "4,662",
+    "land": "1.785",
+    "town": "Manlius",
+    "type": "Village"
+  },
+  {
+    "village": "Mannsville",
+    "county": "Jefferson",
+    "population": "297",
+    "land": "0.897",
+    "town": "Ellisburg",
+    "type": "Village"
+  },
+  {
+    "village": "Manorhaven",
+    "county": "Nassau",
+    "population": "6,956",
+    "land": "0.465",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Marathon",
+    "county": "Cortland",
+    "population": "892",
+    "land": "1.130",
+    "town": "Marathon",
+    "type": "Village"
+  },
+  {
+    "village": "Marcellus",
+    "county": "Onondaga",
+    "population": "1,745",
+    "land": "0.622",
+    "town": "Marcellus",
+    "type": "Village"
+  },
+  {
+    "village": "Margaretville",
+    "county": "Delaware",
+    "population": "514",
+    "land": "0.684",
+    "town": "Middletown",
+    "type": "Village"
+  },
+  {
+    "village": "Massapequa Park",
+    "county": "Nassau",
+    "population": "17,109",
+    "land": "2.210",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Massena",
+    "county": "St. Lawrence",
+    "population": "10,151",
+    "land": "4.524",
+    "town": "Louisville, Massena & Norfolk",
+    "type": "Village"
+  },
+  {
+    "village": "Matinecock",
+    "county": "Nassau",
+    "population": "847",
+    "land": "2.658",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Maybrook",
+    "county": "Orange",
+    "population": "3,150",
+    "land": "1.354",
+    "town": "Hamptonburgh & Montgomery",
+    "type": "Village"
+  },
+  {
+    "village": "Mayfield",
+    "county": "Fulton",
+    "population": "780",
+    "land": "0.907",
+    "town": "Mayfield",
+    "type": "Village"
+  },
+  {
+    "village": "Mayville",
+    "county": "Chautauqua",
+    "population": "1,442",
+    "land": "1.991",
+    "town": "Chautauqua",
+    "type": "Village"
+  },
+  {
+    "village": "McGraw",
+    "county": "Cortland",
+    "population": "972",
+    "land": "0.987",
+    "town": "Cortlandville",
+    "type": "Village"
+  },
+  {
+    "village": "Mechanicville",
+    "county": "Saratoga",
+    "population": "5,163",
+    "land": "0.84",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Medina",
+    "county": "Orleans",
+    "population": "6,047",
+    "land": "3.299",
+    "town": "Ridgeway & Shelby",
+    "type": "Village"
+  },
+  {
+    "village": "Menands",
+    "county": "Albany",
+    "population": "4,554",
+    "land": "3.058",
+    "town": "Colonie",
+    "type": "Village"
+  },
+  {
+    "village": "Meridian",
+    "county": "Cayuga",
+    "population": "287",
+    "land": "0.691",
+    "town": "Cato",
+    "type": "Village"
+  },
+  {
+    "village": "Mexico",
+    "county": "Oswego",
+    "population": "1,531",
+    "land": "2.145",
+    "town": "Mexico",
+    "type": "Village"
+  },
+  {
+    "village": "Middleburgh",
+    "county": "Schoharie",
+    "population": "1,131",
+    "land": "1.247",
+    "town": "Middleburgh",
+    "type": "Village"
+  },
+  {
+    "village": "Middleport",
+    "county": "Niagara",
+    "population": "1,729",
+    "land": "0.872",
+    "town": "Hartland & Royalton",
+    "type": "Village"
+  },
+  {
+    "village": "Middletown",
+    "county": "Orange",
+    "population": "30,345",
+    "land": "5.31",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Middleville",
+    "county": "Herkimer",
+    "population": "407",
+    "land": "0.765",
+    "town": "Fairfield & Newport",
+    "type": "Village"
+  },
+  {
+    "village": "Milford",
+    "county": "Otsego",
+    "population": "367",
+    "land": "0.424",
+    "town": "Milford",
+    "type": "Village"
+  },
+  {
+    "village": "Mill Neck",
+    "county": "Nassau",
+    "population": "1,054",
+    "land": "2.609",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Millbrook",
+    "county": "Dutchess",
+    "population": "1,455",
+    "land": "1.931",
+    "town": "Washington",
+    "type": "Village"
+  },
+  {
+    "village": "Millerton",
+    "county": "Dutchess",
+    "population": "903",
+    "land": "0.618",
+    "town": "North East",
+    "type": "Village"
+  },
+  {
+    "village": "Millport",
+    "county": "Chemung",
+    "population": "301",
+    "land": "0.348",
+    "town": "Veteran",
+    "type": "Village"
+  },
+  {
+    "village": "Mineola",
+    "county": "Nassau",
+    "population": "20,800",
+    "land": "1.880",
+    "town": "Hempstead & North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Minoa",
+    "county": "Onondaga",
+    "population": "3,657",
+    "land": "1.273",
+    "town": "Manlius",
+    "type": "Village"
+  },
+  {
+    "village": "Mohawk",
+    "county": "Herkimer",
+    "population": "2,415",
+    "land": "0.876",
+    "town": "German Flatts",
+    "type": "Village"
+  },
+  {
+    "village": "Monroe",
+    "county": "Orange",
+    "population": "9,343",
+    "land": "3.453",
+    "town": "Monroe",
+    "type": "Village"
+  },
+  {
+    "village": "Montebello",
+    "county": "Rockland",
+    "population": "4,507",
+    "land": "4.346",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "Montgomery",
+    "county": "Orange",
+    "population": "3,834",
+    "land": "1.406",
+    "town": "Montgomery",
+    "type": "Village"
+  },
+  {
+    "village": "Monticello",
+    "county": "Sullivan",
+    "population": "7,173",
+    "land": "3.985",
+    "town": "Thompson",
+    "type": "Village"
+  },
+  {
+    "village": "Montour Falls",
+    "county": "Schuyler",
+    "population": "1,635",
+    "land": "3.008",
+    "town": "Dix & Montour",
+    "type": "Village"
+  },
+  {
+    "village": "Moravia",
+    "county": "Cayuga",
+    "population": "1,224",
+    "land": "1.703",
+    "town": "Moravia",
+    "type": "Village"
+  },
+  {
+    "village": "Morris",
+    "county": "Otsego",
+    "population": "486",
+    "land": "0.746",
+    "town": "Morris",
+    "type": "Village"
+  },
+  {
+    "village": "Morrisville",
+    "county": "Madison",
+    "population": "1,633",
+    "land": "1.153",
+    "town": "Eaton",
+    "type": "Village"
+  },
+  {
+    "village": "Mount Kisco",
+    "county": "Westchester",
+    "population": "10,959",
+    "land": "3.035",
+    "town": "Mount Kisco",
+    "type": "Village"
+  },
+  {
+    "village": "Mount Morris",
+    "county": "Livingston",
+    "population": "2,898",
+    "land": "2.048",
+    "town": "Mount Morris",
+    "type": "Village"
+  },
+  {
+    "village": "Mount Vernon",
+    "county": "Westchester",
+    "population": "73,893",
+    "land": "4.39",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Munnsville",
+    "county": "Madison",
+    "population": "454",
+    "land": "0.849",
+    "town": "Stockbridge",
+    "type": "Village"
+  },
+  {
+    "village": "Munsey Park",
+    "county": "Nassau",
+    "population": "2,809",
+    "land": "0.518",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Muttontown",
+    "county": "Nassau",
+    "population": "3,512",
+    "land": "6.063",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Naples",
+    "county": "Ontario",
+    "population": "931",
+    "land": "0.985",
+    "town": "Naples",
+    "type": "Village"
+  },
+  {
+    "village": "Nassau",
+    "county": "Rensselaer",
+    "population": "1,103",
+    "land": "0.699",
+    "town": "Nassau & Schodack",
+    "type": "Village"
+  },
+  {
+    "village": "Nelliston",
+    "county": "Montgomery",
+    "population": "555",
+    "land": "1.105",
+    "town": "Palatine",
+    "type": "Village"
+  },
+  {
+    "village": "Nelsonville",
+    "county": "Putnam",
+    "population": "624",
+    "land": "1.034",
+    "town": "Philipstown",
+    "type": "Village"
+  },
+  {
+    "village": "New Berlin",
+    "county": "Chenango",
+    "population": "901",
+    "land": "1.066",
+    "town": "New Berlin",
+    "type": "Village"
+  },
+  {
+    "village": "New Hartford",
+    "county": "Oneida",
+    "population": "1,859",
+    "land": "0.617",
+    "town": "New Hartford",
+    "type": "Village"
+  },
+  {
+    "village": "New Hempstead",
+    "county": "Rockland",
+    "population": "5,463",
+    "land": "2.853",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "New Hyde Park",
+    "county": "Nassau",
+    "population": "10,257",
+    "land": "0.860",
+    "town": "Hempstead & North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "New Paltz",
+    "county": "Ulster",
+    "population": "7,324",
+    "land": "1.715",
+    "town": "New Paltz",
+    "type": "Village"
+  },
+  {
+    "village": "New Rochelle",
+    "county": "Westchester",
+    "population": "79,726",
+    "land": "10.29",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "New Square",
+    "county": "Rockland",
+    "population": "9,679",
+    "land": "0.367",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "New York City",
+    "county": "Multiple",
+    "population": "8,804,190",
+    "land": "300.46",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "New York Mills",
+    "county": "Oneida",
+    "population": "3,244",
+    "land": "1.180",
+    "town": "New Hartford & Whitestown",
+    "type": "Village"
+  },
+  {
+    "village": "Newark",
+    "county": "Wayne",
+    "population": "9,017",
+    "land": "5.406",
+    "town": "Arcadia",
+    "type": "Village"
+  },
+  {
+    "village": "Newark Valley",
+    "county": "Tioga",
+    "population": "928",
+    "land": "0.988",
+    "town": "Newark Valley",
+    "type": "Village"
+  },
+  {
+    "village": "Newburgh",
+    "county": "Orange",
+    "population": "28,856",
+    "land": "3.81",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Newport",
+    "county": "Herkimer",
+    "population": "543",
+    "land": "0.526",
+    "town": "Newport",
+    "type": "Village"
+  },
+  {
+    "village": "Niagara Falls",
+    "county": "Niagara",
+    "population": "48,671",
+    "land": "14.09",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Nichols",
+    "county": "Tioga",
+    "population": "457",
+    "land": "0.518",
+    "town": "Nichols",
+    "type": "Village"
+  },
+  {
+    "village": "Nissequogue",
+    "county": "Suffolk",
+    "population": "1,564",
+    "land": "3.782",
+    "town": "Smithtown",
+    "type": "Village"
+  },
+  {
+    "village": "North Collins",
+    "county": "Erie",
+    "population": "1,247",
+    "land": "0.801",
+    "town": "North Collins",
+    "type": "Village"
+  },
+  {
+    "village": "North Haven",
+    "county": "Suffolk",
+    "population": "1,162",
+    "land": "2.713",
+    "town": "Southampton",
+    "type": "Village"
+  },
+  {
+    "village": "North Hills",
+    "county": "Nassau",
+    "population": "5,464",
+    "land": "2.759",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "North Hornell",
+    "county": "Steuben",
+    "population": "732",
+    "land": "0.498",
+    "town": "Hornellsville",
+    "type": "Village"
+  },
+  {
+    "village": "North Syracuse",
+    "county": "Onondaga",
+    "population": "6,739",
+    "land": "1.958",
+    "town": "Cicero & Clay",
+    "type": "Village"
+  },
+  {
+    "village": "North Tonawanda",
+    "county": "Niagara",
+    "population": "30,496",
+    "land": "10.09",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Northport",
+    "county": "Suffolk",
+    "population": "7,347",
+    "land": "2.308",
+    "town": "Huntington",
+    "type": "Village"
+  },
+  {
+    "village": "Northville",
+    "county": "Fulton",
+    "population": "993",
+    "land": "1.039",
+    "town": "Northampton",
+    "type": "Village"
+  },
+  {
+    "village": "Norwich",
+    "county": "Chenango",
+    "population": "7,051",
+    "land": "2.12",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Norwood",
+    "county": "St. Lawrence",
+    "population": "1,552",
+    "land": "2.095",
+    "town": "Norfolk & Potsdam",
+    "type": "Village"
+  },
+  {
+    "village": "Nunda",
+    "county": "Livingston",
+    "population": "1,169",
+    "land": "0.993",
+    "town": "Nunda",
+    "type": "Village"
+  },
+  {
+    "village": "Nyack",
+    "county": "Rockland",
+    "population": "7,265",
+    "land": "0.770",
+    "town": "Clarkstown & Orangetown",
+    "type": "Village"
+  },
+  {
+    "village": "Oakfield",
+    "county": "Genesee",
+    "population": "1,812",
+    "land": "0.661",
+    "town": "Oakfield",
+    "type": "Village"
+  },
+  {
+    "village": "Ocean Beach",
+    "county": "Suffolk",
+    "population": "153",
+    "land": "0.141",
+    "town": "Islip",
+    "type": "Village"
+  },
+  {
+    "village": "Odessa",
+    "county": "Schuyler",
+    "population": "517",
+    "land": "1.137",
+    "town": "Catharine & Montour",
+    "type": "Village"
+  },
+  {
+    "village": "Ogdensburg",
+    "county": "St. Lawrence",
+    "population": "10,064",
+    "land": "4.96",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Old Brookville",
+    "county": "Nassau",
+    "population": "2,020",
+    "land": "3.999",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Old Field",
+    "county": "Suffolk",
+    "population": "893",
+    "land": "2.070",
+    "town": "Brookhaven",
+    "type": "Village"
+  },
+  {
+    "village": "Old Westbury",
+    "county": "Nassau",
+    "population": "4,289",
+    "land": "8.573",
+    "town": "North Hempstead & Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Olean",
+    "county": "Cattaraugus",
+    "population": "13,937",
+    "land": "5.90",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Oneida",
+    "county": "Madison",
+    "population": "10,329",
+    "land": "22.05",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Oneida Castle",
+    "county": "Oneida",
+    "population": "586",
+    "land": "0.514",
+    "town": "Vernon",
+    "type": "Village"
+  },
+  {
+    "village": "Oneonta",
+    "county": "Otsego",
+    "population": "13,079",
+    "land": "4.36",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Orchard Park",
+    "county": "Erie",
+    "population": "3,108",
+    "land": "1.346",
+    "town": "Orchard Park",
+    "type": "Village"
+  },
+  {
+    "village": "Oriskany",
+    "county": "Oneida",
+    "population": "1,315",
+    "land": "0.792",
+    "town": "Whitestown",
+    "type": "Village"
+  },
+  {
+    "village": "Oriskany Falls",
+    "county": "Oneida",
+    "population": "658",
+    "land": "0.506",
+    "town": "Augusta",
+    "type": "Village"
+  },
+  {
+    "village": "Ossining",
+    "county": "Westchester",
+    "population": "27,551",
+    "land": "3.149",
+    "town": "Ossining",
+    "type": "Village"
+  },
+  {
+    "village": "Oswego",
+    "county": "Oswego",
+    "population": "16,921",
+    "land": "7.61",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Otego",
+    "county": "Otsego",
+    "population": "875",
+    "land": "1.159",
+    "town": "Otego",
+    "type": "Village"
+  },
+  {
+    "village": "Otisville",
+    "county": "Orange",
+    "population": "969",
+    "land": "0.764",
+    "town": "Mount Hope",
+    "type": "Village"
+  },
+  {
+    "village": "Ovid",
+    "county": "Seneca",
+    "population": "534",
+    "land": "0.398",
+    "town": "Ovid & Romulus",
+    "type": "Village"
+  },
+  {
+    "village": "Owego",
+    "county": "Tioga",
+    "population": "3,654",
+    "land": "2.454",
+    "town": "Owego",
+    "type": "Village"
+  },
+  {
+    "village": "Oxford",
+    "county": "Chenango",
+    "population": "1,330",
+    "land": "1.785",
+    "town": "Oxford",
+    "type": "Village"
+  },
+  {
+    "village": "Oyster Bay Cove",
+    "county": "Nassau",
+    "population": "2,265",
+    "land": "4.187",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Painted Post",
+    "county": "Steuben",
+    "population": "1,768",
+    "land": "1.272",
+    "town": "Erwin",
+    "type": "Village"
+  },
+  {
+    "village": "Palatine Bridge",
+    "county": "Montgomery",
+    "population": "796",
+    "land": "0.883",
+    "town": "Palatine",
+    "type": "Village"
+  },
+  {
+    "village": "Palmyra",
+    "county": "Wayne",
+    "population": "3,305",
+    "land": "1.347",
+    "town": "Palmyra",
+    "type": "Village"
+  },
+  {
+    "village": "Panama",
+    "county": "Chautauqua",
+    "population": "475",
+    "land": "2.200",
+    "town": "Harmony",
+    "type": "Village"
+  },
+  {
+    "village": "Parish",
+    "county": "Oswego",
+    "population": "447",
+    "land": "1.605",
+    "town": "Parish",
+    "type": "Village"
+  },
+  {
+    "village": "Patchogue",
+    "county": "Suffolk",
+    "population": "12,408",
+    "land": "2.255",
+    "town": "Brookhaven",
+    "type": "Village"
+  },
+  {
+    "village": "Pawling",
+    "county": "Dutchess",
+    "population": "1,995",
+    "land": "1.997",
+    "town": "Pawling",
+    "type": "Village"
+  },
+  {
+    "village": "Peekskill",
+    "county": "Westchester",
+    "population": "25,431",
+    "land": "4.34",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Pelham",
+    "county": "Westchester",
+    "population": "7,326",
+    "land": "0.829",
+    "town": "Pelham",
+    "type": "Village"
+  },
+  {
+    "village": "Pelham Manor",
+    "county": "Westchester",
+    "population": "5,752",
+    "land": "1.343",
+    "town": "Pelham",
+    "type": "Village"
+  },
+  {
+    "village": "Penn Yan",
+    "county": "Yates",
+    "population": "5,056",
+    "land": "2.381",
+    "town": "Benton, Jerusalem & Milo",
+    "type": "Village"
+  },
+  {
+    "village": "Perry",
+    "county": "Wyoming",
+    "population": "3,536",
+    "land": "2.337",
+    "town": "Castile & Perry",
+    "type": "Village"
+  },
+  {
+    "village": "Phelps",
+    "county": "Ontario",
+    "population": "1,851",
+    "land": "1.172",
+    "town": "Phelps",
+    "type": "Village"
+  },
+  {
+    "village": "Philadelphia",
+    "county": "Jefferson",
+    "population": "1,098",
+    "land": "0.904",
+    "town": "Philadelphia",
+    "type": "Village"
+  },
+  {
+    "village": "Philmont",
+    "county": "Columbia",
+    "population": "1,377",
+    "land": "1.187",
+    "town": "Claverack",
+    "type": "Village"
+  },
+  {
+    "village": "Phoenix",
+    "county": "Oswego",
+    "population": "2,226",
+    "land": "1.171",
+    "town": "Schroeppel",
+    "type": "Village"
+  },
+  {
+    "village": "Piermont",
+    "county": "Rockland",
+    "population": "2,517",
+    "land": "0.679",
+    "town": "Orangetown",
+    "type": "Village"
+  },
+  {
+    "village": "Pittsford",
+    "county": "Monroe",
+    "population": "1,419",
+    "land": "0.673",
+    "town": "Pittsford",
+    "type": "Village"
+  },
+  {
+    "village": "Plandome",
+    "county": "Nassau",
+    "population": "1,448",
+    "land": "0.495",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Plandome Heights",
+    "county": "Nassau",
+    "population": "1,009",
+    "land": "0.181",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Plandome Manor",
+    "county": "Nassau",
+    "population": "793",
+    "land": "0.484",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Plattsburgh",
+    "county": "Clinton",
+    "population": "19,841",
+    "land": "5.04",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Pleasantville",
+    "county": "Westchester",
+    "population": "7,513",
+    "land": "1.824",
+    "town": "Mount Pleasant",
+    "type": "Village"
+  },
+  {
+    "village": "Poland",
+    "county": "Herkimer",
+    "population": "464",
+    "land": "0.543",
+    "town": "Newport & Russia",
+    "type": "Village"
+  },
+  {
+    "village": "Pomona",
+    "county": "Rockland",
+    "population": "3,824",
+    "land": "2.397",
+    "town": "Haverstraw & Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "Poquott",
+    "county": "Suffolk",
+    "population": "903",
+    "land": "0.439",
+    "town": "Brookhaven",
+    "type": "Village"
+  },
+  {
+    "village": "Port Byron",
+    "county": "Cayuga",
+    "population": "1,101",
+    "land": "0.979",
+    "town": "Mentz",
+    "type": "Village"
+  },
+  {
+    "village": "Port Chester",
+    "county": "Westchester",
+    "population": "31,693",
+    "land": "2.331",
+    "town": "Rye",
+    "type": "Village"
+  },
+  {
+    "village": "Port Dickinson",
+    "county": "Broome",
+    "population": "1,699",
+    "land": "0.637",
+    "town": "Dickinson",
+    "type": "Village"
+  },
+  {
+    "village": "Port Jefferson",
+    "county": "Suffolk",
+    "population": "7,962",
+    "land": "3.057",
+    "town": "Brookhaven",
+    "type": "Village"
+  },
+  {
+    "village": "Port Jervis",
+    "county": "Orange",
+    "population": "8,775",
+    "land": "2.53",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Port Leyden",
+    "county": "Lewis",
+    "population": "554",
+    "land": "0.615",
+    "town": "Leyden & Lyonsdale",
+    "type": "Village"
+  },
+  {
+    "village": "Port Washington North",
+    "county": "Nassau",
+    "population": "3,160",
+    "land": "0.478",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Portville",
+    "county": "Cattaraugus",
+    "population": "892",
+    "land": "0.802",
+    "town": "Portville",
+    "type": "Village"
+  },
+  {
+    "village": "Potsdam",
+    "county": "St. Lawrence",
+    "population": "8,312",
+    "land": "4.447",
+    "town": "Potsdam",
+    "type": "Village"
+  },
+  {
+    "village": "Poughkeepsie",
+    "county": "Dutchess",
+    "population": "31,577",
+    "land": "5.14",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Pulaski",
+    "county": "Oswego",
+    "population": "2,186",
+    "land": "3.484",
+    "town": "Richland",
+    "type": "Village"
+  },
+  {
+    "village": "Quogue",
+    "county": "Suffolk",
+    "population": "1,662",
+    "land": "4.191",
+    "town": "Southampton",
+    "type": "Village"
+  },
+  {
+    "village": "Ravena",
+    "county": "Albany",
+    "population": "3,271",
+    "land": "1.467",
+    "town": "Coeymans",
+    "type": "Village"
+  },
+  {
+    "village": "Red Creek",
+    "county": "Wayne",
+    "population": "495",
+    "land": "0.909",
+    "town": "Wolcott",
+    "type": "Village"
+  },
+  {
+    "village": "Red Hook",
+    "county": "Dutchess",
+    "population": "1,975",
+    "land": "1.102",
+    "town": "Red Hook",
+    "type": "Village"
+  },
+  {
+    "village": "Remsen",
+    "county": "Oneida",
+    "population": "431",
+    "land": "0.372",
+    "town": "Remsen & Trenton",
+    "type": "Village"
+  },
+  {
+    "village": "Rensselaer",
+    "county": "Rensselaer",
+    "population": "9,210",
+    "land": "3.18",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Rensselaer Falls",
+    "county": "St. Lawrence",
+    "population": "361",
+    "land": "0.291",
+    "town": "Canton",
+    "type": "Village"
+  },
+  {
+    "village": "Rhinebeck",
+    "county": "Dutchess",
+    "population": "2,697",
+    "land": "1.523",
+    "town": "Rhinebeck",
+    "type": "Village"
+  },
+  {
+    "village": "Richburg",
+    "county": "Allegany",
+    "population": "401",
+    "land": "0.900",
+    "town": "Bolivar & Wirt",
+    "type": "Village"
+  },
+  {
+    "village": "Richfield Springs",
+    "county": "Otsego",
+    "population": "1,050",
+    "land": "1.007",
+    "town": "Richfield",
+    "type": "Village"
+  },
+  {
+    "village": "Richmondville",
+    "county": "Schoharie",
+    "population": "858",
+    "land": "1.846",
+    "town": "Richmondville",
+    "type": "Village"
+  },
+  {
+    "village": "Richville",
+    "county": "St. Lawrence",
+    "population": "234",
+    "land": "0.738",
+    "town": "De Kalb",
+    "type": "Village"
+  },
+  {
+    "village": "Riverside",
+    "county": "Steuben",
+    "population": "423",
+    "land": "0.301",
+    "town": "Corning",
+    "type": "Village"
+  },
+  {
+    "village": "Rochester",
+    "county": "Monroe",
+    "population": "211,328",
+    "land": "35.76",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Rockville Centre",
+    "county": "Nassau",
+    "population": "26,016",
+    "land": "3.247",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Rome",
+    "county": "Oneida",
+    "population": "32,127",
+    "land": "74.85",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Roslyn",
+    "county": "Nassau",
+    "population": "2,988",
+    "land": "0.645",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Roslyn Estates",
+    "county": "Nassau",
+    "population": "1,318",
+    "land": "0.438",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Roslyn Harbor",
+    "county": "Nassau",
+    "population": "1,067",
+    "land": "1.186",
+    "town": "North Hempstead & Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Round Lake",
+    "county": "Saratoga",
+    "population": "828",
+    "land": "1.123",
+    "town": "Malta",
+    "type": "Village"
+  },
+  {
+    "village": "Rouses Point",
+    "county": "Clinton",
+    "population": "2,195",
+    "land": "1.761",
+    "town": "Champlain",
+    "type": "Village"
+  },
+  {
+    "village": "Rushville",
+    "county": "Multiple",
+    "population": "651",
+    "land": "0.639",
+    "town": "Gorham & Potter",
+    "type": "Village"
+  },
+  {
+    "village": "Russell Gardens",
+    "county": "Nassau",
+    "population": "978",
+    "land": "0.174",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Rye",
+    "county": "Westchester",
+    "population": "16,592",
+    "land": "5.85",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Rye Brook",
+    "county": "Westchester",
+    "population": "10,047",
+    "land": "3.433",
+    "town": "Rye",
+    "type": "Village"
+  },
+  {
+    "village": "Sackets Harbor",
+    "county": "Jefferson",
+    "population": "1,351",
+    "land": "2.205",
+    "town": "Hounsfield",
+    "type": "Village"
+  },
+  {
+    "village": "Saddle Rock",
+    "county": "Nassau",
+    "population": "989",
+    "land": "0.246",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Sag Harbor",
+    "county": "Suffolk",
+    "population": "2,772",
+    "land": "1.804",
+    "town": "East Hampton & Southampton",
+    "type": "Village"
+  },
+  {
+    "village": "Sagaponack",
+    "county": "Suffolk",
+    "population": "770",
+    "land": "4.414",
+    "town": "Southampton",
+    "type": "Village"
+  },
+  {
+    "village": "Salamanca",
+    "county": "Cattaraugus",
+    "population": "5,929",
+    "land": "5.99",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Saltaire",
+    "county": "Suffolk",
+    "population": "113",
+    "land": "0.233",
+    "town": "Islip",
+    "type": "Village"
+  },
+  {
+    "village": "Sands Point",
+    "county": "Nassau",
+    "population": "2,712",
+    "land": "4.230",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Sandy Creek",
+    "county": "Oswego",
+    "population": "646",
+    "land": "1.351",
+    "town": "Sandy Creek",
+    "type": "Village"
+  },
+  {
+    "village": "Saranac Lake",
+    "county": "Multiple",
+    "population": "4,887",
+    "land": "2.779",
+    "town": "Harrietstown, North Elba & St. Armand",
+    "type": "Village"
+  },
+  {
+    "village": "Saratoga Springs",
+    "county": "Saratoga",
+    "population": "28,491",
+    "land": "28.07",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Saugerties",
+    "county": "Ulster",
+    "population": "3,899",
+    "land": "1.784",
+    "town": "Saugerties",
+    "type": "Village"
+  },
+  {
+    "village": "Savona",
+    "county": "Steuben",
+    "population": "672",
+    "land": "1.040",
+    "town": "Bath",
+    "type": "Village"
+  },
+  {
+    "village": "Scarsdale",
+    "county": "Westchester",
+    "population": "18,253",
+    "land": "6.660",
+    "town": "Scarsdale",
+    "type": "Village"
+  },
+  {
+    "village": "Schaghticoke",
+    "county": "Rensselaer",
+    "population": "527",
+    "land": "0.758",
+    "town": "Schaghticoke",
+    "type": "Village"
+  },
+  {
+    "village": "Schenectady",
+    "county": "Schenectady",
+    "population": "67,047",
+    "land": "10.81",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Sherrill",
+    "county": "Oneida",
+    "population": "3,077",
+    "land": "2.31",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Schoharie",
+    "county": "Schoharie",
+    "population": "916",
+    "land": "1.658",
+    "town": "Schoharie",
+    "type": "Village"
+  },
+  {
+    "village": "Schuylerville",
+    "county": "Saratoga",
+    "population": "1,370",
+    "land": "0.533",
+    "town": "Saratoga",
+    "type": "Village"
+  },
+  {
+    "village": "Scotia",
+    "county": "Schenectady",
+    "population": "7,272",
+    "land": "1.685",
+    "town": "Glenville",
+    "type": "Village"
+  },
+  {
+    "village": "Scottsville",
+    "county": "Monroe",
+    "population": "2,009",
+    "land": "1.082",
+    "town": "Wheatland",
+    "type": "Village"
+  },
+  {
+    "village": "Sea Cliff",
+    "county": "Nassau",
+    "population": "5,062",
+    "land": "1.115",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Sharon Springs",
+    "county": "Schoharie",
+    "population": "483",
+    "land": "1.827",
+    "town": "Sharon",
+    "type": "Village"
+  },
+  {
+    "village": "Sherburne",
+    "county": "Chenango",
+    "population": "1,360",
+    "land": "1.519",
+    "town": "Sherburne",
+    "type": "Village"
+  },
+  {
+    "village": "Sherman",
+    "county": "Chautauqua",
+    "population": "649",
+    "land": "0.854",
+    "town": "Sherman",
+    "type": "Village"
+  },
+  {
+    "village": "Shoreham",
+    "county": "Suffolk",
+    "population": "561",
+    "land": "0.448",
+    "town": "Brookhaven",
+    "type": "Village"
+  },
+  {
+    "village": "Shortsville",
+    "county": "Ontario",
+    "population": "1,400",
+    "land": "0.668",
+    "town": "Manchester",
+    "type": "Village"
+  },
+  {
+    "village": "Sidney",
+    "county": "Delaware",
+    "population": "3,697",
+    "land": "2.374",
+    "town": "Sidney",
+    "type": "Village"
+  },
+  {
+    "village": "Silver Creek",
+    "county": "Chautauqua",
+    "population": "2,617",
+    "land": "1.160",
+    "town": "Hanover",
+    "type": "Village"
+  },
+  {
+    "village": "Silver Springs",
+    "county": "Wyoming",
+    "population": "689",
+    "land": "0.952",
+    "town": "Gainesville",
+    "type": "Village"
+  },
+  {
+    "village": "Sinclairville",
+    "county": "Chautauqua",
+    "population": "579",
+    "land": "1.612",
+    "town": "Charlotte & Gerry",
+    "type": "Village"
+  },
+  {
+    "village": "Skaneateles",
+    "county": "Onondaga",
+    "population": "2,533",
+    "land": "1.414",
+    "town": "Skaneateles",
+    "type": "Village"
+  },
+  {
+    "village": "Sleepy Hollow",
+    "county": "Westchester",
+    "population": "9,986",
+    "land": "2.161",
+    "town": "Mount Pleasant",
+    "type": "Village"
+  },
+  {
+    "village": "Sloan",
+    "county": "Erie",
+    "population": "3,775",
+    "land": "0.786",
+    "town": "Cheektowaga",
+    "type": "Village"
+  },
+  {
+    "village": "Sloatsburg",
+    "county": "Rockland",
+    "population": "3,036",
+    "land": "2.467",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "Smyrna",
+    "county": "Chenango",
+    "population": "197",
+    "land": "0.244",
+    "town": "Smyrna",
+    "type": "Village"
+  },
+  {
+    "village": "Sodus",
+    "county": "Wayne",
+    "population": "1,667",
+    "land": "0.941",
+    "town": "Sodus",
+    "type": "Village"
+  },
+  {
+    "village": "Sodus Point",
+    "county": "Wayne",
+    "population": "822",
+    "land": "1.468",
+    "town": "Sodus",
+    "type": "Village"
+  },
+  {
+    "village": "Solvay",
+    "county": "Onondaga",
+    "population": "6,645",
+    "land": "1.654",
+    "town": "Geddes",
+    "type": "Village"
+  },
+  {
+    "village": "South Blooming Grove",
+    "county": "Orange",
+    "population": "3,973",
+    "land": "4.674",
+    "town": "Blooming Grove",
+    "type": "Village"
+  },
+  {
+    "village": "South Corning",
+    "county": "Steuben",
+    "population": "1,108",
+    "land": "0.617",
+    "town": "Corning",
+    "type": "Village"
+  },
+  {
+    "village": "South Dayton",
+    "county": "Cattaraugus",
+    "population": "541",
+    "land": "1.006",
+    "town": "Dayton",
+    "type": "Village"
+  },
+  {
+    "village": "South Floral Park",
+    "county": "Nassau",
+    "population": "1,741",
+    "land": "0.096",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "South Glens Falls",
+    "county": "Saratoga",
+    "population": "3,744",
+    "land": "1.358",
+    "town": "Moreau",
+    "type": "Village"
+  },
+  {
+    "village": "South Nyack",
+    "county": "Rockland",
+    "population": "2,699",
+    "land": "0.605",
+    "town": "Orangetown",
+    "type": "Village"
+  },
+  {
+    "village": "Southampton",
+    "county": "Suffolk",
+    "population": "4,550",
+    "land": "6.422",
+    "town": "Southampton",
+    "type": "Village"
+  },
+  {
+    "village": "Speculator",
+    "county": "Hamilton",
+    "population": "406",
+    "land": "44.571",
+    "town": "Lake Pleasant",
+    "type": "Village"
+  },
+  {
+    "village": "Spencer",
+    "county": "Tioga",
+    "population": "719",
+    "land": "1.015",
+    "town": "Spencer",
+    "type": "Village"
+  },
+  {
+    "village": "Spencerport",
+    "county": "Monroe",
+    "population": "3,685",
+    "land": "1.337",
+    "town": "Ogden",
+    "type": "Village"
+  },
+  {
+    "village": "Spring Valley",
+    "county": "Rockland",
+    "population": "33,066",
+    "land": "2.016",
+    "town": "Clarkstown & Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "Springville",
+    "county": "Erie",
+    "population": "4,225",
+    "land": "3.672",
+    "town": "Concord",
+    "type": "Village"
+  },
+  {
+    "village": "St. Johnsville",
+    "county": "Montgomery",
+    "population": "1,643",
+    "land": "0.878",
+    "town": "St. Johnsville",
+    "type": "Village"
+  },
+  {
+    "village": "Stamford",
+    "county": "Delaware",
+    "population": "1,040",
+    "land": "1.333",
+    "town": "Harpersfield & Stamford",
+    "type": "Village"
+  },
+  {
+    "village": "Stewart Manor",
+    "county": "Nassau",
+    "population": "1,992",
+    "land": "0.210",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Stillwater",
+    "county": "Saratoga",
+    "population": "1,754",
+    "land": "1.258",
+    "town": "Stillwater",
+    "type": "Village"
+  },
+  {
+    "village": "Suffern",
+    "county": "Rockland",
+    "population": "11,441",
+    "land": "2.089",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "Sylvan Beach",
+    "county": "Oneida",
+    "population": "890",
+    "land": "0.687",
+    "town": "Vienna",
+    "type": "Village"
+  },
+  {
+    "village": "Syracuse",
+    "county": "Onondaga",
+    "population": "148,620",
+    "land": "25.06",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Tannersville",
+    "county": "Greene",
+    "population": "568",
+    "land": "1.164",
+    "town": "Hunter",
+    "type": "Village"
+  },
+  {
+    "village": "Tarrytown",
+    "county": "Westchester",
+    "population": "11,860",
+    "land": "2.926",
+    "town": "Greenburgh",
+    "type": "Village"
+  },
+  {
+    "village": "Theresa",
+    "county": "Jefferson",
+    "population": "752",
+    "land": "1.252",
+    "town": "Theresa",
+    "type": "Village"
+  },
+  {
+    "village": "Thomaston",
+    "county": "Nassau",
+    "population": "2,759",
+    "land": "0.408",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Tivoli",
+    "county": "Dutchess",
+    "population": "1,012",
+    "land": "1.610",
+    "town": "Red Hook",
+    "type": "Village"
+  },
+  {
+    "village": "Tonawanda",
+    "county": "Erie",
+    "population": "15,129",
+    "land": "3.80",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Troy",
+    "county": "Rensselaer",
+    "population": "51,401",
+    "land": "10.36",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Trumansburg",
+    "county": "Tompkins",
+    "population": "1,714",
+    "land": "1.387",
+    "town": "Ulysses",
+    "type": "Village"
+  },
+  {
+    "village": "Tuckahoe",
+    "county": "Westchester",
+    "population": "7,084",
+    "land": "0.598",
+    "town": "Eastchester",
+    "type": "Village"
+  },
+  {
+    "village": "Tully",
+    "county": "Onondaga",
+    "population": "904",
+    "land": "0.717",
+    "town": "Tully",
+    "type": "Village"
+  },
+  {
+    "village": "Tupper Lake",
+    "county": "Franklin",
+    "population": "3,282",
+    "land": "2.090",
+    "town": "Tupper Lake",
+    "type": "Village"
+  },
+  {
+    "village": "Turin",
+    "county": "Lewis",
+    "population": "197",
+    "land": "1.026",
+    "town": "Turin",
+    "type": "Village"
+  },
+  {
+    "village": "Tuxedo Park",
+    "county": "Orange",
+    "population": "645",
+    "land": "2.655",
+    "town": "Tuxedo",
+    "type": "Village"
+  },
+  {
+    "village": "Unadilla",
+    "county": "Otsego",
+    "population": "1,065",
+    "land": "1.037",
+    "town": "Unadilla",
+    "type": "Village"
+  },
+  {
+    "village": "Union Springs",
+    "county": "Cayuga",
+    "population": "1,075",
+    "land": "1.737",
+    "town": "Springport",
+    "type": "Village"
+  },
+  {
+    "village": "Unionville",
+    "county": "Orange",
+    "population": "592",
+    "land": "0.310",
+    "town": "Minisink",
+    "type": "Village"
+  },
+  {
+    "village": "Upper Brookville",
+    "county": "Nassau",
+    "population": "1,786",
+    "land": "4.319",
+    "town": "Oyster Bay",
+    "type": "Village"
+  },
+  {
+    "village": "Upper Nyack",
+    "county": "Rockland",
+    "population": "2,015",
+    "land": "1.222",
+    "town": "Clarkstown",
+    "type": "Village"
+  },
+  {
+    "village": "Utica",
+    "county": "Oneida",
+    "population": "65,283",
+    "land": "16.72",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Valatie",
+    "county": "Columbia",
+    "population": "1,785",
+    "land": "1.254",
+    "town": "Kinderhook",
+    "type": "Village"
+  },
+  {
+    "village": "Valley Falls",
+    "county": "Rensselaer",
+    "population": "510",
+    "land": "0.463",
+    "town": "Pittstown & Schaghticoke",
+    "type": "Village"
+  },
+  {
+    "village": "Valley Stream",
+    "county": "Nassau",
+    "population": "40,634",
+    "land": "3.482",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Vernon",
+    "county": "Oneida",
+    "population": "1,177",
+    "land": "0.946",
+    "town": "Vernon",
+    "type": "Village"
+  },
+  {
+    "village": "Victor",
+    "county": "Ontario",
+    "population": "2,744",
+    "land": "1.373",
+    "town": "Victor",
+    "type": "Village"
+  },
+  {
+    "village": "Victory",
+    "county": "Saratoga",
+    "population": "666",
+    "land": "0.525",
+    "town": "Saratoga",
+    "type": "Village"
+  },
+  {
+    "village": "Village of the Branch",
+    "county": "Suffolk",
+    "population": "1,735",
+    "land": "0.948",
+    "town": "Smithtown",
+    "type": "Village"
+  },
+  {
+    "village": "Voorheesville",
+    "county": "Albany",
+    "population": "2,841",
+    "land": "2.139",
+    "town": "New Scotland",
+    "type": "Village"
+  },
+  {
+    "village": "Waddington",
+    "county": "St. Lawrence",
+    "population": "937",
+    "land": "2.180",
+    "town": "Waddington",
+    "type": "Village"
+  },
+  {
+    "village": "Walden",
+    "county": "Orange",
+    "population": "6,818",
+    "land": "1.968",
+    "town": "Montgomery",
+    "type": "Village"
+  },
+  {
+    "village": "Watertown",
+    "county": "Jefferson",
+    "population": "24,685",
+    "land": "9.03",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Watervliet",
+    "county": "Albany",
+    "population": "10,375",
+    "land": "1.34",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Walton",
+    "county": "Delaware",
+    "population": "2,885",
+    "land": "1.541",
+    "town": "Walton",
+    "type": "Village"
+  },
+  {
+    "village": "Wampsville",
+    "county": "Madison",
+    "population": "573",
+    "land": "1.009",
+    "town": "Lenox",
+    "type": "Village"
+  },
+  {
+    "village": "Wappingers Falls",
+    "county": "Dutchess",
+    "population": "6,103",
+    "land": "1.108",
+    "town": "Poughkeepsie & Wappinger",
+    "type": "Village"
+  },
+  {
+    "village": "Warsaw",
+    "county": "Wyoming",
+    "population": "3,646",
+    "land": "4.106",
+    "town": "Warsaw",
+    "type": "Village"
+  },
+  {
+    "village": "Warwick",
+    "county": "Orange",
+    "population": "6,652",
+    "land": "2.417",
+    "town": "Warwick",
+    "type": "Village"
+  },
+  {
+    "village": "Washingtonville",
+    "county": "Orange",
+    "population": "5,657",
+    "land": "2.538",
+    "town": "Blooming Grove",
+    "type": "Village"
+  },
+  {
+    "village": "Waterford",
+    "county": "Saratoga",
+    "population": "2,038",
+    "land": "0.283",
+    "town": "Waterford",
+    "type": "Village"
+  },
+  {
+    "village": "Waterloo",
+    "county": "Seneca",
+    "population": "4,810",
+    "land": "2.157",
+    "town": "Fayette, Seneca Falls & Waterloo",
+    "type": "Village"
+  },
+  {
+    "village": "Waterville",
+    "county": "Oneida",
+    "population": "1,473",
+    "land": "1.416",
+    "town": "Marshall & Sangerfield",
+    "type": "Village"
+  },
+  {
+    "village": "Watkins Glen",
+    "county": "Schuyler",
+    "population": "1,863",
+    "land": "1.559",
+    "town": "Dix & Reading",
+    "type": "Village"
+  },
+  {
+    "village": "Waverly",
+    "county": "Tioga",
+    "population": "4,373",
+    "land": "2.293",
+    "town": "Barton",
+    "type": "Village"
+  },
+  {
+    "village": "Wayland",
+    "county": "Steuben",
+    "population": "1,680",
+    "land": "1.130",
+    "town": "Wayland",
+    "type": "Village"
+  },
+  {
+    "village": "Webster",
+    "county": "Monroe",
+    "population": "5,651",
+    "land": "2.202",
+    "town": "Webster",
+    "type": "Village"
+  },
+  {
+    "village": "Weedsport",
+    "county": "Cayuga",
+    "population": "1,788",
+    "land": "0.976",
+    "town": "Brutus",
+    "type": "Village"
+  },
+  {
+    "village": "Wellsburg",
+    "county": "Chemung",
+    "population": "490",
+    "land": "0.568",
+    "town": "Ashland",
+    "type": "Village"
+  },
+  {
+    "village": "Wellsville",
+    "county": "Allegany",
+    "population": "4,587",
+    "land": "2.424",
+    "town": "Wellsville",
+    "type": "Village"
+  },
+  {
+    "village": "Wesley Hills",
+    "county": "Rockland",
+    "population": "6,116",
+    "land": "3.353",
+    "town": "Ramapo",
+    "type": "Village"
+  },
+  {
+    "village": "West Carthage",
+    "county": "Jefferson",
+    "population": "1,780",
+    "land": "1.297",
+    "town": "Champion",
+    "type": "Village"
+  },
+  {
+    "village": "West Hampton Dunes",
+    "county": "Suffolk",
+    "population": "126",
+    "land": "0.329",
+    "town": "Southampton",
+    "type": "Village"
+  },
+  {
+    "village": "West Haverstraw",
+    "county": "Rockland",
+    "population": "10,678",
+    "land": "1.519",
+    "town": "Haverstraw",
+    "type": "Village"
+  },
+  {
+    "village": "West Winfield",
+    "county": "Herkimer",
+    "population": "733",
+    "land": "0.911",
+    "town": "Winfield",
+    "type": "Village"
+  },
+  {
+    "village": "Westbury",
+    "county": "Nassau",
+    "population": "15,864",
+    "land": "2.374",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Westfield",
+    "county": "Chautauqua",
+    "population": "2,910",
+    "land": "3.822",
+    "town": "Westfield",
+    "type": "Village"
+  },
+  {
+    "village": "Westhampton Beach",
+    "county": "Suffolk",
+    "population": "2,150",
+    "land": "2.931",
+    "town": "Southampton",
+    "type": "Village"
+  },
+  {
+    "village": "White Plains",
+    "county": "Westchester",
+    "population": "59,559",
+    "land": "9.74",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Whitehall",
+    "county": "Washington",
+    "population": "2,465",
+    "land": "4.703",
+    "town": "Whitehall",
+    "type": "Village"
+  },
+  {
+    "village": "Whitesboro",
+    "county": "Oneida",
+    "population": "3,612",
+    "land": "1.050",
+    "town": "Whitestown",
+    "type": "Village"
+  },
+  {
+    "village": "Whitney Point",
+    "county": "Broome",
+    "population": "960",
+    "land": "1.043",
+    "town": "Lisle & Triangle",
+    "type": "Village"
+  },
+  {
+    "village": "Williamsville",
+    "county": "Erie",
+    "population": "5,423",
+    "land": "1.260",
+    "town": "Amherst & Cheektowaga",
+    "type": "Village"
+  },
+  {
+    "village": "Williston Park",
+    "county": "Nassau",
+    "population": "7,591",
+    "land": "0.626",
+    "town": "North Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Wilson",
+    "county": "Niagara",
+    "population": "1,247",
+    "land": "0.813",
+    "town": "Wilson",
+    "type": "Village"
+  },
+  {
+    "village": "Windsor",
+    "county": "Broome",
+    "population": "907",
+    "land": "1.095",
+    "town": "Windsor",
+    "type": "Village"
+  },
+  {
+    "village": "Wolcott",
+    "county": "Wayne",
+    "population": "1,556",
+    "land": "1.948",
+    "town": "Butler & Wolcott",
+    "type": "Village"
+  },
+  {
+    "village": "Woodbury",
+    "county": "Orange",
+    "population": "11,526",
+    "land": "35.602",
+    "town": "Woodbury",
+    "type": "Village"
+  },
+  {
+    "village": "Woodridge",
+    "county": "Sullivan",
+    "population": "747",
+    "land": "1.603",
+    "town": "Fallsburg",
+    "type": "Village"
+  },
+  {
+    "village": "Woodsburgh",
+    "county": "Nassau",
+    "population": "897",
+    "land": "0.340",
+    "town": "Hempstead",
+    "type": "Village"
+  },
+  {
+    "village": "Wurtsboro",
+    "county": "Sullivan",
+    "population": "1,124",
+    "land": "1.266",
+    "town": "Mamakating",
+    "type": "Village"
+  },
+  {
+    "village": "Wyoming",
+    "county": "Wyoming",
+    "population": "377",
+    "land": "0.669",
+    "town": "Middlebury",
+    "type": "Village"
+  },
+  {
+    "village": "Yonkers",
+    "county": "Westchester",
+    "population": "211,569",
+    "land": "18.01",
+    "town": "None",
+    "type": "City"
+  },
+  {
+    "village": "Yorkville",
+    "county": "Oneida",
+    "population": "2,657",
+    "land": "0.671",
+    "town": "Whitestown",
+    "type": "Village"
+  },
+  {
+    "village": "Youngstown",
+    "county": "Niagara",
+    "population": "1,859",
+    "land": "1.097",
+    "town": "Porter",
+    "type": "Village"
+  }
+]

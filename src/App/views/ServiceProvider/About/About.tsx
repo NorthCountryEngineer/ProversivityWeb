@@ -34,11 +34,11 @@ export function About(){
     }]
 
   return(
-    <Grid container>
+    <Grid container sx={{backgroundColor:'primary.main'}}>
       <Grid item xs={6}>
         <CalloutBoxes isMobile={false} callouts={callouts} />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} >
         <SignupForm />
       </Grid>
     </Grid>

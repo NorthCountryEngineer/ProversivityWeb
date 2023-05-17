@@ -1,31 +1,56 @@
-import { Box, Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography } from "@mui/material"
+import { Box, Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography, Select, MenuItem, InputLabel, FormControl, Autocomplete, Stepper, Step, StepLabel, Alert  } from "@mui/material"
 import { AboutCalloutsProps } from "./AboutTypes"
 import Image from "mui-image"
 import { useState } from 'react';
 import { Auth } from 'aws-amplify';
+import municipalities from './municipalities.json';
+import styled from "@emotion/styled";
+
+const steps = ['Login Information', 'Personal Information', 'Address', 'Contact Information'];
 
 const SignupForm = () => {
-  const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [skills, setSkills] = useState('');
-  const [password, setPassword] = useState('')
-  const [confPassword, setConfPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState('');
+    const [activeStep, setActiveStep] = useState(0);
+    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [address, setAddress] = useState('');
+    const [town, setTown] = useState('')
+    const [phone, setPhone] = useState('');
+    const [skills, setSkills] = useState('');
+    const [password, setPassword] = useState('')
+    const [confPassword, setConfPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('');
+    const [passwordsMatch, setPasswordsMatch] = useState(true); // State to track if passwords match
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+        setPasswordsMatch(e.target.value === confPassword);
+    };
+
+    const handleConfPasswordChange = (e) => {
+        setConfPassword(e.target.value);
+        setPasswordsMatch(e.target.value === password);
+    };
+
+    const handleNext = () => {
+        setActiveStep((prevStep) => prevStep + 1);
+    };
+    
+    const handleBack = () => {
+        setActiveStep((prevStep) => prevStep - 1);
+    };
+    
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
     try {
         
         if(password===confPassword){
-            // Sign up user with Amplify and Cognito
             await Auth.signUp({
                 username: email,
-                password: 'Password123', // Set a default password or implement your own logic
+                password: password,
                 attributes: {
                     email,
                     given_name: firstName,
@@ -55,109 +80,223 @@ const SignupForm = () => {
       console.error('Error signing up:', error);
       setErrorMessage(error.message);
     }
-  };
-  return(
-    <form onSubmit={handleSubmit}>
-        {errorMessage && (
-            <Typography color="error" variant="body1" align="center">
-            {errorMessage}
-            </Typography>
-        )}
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
-            <Grid item xs={12}>
-            <TextField
-                label="Email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                fullWidth
-            />
-            </Grid>
-            <Grid item xs={12}>
-            <TextField
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                fullWidth
-            />
-            </Grid>
-            <Grid item xs={12}>
-            <TextField
-                label="ConfirmPassword"
-                type="password"
-                value={confPassword}
-                onChange={(e) => setConfPassword(e.target.value)}
-                required
-                fullWidth
-            />
-            </Grid>
-            <Grid item xs={12}>
-            <TextField
-                label="First Name"
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                fullWidth
-            />
-            </Grid>
-            <Grid item xs={12}>
-            <TextField
-                label="Last Name"
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-                fullWidth
-            />
-            </Grid>
-            <Grid item xs={12}>
-            <TextField
-                label="Company Name"
-                type="text"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                fullWidth
-            />
-            </Grid>
-            <Grid item xs={12}>
-            <TextField
-                label="Address"
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                fullWidth
-            />
-            </Grid>
-            <Grid item xs={12}>
-            <TextField
-                label="Phone"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                fullWidth
-            />
-            </Grid>
-            <Grid item xs={12}>
-            <TextField
-                label="Skills"
-                type="text"
-                value={skills}
-                onChange={(e) => setSkills(e.target.value)}
-                fullWidth
-            />
-            </Grid>
-            <Grid item xs={12}>
-            <Button type="submit" variant="contained" fullWidth>
-                Sign Up
-            </Button>
-            </Grid>
-        </Grid>
-    </form>
-  );
+    };
+
+    const StyledAutocomplete = styled(Autocomplete)`
+        .MuiAutocomplete-listbox {
+            background-color: black; // Set your desired background color
+            color: white; // Set your desired text color
+        }
+        `;
+
+    return(
+        <Box
+            sx={{
+                minHeight: "30vh", // Adjust the height as needed
+                display: "flex",
+                justifyContent: "center", // Adjust the vertical alignment as needed
+                alignItems: "center",
+                flexDirection: "row", // Adjust the direction based on device
+                gap: 2, // Add gap between callout boxes if desired
+                p: 2, // Adjust padding as needed
+            }}
+        >
+            <Box
+                sx={{
+                    width: '550px',
+                    height: '630px',
+                    p: 5,
+                    bgcolor: 'primary.main',
+                    boxShadow: 1,
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    flex: 1,
+                }}
+            >
+            <form onSubmit={handleSubmit} style={{height:"100%"}} >
+                <Stepper activeStep={activeStep} alternativeLabel sx={{backgroundColor:'primary.main'}}>
+                    {steps.map((label) => (
+                    <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                    </Step>
+                    ))}
+                </Stepper>
+
+                {activeStep === 0 && (
+                    <div style={{backgroundColor:'primary.main'}}>
+                        <TextField
+                            label="Email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            fullWidth
+                            sx={{
+                                mt:3,
+                                mb:3
+                            }} 
+                        />
+
+                        {!passwordsMatch &&
+                            <Alert severity="warning">Password mismatch</Alert>
+                        }
+
+                        <TextField
+                            label="Password"
+                            type="password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            required
+                            fullWidth
+                            sx={{
+                                mt:3,
+                                mb:3
+                            }}
+                            error={!passwordsMatch} 
+                            helperText={!passwordsMatch && 'Passwords do not match'}
+                          />
+
+                        <TextField
+                            label="Confirm Password"
+                            type="password"
+                            value={confPassword}
+                            onChange={handleConfPasswordChange}
+                            required
+                            fullWidth
+                            sx={{
+                                mt:1,
+                                mb:3
+                            }}
+
+                            error={!passwordsMatch}
+                        />
+
+                        
+                    </div>
+                )}
+
+                {activeStep === 1 && (
+                    <>
+                    <TextField
+                            label="First Name"
+                            type="text"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            required
+                            fullWidth
+                            sx={{
+                                mt:3,
+                                mb:3
+                            }}
+                        />
+
+                        <TextField
+                            label="Last Name"
+                            type="text"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            required
+                            fullWidth
+                            sx={{
+                                mt:3,
+                                mb:3
+                            }}
+                        />
+
+                        <TextField
+                            label="Company Name"
+                            type="text"
+                            value={companyName}
+                            onChange={(e) => setCompanyName(e.target.value)}
+                            fullWidth
+                            sx={{
+                                mt:3,
+                                mb:3
+                            }}
+                        />
+
+                    </>
+                )}
+        
+                {activeStep === 2 && (
+                    <>
+                    <TextField
+                        label="Address"
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        fullWidth
+                        sx={{
+                            mt:3,
+                            mb:3
+                        }}
+                    />
+
+                    <StyledAutocomplete
+                        disablePortal
+                        options={municipalities.map((municipality) => municipality.village)}
+                        renderInput={(params) => <TextField {...params} label="Address" />}
+                        value={town}
+                        onChange={(event, newValue:any) => setTown(newValue)}
+                        fullWidth
+                    />
+                    
+                    </>
+                )}
+
+                {activeStep === 3 && (
+                    <>
+                        <TextField
+                            label="Phone"
+                            type="tel"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            fullWidth
+                            sx={{
+                                mt:3,
+                                mb:3
+                            }}
+                        />
+                
+                        <TextField
+                            label="Skills"
+                            type="text"
+                            value={skills}
+                            onChange={(e) => setSkills(e.target.value)}
+                            fullWidth
+                            sx={{
+                                mt:3,
+                                mb:3
+                            }}
+                        />
+                    </>
+                )}
+        
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        mt: 4,
+                    }}
+                    >
+                    {activeStep > 0 && (
+                        <Button variant="outlined" color="primary" onClick={handleBack} sx={{ mr: 2 }}>
+                        Back
+                        </Button>
+                    )}
+
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+                    >
+                        {activeStep === steps.length - 1 ? 'Sign Up' : 'Next'}
+                    </Button>
+                </Box>
+            </form>
+        </Box>
+        </Box>
+    );
 };
 
 export default SignupForm;
@@ -183,7 +322,6 @@ export const CalloutBoxes = ({ isMobile, callouts }: AboutCalloutsProps) => {
             width: '550px',
             height: '100%',
             p: 5,
-            bgcolor: 'primary.main',
             boxShadow: 1,
             alignItems: 'center',
             textAlign: 'center',
