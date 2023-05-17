@@ -1,22 +1,22 @@
-import {useState} from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { DataGridPro, GridColDef } from '@mui/x-data-grid-pro';
-import { deleteResumeByID } from '../Functions/HandleListResumes';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import CreateIcon from '@mui/icons-material/Create';
-import DeleteIcon from '@mui/icons-material/Delete';
+import {useState} from 'react'
+import { styled, useTheme } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import Drawer from '@mui/material/Drawer'
+import CssBaseline from '@mui/material/CssBaseline'
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { DataGridPro, GridColDef } from '@mui/x-data-grid-pro'
+import { deleteResumeByID } from '../Functions/HandleListResumes'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import CreateIcon from '@mui/icons-material/Create'
+import DeleteIcon from '@mui/icons-material/Delete'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 interface ResumeInterface {
     id:String
@@ -25,7 +25,7 @@ interface ResumeInterface {
 }
 
 export const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
-  open?: boolean;
+  open?: boolean
 }>(({ theme, open }) => ({
   flexGrow: 1,
   padding: 3,
@@ -41,10 +41,10 @@ export const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open
     }),
     marginLeft: 0,
   }),
-}));
+}))
 
 interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+  open?: boolean
 }
 
 const AppBar = styled(MuiAppBar, {
@@ -62,7 +62,7 @@ const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
-}));
+}))
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -71,22 +71,22 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
-}));
+}))
 
 export default function PersistentDrawerLeft() {
     const [tableData, updateTableData] = useState<ResumeInterface[]>([{id:"",title:"", actions:""}])
     const [currentResume, updateCurrentResume] = useState<String>()
 
-    const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const theme = useTheme()
+    const [open, setOpen] = useState(false)
 
     const handleDrawerOpen = () => {
-        setOpen(true);
-    };
+        setOpen(true)
+    }
 
     const handleDrawerClose = () => {
-        setOpen(false);
-    };
+        setOpen(false)
+    }
 
     const columns: GridColDef[] = [
         { 
@@ -133,10 +133,10 @@ export default function PersistentDrawerLeft() {
                 </IconButton>
 
               </>
-              );
+              )
             }
           }
-      ];
+      ]
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -205,5 +205,5 @@ export default function PersistentDrawerLeft() {
         
         </Main>
         </Box>
-    );
+    )
 }

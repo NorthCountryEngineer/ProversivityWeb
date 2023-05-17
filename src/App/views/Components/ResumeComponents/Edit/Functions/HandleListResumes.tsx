@@ -1,6 +1,6 @@
-import { API, graphqlOperation } from "aws-amplify";
-//import { deleteResume } from "../../../../../../graphql/mutations";
-//import { listResumes } from "../../../../../../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify"
+//import { deleteResume } from "../../../../../../graphql/mutations"
+//import { listResumes } from "../../../../../../graphql/queries"
 
 interface ResumeInterface {
     id:String
@@ -14,7 +14,7 @@ export async function listResumesCallWithHook(setter:any) {
         let tempData:ResumeInterface[] = []
         resumesCallItems.forEach((resume:any) => {
             tempData = [...tempData, {id:String(resume.id),title:String(resume.Title)}]
-        });
+        })
         console.log(tempData)
         setter(tempData)
     } catch (err) { 

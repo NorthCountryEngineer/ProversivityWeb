@@ -1,30 +1,30 @@
 import { useEffect, useState } from 'react'
 import { API, Cache, Hub, graphqlOperation } from 'aws-amplify'
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import { CreateNewResumeModal } from '../../Components/ResumeComponents/Edit/Modals/CreateNewResumeModal';
-import { DataGrid, GridCloseIcon, GridColDef } from '@mui/x-data-grid';
-import { alpha, Button, ButtonGroup, CSSObject, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Theme, Toolbar, Typography, useTheme } from '@mui/material';
-import CreateIcon from '@mui/icons-material/Create';
-import DeleteIcon from '@mui/icons-material/Delete';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { deleteResumeByID, listResumesCallWithHook } from '../../Components/ResumeComponents/Edit/Functions/HandleListResumes';
-import CreateResume from './CreateResume';
-import { Main } from '../../Components/ResumeComponents/Edit/Components/ListFilesComponents';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import ReactQuill, { Quill } from 'react-quill';
+import Box from '@mui/material/Box'
+import CssBaseline from '@mui/material/CssBaseline'
+import { CreateNewResumeModal } from '../../Components/ResumeComponents/Edit/Modals/CreateNewResumeModal'
+import { DataGrid, GridCloseIcon, GridColDef } from '@mui/x-data-grid'
+import { alpha, Button, ButtonGroup, CSSObject, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Theme, Toolbar, Typography, useTheme } from '@mui/material'
+import CreateIcon from '@mui/icons-material/Create'
+import DeleteIcon from '@mui/icons-material/Delete'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import { deleteResumeByID, listResumesCallWithHook } from '../../Components/ResumeComponents/Edit/Functions/HandleListResumes'
+import CreateResume from './CreateResume'
+import { Main } from '../../Components/ResumeComponents/Edit/Components/ListFilesComponents'
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import NoteAddIcon from '@mui/icons-material/NoteAdd'
+import ReactQuill, { Quill } from 'react-quill'
 import Resume from './Resume'
-import 'react-quill/dist/quill.snow.css';
-import ChevronRight from '@mui/icons-material/ChevronRight';
+import 'react-quill/dist/quill.snow.css'
+import ChevronRight from '@mui/icons-material/ChevronRight'
 import { Fab } from '@mui/material'
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings'
-import LoadingButton from '@mui/lab/LoadingButton';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Cancel';
-import CloudDoneIcon from '@mui/icons-material/CloudDone';
-//import { getResume } from '../../../../graphql/queries';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import LoadingButton from '@mui/lab/LoadingButton'
+import SaveIcon from '@mui/icons-material/Save'
+import CancelIcon from '@mui/icons-material/Cancel'
+import CloudDoneIcon from '@mui/icons-material/CloudDone'
+//import { getResume } from '../../../../graphql/queries'
+import { withAuthenticator } from '@aws-amplify/ui-react'
 
 export function handleTitleUpdate(updatedTitle:String){
     Hub.dispatch(
@@ -33,7 +33,7 @@ export function handleTitleUpdate(updatedTitle:String){
             event: 'updateTitle', 
             data: {color:'blue'}, 
             message:`${updatedTitle}`
-    });
+    })
 }
 interface ResumeInterface {
     id:String
@@ -42,7 +42,7 @@ interface ResumeInterface {
 }
 
 interface AppBarProps extends MuiAppBarProps {
-    open?: boolean;
+    open?: boolean
   }
 
   let formats = [
@@ -69,10 +69,10 @@ const AppBar = styled(MuiAppBar, {
         duration: theme.transitions.duration.enteringScreen,
       }),
     }),
-  }));
+  }))
 
 
-  const drawerWidth = 240;
+  const drawerWidth = 240
 
 
 function ListResumes(){
@@ -90,14 +90,14 @@ function ListResumes(){
     useEffect(()=>{
         handleTitleUpdate('Resume Management Service')
         listResumesCallWithHook(updateTableData)
-        DarkMode = Cache.getItem('DarkMode');
+        DarkMode = Cache.getItem('DarkMode')
     },[]) 
 
     async function handleUpdateCurrentResume(ResumeID:string){
         console.log("Resume opened")
         setDrawerOpen(!drawerOpen)
         let temporaryResume:any = {}//await API.graphql(graphqlOperation(getResume, {id: ResumeID}))
-        Cache.setItem('resume', {temporaryResume}, { priority: 1 });
+        Cache.setItem('resume', {temporaryResume}, { priority: 1 })
     }
 
     function ResumeView(){
@@ -166,10 +166,10 @@ function ListResumes(){
                 </IconButton>
 
                 </>
-            );
+            )
         }
         }
-    ];
+    ]
 
     return(
         <>

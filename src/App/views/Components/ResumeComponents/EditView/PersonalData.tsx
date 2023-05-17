@@ -1,11 +1,11 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import { useEffect, useState } from 'react';
-import { PersonalData, PersonalDataTemplate } from '../../../../models/Service/ResumeModel';
-import { Cache } from 'aws-amplify';
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
+import { useEffect, useState } from 'react'
+import { PersonalData, PersonalDataTemplate } from '../../../../models/Service/ResumeModel'
+import { Cache } from 'aws-amplify'
 
 export default function PersonalDataComponent({editModal}:any) {
     const [personalData, updatePersonalData] = useState<PersonalData>(PersonalDataTemplate)
@@ -110,5 +110,5 @@ export default function PersonalDataComponent({editModal}:any) {
                 <div>{String(personalData.JobTitle)}</div>
             </Stack>
             </>
-    );
+    )
 }

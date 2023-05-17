@@ -1,17 +1,18 @@
-import Image from "mui-image";
-import Grid from '@mui/material/Grid';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import { useEffect, useState } from "react";
-import { Avatar, Button, ClickAwayListener, IconButton, Link, MenuItem } from '@mui/material';
-import { ProversivityAppBarHooks } from "./headerHooks";
-import { Box, Fab, Stack, Typography } from "@mui/material";
-import { ListItemIcon, ListItemText, Menu } from '@mui/material';
-import { NoteAdd, ExitToApp, Login, Person } from '@mui/icons-material';
+import Image from "mui-image"
+import Grid from '@mui/material/Grid'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import { useEffect, useState } from "react"
+import { Avatar, Button, ClickAwayListener, IconButton, Link, MenuItem } from '@mui/material'
+import { ProversivityAppBarHooks } from "./headerHooks"
+import { Box, Fab, Stack, Typography } from "@mui/material"
+import { ListItemIcon, ListItemText, Menu } from '@mui/material'
+import { NoteAdd, ExitToApp, Login, Person, ManageAccounts } from '@mui/icons-material'
 import type { MenuItemProps, HeaderProps } from './headerTypes'
 import theme from "../../../theme/BaseTheme"
-import { Auth } from "aws-amplify";
-import { useAuthentication } from "../../Authentication/AuthenticationHooks";
+import { Auth } from "aws-amplify"
+import { useAuthentication } from "../../Authentication/AuthenticationHooks"
+import { Navigate, useNavigate } from "react-router-dom"
 
 
 export const menuItems:MenuItemProps[] = [
@@ -20,7 +21,7 @@ export const menuItems:MenuItemProps[] = [
         label: 'Manage My Account',
         icon: <NoteAdd/>,
     }
-];
+]
 
 /**
  * A functional component that renders a sidebar using Material-UI's Drawer component.
@@ -35,21 +36,21 @@ export const menuItems:MenuItemProps[] = [
  */
 export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems}) => {
   
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   const handleLogout = async () => {
-    await Auth.signOut();
-    localStorage.clear();
-    window.location.href = "/";
-  };
+    await Auth.signOut()
+    localStorage.clear()
+    window.location.href = "/"
+  }
 
   return (
     <ClickAwayListener onClickAway={handleClose}>
@@ -78,8 +79,8 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
         </Menu>
       </Box>
     </ClickAwayListener>
-  );
-};
+  )
+}
 
 /**
  * A functional component that renders a FAB button for user management, with the option to hide it.
@@ -90,19 +91,19 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
  */
 export function UserManagementFab({ drawerFabHidden, handleDrawerOpen }: any) {
   return (
-    <Avatar
+    <Button
+      variant="text"
       sx={{
         position: "absolute",
         bottom: "25px",
         right: "50px",
         zIndex: 1111,
-        boxShadow: "0px 3px 3px rgba(0, 0, 0, 0.25)",
         display: drawerFabHidden ? "none" : "block",
       }}
       onClick={handleDrawerOpen}
       aria-label="add"
-   / >
-  );
+    />
+  )
 }
   
    
@@ -139,11 +140,11 @@ export const NorthCountryEngineerLogoAndTitle = ({ dynamicTitle, font }) => {
       </Box>
 
       <Typography variant="h5" fontFamily={font} sx={{ whiteSpace: 'pre-line' }}>
-        {dynamicTitle}&#8482;
+        {dynamicTitle}
       </Typography>
     </Stack>
-  );
-};
+  )
+}
 
 
 /**
@@ -159,16 +160,15 @@ export const NorthCountryEngineerLogoAndTitle = ({ dynamicTitle, font }) => {
  * 
  * @returns {JSX.Element} - A customized AppBar component.
  */
+
 export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}: HeaderProps) => {
   const { 
     drawerOpen, 
-    drawerFabHidden, 
     toggleDrawer,
-    isMobile,
     justifyContent
-  } = ProversivityAppBarHooks();
+  } = ProversivityAppBarHooks()
 
-  const isAuthenticated = useAuthentication(); 
+  const isAuthenticated = useAuthentication() 
 
   const handleUserButton = () => {
     if(isAuthenticated){
@@ -182,19 +182,18 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
     try{
       return(
         <Button
-          variant="contained"
-          color="secondary"
+          variant="text"
+          color="inherit"
           sx={{
             marginTop: '25px',
             borderRadius: '50%',
-            width: '64px',
-            height: '64px',
+            height: '60px',
           }}
           onClick={() => handleUserButton()}
         >
           <Stack direction="column" spacing={0} alignItems="center">
             {isAuthenticated ? 
-              <Person fontSize="large" style={{ color: 'white' }} /> 
+              <ManageAccounts fontSize="large" style={{ color: 'secondary' }} /> 
             : 
               <Login fontSize="large" style={{ color: 'white' }} />
             }
@@ -207,7 +206,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
       )
     }
   }
-  
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <AppBar
@@ -217,7 +216,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
           top: 0,
           height: "115px",
           zIndex: 1110,
-          backgroundColor: "rgba(255, 255, 255, 0.8)"
+          backgroundColor: "primary.main"
         }}
         elevation={0}
       >
@@ -227,7 +226,37 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
           <Grid item xs={3.5} justifyContent="flex-start">
             <NorthCountryEngineerLogoAndTitle dynamicTitle={dynamicTitle} font={font} />
           </Grid>
-          <Grid item xs={8} />
+          <Grid item xs={4} />
+
+          <Grid item xs={3} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
+            <Link href="/blog">
+              <Button
+                variant="text"
+                color="primary"
+                sx={{
+                  marginTop: '40px',
+                  color: "black"
+                }}
+              >
+                <Typography variant="h6">Become a Service Provider</Typography>
+             </Button>
+            </Link>
+          </Grid>
+
+          <Grid item xs={1} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
+            <Link href="/blog">
+              <Button
+                variant="text"
+                color="primary"
+                sx={{
+                  marginTop: '40px',
+                  color: "black"
+                }}
+              >
+                <Typography variant="h6">Blog</Typography>
+             </Button>
+            </Link>
+          </Grid>
           <Grid item xs={.5} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
             {dynamicButton()}
           </Grid>
@@ -243,5 +272,5 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
         />   
       </AppBar>
     </Box>
-  );
-};
+  )
+}

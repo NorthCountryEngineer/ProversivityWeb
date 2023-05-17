@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Divider, List, ListItem, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material"
-import { HomepageCalloutsProps } from "./HomeTypes";
-import Image from "mui-image";
+import { HomepageCalloutsProps } from "./HomeTypes"
+import Image from "mui-image"
 
 export const CalloutBoxes = ({ isMobile, callouts }: HomepageCalloutsProps) => {
   return (
@@ -20,7 +20,7 @@ export const CalloutBoxes = ({ isMobile, callouts }: HomepageCalloutsProps) => {
           key={index}
           sx={{
             width: '550px',
-            height: '650px',
+            height: '100%',
             p: 5,
             bgcolor: 'primary.main',
             boxShadow: 1,
@@ -38,11 +38,13 @@ export const CalloutBoxes = ({ isMobile, callouts }: HomepageCalloutsProps) => {
               <Divider sx={{m:2}} />
 
               <Stack direction="row">
+                {callout.image &&
                   <Image
                     src={callout.image}
                     alt={callout.title}
                     style={{ objectFit:'contain', height:'400px' }}
                   />
+                }
                 <List>
                   {callout.steps.map((point, index) => (
                     <ListItem key={index}>
@@ -72,5 +74,5 @@ export const CalloutBoxes = ({ isMobile, callouts }: HomepageCalloutsProps) => {
         </Box>
       ))}
     </Box>
-  );
-};
+  )
+}

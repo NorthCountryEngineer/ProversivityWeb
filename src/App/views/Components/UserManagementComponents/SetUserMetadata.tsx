@@ -1,8 +1,8 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -14,11 +14,11 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-};
+}
 
 export default function SetUserMetadata(setFunction: any, toggle: boolean) {
-  const handleOpen = () => setFunction(true);
-  const handleClose = () => setFunction(false);
+  const handleOpen = () => setFunction(true)
+  const handleClose = () => setFunction(false)
 
   return (
     <div>
@@ -39,5 +39,5 @@ export default function SetUserMetadata(setFunction: any, toggle: boolean) {
         </Box>
       </Modal>
     </div>
-  );
+  )
 }

@@ -1,18 +1,18 @@
-import { AuthenticatedState } from "../../../App.hooks";
+import { AuthenticatedState } from "../../../App.hooks"
 
 export interface MenuItemProps {
-    href: string;
-    label: string;
-    icon: React.ReactNode;
+    href: string
+    label: string
+    icon: React.ReactNode
 }
 
 export type HeaderProps = {
-  dynamicTitle: string;
-  font: string;
-  drawerWidth: number;
-  menuItems: MenuItem[];
-};
+  dynamicTitle: string
+  font: string
+  drawerWidth: number
+  menuItems: MenuItem[]
+}
 
 export type ProversivityAppBarProps = {
-  isAuthenticated: boolean;
+  isAuthenticated: boolean
 }

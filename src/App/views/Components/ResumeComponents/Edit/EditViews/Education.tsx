@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react'
 
 
 export default function Education({ResumeID}:any) {
@@ -6,5 +6,5 @@ export default function Education({ResumeID}:any) {
     <div>
 
     </div>
-  );
+  )
 }

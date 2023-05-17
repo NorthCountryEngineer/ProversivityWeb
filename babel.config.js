@@ -4,5 +4,5 @@ module.exports = {
         '@babel/preset-flow', 
         "@babel/preset-react"
     ]
-  };
+  }
   

@@ -88,7 +88,7 @@ export const onCreateUser = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser(
     $filter: ModelSubscriptionUserFilterInput
@@ -176,7 +176,7 @@ export const onUpdateUser = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser(
     $filter: ModelSubscriptionUserFilterInput
@@ -264,7 +264,7 @@ export const onDeleteUser = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onCreateCustomer = /* GraphQL */ `
   subscription OnCreateCustomer(
     $filter: ModelSubscriptionCustomerFilterInput
@@ -323,7 +323,7 @@ export const onCreateCustomer = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onUpdateCustomer = /* GraphQL */ `
   subscription OnUpdateCustomer(
     $filter: ModelSubscriptionCustomerFilterInput
@@ -382,7 +382,7 @@ export const onUpdateCustomer = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onDeleteCustomer = /* GraphQL */ `
   subscription OnDeleteCustomer(
     $filter: ModelSubscriptionCustomerFilterInput
@@ -441,7 +441,7 @@ export const onDeleteCustomer = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onCreateServiceProvider = /* GraphQL */ `
   subscription OnCreateServiceProvider(
     $filter: ModelSubscriptionServiceProviderFilterInput
@@ -501,7 +501,7 @@ export const onCreateServiceProvider = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onUpdateServiceProvider = /* GraphQL */ `
   subscription OnUpdateServiceProvider(
     $filter: ModelSubscriptionServiceProviderFilterInput
@@ -561,7 +561,7 @@ export const onUpdateServiceProvider = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onDeleteServiceProvider = /* GraphQL */ `
   subscription OnDeleteServiceProvider(
     $filter: ModelSubscriptionServiceProviderFilterInput
@@ -621,7 +621,7 @@ export const onDeleteServiceProvider = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onCreateBlogPage = /* GraphQL */ `
   subscription OnCreateBlogPage(
     $filter: ModelSubscriptionBlogPageFilterInput
@@ -692,7 +692,7 @@ export const onCreateBlogPage = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onUpdateBlogPage = /* GraphQL */ `
   subscription OnUpdateBlogPage(
     $filter: ModelSubscriptionBlogPageFilterInput
@@ -763,7 +763,7 @@ export const onUpdateBlogPage = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onDeleteBlogPage = /* GraphQL */ `
   subscription OnDeleteBlogPage(
     $filter: ModelSubscriptionBlogPageFilterInput
@@ -834,7 +834,7 @@ export const onDeleteBlogPage = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onCreateBlog = /* GraphQL */ `
   subscription OnCreateBlog(
     $filter: ModelSubscriptionBlogFilterInput
@@ -884,7 +884,7 @@ export const onCreateBlog = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onUpdateBlog = /* GraphQL */ `
   subscription OnUpdateBlog(
     $filter: ModelSubscriptionBlogFilterInput
@@ -934,7 +934,7 @@ export const onUpdateBlog = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onDeleteBlog = /* GraphQL */ `
   subscription OnDeleteBlog(
     $filter: ModelSubscriptionBlogFilterInput
@@ -984,7 +984,7 @@ export const onDeleteBlog = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onCreateS3Object = /* GraphQL */ `
   subscription OnCreateS3Object(
     $filter: ModelSubscriptionS3ObjectFilterInput
@@ -1000,7 +1000,7 @@ export const onCreateS3Object = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onUpdateS3Object = /* GraphQL */ `
   subscription OnUpdateS3Object(
     $filter: ModelSubscriptionS3ObjectFilterInput
@@ -1016,7 +1016,7 @@ export const onUpdateS3Object = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onDeleteS3Object = /* GraphQL */ `
   subscription OnDeleteS3Object(
     $filter: ModelSubscriptionS3ObjectFilterInput
@@ -1032,4 +1032,4 @@ export const onDeleteS3Object = /* GraphQL */ `
       owner
     }
   }
-`;
+`

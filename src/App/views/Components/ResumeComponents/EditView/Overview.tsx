@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import Typography from '@mui/material/Typography';
+import React, {useEffect, useState} from 'react'
+import Typography from '@mui/material/Typography'
 import { Grid, List, ListItem, ListItemText } from '@mui/material'
-import { Cache } from 'aws-amplify';
-import { Overview as OverviewInterface, OverviewTemplate } from '../../../../models/Service/ResumeModel';
+import { Cache } from 'aws-amplify'
+import { Overview as OverviewInterface, OverviewTemplate } from '../../../../models/Service/ResumeModel'
 
 function Overview({editModal}:any) {
   const [overview,setOverview] = useState<OverviewInterface>(OverviewTemplate)
@@ -35,7 +35,7 @@ function Overview({editModal}:any) {
 
         <Grid item xs={12} sx={{padding:'10px'}} />
       </Grid>
-  );
+  )
 }
 
 

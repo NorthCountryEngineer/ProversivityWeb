@@ -1,54 +1,54 @@
-import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, Tabs, Tab, alpha } from '@mui/material';
-import { Auth } from 'aws-amplify';
-import useHistory from 'react-router-dom';
+import React, { useState } from 'react'
+import { Box, TextField, Button, Typography, Tabs, Tab, alpha } from '@mui/material'
+import { Auth } from 'aws-amplify'
+import useHistory from 'react-router-dom'
 
 
 function Authentication() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [isLogin, setIsLogin] = useState(true);
-  const [tabValue, setTabValue] = useState(0);
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [isLogin, setIsLogin] = useState(true)
+  const [tabValue, setTabValue] = useState(0)
 
   const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+    setUsername(event.target.value)
+  }
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+    setPassword(event.target.value)
+  }
 
   const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-  };
+    setConfirmPassword(event.target.value)
+  }
 
   const handleFormSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
   
     try {
       if (isLogin) {
-        await Auth.signIn(username, password);
+        await Auth.signIn(username, password)
       } else {
         await Auth.signUp({
           username,
           password,
-        });
+        })
       }
   
-      setUsername('');
-      setPassword('');
+      setUsername('')
+      setPassword('')
   
       window.location.href = "/"
     } catch (error) {
-      console.log('Error:', error);
+      console.log('Error:', error)
     }
-  };
+  }
   
   const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-    setIsLogin(newValue === 0);
-  };
+    setTabValue(newValue)
+    setIsLogin(newValue === 0)
+  }
 
   return (
     <Box
@@ -91,7 +91,7 @@ function Authentication() {
           </form>
       </Box>
     </Box>
-  );
+  )
 }
 
 export default Authentication

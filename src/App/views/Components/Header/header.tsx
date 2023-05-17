@@ -1,10 +1,10 @@
-import { ProversivityAppBar, menuItems } from './headerComponents';
-import { loadFont as SourceCodePro } from "@remotion/google-fonts/Farro";
+import { ProversivityAppBar, menuItems } from './headerComponents'
+import { loadFont as SourceCodePro } from "@remotion/google-fonts/Farro"
 
 // Import the Source Code Pro font family
-const SourceCodeProFont = SourceCodePro().fontFamily;
+const SourceCodeProFont = SourceCodePro().fontFamily
 
-const drawerWidth = 400;
+const drawerWidth = 400
 
 // Define the Header component
 export function Header({title}) {
@@ -17,5 +17,5 @@ export function Header({title}) {
       drawerWidth={drawerWidth}
       menuItems={menuItems}
     />
-  );
+  )
 }

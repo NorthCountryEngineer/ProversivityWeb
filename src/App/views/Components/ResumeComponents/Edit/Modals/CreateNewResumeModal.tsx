@@ -1,25 +1,25 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import Button  from '@mui/material/Button';
-import Grid  from '@mui/material/Grid';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import InputAdornment from '@mui/material/InputAdornment'
+import TextField from '@mui/material/TextField'
+import Button  from '@mui/material/Button'
+import Grid  from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
-//import { createResume } from '../../../../../../graphql/mutations';
-import { API,Auth } from 'aws-amplify';
+//import { createResume } from '../../../../../../graphql/mutations'
+import { API,Auth } from 'aws-amplify'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react';
-import { listResumesCallWithHook } from '../Functions/HandleListResumes';
-import { CreateNewResumeAPICalls } from '../Functions/CreateNewResume';
-import { LinearProgress } from '@mui/material';
+import { useState } from 'react'
+import { listResumesCallWithHook } from '../Functions/HandleListResumes'
+import { CreateNewResumeAPICalls } from '../Functions/CreateNewResume'
+import { LinearProgress } from '@mui/material'
 
 type Props = {
-    setOpen?: any;
-    isOpen?: any;
-    setter?: any;
-    updateCurrentResume?: any;
-};
+    setOpen?: any
+    isOpen?: any
+    setter?: any
+    updateCurrentResume?: any
+}
 
 type ResumeInput = {
     Author: string,
@@ -37,11 +37,11 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };
+  }
 
 
 export function CreateNewResumeModal({setOpen,isOpen,setter,updateCurrentResume}:Props){
-    const [progress, setProgress] = useState(0);
+    const [progress, setProgress] = useState(0)
     const [currentLoadStatus, setCurrentLoadStatus] = useState<String>("")
     
     let NewResume:ResumeInput = {

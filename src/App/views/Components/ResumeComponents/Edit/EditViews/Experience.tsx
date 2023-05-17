@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react'
 
 
 export default function Experience({ResumeID}:any) {
@@ -7,5 +7,5 @@ export default function Experience({ResumeID}:any) {
     <div>
 
     </div>
-  );
+  )
 }

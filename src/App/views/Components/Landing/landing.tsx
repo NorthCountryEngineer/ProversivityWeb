@@ -1,5 +1,5 @@
-import { CircularProgress, Typography, Box } from '@mui/material';
-import Image from 'mui-image';
+import { CircularProgress, Typography, Box } from '@mui/material'
+import Image from 'mui-image'
 
 export function LoadingScreen({ logoSrc }) {
   return (
@@ -10,5 +10,5 @@ export function LoadingScreen({ logoSrc }) {
       </Typography>
       <CircularProgress sx={{ mt: 2 }} />
     </Box>
-  );
+  )
 }

@@ -1,29 +1,29 @@
-import {useState, useEffect} from 'react';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import { Address, Contact, PersonalData, Resume, ResumeTemplate } from '../../../../../models/Service/ResumeModel';
-import Autocomplete from '@mui/material/Autocomplete';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import { AddressTemplate, ContactTemplate, PersonalDataTemplate } from '../../../../../models/Service/ResumeModel';
-import { CircularProgress, Divider, Fade, FormControlLabel } from '@mui/material';
-import { API, Cache, graphqlOperation } from 'aws-amplify';
-//import {  updateAddress as updateAddressAPI, updateContact as updateContactAPI, updatePersonalData } from '../../../../../../graphql/mutations';
-import CloudDoneIcon from '@mui/icons-material/CloudDone';
-import { green } from '@mui/material/colors';
-import CircleIcon from '@mui/icons-material/Circle';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import RedditIcon from '@mui/icons-material/Reddit';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import ErrorIcon from '@mui/icons-material/Error';
+import {useState, useEffect} from 'react'
+import TextField from '@mui/material/TextField'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import { Address, Contact, PersonalData, Resume, ResumeTemplate } from '../../../../../models/Service/ResumeModel'
+import Autocomplete from '@mui/material/Autocomplete'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import Stack from '@mui/material/Stack'
+import { AddressTemplate, ContactTemplate, PersonalDataTemplate } from '../../../../../models/Service/ResumeModel'
+import { CircularProgress, Divider, Fade, FormControlLabel } from '@mui/material'
+import { API, Cache, graphqlOperation } from 'aws-amplify'
+//import {  updateAddress as updateAddressAPI, updateContact as updateContactAPI, updatePersonalData } from '../../../../../../graphql/mutations'
+import CloudDoneIcon from '@mui/icons-material/CloudDone'
+import { green } from '@mui/material/colors'
+import CircleIcon from '@mui/icons-material/Circle'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import FacebookIcon from '@mui/icons-material/Facebook'
+import RedditIcon from '@mui/icons-material/Reddit'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import ErrorIcon from '@mui/icons-material/Error'
 
-var UsaStates = require('usa-states').UsaStates;
+var UsaStates = require('usa-states').UsaStates
 const states = new UsaStates().states.map((state:any)=>{return(state.name)})
 
 const SocialMediaToggle = {
@@ -137,7 +137,7 @@ export default function EditHeader() {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <TextField size="small" fullWidth id="Email" label="Email" onChange={(event)=>{updateContact({...contact,email: event.target.value });}}onBlur={() => saveContactData()}value={contact.email} />
+                    <TextField size="small" fullWidth id="Email" label="Email" onChange={(event)=>{updateContact({...contact,email: event.target.value })}}onBlur={() => saveContactData()}value={contact.email} />
                 </Grid>
 
                 <Grid item xs={12}>
@@ -270,7 +270,7 @@ export default function EditHeader() {
                             updateBaseData(baseData => ({
                                 ...baseData,
                                 LinkedIn: event.target.value
-                            }));
+                            }))
                         }}
                         onBlur={() => saveBaseData()}
                         value={baseData.LinkedIn}  />
@@ -282,7 +282,7 @@ export default function EditHeader() {
                             updateBaseData(input => ({
                                 ...input,
                                 Facebook: event.target.value
-                            }));
+                            }))
                         }}
                         onBlur={() => saveBaseData()}
                         value={baseData.Facebook}  />
@@ -294,7 +294,7 @@ export default function EditHeader() {
                             updateBaseData(input => ({
                                 ...input,
                                 Github: event.target.value
-                            }));
+                            }))
                         }}
                         onBlur={() => saveBaseData()}
                         value={baseData.Github}  />
@@ -306,7 +306,7 @@ export default function EditHeader() {
                             updateBaseData(input => ({
                                 ...input,
                                 Reddit: event.target.value
-                            }));
+                            }))
                         }}
                         onBlur={() => saveBaseData()}
                         value={baseData.Reddit}  />
@@ -318,7 +318,7 @@ export default function EditHeader() {
                             updateBaseData(input => ({
                                 ...input,
                                 Twitter: event.target.value
-                            }));
+                            }))
                         }}
                         onBlur={() => saveBaseData()}
                         value={baseData.Twitter}  />
@@ -350,5 +350,5 @@ export default function EditHeader() {
                 </Grid>
             </Grid>
         </div>
-    );
+    )
 }

@@ -1,11 +1,11 @@
-import { Button, TextField } from "@mui/material";
-import { useState } from "react";
-import { handleSignUp } from "./AuthenticationHooks";
+import { Button, TextField } from "@mui/material"
+import { useState } from "react"
+import { handleSignUp } from "./AuthenticationHooks"
 
 const SignUpForm = async() => {
-    const [email, setEmail] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     // Add additional state variables for Customer or ServiceProvider specific fields
   
     return (
@@ -30,8 +30,8 @@ const SignUpForm = async() => {
           Sign Up
         </Button>
       </form>
-    );
-  };
+    )
+  }
   
-  export default SignUpForm;
+  export default SignUpForm
   

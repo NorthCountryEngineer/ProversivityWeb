@@ -1,4 +1,4 @@
-import { Hub } from 'aws-amplify';
+import { Hub } from 'aws-amplify'
 
 class Logger {
 
@@ -13,17 +13,17 @@ class Logger {
     }else if(messages && typeof messages === 'object'){
       text = messages.map(message => {
         if (typeof message === 'object') {
-          return JSON.stringify(message, null, 2);
+          return JSON.stringify(message, null, 2)
         } else {
-          return message;
+          return message
         }
-      }).join(' ');
+      }).join(' ')
     }
 
     Hub.dispatch('LogsChannel', { 
       event: `log-${new Date().toISOString()}`,
       message:`${new Date().toISOString()} [${level}] ${text}\n\r`
-    });
+    })
   }
 
   debug(messages) {
@@ -43,4 +43,4 @@ class Logger {
   }
 }
 
-export const logger = new Logger();
+export const logger = new Logger()

@@ -1,5 +1,5 @@
-import { Auth } from 'aws-amplify';
-import { useState, useEffect } from 'react';
+import { Auth } from 'aws-amplify'
+import { useState, useEffect } from 'react'
 
 /**
  * Get the app client ID from local storage.
@@ -7,23 +7,23 @@ import { useState, useEffect } from 'react';
  */
 export const getAppClientIdFromLocalStorage = (): any => {
   for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
+    const key = localStorage.key(i)
     if (key?.startsWith("CognitoIdentityServiceProvider.")) {
-      const parts = key.split(".");
+      const parts = key.split(".")
       if (parts[3]==="accessToken") {
         return([true,key])
       }
     }
   }
-  return [false,null];
-};
+  return [false,null]
+}
 
 /**
  * Get the app client access token from local storage.
  * @returns The access token or null if it can't be found.
  */
 export const getAppClientAccessToken = (): boolean => {
-    const [isAuthenticated,key] = getAppClientIdFromLocalStorage();
+    const [isAuthenticated,key] = getAppClientIdFromLocalStorage()
     return(isAuthenticated)
 }
 
@@ -32,22 +32,22 @@ export const getAppClientAccessToken = (): boolean => {
  * @returns A boolean indicating whether the user is authenticated.
  */
 export const useAuthentication = (): boolean => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(getAppClientAccessToken());
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(getAppClientAccessToken())
 
   useEffect(() => {
     const handleStorageChange = () => {
-      setIsAuthenticated(getAppClientAccessToken());
-    };
+      setIsAuthenticated(getAppClientAccessToken())
+    }
 
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('storage', handleStorageChange)
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
+      window.removeEventListener('storage', handleStorageChange)
+    }
+  }, [])
 
-  return isAuthenticated;
-};
+  return isAuthenticated
+}
 
 
 export const handleSignUp = async (email, firstName, lastName) => {
@@ -61,7 +61,7 @@ export const handleSignUp = async (email, firstName, lastName) => {
         'custom:lastName': lastName,
         // Add additional attributes for Customer or ServiceProvider specific fields
       },
-    });
+    })
 
     // Create Customer or ServiceProvider object based on user type
     if (true/* Check if the user is a Customer */) {
@@ -71,11 +71,11 @@ export const handleSignUp = async (email, firstName, lastName) => {
     }
 
     // Handle successful sign-up
-    console.log('User sign-up successful:', user);
+    console.log('User sign-up successful:', user)
     // Add code for redirection or displaying success message
   } catch (error) {
-    console.log('Error signing up:', error);
+    console.log('Error signing up:', error)
     // Add code to display error message to the user
   }
-};
+}
 

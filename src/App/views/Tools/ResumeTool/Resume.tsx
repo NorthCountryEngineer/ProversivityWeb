@@ -3,15 +3,15 @@ import Overview from '../../Components/ResumeComponents/EditView/Overview'
 import Experience from '../../Components/ResumeComponents/EditView/Experience'
 import Paper from '@mui/material/Paper'
 import { Box, Grid, Modal } from '@mui/material'
-import Divider from '@mui/material/Divider';
+import Divider from '@mui/material/Divider'
 //import { API, graphqlOperation } from 'aws-amplify'
 //import { getResume } from '../../../../graphql/queries'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
 import CloudDoneIcon from '@mui/icons-material/CloudDone'
 import { ResumeTemplate } from '../../../models/Service/ResumeModel'
 import EditHeader from '../../Components/ResumeComponents/Edit/EditViews/Personal'
 import EditOverview from '../../Components/ResumeComponents/Edit/EditViews/Overview'
-import { Cache } from 'aws-amplify';
+import { Cache } from 'aws-amplify'
 import PersonalDataComponent from '../../Components/ResumeComponents/EditView/PersonalData'
 
 export default function Resume(){
@@ -25,12 +25,12 @@ export default function Resume(){
     },[])
 
     const handlePersonalDataModalClose = () => {
-        updateEditHeaderModalOpen(false);
+        updateEditHeaderModalOpen(false)
         ReloadResume()
     }
 
     const handleOverviewModalClose = () => {
-        updateEditOverviewModalOpen(false);
+        updateEditOverviewModalOpen(false)
         ReloadResume()
     }
 
@@ -44,7 +44,7 @@ export default function Resume(){
         border: '2px solid #000',
         boxShadow: 2,
         p: 2,
-      };
+      }
 
     const overviewstyle = {
         position: 'absolute' as 'absolute',
@@ -56,7 +56,7 @@ export default function Resume(){
         border: '2px solid #000',
         boxShadow: 2,
         p: 2,
-    };
+    }
 
     function handlePersonalDataModalOpen() {
         updateEditHeaderModalOpen(true)
@@ -81,7 +81,7 @@ export default function Resume(){
                 handleUpdateLoading()
                 if(resumeData.PersonalData===null) alert("Personal data didn't load")
             }else{
-                throw new Error("No resume presented in cache");
+                throw new Error("No resume presented in cache")
             }
         }catch(error){
             console.error("Error with temporary resume in resume.tsx: ", error)

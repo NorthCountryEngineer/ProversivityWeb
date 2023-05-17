@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import { API, Cache, graphqlOperation } from 'aws-amplify'
-import Box from '@mui/material/Box';
-import { Overview, OverviewTemplate } from '../../../../../models/Service/ResumeModel';
-import { convertToRaw, EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import Box from '@mui/material/Box'
+import { Overview, OverviewTemplate } from '../../../../../models/Service/ResumeModel'
+import { convertToRaw, EditorState } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import '../Style/Overview.css'
-import draftToMarkdown from 'draftjs-to-markdown';
-//import { updateOverview } from '../../../../../../graphql/mutations';
+import draftToMarkdown from 'draftjs-to-markdown'
+//import { updateOverview } from '../../../../../../graphql/mutations'
 import showdown from 'showdown'
 
 export default function EditOverview() {
   const [overview,setOverview] = useState<any>(OverviewTemplate)
   const [lastSavedOverview, setLastSavedOverview] = useState<Overview>(OverviewTemplate)
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-  const [convertedContent, setConvertedContent] = useState(null);
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+  const [convertedContent, setConvertedContent] = useState(null)
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -90,5 +90,5 @@ export default function EditOverview() {
           value={editorState && JSON.stringify(convertToRaw(editorState.getCurrentContent()))}
         />
     </Box>
-  );
+  )
 }
