@@ -1,98 +1,69 @@
-import { Fragment, useEffect } from "react"
+import { Fragment, useCallback, useEffect, useState } from "react"
 import { CalloutBoxes } from "./HomeComponents"
 import { ThemeProvider } from '@mui/material/styles'
 import theme from "../../theme/BaseTheme"
 import { AccountBox, Chat, FindInPage, Send, ThumbUp, Verified } from "@mui/icons-material"
 import { Box, Container, Grid, Typography } from "@mui/material"
 import { styled } from "@mui/system"
+import { Text } from "@aws-amplify/ui-react"
+
+
+const segments = [
+  { text: 'Built', color: 'white', transition: 4 },
+  { text: 'Supported', color: 'white', transition: 4 },
+  { text: 'Engineer', color: 'white', transition: 3 },
+];
 
 function Home() {
-  
-  const isMobile = window.innerWidth <= 600
-
-  const AnimatedTypography = styled(Typography)`
-      display: inline-block;
-      opacity: 0;
-      animation: fadeIn 0.5s ease-in-out forwards;
-  
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-    `;
-  
-    function AnimatedHeaderText({ segments }) {
-      return (
-        <Typography variant="h3" align="left">
-          {segments.map((segmentGroup, groupIndex) => (
-            <Fragment key={groupIndex}>
-              {segmentGroup.map((segment, segmentIndex) => (
-                <Fragment key={segmentIndex}>
-                  <AnimatedTypography
-                    variant="h3"
-                    style={{
-                      animationDelay: `${segment.transition}s`,
-                      fontWeight: 'bold',
-                      color: segment.color,
-                    }}
-                  >
-                    {segment.text}
-                  </AnimatedTypography>
-                  <br />
-                </Fragment>
-              ))}
-            </Fragment>
-          ))}
-        </Typography>
-      );
-    }
-    
-    
-  
-    const segments = [
-      [
-        { text: 'North Country Built', color: 'white', transition: 0 },
-        { text: 'North Country Supported', color: 'white', transition: 1 },
-        { text: 'North Country Engineer', color: 'white', transition: 3 },
-      ]
-    ];
+  const [index, setIndex] = useState(0)
 
   useEffect(()=>{
     localStorage.setItem('pageTitle', ['NYC Quality Tech.','NNY Prices.'].join('\n'))
   },[])
 
+  const segment = segments[index];
 
+  useEffect(() => {
+    if (index === segments.length - 1) return;
+    const timeoutId = setTimeout(() => {
+      setIndex(index + 1);
+    }, segment.transition * 1000); // Multiply transition by 1000 to convert to milliseconds
+    return () => clearTimeout(timeoutId); // Clear the timeout on component unmount
+  }, [index, segment]);
+  
   return (
-    
     <ThemeProvider theme={theme}>
-      <Grid container 
+      <Grid container justifyContent="start"
         sx={{
           backgroundColor: 'primary.main',
-          justifyContent: 'center',
-          align: 'center',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
         }}
       >
-        <Grid item xs={6}>
-          <Typography variant="h3" align="right">
-            <AnimatedHeaderText segments={segments} />
+        <Grid item xs={6} sx={{
+          marginTop: 0,
+          marginLeft: 0,
+        }}
+        >
+          <Typography variant="h3" align="left" sx={{ color: segment.color }}>
+            North Country {segment.text}
           </Typography>
         </Grid>
-        <Grid item xs={6}>
-          <Box 
-          display="flex"
-          justifyContent="center"
-          textAlign="center">
-            <div>Search Component Placeholder</div>
-          </Box>
-        </Grid>
       </Grid>
-
     </ThemeProvider>
   )
 }
 
 export default Home
+
+/**
+ * <Grid item xs={6}>
+          <Box 
+          display="flex"
+          justifyContent="center"
+          textAlign="center">
+          </Box>
+        </Grid>
+
+ */

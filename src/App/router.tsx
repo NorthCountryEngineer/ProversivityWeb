@@ -6,11 +6,16 @@ import { Authentication } from "./views/Authentication"
 import { About } from "./views/About/About"
 import { Admin } from "./views/Admin/Admin"
 import { Blog } from "./views/Blog"
+import { About as ServiceProviderAbout } from "./views/ServiceProvider/About"
 
 export const paths: any = [
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/ServiceProvider/About",
+      element: <ServiceProviderAbout />,
     },
     {
       path: "/Admin",

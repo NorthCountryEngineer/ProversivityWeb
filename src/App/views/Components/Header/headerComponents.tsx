@@ -129,7 +129,7 @@ export const NorthCountryEngineerLogoAndTitle = ({ dynamicTitle, font }) => {
         }}
       >
         <Image
-          src="/Images/Logo_NCE_Light.png"
+          src="/Images/Logo_NCE_Dark.png"
           fit="inherit"
           showLoading={true}
           errorIcon={true}
@@ -229,18 +229,20 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
           <Grid item xs={4} />
 
           <Grid item xs={3} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
-            <Link href="/blog">
-              <Button
-                variant="text"
-                color="primary"
-                sx={{
-                  marginTop: '40px',
-                  color: "black"
-                }}
-              >
-                <Typography variant="h6">Become a Service Provider</Typography>
-             </Button>
-            </Link>
+            {!isAuthenticated &&
+              <Link href="/ServiceProvider/About">
+                <Button
+                  variant="text"
+                  color="primary"
+                  sx={{
+                    marginTop: '40px',
+                    color: "black"
+                  }}
+                >
+                  <Typography variant="h6">Become a Service Provider</Typography>
+              </Button>
+              </Link>
+            }
           </Grid>
 
           <Grid item xs={1} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
