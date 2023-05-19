@@ -230,7 +230,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
 
           <Grid item xs={3} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
             {!isAuthenticated &&
-              <Link href="/ServiceProvider/About">
+              <Link href="/ServiceProvider">
                 <Button
                   variant="text"
                   color="primary"
