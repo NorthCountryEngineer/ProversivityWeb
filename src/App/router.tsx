@@ -14,7 +14,7 @@ export const paths: any = [
       element: <Home />,
     },
     {
-      path: "/ServiceProvider/About",
+      path: "/ServiceProvider",
       element: <ServiceProviderAbout />,
     },
     {
