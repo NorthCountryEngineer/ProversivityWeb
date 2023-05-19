@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+# North Country Engineer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+North Country Engineer is a web application that connects Service Providers in the North Country region with job opportunities and allows employers to find talented Service Providers for their projects. The application provides a platform for Service Providers to showcase their skills, experience, and projects, and enables employers to search and browse through a pool of qualified Service Providers.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User Registration and Authentication: Service Providers and Customers can create an account and log in to the application.
+- Service Provider Profiles: Service Providers can create and manage their profiles, including personal information, skills, experience, education, and projects.
+- Job Listings: Employers can post job listings and specify the required qualifications and job details.
+- Search and Filtering: Service Providers can search for job listings based on location, skills, and other criteria. Employers can search for Service Providers based on skills, experience, and location.
+- Messaging: Service Providers and employers can communicate with each other through an integrated messaging system.
+- Notifications: Users receive notifications for new job opportunities, messages, and profile updates.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Frontend: React Typescript, Material-UI
+- Backend: Typescript
+- Database: DynamoDB
+- Authentication: Cognito user pools
+- Deployment: AWS (Amazon Web Services) Amplify
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+To run the North Country Engineer application locally, follow these steps:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository: `git clone https://github.com/NorthCountryEngineer/ProversivityWeb.git`
+2. Navigate to the project directory: `cd ProversivityWeb`
+3. Install dependencies: `yarn install`
+4. Set up the environment variables. Create a `.env` file in the root directory and specify the required variables (database connection, API keys, etc.).
+5. Start the development server: `yarn start`
+6. Open your browser and access the application at `http://localhost:3000`.
 
-### `npm run build`
+## Contributing
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Contributions to North Country Engineer are welcome! If you find any bugs or have suggestions for new features, please open an issue in the GitHub repository. If you would like to contribute code, please fork the repository, create a new branch for your changes, and submit a pull request.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## License
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-### `npm run eject`
+## Acknowledgements
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+We would like to acknowledge the following resources, libraries, and technologies that were used in the development of this application:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [TypeScript](https://www.typescriptlang.org/) - A statically typed superset of JavaScript that enhances development productivity and code quality.
+- [AWS (Amazon Web Services)](https://aws.amazon.com/) - Cloud computing services that provide a wide range of scalable and reliable solutions for hosting, storage, and more.
+- [Material-UI](https://mui.com/) - A popular React UI framework that offers a set of reusable components and styling options for building visually appealing user interfaces.
+- [Node.js](https://nodejs.org/) - A JavaScript runtime environment that enables server-side development and allows running JavaScript outside of a web browser.
+- [React.js](https://reactjs.org/) - A JavaScript library for building user interfaces, providing a component-based approach and efficient rendering.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Contact
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+For any inquiries or support, please contact the project team at `eric@northcountryengineer.com`.
