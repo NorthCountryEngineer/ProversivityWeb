@@ -51,6 +51,8 @@ function App() {
     }
   }
 
+  
+
   useEffect(() => {
     getCurrentUser().then((user) => {
       try{
@@ -72,7 +74,7 @@ function App() {
           }
         })
       }catch(error){
-        console.error(error)
+        console.log("User doesn't exist")
       }
     })
 

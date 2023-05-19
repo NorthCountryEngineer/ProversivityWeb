@@ -50,11 +50,11 @@ export const useAuthentication = (): boolean => {
 }
 
 
-export const handleSignUp = async (email, firstName, lastName) => {
+export const handleSignUp = async (email, firstName, lastName, password) => {
   try {
     const user = await Auth.signUp({
       username: email,
-      password: '<PASSWORD>', // Set the password for the user
+      password: password, // Set the password for the user
       attributes: {
         email,
         'custom:firstName': firstName,

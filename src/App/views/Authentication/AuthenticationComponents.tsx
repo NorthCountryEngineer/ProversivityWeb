@@ -6,6 +6,7 @@ const SignUpForm = async() => {
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
+    const [password, setPassword] = useState('')
     // Add additional state variables for Customer or ServiceProvider specific fields
   
     return (
@@ -26,7 +27,7 @@ const SignUpForm = async() => {
           onChange={(e) => setLastName(e.target.value)}
         />
         {/* Add additional TextField components for Customer or ServiceProvider specific fields */}
-        <Button component="a" variant="contained" onClick={()=>handleSignUp(email,firstName,lastName)}>
+        <Button component="a" variant="contained" onClick={()=>handleSignUp(email,firstName,lastName,password)}>
           Sign Up
         </Button>
       </form>

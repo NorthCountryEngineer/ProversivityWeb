@@ -1,12 +1,51 @@
-import { Box, Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography, Select, MenuItem, InputLabel, FormControl, Autocomplete, Stepper, Step, StepLabel, Alert, Modal  } from "@mui/material"
-import { AboutCalloutsProps } from "./AboutTypes"
 import Image from "mui-image"
-import { useState } from 'react';
-import { Auth } from 'aws-amplify';
 import municipalities from './municipalities.json';
 import styled from "@emotion/styled";
 
+import {
+    Box, 
+    Button, 
+    Divider, 
+    Grid, 
+    List, 
+    ListItem,
+    ListItemIcon, 
+    ListItemText, 
+    Stack, 
+    TextField, 
+    Typography, 
+    Autocomplete, 
+    Stepper, 
+    Step, 
+    StepLabel, 
+    Alert, 
+    Modal, 
+    StepIconProps  
+} from "@mui/material"
 
+import { getUser } from "../../../../graphql/queries";
+import { CheckCircle } from "@mui/icons-material";
+import { useAuthentication } from "../../Authentication";
+import { AboutCalloutsProps } from "./AboutTypes"
+import { useEffect, useState } from 'react';
+import { ServiceProviderSignupHooks } from "./AboutHooks";
+import { API, Auth, graphqlOperation } from 'aws-amplify';
+
+/**
+ * @component VerificationModal
+ * @description Modal component for account verification.
+ * 
+ * @input handleVerifyAccount: Function to handle account verification.
+ * @input open: Boolean indicating whether the modal is open.
+ * @input onClose: Function to handle modal close.
+ * 
+ * @output None.
+ * 
+ * @functionality Renders a modal for account verification.
+ * Allows users to enter a verification code.
+ * Displays an error message if provided.
+ * Calls the handleVerifyAccount function when the user clicks the "Verify Account" button.
+ */
 export const VerificationModal = ({ handleVerifyAccount, open, onClose }) => {
     const [verificationCode, setVerificationCode] = useState('');
     const [error, setError] = useState('');
@@ -23,7 +62,7 @@ export const VerificationModal = ({ handleVerifyAccount, open, onClose }) => {
             fullWidth
           />
           {error && <p>{error}</p>}
-          <Button variant="contained" onClick={handleVerifyAccount}>
+          <Button variant="contained" onClick={()=>handleVerifyAccount(verificationCode)}>
             Verify Account
           </Button>
         </div>
@@ -31,50 +70,122 @@ export const VerificationModal = ({ handleVerifyAccount, open, onClose }) => {
     );
 };
 
+/**
+ * @function checkUserVerification
+ * @description Function to check if a user is verified based on user attributes.
+ * 
+ * @input userAttributes: Array of user attributes.
+ * 
+ * @output Promise<boolean> indicating whether the user is verified.
+ * 
+ * @functionality Checks if the user attributes include an attribute with the name "email_verified" and a value of "true".
+ * Returns true if the user is verified, false otherwise.
+ * If an error occurs, logs the error and returns false.
+ */
+const checkUserVerification = async(userAttributes):Promise<boolean> => {
+    try{
+        const isVerified = userAttributes.some(
+            (attr) => attr.Name === 'email_verified' && attr.Value === 'true'
+        );
+        return(isVerified)
+    } catch(error){
+        console.error(error)
+        return false
+    }
+}
 
-const steps = ['Login Information', 'Personal Information', 'Address', 'Contact Information'];
+/**
+ * @function checkUserObjectExists
+ * @description Function to check if a user object exists based on the current user.
+ * 
+ * @input currentUser: Current authenticated user object.
+ * 
+ * @output Promise<boolean> indicating whether the user object exists.
+ * 
+ * @functionality Retrieves the user ID from the current user attributes.
+ * Performs a GraphQL query to fetch the user object using the user ID.
+ * Returns true if the user object exists, false otherwise.
+ * If an error occurs, logs the error and returns false.
+ */
+const checkUserObjectExists = async (currentUser):Promise<boolean> => {
+    try {
+        const userId = currentUser.attributes.sub;
+        const query = graphqlOperation(getUser, { id: userId });
+        const data:any = await API.graphql(query);
+        return !!data.getUser; 
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};
+
+/**
+ * @function fetchUserData
+ * @description Function to fetch user data and update verification success and completion status.
+ * 
+ * @input setVerificationSuccess: Function to set the verification success state.
+ * @input setIsComplete: Function to set the completion status state.
+ * 
+ * @output None.
+ * 
+ * @functionality Retrieves the current authenticated user.
+ * Fetches the user attributes associated with the current user.
+ * Checks if the user is verified by calling the checkUserVerification function.
+ * If the user is verified, checks if the user object exists by calling the checkUserObjectExists function.
+ * Updates the verification success and completion status based on the results.
+ */
+const getUserData = async (setter) => {
+    let currentUser:string
+    let userAttributes:any
+    let userVerified:boolean = false
+    let userObjectExists:boolean = false
+    try{
+    currentUser = await Auth.currentAuthenticatedUser();
+    userAttributes = await Auth.userAttributes(currentUser)
+    userVerified = await checkUserVerification(userAttributes)
+    userVerified && (userObjectExists = await checkUserObjectExists(currentUser))
+
+    setter('verificationSuccess',userVerified)
+    setter('isComplete',userObjectExists)
+    }catch(error){
+        console.error("Error with getUserData: ", error)
+    }
+};
 
 const SignupForm = () => {
-    const [activeStep, setActiveStep] = useState(0);
-    const [email, setEmail] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [companyName, setCompanyName] = useState('');
-    const [address, setAddress] = useState('');
-    const [town, setTown] = useState('')
-    const [phone, setPhone] = useState('');
-    const [skills, setSkills] = useState('');
-    const [password, setPassword] = useState('')
-    const [confPassword, setConfPassword] = useState('')
-    const [errorMessage, setErrorMessage] = useState('');
-    const [passwordsMatch, setPasswordsMatch] = useState(true);
-    const [isConfPasswordFocused, setIsConfPasswordFocused] = useState(false);
-    const [verificationCodeSent, setVerificationCodeSent] = useState(false);
-    const [verificationModalOpen, setVerificationModalOpen] = useState(false);
-    const [verificationSuccess, setVerificationSuccess] = useState(false);
+    const formHooks = ServiceProviderSignupHooks();
+    const { setHookValue, ...hooks } = formHooks;
 
+
+    let isAuthenticated:boolean = useAuthentication()
+
+    useEffect(() => {
+        setHookValue('isAuthenticated',isAuthenticated)
+        hooks.isAuthenticated && getUserData(setHookValue);
+    }, [hooks.isAuthenticated]);
+      
     const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
+        setHookValue('password',e.target.value)
+    }
 
     const handleConfPasswordChange = (e) => {
-        setConfPassword(e.target.value);
+        setHookValue('confPassword',e.target.value)
     };
 
     const handleConfPasswordBlur = () => {
-        setIsConfPasswordFocused(true);
-        setPasswordsMatch(password === confPassword);
+        setHookValue('isConfPasswordFocused',true)
+        setHookValue('passwordsMatch',hooks.password===hooks.confPassword)
     };
 
     const handleNewAccount = async (e) => {
         e.preventDefault();
       
-        if (passwordsMatch) {
+        if (hooks.passwordsMatch) {
           try {
             // Call Amplify's create account service
             const user = await Auth.signUp({
-              username: email, 
-              password: password,
+              username: hooks.email, 
+              password: hooks.password,
             });
             console.log('Account created successfully:', user);
             handleVerificationOpen()
@@ -84,95 +195,114 @@ const SignupForm = () => {
         } else{
             throw new Error("Passwords in UI did not match before handleNewAccount called, blocking call")
         }
-      };
+    };
     
     const handleBack = () => {
-        setActiveStep((prevStep) => prevStep - 1);
+        setHookValue('activeStep',(prevStep) => prevStep - 1)
     };
     
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-    try {
-        
-        if(password===confPassword){
-            await Auth.signUp({
-                username: email,
-                password: password,
-                attributes: {
-                    email,
-                    given_name: firstName,
-                    family_name: lastName,
-                },
-            });
+        try {
+            if(hooks.password===hooks.confPassword){
+                await Auth.signUp({
+                    username: hooks.email,
+                    password: hooks.password,
+                    attributes: {
+                      email: hooks.email,
+                      given_name: hooks.firstName,
+                      family_name: hooks.lastName,
+                    },
+                  }).then(() => {
+                    return Auth.signIn(hooks.email, hooks.password);
+                  }).catch((error) => {
+                    throw new Error(error);
+                  });
+            }
+            if (hooks.password !== hooks.confPassword) {
+                setHookValue('errorMessage','Passwords do not match')
+                return;
+            }  
+
+            // Clear form inputs
+            setHookValue('email','')
+            setHookValue('firstName','')
+            setHookValue('lastName', '')
+            setHookValue('companyName','')
+            setHookValue('address','')
+            setHookValue('phone','')
+            setHookValue('skills','')
+
+        } catch (error:any) {
+            console.error('Error signing up:', error)
+            setHookValue('errorMessage',error.message)
         }
-        if (password !== confPassword) {
-            setErrorMessage("Passwords do not match");
-            return;
-          }
-
-      // Create the user and service provider records in DynamoDB using your API
-
-      // Clear form inputs
-      setEmail('');
-      setFirstName('');
-      setLastName('');
-      setCompanyName('');
-      setAddress('');
-      setPhone('');
-      setSkills('');
-
-      // Show success message or redirect to a success page
-      console.log('User signed up successfully!');
-    } catch (error:any) {
-      console.error('Error signing up:', error);
-      setErrorMessage(error.message);
-    }
     };
 
-    const handleSignup = async () => {
-        try {
-          await Auth.signUp({
-            username: email,
-            password: password,
-          });
-          setVerificationCodeSent(true);
-        } catch (error) {
-          console.log('Signup error:', error);
-        }
-      };
-    
-      const handleVerificationOpen = () => {
-        setVerificationModalOpen(true);
-      };
+    const handleVerificationOpen = () => {
+        setHookValue('verificationModalOpen',true)
+    };
 
-      const handleVerificationClose = (success) => {
-        setVerificationModalOpen(false);
+    const handleVerificationClose = (success) => {
+        setHookValue('verificationModalOpen',false)
         
         if (success) {
-          setVerificationSuccess(true);
-          // Handle successful verification (e.g., navigate to next step)
+            setHookValue('verificationSuccess',true)
+            setHookValue('activeStep',hooks.activeStep+1)
         }
-      };
+    };
 
-      const handleVerifyAccount = async (verificationCode) => {
+    const handleReverificationButtonClick = async () => {
         try {
-          await Auth.confirmSignUp(email, verificationCode);
-          // Account verification successful
-          handleVerificationClose(true)
+            await Auth.resendSignUp(hooks.email);
+            setHookValue('verificationModalOpen',true)
         } catch (error) {
-          handleVerificationClose(false)
-          throw new Error('Invalid verification code')
+            console.error('Error resending verification email:', error);
         }
-      };
+    }
+
+    const handleVerifyAccount = async (verificationCode) => {
+        console.log("Code",verificationCode)
+        try {
+        await Auth.confirmSignUp(hooks.email, verificationCode);
+            // Account verification successful
+            handleVerificationClose(true)
+        } catch (error) {
+            handleVerificationClose(false)
+            throw new Error('Invalid verification code')
+        }
+    };
 
     const StyledAutocomplete = styled(Autocomplete)`
         .MuiAutocomplete-listbox {
             background-color: black; // Set your desired background color
             color: white; // Set your desired text color
         }
-        `;
+    `
+
+    const StepperSuccessIcon = (props: StepIconProps) => {
+        const { active, completed } = props;
+        
+        if (completed) {
+            return <CheckCircle color="success" />;
+        }
+        
+        return <div className={active ? 'MuiStepIcon-active' : 'MuiStepIcon-inactive'}>{props.icon}</div>;
+    };
+
+
+    const renderCreateAccountStepLabel = hooks.isAuthenticated ? (
+        <StepLabel StepIconComponent={StepperSuccessIcon}>
+          Create Account
+        </StepLabel>
+      ) : (
+        <StepLabel>
+          Create Account
+        </StepLabel>
+    );
+        
 
     return(
         <>
@@ -208,22 +338,36 @@ const SignupForm = () => {
                         <form onSubmit={handleSubmit} style={{height:"100%"}} >
                             <Stack direction="row">
                                 <Grid container>
-                                    <Grid xs={12} sx={{ objectFit:'contain', height:'400px' }}>
-                                        <Stepper activeStep={activeStep} alternativeLabel sx={{backgroundColor:'primary.main'}}>
-                                            {steps.map((label) => (
-                                            <Step key={label}>
-                                                <StepLabel>{label}</StepLabel>
-                                            </Step>
-                                            ))}
-                                        </Stepper>
+                                    <Grid item xs={12} sx={{ objectFit:'contain', height:'400px' }}>
+                                    <Stepper activeStep={hooks.activeStep} alternativeLabel sx={{ backgroundColor: 'primary.main' }}>
+                                        <Step>
+                                            {renderCreateAccountStepLabel}
+                                        </Step>
+                                        <Step>
+                                            <StepLabel>
+                                                Personal Information
+                                            </StepLabel>
+                                        </Step>
+                                        <Step>
+                                            <StepLabel>
+                                                Address
+                                            </StepLabel>
+                                        </Step>
+                                        <Step>
+                                            <StepLabel>
+                                                Contact Information
+                                            </StepLabel>
+                                        </Step>
+                                    </Stepper>
 
-                                        {activeStep === 0 && (
+                                        {hooks.activeStep === 0 && (
+                                            !hooks.isAuthenticated ? (
                                             <div style={{backgroundColor:'primary.main'}}>
                                                 <TextField
                                                     label="Email"
                                                     type="email"
-                                                    value={email}
-                                                    onChange={(e) => setEmail(e.target.value)}
+                                                    value={hooks.email}
+                                                    onChange={(e) => setHookValue('email',e.target.value)}
                                                     required
                                                     fullWidth
                                                     sx={{
@@ -232,14 +376,14 @@ const SignupForm = () => {
                                                     }} 
                                                 />
                                                 <Box sx={{height:"40px"}} >
-                                                    {!passwordsMatch && isConfPasswordFocused && (
+                                                    {!hooks.passwordsMatch && hooks.isConfPasswordFocused && (
                                                         <Alert severity="warning">Password mismatch</Alert>
                                                     )}
                                                 </Box>
                                                 <TextField
                                                     label="Password"
                                                     type="password"
-                                                    value={password}
+                                                    value={hooks.password}
                                                     onChange={handlePasswordChange}
                                                     required
                                                     fullWidth
@@ -247,14 +391,14 @@ const SignupForm = () => {
                                                         mt:3,
                                                         mb:3
                                                     }}
-                                                    error={!passwordsMatch && isConfPasswordFocused}
-                                                    helperText={!passwordsMatch && 'Passwords do not match'}
+                                                    error={!hooks.passwordsMatch && hooks.isConfPasswordFocused}
+                                                    helperText={!hooks.passwordsMatch && 'Passwords do not match'}
                                                 />
 
                                                 <TextField
                                                     label="Confirm Password"
                                                     type="password"
-                                                    value={confPassword}
+                                                    value={hooks.confPassword}
                                                     onChange={handleConfPasswordChange}
                                                     onBlur={handleConfPasswordBlur}
                                                     required
@@ -264,20 +408,29 @@ const SignupForm = () => {
                                                         mb:3
                                                     }}
 
-                                                    error={!passwordsMatch && isConfPasswordFocused}
+                                                    error={!hooks.passwordsMatch && hooks.isConfPasswordFocused}
                                                 />
-
-                                                
-                                            </div>
+                                            </div>):(
+                                                <div style={{backgroundColor:'primary.main'}}>
+                                                    <Button
+                                                        variant="contained"
+                                                        onClick={handleReverificationButtonClick}
+                                                        sx={{ mt: 10 }}
+                                                        color="secondary"
+                                                        >
+                                                        Account not verified, click to send new verification email
+                                                    </Button>
+                                                </div>
+                                            )
                                         )}
 
-                                        {activeStep === 1 && (
+                                        {hooks.activeStep === 1 && (
                                             <>
                                             <TextField
                                                     label="First Name"
                                                     type="text"
-                                                    value={firstName}
-                                                    onChange={(e) => setFirstName(e.target.value)}
+                                                    value={hooks.firstName}
+                                                    onChange={(e) => setHookValue('firstName',e.target.value)}
                                                     required
                                                     fullWidth
                                                     sx={{
@@ -289,8 +442,8 @@ const SignupForm = () => {
                                                 <TextField
                                                     label="Last Name"
                                                     type="text"
-                                                    value={lastName}
-                                                    onChange={(e) => setLastName(e.target.value)}
+                                                    value={hooks.lastName}
+                                                    onChange={(e) => setHookValue('lastName',e.target.value)}
                                                     required
                                                     fullWidth
                                                     sx={{
@@ -302,8 +455,8 @@ const SignupForm = () => {
                                                 <TextField
                                                     label="Company Name"
                                                     type="text"
-                                                    value={companyName}
-                                                    onChange={(e) => setCompanyName(e.target.value)}
+                                                    value={hooks.companyName}
+                                                    onChange={(e) => setHookValue('companyName',e.target.value)}
                                                     fullWidth
                                                     sx={{
                                                         mt:3,
@@ -314,13 +467,13 @@ const SignupForm = () => {
                                             </>
                                         )}
                                 
-                                        {activeStep === 2 && (
+                                        {hooks.activeStep === 2 && (
                                             <>
                                             <TextField
                                                 label="Address"
                                                 type="text"
-                                                value={address}
-                                                onChange={(e) => setAddress(e.target.value)}
+                                                value={hooks.address}
+                                                onChange={(e) => setHookValue('address',e.target.value)}
                                                 fullWidth
                                                 sx={{
                                                     mt:3,
@@ -332,21 +485,21 @@ const SignupForm = () => {
                                                 disablePortal
                                                 options={municipalities.map((municipality) => municipality.village)}
                                                 renderInput={(params) => <TextField {...params} label="Address" />}
-                                                value={town}
-                                                onChange={(event, newValue:any) => setTown(newValue)}
+                                                value={hooks.town}
+                                                onChange={(event, newValue:any) => setHookValue('town',newValue)}
                                                 fullWidth
                                             />
                                             
                                             </>
                                         )}
 
-                                        {activeStep === 3 && (
+                                        {hooks.activeStep === 3 && (
                                             <>
                                                 <TextField
                                                     label="Phone"
                                                     type="tel"
-                                                    value={phone}
-                                                    onChange={(e) => setPhone(e.target.value)}
+                                                    value={hooks.phone}
+                                                    onChange={(e) => setHookValue('phone',e.target.value)}
                                                     fullWidth
                                                     sx={{
                                                         mt:3,
@@ -357,8 +510,8 @@ const SignupForm = () => {
                                                 <TextField
                                                     label="Skills"
                                                     type="text"
-                                                    value={skills}
-                                                    onChange={(e) => setSkills(e.target.value)}
+                                                    value={hooks.skills}
+                                                    onChange={(e) => setHookValue('skills',e.target.value)}
                                                     fullWidth
                                                     sx={{
                                                         mt:3,
@@ -372,7 +525,7 @@ const SignupForm = () => {
                                     <Grid item xs={12}>
                                         <Divider sx={{m:2}} />
                                     </Grid>
-                                    <Grid xs={12}>                
+                                    <Grid item xs={12}>                
                                         <Box
                                             sx={{
                                                 display: "flex",
@@ -381,7 +534,7 @@ const SignupForm = () => {
                                             >
 
                                             {
-                                                activeStep > 0 ? (
+                                                hooks.activeStep > 0 ? (
                                                 <>
                                                     <Button variant="outlined" color="primary" onClick={handleBack} sx={{ mr: 2 }}>
                                                         Back
@@ -398,7 +551,7 @@ const SignupForm = () => {
                                                         fontSize: 16,
                                                         }}
                                                     >
-                                                        {activeStep === steps.length - 1 ? 'Sign Up' : 'Next'}
+                                                        {hooks.activeStep === 3 ? 'Sign Up' : 'Next'}
                                                     </Button>
                                                 </>
                                                 ):(
@@ -418,7 +571,7 @@ const SignupForm = () => {
 
             <VerificationModal
                 handleVerifyAccount={handleVerifyAccount}
-                open={verificationModalOpen}
+                open={hooks.verificationModalOpen}
                 onClose={handleVerificationClose}
             />
         </>
