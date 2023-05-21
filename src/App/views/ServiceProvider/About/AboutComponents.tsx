@@ -70,99 +70,10 @@ export const VerificationModal = ({ handleVerifyAccount, open, onClose }) => {
     );
 };
 
-/**
- * @function checkUserVerification
- * @description Function to check if a user is verified based on user attributes.
- * 
- * @input userAttributes: Array of user attributes.
- * 
- * @output Promise<boolean> indicating whether the user is verified.
- * 
- * @functionality Checks if the user attributes include an attribute with the name "email_verified" and a value of "true".
- * Returns true if the user is verified, false otherwise.
- * If an error occurs, logs the error and returns false.
- */
-const checkUserVerification = async(userAttributes):Promise<boolean> => {
-    try{
-        const isVerified = userAttributes.some(
-            (attr) => attr.Name === 'email_verified' && attr.Value === 'true'
-        );
-        return(isVerified)
-    } catch(error){
-        console.error(error)
-        return false
-    }
-}
-
-/**
- * @function checkUserObjectExists
- * @description Function to check if a user object exists based on the current user.
- * 
- * @input currentUser: Current authenticated user object.
- * 
- * @output Promise<boolean> indicating whether the user object exists.
- * 
- * @functionality Retrieves the user ID from the current user attributes.
- * Performs a GraphQL query to fetch the user object using the user ID.
- * Returns true if the user object exists, false otherwise.
- * If an error occurs, logs the error and returns false.
- */
-const checkUserObjectExists = async (currentUser):Promise<boolean> => {
-    try {
-        const userId = currentUser.attributes.sub;
-        const query = graphqlOperation(getUser, { id: userId });
-        const data:any = await API.graphql(query);
-        return !!data.getUser; 
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
-};
-
-/**
- * @function fetchUserData
- * @description Function to fetch user data and update verification success and completion status.
- * 
- * @input setVerificationSuccess: Function to set the verification success state.
- * @input setIsComplete: Function to set the completion status state.
- * 
- * @output None.
- * 
- * @functionality Retrieves the current authenticated user.
- * Fetches the user attributes associated with the current user.
- * Checks if the user is verified by calling the checkUserVerification function.
- * If the user is verified, checks if the user object exists by calling the checkUserObjectExists function.
- * Updates the verification success and completion status based on the results.
- */
-const getUserData = async (setter) => {
-    let currentUser:string
-    let userAttributes:any
-    let userVerified:boolean = false
-    let userObjectExists:boolean = false
-    try{
-    currentUser = await Auth.currentAuthenticatedUser();
-    userAttributes = await Auth.userAttributes(currentUser)
-    userVerified = await checkUserVerification(userAttributes)
-    userVerified && (userObjectExists = await checkUserObjectExists(currentUser))
-
-    setter('verificationSuccess',userVerified)
-    setter('isComplete',userObjectExists)
-    }catch(error){
-        console.error("Error with getUserData: ", error)
-    }
-};
-
 const SignupForm = () => {
     const formHooks = ServiceProviderSignupHooks();
     const { setHookValue, ...hooks } = formHooks;
 
-
-    let isAuthenticated:boolean = useAuthentication()
-
-    useEffect(() => {
-        setHookValue('isAuthenticated',isAuthenticated)
-        hooks.isAuthenticated && getUserData(setHookValue);
-    }, [hooks.isAuthenticated]);
       
     const handlePasswordChange = (e) => {
         setHookValue('password',e.target.value)
@@ -177,23 +88,27 @@ const SignupForm = () => {
         setHookValue('passwordsMatch',hooks.password===hooks.confPassword)
     };
 
-    const handleNewAccount = async (e) => {
+    const handleNewAccountFormSubmitCall = async (e) => {
         e.preventDefault();
       
         if (hooks.passwordsMatch) {
           try {
+
             // Call Amplify's create account service
             const user = await Auth.signUp({
               username: hooks.email, 
               password: hooks.password,
             });
+
             console.log('Account created successfully:', user);
+
             handleVerificationOpen()
+
           } catch (error) {
             console.error('Error creating account:', error);
           }
         } else{
-            throw new Error("Passwords in UI did not match before handleNewAccount called, blocking call")
+            throw new Error("Passwords in UI did not match before handleNewAccountFormSubmitCall called, blocking call")
         }
     };
     
@@ -201,45 +116,35 @@ const SignupForm = () => {
         setHookValue('activeStep',(prevStep) => prevStep - 1)
     };
     
+    const handleSignUpFormSubmitCall = async (event) => {
+        event.preventDefault()
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
 
-        try {
-            if(hooks.password===hooks.confPassword){
-                await Auth.signUp({
+        /**if(hooks.password===hooks.confPassword){
+            try{
+                const signUpAttributes = {
                     username: hooks.email,
                     password: hooks.password,
                     attributes: {
-                      email: hooks.email,
-                      given_name: hooks.firstName,
-                      family_name: hooks.lastName,
+                        email: hooks.email,
+                        given_name: hooks.firstName,
+                        family_name: hooks.lastName,
                     },
-                  }).then(() => {
-                    return Auth.signIn(hooks.email, hooks.password);
-                  }).catch((error) => {
-                    throw new Error(error);
-                  });
+                }
+                const signUserUp =  await Auth.signUp(signUpAttributes)
+                return(signUserUp)
+            
+            }catch(error:any){
+                throw new Error(error)
             }
-            if (hooks.password !== hooks.confPassword) {
-                setHookValue('errorMessage','Passwords do not match')
-                return;
-            }  
-
-            // Clear form inputs
-            setHookValue('email','')
-            setHookValue('firstName','')
-            setHookValue('lastName', '')
-            setHookValue('companyName','')
-            setHookValue('address','')
-            setHookValue('phone','')
-            setHookValue('skills','')
-
-        } catch (error:any) {
-            console.error('Error signing up:', error)
-            setHookValue('errorMessage',error.message)
         }
-    };
+        else {
+            setHookValue('errorMessage','Passwords do not match')
+            return;
+        }  */
+
+        
+    }
 
     const handleVerificationOpen = () => {
         setHookValue('verificationModalOpen',true)
@@ -266,7 +171,7 @@ const SignupForm = () => {
     const handleVerifyAccount = async (verificationCode) => {
         console.log("Code",verificationCode)
         try {
-        await Auth.confirmSignUp(hooks.email, verificationCode);
+            await Auth.confirmSignUp(hooks.email, verificationCode);
             // Account verification successful
             handleVerificationClose(true)
         } catch (error) {
@@ -274,6 +179,15 @@ const SignupForm = () => {
             throw new Error('Invalid verification code')
         }
     };
+
+    const handleSignIn = async () => {
+        try{
+            let signIn = await Auth.signIn(hooks.email, hooks.password)
+            console.log("User signed in:",signIn)
+        }catch(error){
+            console.error(error)
+        }
+    }
 
     const StyledAutocomplete = styled(Autocomplete)`
         .MuiAutocomplete-listbox {
@@ -335,7 +249,7 @@ const SignupForm = () => {
 
                         <Divider sx={{m:2}} />
 
-                        <form onSubmit={handleSubmit} style={{height:"100%"}} >
+                        <form onSubmit={handleSignUpFormSubmitCall} style={{height:"100%"}} >
                             <Stack direction="row">
                                 <Grid container>
                                     <Grid item xs={12} sx={{ objectFit:'contain', height:'400px' }}>
@@ -555,7 +469,7 @@ const SignupForm = () => {
                                                     </Button>
                                                 </>
                                                 ):(
-                                                    <Button variant="outlined" color="primary" onClick={handleNewAccount} sx={{ mr:2 }}>
+                                                    <Button variant="outlined" color="primary" onClick={handleNewAccountFormSubmitCall} sx={{ mr:2 }}>
                                                         Create Account
                                                     </Button>
                                                 )

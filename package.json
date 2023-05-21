@@ -1,6 +1,6 @@
 {
-  "name": "proversivity",
-  "version": "0.9.1",
+  "name": "north_country_engineer",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@aws-amplify/cli": "^11.1.0",
@@ -69,9 +69,9 @@
     "@types/mui-image": "^1.0.1",
     "@types/react-draft-wysiwyg": "^1.13.4"
   },
-  "description": "Proversivity platform for numerous projects and services",
+  "description": "North Country Engineer",
   "main": "index.js",
-  "repository": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/ProversivityWeb",
+  "repository": "https://github.com/NorthCountryEngineer/ProversivityWeb",
   "author": "Eric Yager, MBA MS",
   "license": "MIT",
   "peerDependencies": {
