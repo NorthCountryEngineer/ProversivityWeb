@@ -1,123 +1,97 @@
 import { useEffect, useState } from 'react';
-import { useAuthentication } from '../../Authentication';
+import { getAppClientAccessToken, useAuthentication } from '../../Authentication';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { getUser } from '../../../../graphql/queries';
+import { ServiceProviderSignUpProps, ServiceProviderSignupInitialState } from './AboutTypes.d';
+
 
 export function ServiceProviderSignupHooks() {
-  const initialState = {
-    address: '',
-    activeStep: 0,
-    companyName: '',
-    confPassword: '',
-    email: '',
-    errorMessage: '',
-    firstName: '',
-    loadingComplete: false,
-    isAuthenticated: false,
-    isComplete: false,
-    isConfPasswordFocused: false,
-    lastName: '',
-    password: '',
-    passwordsMatch: true,
-    phone: '',
-    skills: '',
-    town: '',
-    userID: '',
-    verificationCodeSent: false,
-    verificationModalOpen: false,
-    verificationSuccess: false
-  };
+    const [address, setAddress] = useState('')
+    const [activeStep, setActiveStep] = useState(0)
+    const [companyName, setCompanyName] = useState('')
+    const [confPassword, setConfPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [loadingComplete, setLoadingComplete] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [isComplete, setIsComplete] = useState(false)
+    const [isConfPasswordFocused, setIsConfPasswordFocused] = useState(false)
+    const [lastName, setLastName] = useState('')
+    const [password, setPassword] = useState('')
+    const [passwordsMatch, setPasswordsMatch] = useState(true)
+    const [phone, setPhone] = useState('')
+    const [skills, setSkills] = useState('')
+    const [town, setTown] = useState('')
+    const [userID, setUserID] = useState('')
+    const [verificationCodeSent, setVerificationCodeSent] = useState(false)
+    const [verificationModalOpen, setVerificationModalOpen] = useState(false)
+    const [verificationSuccess, setVerificationSuccess] = useState(false)
+    const test = useState("test")
 
-  const [state, setState] = useState(initialState);
+    const [serviceProviderSignupAttributes, setServiceProviderSignupAttributes] = useState<ServiceProviderSignUpProps>(ServiceProviderSignupInitialState)
 
-  let isAuthenticated:boolean = useAuthentication()
+    const updateServiceProviderFormState = (updates: Partial<ServiceProviderSignUpProps>) => {
+        console.log({...serviceProviderSignupAttributes, ...updates})
+        setServiceProviderSignupAttributes({...serviceProviderSignupAttributes, ...updates});
+        console.log(serviceProviderSignupAttributes)
+    };
 
-  const setUserAuthenticationAttributes = async() => {
-    try{
-        let currentAuthenticatedUser = await Auth.currentAuthenticatedUser();
-        console.log(currentAuthenticatedUser)
-        initialState.email = currentAuthenticatedUser.attributes.email
-        initialState.verificationSuccess = currentAuthenticatedUser.attributes.email_verified
-        initialState.userID = currentAuthenticatedUser.attributes.sub
-        console.log(currentAuthenticatedUser, initialState)
-        return true
-    }catch(error){
-        console.error(error)
-        return false
-    }
-}   
+    const SetUserAuthenticationAttributes = async () => {
+        const authenticationStatus = getAppClientAccessToken();
+        let attributes = {
+          isAuthenticated: false,
+          email: '',
+          verificationSuccess: false,
+          userID: '',
+          isComplete: false,
+          loadingComplete:true,
+        };
+      
+        try {
+          if (authenticationStatus) {
+            const currentAuthenticatedUser = await Auth.currentAuthenticatedUser();
 
-    useEffect(()=>{
+            attributes.isAuthenticated = authenticationStatus;
+            attributes.email = currentAuthenticatedUser.attributes.email;
+            attributes.verificationSuccess = currentAuthenticatedUser.attributes.email_verified;
+            attributes.userID = currentAuthenticatedUser.attributes.sub;
+      
+            const userObjectExists = await checkUserObjectExists(currentAuthenticatedUser.attributes.sub);
 
-        try{
-            setUserAuthenticationAttributes().then((response)=>{
-                initialState.userID.length>0 && (
-                    checkUserObjectExists(initialState.userID).then(()=>{
-                        initialState.loadingComplete = true
-                    })
-                )
-            }).catch((error)=>{
-                console.error(error)
-                initialState.errorMessage = error
-                initialState.loadingComplete = true
-            })
+            if (userObjectExists) {
+                attributes.isComplete=true
+                setServiceProviderSignupAttributes({ ...serviceProviderSignupAttributes, ...attributes });
+            }else{
+                setServiceProviderSignupAttributes({ ...serviceProviderSignupAttributes, ...attributes });
+            }
 
-
-            //currentUser && (userAttributes = async() => await getUserAttributes(currentUser))
-            //userAttributes && (userVerified = async() => await checkUserVerification(userAttributes))
-            //userVerified && (userObjectExists = async() => await checkUserObjectExists(currentUser) )
-
-
-
-            //initialState.isComplete = userObjectExists
-        }catch(error){
-            console.error("Error with getUserData: ", error)
+            return true;
+          }
+        } catch (error) {
+          console.error(error);
+          return false;
         }
-
-    },[isAuthenticated])
-
-  const setHookValue = (key, value) => {
-    console.log({key:value})
-    setState(prevState => ({
-      ...prevState,
-      [key]: value
-    }));
-  };
-
-  
-
-  return {
-    ...state,
-    setHookValue
-  };
-}
-
-
-const checkUserObjectExists = async (userId):Promise<boolean> => {
-    try {
-        const query = graphqlOperation(getUser, { id: userId });
-        const data:any = await API.graphql(query);
-        if(data.getUser===null){
-            return false
-        }else{
-            console.log("checkUserObjectExists: ", data) //Todo: Need to create a user object for myself and then go back and implement what we do if it already exists
-        }
-        return !!data.getUser; 
-    } catch (error) {
-        console.error(error);
         return false;
-    }
-};
+      };
+      
+      const checkUserObjectExists = async (userId) => {
+        try {
+          const query = graphqlOperation(getUser, { id: userId });
+          const data: any = await API.graphql(query);
+          return !!data.getUser;
+        } catch (error) {
+          console.error(error);
+          return false;
+        }
+      };
+      
 
-const checkUserVerification = async(userAttributes):Promise<boolean> => {
-    try{
-        console.log(await userAttributes)
-        const isVerified = userAttributes.some(
-            (attr) => attr.Name === 'email_verified' && attr.Value === 'true'
-        );
-        return(isVerified)
-    } catch(error){
-        console.error(error)
-        return false
-    }
+    useEffect(() => {
+        SetUserAuthenticationAttributes()
+    }, []);
+      
+    useEffect(() => {
+        console.log("Updated attributes: ", serviceProviderSignupAttributes);
+    }, [serviceProviderSignupAttributes]);
 }
