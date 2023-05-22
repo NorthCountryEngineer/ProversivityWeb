@@ -2,12 +2,9 @@ import { useEffect, useState } from 'react';
 import { getAppClientAccessToken } from '../../Authentication';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { getUser } from '../../../../graphql/queries';
-import { ServiceProviderSignUpProps, ServiceProviderSignupInitialState } from './AboutTypes.d';
 
 
-export function ServiceProviderSignupHooks() {
-
-    const [serviceProviderSignupAttributes, setServiceProviderSignupAttributes] = useState<ServiceProviderSignUpProps>(ServiceProviderSignupInitialState)
+export function ServiceProviderSignupHooks(serviceProviderSignupAttributes, setServiceProviderSignupAttributes) {
 
     const checkUserObjectExists = async (userId) => {
         try {
@@ -58,13 +55,6 @@ export function ServiceProviderSignupHooks() {
         }
         return false;
       };
-      
 
-    useEffect(() => {
-        SetUserAuthenticationAttributes()
-    }, []);
-      
-    useEffect(() => {
-        console.log("Updated attributes: ", serviceProviderSignupAttributes);
-    }, [serviceProviderSignupAttributes]);
+    return(serviceProviderSignupAttributes)
 }

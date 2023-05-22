@@ -1,6 +1,6 @@
 import Image from "mui-image"
-import municipalities from './municipalities.json';
-import styled from "@emotion/styled";
+import municipalities from './municipalities.json'
+import styled from "@emotion/styled"
 
 import {
     Box, 
@@ -23,13 +23,13 @@ import {
     StepIconProps  
 } from "@mui/material"
 
-import { getUser } from "../../../../graphql/queries";
-import { CheckCircle } from "@mui/icons-material";
-import { useAuthentication } from "../../Authentication";
-import { AboutCalloutsProps } from "./AboutTypes"
-import { useEffect, useState } from 'react';
-import { ServiceProviderSignupHooks } from "./AboutHooks";
-import { API, Auth, graphqlOperation } from 'aws-amplify';
+import { getUser } from "../../../../graphql/queries"
+import { CheckCircle } from "@mui/icons-material"
+import { getAppClientAccessToken, useAuthentication } from "../../Authentication"
+import { AboutCalloutsProps, ServiceProviderSignUpProps, ServiceProviderSignupInitialState } from "./AboutTypes.d"
+import { useEffect, useState } from 'react'
+import { API, Auth, graphqlOperation } from "aws-amplify"
+import { ServiceProviderSignupHooks } from "./AboutHooks"
 
 /**
  * @component VerificationModal
@@ -47,8 +47,8 @@ import { API, Auth, graphqlOperation } from 'aws-amplify';
  * Calls the handleVerifyAccount function when the user clicks the "Verify Account" button.
  */
 export const VerificationModal = ({ handleVerifyAccount, open, onClose }) => {
-    const [verificationCode, setVerificationCode] = useState('');
-    const [error, setError] = useState('');
+    const [verificationCode, setVerificationCode] = useState('')
+    const [error, setError] = useState('')
   
     return (
       <Modal open={open} onClose={() => onClose(false)}>
@@ -67,91 +67,142 @@ export const VerificationModal = ({ handleVerifyAccount, open, onClose }) => {
           </Button>
         </div>
       </Modal>
-    );
-};
+    )
+}
 
 const SignupForm = () => {
-    const formHooks = ServiceProviderSignupHooks();
-    console.log(formHooks)
-    const setHookValue = (type,value) => console.log(type,value)
 
-    const { ...hooks } = {
-        address: '',
-        activeStep: 0,
-        companyName: '',
-        confPassword: '',
-        email: '',
-        errorMessage: '',
-        firstName: '',
-        loadingComplete: false,
-        isAuthenticated: false,
-        isComplete: false,
-        isConfPasswordFocused: false,
-        lastName: '',
-        password: '',
-        passwordsMatch: true,
-        phone: '',
-        skills: '',
-        town: '',
-        userID: '',
-        verificationCodeSent: false,
-        verificationModalOpen: false,
-        verificationSuccess: false
-    }
+    const [serviceProviderSignupAttributes, setServiceProviderSignupAttributes] = useState<ServiceProviderSignUpProps>(ServiceProviderSignupInitialState)
 
+    useEffect(() => {
+        SetUserAuthenticationAttributes()
+    }, []);
       
-    const handlePasswordChange = (e) => {
-        setHookValue('password',e.target.value)
+    useEffect(() => {
+        console.log("Updated attributes: ", serviceProviderSignupAttributes);
+    }, [serviceProviderSignupAttributes]);
+
+    const SetUserAuthenticationAttributes = async () => {
+        const authenticationStatus = getAppClientAccessToken();
+        let attributes = {
+          isAuthenticated: false,
+          email: '',
+          verificationSuccess: false,
+          userID: '',
+          isComplete: false,
+          loadingComplete:true,
+        };
+      
+        try {
+          if (authenticationStatus) {
+            const currentAuthenticatedUser = await Auth.currentAuthenticatedUser();
+
+            attributes.isAuthenticated = authenticationStatus;
+            attributes.email = currentAuthenticatedUser.attributes.email;
+            attributes.verificationSuccess = currentAuthenticatedUser.attributes.email_verified;
+            attributes.userID = currentAuthenticatedUser.attributes.sub;
+      
+            const userObjectExists = await checkUserObjectExists(currentAuthenticatedUser.attributes.sub);
+
+            if (userObjectExists) {
+                attributes.isComplete=true
+                setServiceProviderSignupAttributes({ ...serviceProviderSignupAttributes, ...attributes });
+            }else{
+                setServiceProviderSignupAttributes({ ...serviceProviderSignupAttributes, ...attributes });
+            }
+
+            return true;
+          }
+        } catch (error) {
+          console.error(error);
+          return false;
+        }
+        return false;
+    };
+
+    /**
+     * Updates the attributes in the state of the signup form.
+     *
+     * @param {object} newAttributes - The new attribute-value pairs to update.
+     * @returns {void}
+    */
+    const updateAttributes = (newAttributes) => {
+        setServiceProviderSignupAttributes({
+            ...serviceProviderSignupAttributes,
+            ...newAttributes
+        })
     }
 
-    const handleConfPasswordChange = (e) => {
-        setHookValue('confPassword',e.target.value)
+    const checkUserObjectExists = async (userId) => {
+        try {
+          const query = graphqlOperation(getUser, { id: userId });
+          const data: any = await API.graphql(query);
+          return !!data.getUser;
+        } catch (error) {
+          console.error(error);
+          return false;
+        }
     };
+
+
+    
+
+    const handleInputChange = (event) => {
+        console.log(serviceProviderSignupAttributes)
+        const { value, name } = event.target
+        console.log(value,name)
+        updateAttributes({
+          [name]: value,
+        })
+    }
 
     const handleConfPasswordBlur = () => {
-        setHookValue('isConfPasswordFocused',true)
-        setHookValue('passwordsMatch',hooks.password===hooks.confPassword)
-    };
+        updateAttributes({
+            isConfPasswordFocused: true,
+            passwordsMatch: serviceProviderSignupAttributes.password===serviceProviderSignupAttributes.confPassword
+        })
+        console.log(serviceProviderSignupAttributes)
+    }
 
     const handleNewAccountFormSubmitCall = async (e) => {
-        e.preventDefault();
-      
-        if (hooks.passwordsMatch) {
+        e.preventDefault()
+        if (serviceProviderSignupAttributes.passwordsMatch) {
           try {
             const user = await Auth.signUp({
-              username: hooks.email, 
-              password: hooks.password,
+              username: serviceProviderSignupAttributes.email, 
+              password: serviceProviderSignupAttributes.password,
             })
 
-            console.log('Account created successfully:', user);
+            console.log('Account created successfully:', user)
 
-            handleVerificationOpen()
+            updateAttributes({verificationModalOpen:true})
 
           } catch (error) {
-            console.error('Error creating account:', error);
+            console.error('Error creating account:', error)
           }
         } else{
             throw new Error("Passwords in UI did not match before handleNewAccountFormSubmitCall called, blocking call")
         }
-    };
+    }
     
     const handleBack = () => {
-        setHookValue('activeStep',(prevStep) => prevStep - 1)
-    };
+        const updatedActiveStep = {activeStep: (serviceProviderSignupAttributes.activeStep-1)}
+        updateAttributes(updatedActiveStep)
+    }
     
     const handleSignUpFormSubmitCall = async (event) => {
         event.preventDefault()
         //todo: Implement this for user object.
 
-        /**if(hooks.password===hooks.confPassword){
+        /**if(serviceProviderSignupAttributes.password===serviceProviderSignupAttributes.confPassword){
             try{
                 const signUpAttributes = {
-                    username: hooks.email,
-                    password: hooks.password,
+                    username: serviceProviderSignupAttributes.email,
+                    password: serviceProviderSignupAttributes.password,
                     attributes: {
-                        email: hooks.email,
-                        given_name: hooks.firstName,
-                        family_name: hooks.lastName,
+                        email: serviceProviderSignupAttributes.email,
+                        given_name: serviceProviderSignupAttributes.firstName,
+                        family_name: serviceProviderSignupAttributes.lastName,
                     },
                 }
                 const signUserUp =  await Auth.signUp(signUpAttributes)
@@ -163,87 +214,84 @@ const SignupForm = () => {
         }
         else {
             setHookValue('errorMessage','Passwords do not match')
-            return;
+            return
         }  */
 
 
     }
 
-    const handleVerificationOpen = () => {
-        setHookValue('verificationModalOpen',true)
-    };
-
     const handleVerificationClose = (success) => {
-        setHookValue('verificationModalOpen',false)
+        const updatedActiveStep = {
+            verificationModalOpen: false,
+            verificationSuccess: false,
+            activeStep: serviceProviderSignupAttributes.activeStep
+        }
+        
         
         if (success) {
-            setHookValue('verificationSuccess',true)
-            setHookValue('activeStep',hooks.activeStep+1)
+            updatedActiveStep.verificationSuccess = true
+            updatedActiveStep.activeStep = serviceProviderSignupAttributes.activeStep+1
         }
-    };
+
+        updateAttributes(updatedActiveStep)
+    }
 
     const handleReverificationButtonClick = async () => {
         try {
-            await Auth.resendSignUp(hooks.email);
-            setHookValue('verificationModalOpen',true)
+            await Auth.resendSignUp(serviceProviderSignupAttributes.email)
+            updateAttributes({verificationModalOpen: true})
         } catch (error) {
-            console.error('Error resending verification email:', error);
+            console.error('Error resending verification email:', error)
         }
     }
 
     const handleVerifyAccount = async (verificationCode) => {
         console.log("Code",verificationCode)
         try {
-            await Auth.confirmSignUp(hooks.email, verificationCode);
-            // Account verification successful
+            await Auth.confirmSignUp(serviceProviderSignupAttributes.email, verificationCode)
             handleVerificationClose(true)
         } catch (error) {
             handleVerificationClose(false)
             throw new Error('Invalid verification code')
         }
-    };
-
-    const handleSignIn = async () => {
-        try{
-            let signIn = await Auth.signIn(hooks.email, hooks.password)
-            console.log("User signed in:",signIn)
-        }catch(error){
-            console.error(error)
-        }
     }
 
     const StyledAutocomplete = styled(Autocomplete)`
         .MuiAutocomplete-listbox {
-            background-color: black; // Set your desired background color
-            color: white; // Set your desired text color
+            background-color: black // Set your desired background color
+            color: white // Set your desired text color
         }
     `
 
     const StepperSuccessIcon = (props: StepIconProps) => {
-        const { active, completed } = props;
+        const { active, completed } = props
         
         if (completed) {
-            return <CheckCircle color="success" />;
+            return <CheckCircle color="success" />
         }
         
-        return <div className={active ? 'MuiStepIcon-active' : 'MuiStepIcon-inactive'}>{props.icon}</div>;
-    };
+        return <div className={active ? 'MuiStepIcon-active' : 'MuiStepIcon-inactive'}>{props.icon}</div>
+    }
 
 
-    const renderCreateAccountStepLabel = hooks.isAuthenticated ? (
-        <StepLabel StepIconComponent={StepperSuccessIcon}>
-          Create Account
-        </StepLabel>
-      ) : (
-        <StepLabel>
-          Create Account
-        </StepLabel>
-    );
+    function renderCreateAccountStepLabel() {
+        console.log(serviceProviderSignupAttributes.isAuthenticated)
+        return(
+            serviceProviderSignupAttributes.isAuthenticated ? (
+                <StepLabel StepIconComponent={StepperSuccessIcon}>
+                Create Account
+                </StepLabel>
+            ) : (
+                <StepLabel>
+                Create Account
+                </StepLabel>
+            )
+        )
+    }
         
 
     return(
         <>
-            {hooks.isComplete ? (
                 <Box
                     sx={{
                         minHeight: "10vh", // Adjust the height as needed
@@ -277,9 +325,9 @@ const SignupForm = () => {
                                 <Stack direction="row">
                                     <Grid container>
                                         <Grid item xs={12} sx={{ objectFit:'contain', height:'400px' }}>
-                                        <Stepper activeStep={hooks.activeStep} alternativeLabel sx={{ backgroundColor: 'primary.main' }}>
+                                        <Stepper activeStep={serviceProviderSignupAttributes.activeStep} alternativeLabel sx={{ backgroundColor: 'primary.main' }}>
                                             <Step>
-                                                {renderCreateAccountStepLabel}
+                                                {renderCreateAccountStepLabel()}
                                             </Step>
                                             <Step>
                                                 <StepLabel>
@@ -298,14 +346,21 @@ const SignupForm = () => {
                                             </Step>
                                         </Stepper>
 
-                                            {hooks.activeStep === 0 && (
-                                                !hooks.isAuthenticated ? (
+                                            {serviceProviderSignupAttributes.activeStep === 0 && (
+                                                !serviceProviderSignupAttributes.isAuthenticated ? (
                                                 <div style={{backgroundColor:'primary.main'}}>
+                                                    <Box sx={{height:"40px"}} >
+                                                        {
+                                                        serviceProviderSignupAttributes.errorMessage.length > 0 && 
+                                                            <Alert severity="warning">{serviceProviderSignupAttributes.errorMessage}</Alert>
+                                                        }
+                                                    </Box>
+
                                                     <TextField
                                                         label="Email"
-                                                        type="email"
-                                                        value={hooks.email}
-                                                        onChange={(e) => setHookValue('email',e.target.value)}
+                                                        name="email"
+                                                        value={serviceProviderSignupAttributes.email}
+                                                        onChange={handleInputChange}
                                                         required
                                                         fullWidth
                                                         sx={{
@@ -313,31 +368,29 @@ const SignupForm = () => {
                                                             mb:3
                                                         }} 
                                                     />
-                                                    <Box sx={{height:"40px"}} >
-                                                        {!hooks.passwordsMatch && hooks.isConfPasswordFocused && (
-                                                            <Alert severity="warning">Password mismatch</Alert>
-                                                        )}
-                                                    </Box>
+                                                    
                                                     <TextField
                                                         label="Password"
+                                                        name="password"
                                                         type="password"
-                                                        value={hooks.password}
-                                                        onChange={handlePasswordChange}
+                                                        value={serviceProviderSignupAttributes.password}
+                                                        onChange={handleInputChange}
                                                         required
                                                         fullWidth
                                                         sx={{
                                                             mt:3,
                                                             mb:3
                                                         }}
-                                                        error={!hooks.passwordsMatch && hooks.isConfPasswordFocused}
-                                                        helperText={!hooks.passwordsMatch && 'Passwords do not match'}
+                                                        error={!serviceProviderSignupAttributes.passwordsMatch && serviceProviderSignupAttributes.isConfPasswordFocused}
+                                                        helperText={!serviceProviderSignupAttributes.passwordsMatch && 'Passwords do not match'}
                                                     />
 
                                                     <TextField
                                                         label="Confirm Password"
+                                                        name="confPassword"
                                                         type="password"
-                                                        value={hooks.confPassword}
-                                                        onChange={handleConfPasswordChange}
+                                                        value={serviceProviderSignupAttributes.confPassword}
+                                                        onChange={handleInputChange}
                                                         onBlur={handleConfPasswordBlur}
                                                         required
                                                         fullWidth
@@ -346,7 +399,7 @@ const SignupForm = () => {
                                                             mb:3
                                                         }}
 
-                                                        error={!hooks.passwordsMatch && hooks.isConfPasswordFocused}
+                                                        error={!serviceProviderSignupAttributes.passwordsMatch && serviceProviderSignupAttributes.isConfPasswordFocused}
                                                     />
                                                 </div>):(
                                                     <div style={{backgroundColor:'primary.main'}}>
@@ -362,13 +415,13 @@ const SignupForm = () => {
                                                 )
                                             )}
 
-                                            {hooks.activeStep === 1 && (
+                                            {serviceProviderSignupAttributes.activeStep === 1 && (
                                                 <>
                                                 <TextField
                                                         label="First Name"
-                                                        type="text"
-                                                        value={hooks.firstName}
-                                                        onChange={(e) => setHookValue('firstName',e.target.value)}
+                                                        name="firstName"
+                                                        value={serviceProviderSignupAttributes.firstName}
+                                                        onChange={handleInputChange}
                                                         required
                                                         fullWidth
                                                         sx={{
@@ -379,9 +432,9 @@ const SignupForm = () => {
 
                                                     <TextField
                                                         label="Last Name"
-                                                        type="text"
-                                                        value={hooks.lastName}
-                                                        onChange={(e) => setHookValue('lastName',e.target.value)}
+                                                        name="lastName"
+                                                        value={serviceProviderSignupAttributes.lastName}
+                                                        onChange={handleInputChange}
                                                         required
                                                         fullWidth
                                                         sx={{
@@ -392,9 +445,9 @@ const SignupForm = () => {
 
                                                     <TextField
                                                         label="Company Name"
-                                                        type="text"
-                                                        value={hooks.companyName}
-                                                        onChange={(e) => setHookValue('companyName',e.target.value)}
+                                                        name="companyName"
+                                                        value={serviceProviderSignupAttributes.companyName}
+                                                        onChange={handleInputChange}
                                                         fullWidth
                                                         sx={{
                                                             mt:3,
@@ -405,13 +458,13 @@ const SignupForm = () => {
                                                 </>
                                             )}
                                     
-                                            {hooks.activeStep === 2 && (
+                                            {serviceProviderSignupAttributes.activeStep === 2 && (
                                                 <>
                                                 <TextField
                                                     label="Address"
-                                                    type="text"
-                                                    value={hooks.address}
-                                                    onChange={(e) => setHookValue('address',e.target.value)}
+                                                    name="address"
+                                                    value={serviceProviderSignupAttributes.address}
+                                                    onChange={handleInputChange}
                                                     fullWidth
                                                     sx={{
                                                         mt:3,
@@ -422,22 +475,22 @@ const SignupForm = () => {
                                                 <StyledAutocomplete
                                                     disablePortal
                                                     options={municipalities.map((municipality) => municipality.village)}
-                                                    renderInput={(params) => <TextField {...params} label="Address" />}
-                                                    value={hooks.town}
-                                                    onChange={(event, newValue:any) => setHookValue('town',newValue)}
+                                                    renderInput={(params) => <TextField {...params} label="Address" type="address" />}
+                                                    value={serviceProviderSignupAttributes.town}
+                                                    onChange={handleInputChange}
                                                     fullWidth
                                                 />
                                                 
                                                 </>
                                             )}
 
-                                            {hooks.activeStep === 3 && (
+                                            {serviceProviderSignupAttributes.activeStep === 3 && (
                                                 <>
                                                     <TextField
                                                         label="Phone"
-                                                        type="tel"
-                                                        value={hooks.phone}
-                                                        onChange={(e) => setHookValue('phone',e.target.value)}
+                                                        name="phone"
+                                                        value={serviceProviderSignupAttributes.phone}
+                                                        onChange={handleInputChange}
                                                         fullWidth
                                                         sx={{
                                                             mt:3,
@@ -447,9 +500,9 @@ const SignupForm = () => {
                                             
                                                     <TextField
                                                         label="Skills"
-                                                        type="text"
-                                                        value={hooks.skills}
-                                                        onChange={(e) => setHookValue('skills',e.target.value)}
+                                                        name="skills"
+                                                        value={serviceProviderSignupAttributes.skills}
+                                                        onChange={handleInputChange}
                                                         fullWidth
                                                         sx={{
                                                             mt:3,
@@ -472,7 +525,7 @@ const SignupForm = () => {
                                                 >
 
                                                 {
-                                                    hooks.activeStep > 0 ? (
+                                                    serviceProviderSignupAttributes.activeStep > 0 ? (
                                                     <>
                                                         <Button variant="outlined" color="primary" onClick={handleBack} sx={{ mr: 2 }}>
                                                             Back
@@ -489,7 +542,7 @@ const SignupForm = () => {
                                                             fontSize: 16,
                                                             }}
                                                         >
-                                                            {hooks.activeStep === 3 ? 'Sign Up' : 'Next'}
+                                                            {serviceProviderSignupAttributes.activeStep === 3 ? 'Sign Up' : 'Next'}
                                                         </Button>
                                                     </>
                                                     ):(
@@ -506,20 +559,17 @@ const SignupForm = () => {
                         </Stack>
                     </Box>
                 </Box>
-            ):(
-                <></>
-            )}
 
             <VerificationModal
                 handleVerifyAccount={handleVerifyAccount}
-                open={hooks.verificationModalOpen}
+                open={serviceProviderSignupAttributes.verificationModalOpen}
                 onClose={handleVerificationClose}
             />
         </>
-    );
-};
+    )
+}
 
-export default SignupForm;
+export default SignupForm
 
 
 export const CalloutBoxes = ({ isMobile, callouts }: AboutCalloutsProps) => {
