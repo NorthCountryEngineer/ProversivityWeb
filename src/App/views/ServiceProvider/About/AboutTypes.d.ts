@@ -30,7 +30,7 @@ export type ServiceProviderSignUpProps = {
 
 export const ServiceProviderSignupInitialState:ServiceProviderSignUpProps = {
     address: '',
-    activeStep: 0,
+    activeStep: 2,
     companyName: '',
     confPassword: '',
     email: '',

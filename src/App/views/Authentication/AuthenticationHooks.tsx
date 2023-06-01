@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify'
+import { Auth, Hub } from 'aws-amplify'
 import { useState, useEffect } from 'react'
 
 /**
@@ -31,23 +31,36 @@ export const getAppClientAccessToken = (): boolean => {
  * Custom hook to check if the user is authenticated.
  * @returns A boolean indicating whether the user is authenticated.
  */
-export const useAuthentication = (): boolean => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(getAppClientAccessToken())
+export const useAuthentication = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      setIsAuthenticated(getAppClientAccessToken())
-    }
+    // Check user authentication status when the component mounts
+    Auth.currentAuthenticatedUser()
+      .then(() => setIsAuthenticated(true))
+      .catch(() => setIsAuthenticated(false));
 
-    window.addEventListener('storage', handleStorageChange)
+    // Listen for sign in and sign out events
+    const listener = Hub.listen('auth', (data) => {
+      switch (data.payload.event) {
+        case 'signIn':
+          setIsAuthenticated(true);
+          break;
+        case 'signOut':
+          setIsAuthenticated(false);
+          break;
+        default:
+          break;
+      }
+    });
 
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-    }
-  }, [])
+    // Cleanup listener when the component unmounts
+    return () => Hub.remove('auth', listener);
+  }, []);
 
-  return isAuthenticated
+  return isAuthenticated;
 }
+
 
 
 export const handleSignUp = async (email, firstName, lastName, password) => {

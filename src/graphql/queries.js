@@ -85,7 +85,7 @@ export const getUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listUsers = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput
@@ -138,7 +138,7 @@ export const listUsers = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getCustomer = /* GraphQL */ `
   query GetCustomer($id: ID!) {
     getCustomer(id: $id) {
@@ -194,7 +194,7 @@ export const getCustomer = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listCustomers = /* GraphQL */ `
   query ListCustomers(
     $filter: ModelCustomerFilterInput
@@ -227,7 +227,7 @@ export const listCustomers = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getServiceProvider = /* GraphQL */ `
   query GetServiceProvider($id: ID!) {
     getServiceProvider(id: $id) {
@@ -284,7 +284,7 @@ export const getServiceProvider = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listServiceProviders = /* GraphQL */ `
   query ListServiceProviders(
     $filter: ModelServiceProviderFilterInput
@@ -322,7 +322,7 @@ export const listServiceProviders = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getBlogPage = /* GraphQL */ `
   query GetBlogPage($id: ID!) {
     getBlogPage(id: $id) {
@@ -390,7 +390,7 @@ export const getBlogPage = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listBlogPages = /* GraphQL */ `
   query ListBlogPages(
     $filter: ModelBlogPageFilterInput
@@ -425,7 +425,7 @@ export const listBlogPages = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getBlog = /* GraphQL */ `
   query GetBlog($id: ID!) {
     getBlog(id: $id) {
@@ -472,7 +472,7 @@ export const getBlog = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listBlogs = /* GraphQL */ `
   query ListBlogs(
     $filter: ModelBlogFilterInput
@@ -511,7 +511,7 @@ export const listBlogs = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getS3Object = /* GraphQL */ `
   query GetS3Object($id: ID!) {
     getS3Object(id: $id) {
@@ -524,7 +524,7 @@ export const getS3Object = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listS3Objects = /* GraphQL */ `
   query ListS3Objects(
     $filter: ModelS3ObjectFilterInput
@@ -544,4 +544,4 @@ export const listS3Objects = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;

@@ -88,7 +88,7 @@ export const createUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateUser = /* GraphQL */ `
   mutation UpdateUser(
     $input: UpdateUserInput!
@@ -176,7 +176,7 @@ export const updateUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteUser = /* GraphQL */ `
   mutation DeleteUser(
     $input: DeleteUserInput!
@@ -264,7 +264,7 @@ export const deleteUser = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createCustomer = /* GraphQL */ `
   mutation CreateCustomer(
     $input: CreateCustomerInput!
@@ -323,7 +323,7 @@ export const createCustomer = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateCustomer = /* GraphQL */ `
   mutation UpdateCustomer(
     $input: UpdateCustomerInput!
@@ -382,7 +382,7 @@ export const updateCustomer = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteCustomer = /* GraphQL */ `
   mutation DeleteCustomer(
     $input: DeleteCustomerInput!
@@ -441,7 +441,7 @@ export const deleteCustomer = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createServiceProvider = /* GraphQL */ `
   mutation CreateServiceProvider(
     $input: CreateServiceProviderInput!
@@ -501,7 +501,7 @@ export const createServiceProvider = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateServiceProvider = /* GraphQL */ `
   mutation UpdateServiceProvider(
     $input: UpdateServiceProviderInput!
@@ -561,7 +561,7 @@ export const updateServiceProvider = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteServiceProvider = /* GraphQL */ `
   mutation DeleteServiceProvider(
     $input: DeleteServiceProviderInput!
@@ -621,7 +621,7 @@ export const deleteServiceProvider = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createBlogPage = /* GraphQL */ `
   mutation CreateBlogPage(
     $input: CreateBlogPageInput!
@@ -692,7 +692,7 @@ export const createBlogPage = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateBlogPage = /* GraphQL */ `
   mutation UpdateBlogPage(
     $input: UpdateBlogPageInput!
@@ -763,7 +763,7 @@ export const updateBlogPage = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteBlogPage = /* GraphQL */ `
   mutation DeleteBlogPage(
     $input: DeleteBlogPageInput!
@@ -834,7 +834,7 @@ export const deleteBlogPage = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createBlog = /* GraphQL */ `
   mutation CreateBlog(
     $input: CreateBlogInput!
@@ -884,7 +884,7 @@ export const createBlog = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateBlog = /* GraphQL */ `
   mutation UpdateBlog(
     $input: UpdateBlogInput!
@@ -934,7 +934,7 @@ export const updateBlog = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteBlog = /* GraphQL */ `
   mutation DeleteBlog(
     $input: DeleteBlogInput!
@@ -984,7 +984,7 @@ export const deleteBlog = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createS3Object = /* GraphQL */ `
   mutation CreateS3Object(
     $input: CreateS3ObjectInput!
@@ -1000,7 +1000,7 @@ export const createS3Object = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateS3Object = /* GraphQL */ `
   mutation UpdateS3Object(
     $input: UpdateS3ObjectInput!
@@ -1016,7 +1016,7 @@ export const updateS3Object = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteS3Object = /* GraphQL */ `
   mutation DeleteS3Object(
     $input: DeleteS3ObjectInput!
@@ -1032,4 +1032,4 @@ export const deleteS3Object = /* GraphQL */ `
       owner
     }
   }
-`
+`;

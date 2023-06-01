@@ -29,7 +29,6 @@ import { getAppClientAccessToken, useAuthentication } from "../../Authentication
 import { AboutCalloutsProps, ServiceProviderSignUpProps, ServiceProviderSignupInitialState } from "./AboutTypes.d"
 import { useEffect, useState } from 'react'
 import { API, Auth, graphqlOperation } from "aws-amplify"
-import { ServiceProviderSignupHooks } from "./AboutHooks"
 
 /**
  * @component VerificationModal
@@ -83,7 +82,9 @@ const SignupForm = () => {
     }, [serviceProviderSignupAttributes]);
 
     const SetUserAuthenticationAttributes = async () => {
+
         const authenticationStatus = getAppClientAccessToken();
+
         let attributes = {
           isAuthenticated: false,
           email: '',
@@ -95,6 +96,7 @@ const SignupForm = () => {
       
         try {
           if (authenticationStatus) {
+
             const currentAuthenticatedUser = await Auth.currentAuthenticatedUser();
 
             attributes.isAuthenticated = authenticationStatus;
@@ -144,9 +146,6 @@ const SignupForm = () => {
         }
     };
 
-
-    
-
     const handleInputChange = (event) => {
         console.log(serviceProviderSignupAttributes)
         const { value, name } = event.target
@@ -192,35 +191,21 @@ const SignupForm = () => {
     
     const handleSignUpFormSubmitCall = async (event) => {
         event.preventDefault()
-        //todo: Implement this for user object.
 
-        /**if(serviceProviderSignupAttributes.password===serviceProviderSignupAttributes.confPassword){
-            try{
-                const signUpAttributes = {
-                    username: serviceProviderSignupAttributes.email,
-                    password: serviceProviderSignupAttributes.password,
-                    attributes: {
-                        email: serviceProviderSignupAttributes.email,
-                        given_name: serviceProviderSignupAttributes.firstName,
-                        family_name: serviceProviderSignupAttributes.lastName,
-                    },
-                }
-                const signUserUp =  await Auth.signUp(signUpAttributes)
-                return(signUserUp)
-            
-            }catch(error:any){
-                throw new Error(error)
-            }
+        const signUpAttributes = {
+            username: serviceProviderSignupAttributes.email,
+            password: serviceProviderSignupAttributes.password,
+            attributes: {
+                email: serviceProviderSignupAttributes.email,
+                given_name: serviceProviderSignupAttributes.firstName,
+                family_name: serviceProviderSignupAttributes.lastName,
+            },
         }
-        else {
-            setHookValue('errorMessage','Passwords do not match')
-            return
-        }  */
-
-
+        const signUserUp =  await Auth.signUp(signUpAttributes)
+        return(signUserUp)
     }
 
-    const handleVerificationClose = (success) => {
+    const handleVerificationClose = async(success) => {
         const updatedActiveStep = {
             verificationModalOpen: false,
             verificationSuccess: false,
@@ -231,6 +216,7 @@ const SignupForm = () => {
         if (success) {
             updatedActiveStep.verificationSuccess = true
             updatedActiveStep.activeStep = serviceProviderSignupAttributes.activeStep+1
+
         }
 
         updateAttributes(updatedActiveStep)
@@ -246,15 +232,22 @@ const SignupForm = () => {
     }
 
     const handleVerifyAccount = async (verificationCode) => {
-        console.log("Code",verificationCode)
+        console.log("Code", verificationCode)
         try {
             await Auth.confirmSignUp(serviceProviderSignupAttributes.email, verificationCode)
+                .then(async () => {
+                    const user = await Auth.signIn(serviceProviderSignupAttributes.email, serviceProviderSignupAttributes.password);
+                    console.log("User signed in", user);
+                })
+            
             handleVerificationClose(true)
         } catch (error) {
             handleVerificationClose(false)
-            throw new Error('Invalid verification code')
+            console.error(error);
+            throw new Error('Invalid verification code or Login failed')
         }
     }
+
 
     const StyledAutocomplete = styled(Autocomplete)`
         .MuiAutocomplete-listbox {
@@ -325,26 +318,33 @@ const SignupForm = () => {
                                 <Stack direction="row">
                                     <Grid container>
                                         <Grid item xs={12} sx={{ objectFit:'contain', height:'400px' }}>
-                                        <Stepper activeStep={serviceProviderSignupAttributes.activeStep} alternativeLabel sx={{ backgroundColor: 'primary.main' }}>
-                                            <Step>
-                                                {renderCreateAccountStepLabel()}
-                                            </Step>
-                                            <Step>
-                                                <StepLabel>
-                                                    Personal Information
-                                                </StepLabel>
-                                            </Step>
-                                            <Step>
-                                                <StepLabel>
-                                                    Address
-                                                </StepLabel>
-                                            </Step>
-                                            <Step>
-                                                <StepLabel>
-                                                    Contact Information
-                                                </StepLabel>
-                                            </Step>
-                                        </Stepper>
+                                            <Stepper activeStep={serviceProviderSignupAttributes.activeStep} alternativeLabel sx={{ backgroundColor: 'primary.main' }}>
+                                                <Step>
+                                                    <StepLabel>
+                                                        Sign Up
+                                                    </StepLabel>
+                                                </Step>
+                                                <Step>
+                                                    <StepLabel>
+                                                        Verify Account
+                                                    </StepLabel>
+                                                </Step>
+                                                <Step>
+                                                    <StepLabel>
+                                                        Personal Information
+                                                    </StepLabel>
+                                                </Step>
+                                                <Step>
+                                                    <StepLabel>
+                                                        Address
+                                                    </StepLabel>
+                                                </Step>
+                                                <Step>
+                                                    <StepLabel>
+                                                        Contact Information
+                                                    </StepLabel>
+                                                </Step>
+                                            </Stepper>
 
                                             {serviceProviderSignupAttributes.activeStep === 0 && (
                                                 !serviceProviderSignupAttributes.isAuthenticated ? (
@@ -415,7 +415,15 @@ const SignupForm = () => {
                                                 )
                                             )}
 
-                                            {serviceProviderSignupAttributes.activeStep === 1 && (
+                                            {serviceProviderSignupAttributes.activeStep === 1 && (<>
+                                            
+                                            </>)
+                                            
+                                            
+                                            
+                                            }
+
+                                            {serviceProviderSignupAttributes.activeStep === 2 && (
                                                 <>
                                                 <TextField
                                                         label="First Name"
@@ -457,8 +465,8 @@ const SignupForm = () => {
 
                                                 </>
                                             )}
-                                    
-                                            {serviceProviderSignupAttributes.activeStep === 2 && (
+                                        
+                                            {serviceProviderSignupAttributes.activeStep === 3 && (
                                                 <>
                                                 <TextField
                                                     label="Address"
@@ -484,7 +492,7 @@ const SignupForm = () => {
                                                 </>
                                             )}
 
-                                            {serviceProviderSignupAttributes.activeStep === 3 && (
+                                            {serviceProviderSignupAttributes.activeStep === 4 && (
                                                 <>
                                                     <TextField
                                                         label="Phone"

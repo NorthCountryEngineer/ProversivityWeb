@@ -2,17 +2,17 @@ import Image from "mui-image"
 import Grid from '@mui/material/Grid'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import { useEffect, useState } from "react"
-import { Avatar, Button, ClickAwayListener, IconButton, Link, MenuItem } from '@mui/material'
-import { ProversivityAppBarHooks } from "./headerHooks"
-import { Box, Fab, Stack, Typography } from "@mui/material"
-import { ListItemIcon, ListItemText, Menu } from '@mui/material'
-import { NoteAdd, ExitToApp, Login, Person, ManageAccounts } from '@mui/icons-material'
-import type { MenuItemProps, HeaderProps } from './headerTypes'
-import theme from "../../../theme/BaseTheme"
+
+import { useState } from "react"
 import { Auth } from "aws-amplify"
+import { ProversivityAppBarHooks } from "./headerHooks"
+import { Box, Stack, Typography } from "@mui/material"
+import { ListItemIcon, ListItemText, Menu } from '@mui/material'
+import { Button, ClickAwayListener, Link, MenuItem } from '@mui/material'
 import { useAuthentication } from "../../Authentication/AuthenticationHooks"
-import { Navigate, useNavigate } from "react-router-dom"
+import { NoteAdd, ExitToApp, Login, Person, ManageAccounts } from '@mui/icons-material'
+
+import type { MenuItemProps, HeaderProps } from './headerTypes'
 
 
 export const menuItems:MenuItemProps[] = [
