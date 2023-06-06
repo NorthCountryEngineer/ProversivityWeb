@@ -1,3 +1,5 @@
-export function About(){
-  return(<></>)
+export const About = () => {
+  return (
+    <div></div>
+  )
 }

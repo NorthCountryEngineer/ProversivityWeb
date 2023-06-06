@@ -1,10 +1,6 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import {
-  GridRowId,
-  GridCellModesModel,
-} from '@mui/x-data-grid'
 
 
 //Enums
@@ -145,7 +141,7 @@ export interface Experience {
     items: Array<ExperienceObject>
 }
 
-export interface SelectedCellParams {
+/**export interface SelectedCellParams {
     id: GridRowId
     field: string
 }
@@ -156,7 +152,7 @@ export interface EditToolbarProps {
     setCellModesModel: (value: GridCellModesModel) => void
     cellMode: 'view' | 'edit'
 }
-
+**/
 export interface SharePool {
     ResumeID: string
     DelegatedOwners: string[]

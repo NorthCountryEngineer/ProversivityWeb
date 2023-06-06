@@ -1,3 +1,5 @@
-export function Admin(){
-  return(<></>)
+export const Admin = () => {
+  return (
+    <div></div>
+  )
 }

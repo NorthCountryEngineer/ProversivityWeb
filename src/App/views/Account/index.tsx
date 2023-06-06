@@ -1,3 +1,4 @@
 export * from './Account'
-export * from './AccountComponents'
-export * from './AccountTypes'
+export * from './components'
+export * from './hooks'
+export * from './model'

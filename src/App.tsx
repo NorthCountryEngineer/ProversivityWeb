@@ -12,7 +12,7 @@ import { getUser } from './graphql/queries'
 import { createUser } from './graphql/mutations'
 
 function App() {
-  const { attributes, targetImage, currentView } = AppHooks()
+  const { targetImage} = AppHooks()
   const [pageTitle, setPageTitle] = useState('North Country Engineer')
   const [email,setEmail] = useState('')
 

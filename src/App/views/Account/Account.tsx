@@ -1,3 +1,5 @@
-export function Account(){
-  return(<></>)
+export const Account = () => {
+  return (
+    <div></div>
+  )
 }

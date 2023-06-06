@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Box, TextField, Button, Typography, Tabs, Tab, alpha } from '@mui/material'
-import { Auth } from 'aws-amplify'
+import { Auth as AmplifyAuth } from 'aws-amplify'
 import useHistory from 'react-router-dom'
 
 
-function Authentication() {
+export function Auth() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -28,9 +28,9 @@ function Authentication() {
   
     try {
       if (isLogin) {
-        await Auth.signIn(username, password)
+        await AmplifyAuth.signIn(username, password)
       } else {
-        await Auth.signUp({
+        await AmplifyAuth.signUp({
           username,
           password,
         })
@@ -93,8 +93,6 @@ function Authentication() {
     </Box>
   )
 }
-
-export default Authentication
   /*
 
   

@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material"
 import { useState } from "react"
-import { handleSignUp } from "./AuthenticationHooks"
+import { handleSignUp } from "./hooks"
 
 const SignUpForm = async() => {
     const [email, setEmail] = useState('')

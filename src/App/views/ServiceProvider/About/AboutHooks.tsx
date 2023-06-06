@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAppClientAccessToken } from '../../Authentication';
+import { getAppClientAccessToken } from '../../AuthenticationLegacy';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { getUser } from '../../../../graphql/queries';
 

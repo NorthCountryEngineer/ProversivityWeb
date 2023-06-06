@@ -9,7 +9,7 @@ import { ProversivityAppBarHooks } from "./headerHooks"
 import { Box, Stack, Typography } from "@mui/material"
 import { ListItemIcon, ListItemText, Menu } from '@mui/material'
 import { Button, ClickAwayListener, Link, MenuItem } from '@mui/material'
-import { useAuthentication } from "../../Authentication/AuthenticationHooks"
+import { useAuthentication } from "../../AuthenticationLegacy/AuthenticationHooks"
 import { NoteAdd, ExitToApp, Login, Person, ManageAccounts } from '@mui/icons-material'
 
 import type { MenuItemProps, HeaderProps } from './headerTypes'

@@ -25,7 +25,7 @@ import {
 
 import { getUser } from "../../../../graphql/queries"
 import { CheckCircle } from "@mui/icons-material"
-import { getAppClientAccessToken, useAuthentication } from "../../Authentication"
+import { getAppClientAccessToken, useAuthentication } from "../../AuthenticationLegacy"
 import { AboutCalloutsProps, ServiceProviderSignUpProps, ServiceProviderSignupInitialState } from "./AboutTypes.d"
 import { useEffect, useState } from 'react'
 import { API, Auth, graphqlOperation } from "aws-amplify"
