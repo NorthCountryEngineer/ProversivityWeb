@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { Auth, Hub } from "aws-amplify"
 import { useMediaQuery, useTheme } from "@mui/material"
-import theme from "../../../theme/BaseTheme"
 
 /**
  * A custom hook that returns the current view based on the current URL.

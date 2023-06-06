@@ -1,4 +1,4 @@
-import { ProversivityAppBar, menuItems } from './headerComponents'
+import { ProversivityAppBar, menuItems } from './components'
 import { loadFont as SourceCodePro } from "@remotion/google-fonts/Farro"
 
 // Import the Source Code Pro font family

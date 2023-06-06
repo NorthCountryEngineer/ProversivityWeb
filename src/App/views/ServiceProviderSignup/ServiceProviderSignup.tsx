@@ -1,9 +1,9 @@
 import { AccountBox, CheckCircle, FreeBreakfast, Message, MonetizationOn } from "@mui/icons-material"
-import { CalloutBoxes } from "../../Home"
+import { CalloutBoxes } from "../Home"
 import { Grid } from "@mui/material"
-import SignupForm from "./AboutComponents"
+import SignupForm from "./components"
 
-export function About(){
+export function ServiceProviderSignup(){
   const callouts = [
     {
       title:'Get started in a few short steps', 

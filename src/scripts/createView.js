@@ -27,13 +27,13 @@ const filesToCreate = [
   },
   { name: 'components.tsx', content: 'export {}' },
   { name: 'hooks.tsx', content: 'export {}' },
-  { name: 'model.tsx', content: 'export {}' },
+  { name: 'model.d.ts', content: 'export type model = {}' },
   {
     name: 'index.tsx',
     content: `export * from './${viewName}'
 export * from './components'
 export * from './hooks'
-export * from './model'`,
+export type {model} from './model'`,
   },
 ];
 

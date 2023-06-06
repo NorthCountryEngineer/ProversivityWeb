@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useEffect, useState } from "react"
-import { CalloutBoxes } from "./HomeComponents"
+import { CalloutBoxes } from "./components"
 import { ThemeProvider } from '@mui/material/styles'
 import theme from "../../theme/BaseTheme"
 import { AccountBox, Chat, FindInPage, Send, ThumbUp, Verified } from "@mui/icons-material"
@@ -14,7 +14,7 @@ const segments = [
   { text: 'Engineer', color: 'white', transition: 3 },
 ];
 
-function Home() {
+export function Home() {
   const [index, setIndex] = useState(0)
 
   useEffect(()=>{
@@ -54,16 +54,3 @@ function Home() {
     </ThemeProvider>
   )
 }
-
-export default Home
-
-/**
- * <Grid item xs={6}>
-          <Box 
-          display="flex"
-          justifyContent="center"
-          textAlign="center">
-          </Box>
-        </Grid>
-
- */

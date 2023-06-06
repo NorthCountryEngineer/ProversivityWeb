@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Divider, List, ListItem, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material"
-import { HomepageCalloutsProps } from "./HomeTypes"
+import { HomepageCalloutsProps } from "./model"
 import Image from "mui-image"
 
 export const CalloutBoxes = ({ isMobile, callouts }: HomepageCalloutsProps) => {

@@ -30,6 +30,22 @@ To run the North Country Engineer application locally, follow these steps:
 5. Start the development server: `yarn start`
 6. Open your browser and access the application at `http://localhost:3000`.
 
+## Available Scripts
+
+In the project directory, you can run the following scripts:
+
+- `yarn start`: Starts the development server.
+- `yarn build`: Builds the application for production.
+- `yarn test`: Runs the test suite.
+- `yarn eject`: Ejects the project from create-react-app.
+
+Additional custom scripts:
+
+- `yarn create-view <viewName>`: Creates a new view with the specified name.
+- `yarn remove-view <viewName>`: Removes an existing view with the specified name.
+- `yarn create-component <componentName>`: Creates a new component with the specified name.
+- `yarn remove-component <componentName>`: Removes an existing component with the specified name.
+
 ## Contributing
 
 Contributions to North Country Engineer are welcome! If you find any bugs or have suggestions for new features, please open an issue in the GitHub repository. If you would like to contribute code, please fork the repository, create a new branch for your changes, and submit a pull request.
@@ -47,7 +63,6 @@ We would like to acknowledge the following resources, libraries, and technologie
 - [Material-UI](https://mui.com/) - A popular React UI framework that offers a set of reusable components and styling options for building visually appealing user interfaces.
 - [Node.js](https://nodejs.org/) - A JavaScript runtime environment that enables server-side development and allows running JavaScript outside of a web browser.
 - [React.js](https://reactjs.org/) - A JavaScript library for building user interfaces, providing a component-based approach and efficient rendering.
-
 
 ## Contact
 

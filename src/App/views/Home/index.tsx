@@ -1,3 +1,4 @@
-export { default as Home } from './Home'
-export type {HomepageCalloutProps, HomepageCalloutsProps} from './HomeTypes'
-export {CalloutBoxes} from './HomeComponents'
+export * from './Home'
+export * from './components'
+export * from './hooks'
+export type {HomepageCalloutProps,HomepageCalloutsProps} from './model'

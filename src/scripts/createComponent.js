@@ -18,8 +18,8 @@ if (fs.existsSync(componentDirectory)) {
 
 const filesToCreate = [
     {
-      name: `${componentName}.tsx`,
-      content: `export const ${componentName} = () => {
+      name: `${viewName}.tsx`,
+      content: `export const ${viewName} = () => {
     return (
       <div></div>
     )
@@ -27,10 +27,10 @@ const filesToCreate = [
     },
     { name: 'components.tsx', content: 'export {}' },
     { name: 'hooks.tsx', content: 'export {}' },
-    { name: 'model.tsx', content: 'export {}' },
+    { name: 'model.d.ts', content: 'export type model = {}' },
     {
       name: 'index.tsx',
-      content: `export * from './${componentName}'
+      content: `export * from './${viewName}'
   export * from './components'
   export * from './hooks'
   export * from './model'`,

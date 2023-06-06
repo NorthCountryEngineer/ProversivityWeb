@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import { getAppClientAccessToken } from '../../AuthenticationLegacy';
+import { getAppClientAccessToken } from '../Auth';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
-import { getUser } from '../../../../graphql/queries';
+import { getUser } from '../../../graphql/queries';
 
 
 export function ServiceProviderSignupHooks(serviceProviderSignupAttributes, setServiceProviderSignupAttributes) {

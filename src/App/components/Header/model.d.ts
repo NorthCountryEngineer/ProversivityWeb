@@ -1,5 +1,3 @@
-import { AuthenticatedState } from "../../../App.hooks"
-
 export interface MenuItemProps {
     href: string
     label: string
