@@ -1,9 +1,8 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { RouterProvider } from 'react-router-dom'
 import theme from './App/theme/BaseTheme'
-import { Header } from './App/views/Components/Header'
+import { Header } from './App/components/Header'
 import { AppHooks } from './App/App.hooks'
-import { LoadingScreen } from './App/views/Components/Landing'
 import { homePageStyleProps } from './App/models/Service/PropTypes'
 import { router } from './App/router'
 import { useEffect, useState } from 'react'
@@ -99,12 +98,6 @@ function App() {
       localStorage.removeItem('pageTitle')
     }
   }, [])
-
-  if (false) {
-    return <LoadingScreen logoSrc="/public/Images/Logo_NCE_Light.png" />
-  }
-
-
 
   return (
     <div style={homePageStyleProps(targetImage)}>

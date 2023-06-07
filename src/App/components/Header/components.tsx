@@ -11,8 +11,7 @@ import { ListItemIcon, ListItemText, Menu } from '@mui/material'
 import { Button, ClickAwayListener, Link, MenuItem } from '@mui/material'
 import { useAuthentication } from "../../views/Auth"
 import { NoteAdd, ExitToApp, Login, Person, ManageAccounts } from '@mui/icons-material'
-
-import type { MenuItemProps, HeaderProps } from './model'
+import type { MenuItemProps, HeaderProps } from './model.d'
 
 
 export const menuItems:MenuItemProps[] = [
@@ -230,7 +229,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
 
           <Grid item xs={3} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
             {!isAuthenticated &&
-              <Link href="/ServiceProvider">
+              <Link href="/ServiceProviderSignup">
                 <Button
                   variant="text"
                   color="primary"
