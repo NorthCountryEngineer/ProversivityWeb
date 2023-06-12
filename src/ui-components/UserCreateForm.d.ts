@@ -5,9 +5,8 @@
  **************************************************************************/
 
 import * as React from "react";
-import { AutocompleteProps, GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { Customer, ServiceProvider, BlogPage } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -17,17 +16,13 @@ export declare type UserCreateFormInputValues = {
     email?: string;
     firstName?: string;
     lastName?: string;
-    customerProfile?: Customer;
-    serviceProviderProfile?: ServiceProvider;
-    blogPage?: BlogPage;
+    newsletter?: boolean;
 };
 export declare type UserCreateFormValidationValues = {
     email?: ValidationFunction<string>;
     firstName?: ValidationFunction<string>;
     lastName?: ValidationFunction<string>;
-    customerProfile?: ValidationFunction<Customer>;
-    serviceProviderProfile?: ValidationFunction<ServiceProvider>;
-    blogPage?: ValidationFunction<BlogPage>;
+    newsletter?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserCreateFormOverridesProps = {
@@ -35,9 +30,7 @@ export declare type UserCreateFormOverridesProps = {
     email?: PrimitiveOverrideProps<TextFieldProps>;
     firstName?: PrimitiveOverrideProps<TextFieldProps>;
     lastName?: PrimitiveOverrideProps<TextFieldProps>;
-    customerProfile?: PrimitiveOverrideProps<AutocompleteProps>;
-    serviceProviderProfile?: PrimitiveOverrideProps<AutocompleteProps>;
-    blogPage?: PrimitiveOverrideProps<AutocompleteProps>;
+    newsletter?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type UserCreateFormProps = React.PropsWithChildren<{
     overrides?: UserCreateFormOverridesProps | undefined | null;

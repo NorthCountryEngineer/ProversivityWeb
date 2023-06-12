@@ -228,20 +228,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
           <Grid item xs={4} />
 
           <Grid item xs={3} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
-            {!isAuthenticated &&
-              <Link href="/ServiceProviderSignup">
-                <Button
-                  variant="text"
-                  color="primary"
-                  sx={{
-                    marginTop: '40px',
-                    color: "black"
-                  }}
-                >
-                  <Typography variant="h6">Become a Service Provider</Typography>
-              </Button>
-              </Link>
-            }
+            
           </Grid>
 
           <Grid item xs={1} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
@@ -275,3 +262,25 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
     </Box>
   )
 }
+
+
+
+
+/**
+ * Header service provider sign in/create account link:
+ * 
+ * {!isAuthenticated &&
+    <Link href="/ServiceProviderSignup">
+      <Button
+        variant="text"
+        color="primary"
+        sx={{
+          marginTop: '40px',
+          color: "black"
+        }}
+      >
+        <Typography variant="h6">Become a Service Provider</Typography>
+    </Button>
+    </Link>
+  }
+ */

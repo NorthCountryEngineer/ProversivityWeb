@@ -33,7 +33,7 @@ const filesToCreate = [
     content: `export * from './${viewName}'
 export * from './components'
 export * from './hooks'
-export type {model} from './model'`,
+export * from './model'`,
   },
 ];
 

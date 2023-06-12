@@ -6,65 +6,6 @@ type User @model @auth(rules: [
   email: String!
   firstName: String
   lastName: String
-  customerProfile: Customer @hasOne
-  serviceProviderProfile: ServiceProvider @hasOne
-  blogPage: BlogPage @hasOne
+  newsletter: Boolean
 }
 
-type Customer @model  @auth(rules: [
-  { allow: owner, operations: [create, update, read, delete]}
-  { allow: public, operations: [read]}
-]) {
-  id: ID!
-  user: User! @belongsTo(fields: ["userID"])
-  userID: ID!
-  address: String
-  phone: String
-  interests: [String!]
-}
-
-type ServiceProvider @model  @auth(rules: [
-  { allow: owner, operations: [create, update, read, delete]}
-  { allow: public, operations: [read]}
-]) {
-  id: ID!
-  user: User! @belongsTo(fields: ["userID"])
-  userID: ID!
-  companyName: String
-  address: String
-  phone: String
-  skills: [String!]
-}
-
-type BlogPage @model @auth(rules: [
-  { allow: owner, operations: [create, read, update, delete] },
-  { allow: public, operations: [read] }
-]) {
-  id: ID!
-  title: String!
-  overview: String
-  author: User @belongsTo(fields: ["authorId"])
-  authorId: ID!
-  posts: [Blog] @hasMany
-}
-
-type Blog @model @auth(rules: [
-  { allow: owner, operations: [create, read, update, delete] },
-  { allow: public, operations: [read] }
-]) {
-  id: ID!
-  title: String!
-  content: String!
-  blogPage: BlogPage @belongsTo(fields: ["blogPageId"])
-  blogPageId: ID!
-  media: [S3Object]
-}
-
-type S3Object @model @auth(rules: [
-  { allow: owner, operations: [create, read, update, delete] },
-  { allow: public, operations: [read] }
-]) {
-  bucket: String!
-  region: String!
-  key: String!
-}

@@ -5,9 +5,9 @@
  **************************************************************************/
 
 import * as React from "react";
-import { AutocompleteProps, GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { User, Customer, ServiceProvider, BlogPage } from "../models";
+import { User } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -17,17 +17,13 @@ export declare type UserUpdateFormInputValues = {
     email?: string;
     firstName?: string;
     lastName?: string;
-    customerProfile?: Customer;
-    serviceProviderProfile?: ServiceProvider;
-    blogPage?: BlogPage;
+    newsletter?: boolean;
 };
 export declare type UserUpdateFormValidationValues = {
     email?: ValidationFunction<string>;
     firstName?: ValidationFunction<string>;
     lastName?: ValidationFunction<string>;
-    customerProfile?: ValidationFunction<Customer>;
-    serviceProviderProfile?: ValidationFunction<ServiceProvider>;
-    blogPage?: ValidationFunction<BlogPage>;
+    newsletter?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserUpdateFormOverridesProps = {
@@ -35,9 +31,7 @@ export declare type UserUpdateFormOverridesProps = {
     email?: PrimitiveOverrideProps<TextFieldProps>;
     firstName?: PrimitiveOverrideProps<TextFieldProps>;
     lastName?: PrimitiveOverrideProps<TextFieldProps>;
-    customerProfile?: PrimitiveOverrideProps<AutocompleteProps>;
-    serviceProviderProfile?: PrimitiveOverrideProps<AutocompleteProps>;
-    blogPage?: PrimitiveOverrideProps<AutocompleteProps>;
+    newsletter?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type UserUpdateFormProps = React.PropsWithChildren<{
     overrides?: UserUpdateFormOverridesProps | undefined | null;
