@@ -2,10 +2,20 @@ import React, { useState } from 'react'
 import { Box, TextField, Button, Typography, Tabs, Tab, alpha } from '@mui/material'
 import { Auth as AmplifyAuth } from 'aws-amplify'
 import useHistory from 'react-router-dom'
+import { SignupForm } from './components'
 
 
 export function Auth() {
-  const [username, setUsername] = useState('')
+  return(
+    <div>
+      <SignupForm ButtonText="Sign Up" />
+    </div>
+  )
+ 
+}
+  /*
+
+   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isLogin, setIsLogin] = useState(true)
@@ -92,10 +102,6 @@ export function Auth() {
       </Box>
     </Box>
   )
-}
-  /*
-
-  
   
 
   

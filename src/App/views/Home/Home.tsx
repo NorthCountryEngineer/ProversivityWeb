@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import { Grid} from "@mui/material"
-import { NewsletterForm } from "./components"
-
-
+import { SignupForm } from "../Auth"
 
 
 export function Home() {
@@ -18,7 +16,7 @@ export function Home() {
           
         </Grid>
         <Grid item xs={7} textAlign="center">
-          <NewsletterForm />
+          <SignupForm ButtonText="Sign Up" />
         </Grid>
       </Grid>
   )
