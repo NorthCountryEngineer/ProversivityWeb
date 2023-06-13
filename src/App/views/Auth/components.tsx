@@ -11,7 +11,9 @@ export const SignupForm = ({ButtonText}:any) => {
   const [lastName, setLastName] = useState<String>("")
   const [email, setEmail] = useState<String>("")
   const [newsLetter, setNewsLetter] = useState<boolean>(true)
-  const [newAccountModal, setNewAccountModal] = useState<boolean>(false)
+  const [passwordFieldVisible, setPasswordFieldVisible] = useState<boolean>(false)
+  const [password, setPassword] = useState<String>("")
+  const [confirmPassword, setConfirmPassword] = useState<String>("")
 
   const setNewsletterHook = (event, setHook) => {
     setHook(event.target.value)
@@ -67,52 +69,79 @@ export const SignupForm = ({ButtonText}:any) => {
 
 
   return (
-    <Paper sx={{backgroundColor: "rgb(255,255,255,.6)", alignItems:"start", mt:"10%", mr:"10%"}}>
-      <Typography variant="h4" sx={{backgroundColor:"rgb(0,0,0,.4)"}}>Sign up for the newsletter!</Typography>
-      <form onSubmit={handleSubmit} style={{backgroundColor:"rgb(0,0,0,0.5)"}}>
-        <TextField
-          label="First Name"
-          variant="filled"
-          required
-          margin="normal"
-          sx={{width:"45%", mr:"5%"}}
-          onChange={(e) => setNewsletterHook(e, setFirstName)}
-        />
-        <TextField
-          label="Last Name"
-          variant="filled"
-          required
-          margin="normal"
-          sx={{width:"45%", ml:"5%"}}
-          onChange={(e) => setNewsletterHook(e, setLastName)}
-        />
-        <TextField
-          label="Email Address"
-          variant="filled"
-          fullWidth
-          required
-          margin="normal"
-          onChange={(e) => setNewsletterHook(e, setEmail)}
-        />
+    <Paper sx={{backgroundColor: "rgb(255,255,255,.9)", alignItems:"start", mt:"10%", mr:"10%"}}>
+      <Typography variant="h4" sx={{backgroundColor:"rgb(0,0,0,0.6)"}}>Sign up for the newsletter!</Typography>
+      <div style={{padding:"10px", backgroundColor:"rgb(0,0,0,0.8)"}}>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="First Name"
+            variant="filled"
+            required
+            margin="normal"
+            sx={{width:"45%", mr:"5%", backgroundColor:"GrayText"}}
+            onChange={(e) => setNewsletterHook(e, setFirstName)}
+          />
+          <TextField
+            label="Last Name"
+            variant="filled"
+            required
+            margin="normal"
+            sx={{width:"45%", ml:"5%", backgroundColor:"GrayText"}}
+            onChange={(e) => setNewsletterHook(e, setLastName)}
+          />
+          <TextField
+            label="Email Address"
+            variant="filled"
+            fullWidth
+            required
+            margin="normal"
+            sx={{backgroundColor:"GrayText"}}
+            onChange={(e) => setNewsletterHook(e, setEmail)}
+          />
 
-        <FormControlLabel 
-          control={<Checkbox defaultChecked />} 
-          label="Sign up for monthly newsletter" 
-          onChange={()=>setNewsLetter(!newsLetter)}
-        />
+          <FormControlLabel 
+            control={<Checkbox defaultChecked />} 
+            label="Sign up for monthly newsletter" 
+            onChange={()=>setNewsLetter(!newsLetter)}
+          />
 
-        <FormControlLabel 
-          control={<Checkbox />} 
-          label="Create Account" 
-          onChange={()=> setNewAccountModal(!newAccountModal)}
-        />
+          <FormControlLabel 
+            control={<Checkbox />} 
+            label="Create Account" 
+            onChange={()=> setPasswordFieldVisible(!passwordFieldVisible)}
+          />
 
-        <br />
+          <br />
 
-        <Button variant="contained" fullWidth color="primary" sx={{ backgroundColor: "#0a3732", color:"white" }} onClick={handleSubmit}>
-          {ButtonText}
-        </Button>
-      </form>
+          {
+          passwordFieldVisible && 
+              <div>
+                <TextField
+                  label="Password"
+                  variant="filled"
+                  fullWidth
+                  required
+                  margin="normal"
+                  sx={{backgroundColor:"GrayText"}}
+                  onChange={(e) => setNewsletterHook(e, setPassword)}
+                />
+                <TextField
+                  label="Confirm Password"
+                  variant="filled"
+                  fullWidth
+                  required
+                  margin="normal"
+                  sx={{backgroundColor:"GrayText"}}
+                  onChange={(e) => setNewsletterHook(e, setConfirmPassword)}
+                />
+              </div>
+          }
+
+          <Button variant="contained" fullWidth color="primary" sx={{ backgroundColor: "#0a3732", color:"white" }} onClick={handleSubmit}>
+            {ButtonText}
+          </Button>
+        </form>
+      </div>
     </Paper>
   )
 }
