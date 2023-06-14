@@ -13,6 +13,9 @@
         "expirationTime": 365,
         "apiKeyExpirationDate": "2024-05-10T19:43:59.386Z",
         "keyDescription": "TestKeyOnly"
+      },
+      {
+        "mode": "AWS_IAM"
       }
     ]
   }

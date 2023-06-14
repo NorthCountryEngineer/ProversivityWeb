@@ -1,5 +1,5 @@
 import { Auth, Hub } from 'aws-amplify'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext} from 'react'
 
 /**
  * Get the app client ID from local storage.
@@ -91,4 +91,40 @@ export const handleSignUp = async (email, firstName, lastName, password) => {
     // Add code to display error message to the user
   }
 }
+
+export const AuthContext = createContext<{ isAuthenticated: boolean } | null>(null)
+
+export const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check user authentication status when the component mounts
+    Auth.currentAuthenticatedUser()
+      .then(() => setIsAuthenticated(true))
+      .catch(() => setIsAuthenticated(false));
+
+    // Listen for sign in and sign out events
+    const listener = Hub.listen('auth', (data) => {
+      switch (data.payload.event) {
+        case 'signIn':
+          setIsAuthenticated(true);
+          break;
+        case 'signOut':
+          setIsAuthenticated(false);
+          break;
+        default:
+          break;
+      }
+    });
+
+    // Cleanup listener when the component unmounts
+    return () => Hub.remove('auth', listener);
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ isAuthenticated }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 

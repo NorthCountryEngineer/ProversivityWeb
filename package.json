@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "@aws-amplify/cli": "^11.1.0",
-    "@aws-amplify/ui-react": "^4.3.2",
+    "@aws-amplify/ui-react": "^4.6.4",
+    "@aws-amplify/ui-react-storage": "^1.2.4",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
     "@mui/icons-material": "^5.11.0",
@@ -36,7 +37,7 @@
     "remove-view": "node src/scripts/removeView.js",
     "create-component": "node src/scripts/createComponent.js",
     "remove-component": "node src/scripts/removeComponent.js"
-  },  
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

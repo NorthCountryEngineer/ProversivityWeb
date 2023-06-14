@@ -8,7 +8,7 @@ import { router } from './App/router'
 import { useEffect, useState } from 'react'
 import { API, Auth, graphqlOperation } from 'aws-amplify'
 import { getUser } from './graphql/queries'
-import { createUser } from './graphql/mutations'
+import { AuthProvider } from './App/views/Auth'
 
 function App() {
   const { targetImage} = AppHooks()
@@ -18,10 +18,9 @@ function App() {
   async function getCurrentUser() {
     try {
       const user = await Auth.currentAuthenticatedUser()
-      setEmail(user.attributes.email)
       return user
     } catch (error) {
-      console.log('Error retrieving current user:', error)
+      console.error('Error retrieving current user:', error)
       return null
     }
   }
@@ -36,49 +35,9 @@ function App() {
       return {error:error}
     }
   }
-
-  async function createNewUser(emailAddress) {
-    try {
-      const input = {
-        email: emailAddress,
-      }
-      console.log(input.email)
-      const newUser = await API.graphql(graphqlOperation(createUser, {input}))
-      return newUser
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   
 
   useEffect(() => {
-    getCurrentUser().then((user) => {
-      try{
-        getUserAttributes(user.attributes.sub).then((userCredentials)=>{
-          console.log(userCredentials)
-          if(userCredentials.getUser==null){
-            try {
-              const input = {
-                email: user.attributes.email,
-              }
-              let newUser = createNewUser(input)
-              console.log(newUser)
-            } catch (error) {
-              console.log(error)
-            }
-          }
-          else if(userCredentials.error){
-            console.log("Error retrieving user credentials: ", userCredentials.error)
-          }
-        })
-      }catch(error){
-        console.log("User doesn't exist")
-      }
-    })
-
-
-
     // Check if a title exists in local storage and update the state
     const storedTitle = localStorage.getItem('pageTitle')
     if (storedTitle) {
@@ -101,12 +60,14 @@ function App() {
 
   return (
     <div style={homePageStyleProps(targetImage)}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Header title={pageTitle}/>
-        <div style={{height:"115px"}}/>
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Header title={pageTitle}/>
+          <div style={{height:"115px"}}/>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </AuthProvider>
     </div>
   )
 }

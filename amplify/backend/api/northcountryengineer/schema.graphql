@@ -1,6 +1,6 @@
 type User @model @auth(rules: [
   { allow: owner, operations: [create, update, read, delete] },
-  { allow: public, operations: [read] }
+  { allow: public, provider: iam, operations: [create, read] }
 ]) {
   id: ID!
   email: String!
