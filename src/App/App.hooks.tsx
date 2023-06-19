@@ -23,9 +23,6 @@ const initialUserAttributes:Preferences = {
   DarkMode: false
 }
 
-function randomInteger(min:number, max:number) { // min and max included 
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
 
 export const AppHooks = (): AppHooksResult => {
   const [attributes, setAttributes] = useState<Preferences>(initialUserAttributes)

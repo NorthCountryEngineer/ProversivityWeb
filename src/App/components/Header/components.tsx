@@ -2,17 +2,16 @@ import Image from "mui-image"
 import Grid from '@mui/material/Grid'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-
 import { useState } from "react"
 import { Auth } from "aws-amplify"
 import { ProversivityAppBarHooks } from "./hooks"
 import { Box, Stack, Typography } from "@mui/material"
 import { ListItemIcon, ListItemText, Menu } from '@mui/material'
 import { Button, ClickAwayListener, Link, MenuItem } from '@mui/material'
-import { useAuthentication } from "../../views/Auth"
+import { useAuthentication } from "../../functions/Auth"
 import { NoteAdd, ExitToApp, Login, Person, ManageAccounts } from '@mui/icons-material'
-import type { MenuItemProps, HeaderProps } from './model.d'
-
+import type { MenuItemProps, HeaderProps } from './model'
+import React from 'react'
 
 export const menuItems:MenuItemProps[] = [
     {
@@ -88,7 +87,7 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
  * @param {function} props.handleDrawerOpen - A function to handle the opening of a drawer.
  * @returns {JSX.Element} The rendered FAB button component.
  */
-export function UserManagementFab({ drawerFabHidden, handleDrawerOpen }: any) {
+export const UserManagementFab = React.forwardRef(({ drawerFabHidden, handleDrawerOpen }: any) => {
   return (
     <Button
       variant="text"
@@ -103,7 +102,7 @@ export function UserManagementFab({ drawerFabHidden, handleDrawerOpen }: any) {
       aria-label="add"
     />
   )
-}
+})
   
    
 

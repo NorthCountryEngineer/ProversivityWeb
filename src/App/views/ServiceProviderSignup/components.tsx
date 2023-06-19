@@ -1,6 +1,6 @@
 import Image from "mui-image"
-import municipalities from './municipalities.json'
 import styled from "@emotion/styled"
+import React from 'react'
 
 import {
     Box, 
@@ -25,7 +25,7 @@ import {
 
 import { getUser } from "../../../graphql/queries"
 import { CheckCircle } from "@mui/icons-material"
-import { getAppClientAccessToken, useAuthentication } from "../Auth"
+import { getAppClientAccessToken, useAuthentication } from "../../functions/Auth"
 import { AboutCalloutsProps, ServiceProviderSignUpProps, ServiceProviderSignupInitialState } from "./model.d"
 import { useEffect, useState } from 'react'
 import { API, Auth, graphqlOperation } from "aws-amplify"
@@ -482,7 +482,7 @@ const SignupForm = () => {
 
                                                 <StyledAutocomplete
                                                     disablePortal
-                                                    options={municipalities.map((municipality) => municipality.village)}
+                                                    options={["St. Lawrence County, Lewis County"]}
                                                     renderInput={(params) => <TextField {...params} label="Address" type="address" />}
                                                     value={serviceProviderSignupAttributes.town}
                                                     onChange={handleInputChange}

@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, forwardRef } from "react"
 import { Grid} from "@mui/material"
-import { AuthContext, SignupForm } from "../Auth"
+import { AuthContext, SignupForm } from "../../functions/Auth"
+import React from 'react'
 
-
-export function Home() {
+const Home = forwardRef((props, ref) => {
 
   const authContext = useContext(AuthContext)
   
   const isAuthenticated = authContext ? authContext.isAuthenticated : false
-  
+
   console.log(isAuthenticated)
   
   useEffect(()=>{
@@ -16,15 +16,17 @@ export function Home() {
   },[])
 
   return (
-      <Grid container>
+      <Grid container data-testid="Home">
         <Grid item xs={7} textAlign="center">
           
         </Grid>
         <Grid item xs={5} textAlign="center">
           {!isAuthenticated &&
-            <SignupForm ButtonText="Sign Up" />
+            <SignupForm />
           }
         </Grid>
       </Grid>
   )
-}
+})
+
+export default Home;

@@ -6,21 +6,24 @@
     "@aws-amplify/cli": "^11.1.0",
     "@aws-amplify/ui-react": "^4.6.4",
     "@aws-amplify/ui-react-storage": "^1.2.4",
+    "@babel/preset-env": "^7.22.5",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
+    "@jest/globals": "^29.5.0",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.13.0",
     "@mui/system": "^5.4.1",
     "@remotion/google-fonts": "^3.3.51",
     "@testing-library/jest-dom": "^5.16.5",
-    "@types/aws-lambda": "^8.10.115",
-    "@types/react": "^18.0.27",
+    "@types/dompurify": "^3.0.1",
+    "@types/mui-image": "latest",
+    "@types/react": "^18.2.12",
     "@types/react-dom": "^18.0.8",
-    "aws-amplify": "^5.0.8",
+    "@types/testing-library__react": "^10.2.0",
+    "aws-amplify": "^5.2.7",
     "eslint-config-react-app": "^7.0.1",
-    "fs": "^0.0.1-security",
+    "jest-environment-jsdom": "^29.5.0",
     "mui-image": "^1.0.7",
-    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
@@ -31,12 +34,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
     "eject": "react-scripts eject",
     "create-view": "node src/scripts/createView.js",
     "remove-view": "node src/scripts/removeView.js",
     "create-component": "node src/scripts/createComponent.js",
-    "remove-component": "node src/scripts/removeComponent.js"
+    "remove-component": "node src/scripts/removeComponent.js",
+    "test": "mocha -r ts-node/register/transpile-only 'src/**/*.test.ts?(x)'"
   },
   "eslintConfig": {
     "extends": [
@@ -56,12 +59,6 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/dompurify": "^3.0.1",
-    "@types/draft-js": "^0.11.10",
-    "@types/mui-image": "^1.0.1",
-    "@types/react-draft-wysiwyg": "^1.13.4"
-  },
   "description": "North Country Engineer",
   "main": "index.js",
   "repository": "https://github.com/NorthCountryEngineer/ProversivityWeb",
@@ -71,5 +68,16 @@
     "graphql": "^0.9.0",
     "immutable": "^3.x.x",
     "prop-types": "^15.7.2"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^14.0.0",
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "enzyme": "^3.11.0",
+    "global-jsdom": "^9.0.1",
+    "ignore-styles": "^5.0.1",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1"
   }
 }

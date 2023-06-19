@@ -1,8 +1,9 @@
 import { Grid, Typography } from "@mui/material"
 import { styled } from "@mui/system"
 import { Fragment } from "react";
+import React from "react";
 
-export function Blog(){
+export const Blog = React.forwardRef(()=>{
     const AnimatedTypography = styled(Typography)`
       display: inline-block;
       opacity: 0;
@@ -18,7 +19,7 @@ export function Blog(){
       }
     `;
   
-    function AnimatedHeaderText({ segments }) {
+    const AnimatedHeaderText = ({ segments }) => {
       return (
         <Typography variant="h3" align="left">
           {segments.map((segmentGroup, groupIndex) => (
@@ -76,4 +77,4 @@ export function Blog(){
       </Grid>
     </Grid>
   )
-}
+})

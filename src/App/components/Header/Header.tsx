@@ -1,3 +1,4 @@
+import React from 'react'
 import { ProversivityAppBar, menuItems } from './components'
 import { loadFont as SourceCodePro } from "@remotion/google-fonts/Farro"
 
@@ -7,15 +8,15 @@ const SourceCodeProFont = SourceCodePro().fontFamily
 const drawerWidth = 400
 
 // Define the Header component
-export function Header({title}) {
+export const Header =React.forwardRef(() => {
 
   // Render the ProversivityAppBar component with the dynamic title, font, drawer width, and menu items
   return (
     <ProversivityAppBar 
-      dynamicTitle={title} 
+      dynamicTitle="North Country Engineer"
       font={SourceCodeProFont} 
       drawerWidth={drawerWidth}
       menuItems={menuItems}
     />
   )
-}
+})

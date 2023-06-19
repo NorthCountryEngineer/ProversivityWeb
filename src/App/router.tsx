@@ -2,7 +2,7 @@ import { CustomerSignup } from "./views/CustomerSignup";
 import { ServiceProviderSignup } from "./views/ServiceProviderSignup";
 import { Home } from "./views/Home";
 import { Blog } from "./views/Blog";
-import { Auth } from "./views/Auth";
+import { Auth } from "./functions/Auth";
 import { About } from "./views/About";
 import { createBrowserRouter } from 'react-router-dom';
 import { Admin } from "./views/Admin";

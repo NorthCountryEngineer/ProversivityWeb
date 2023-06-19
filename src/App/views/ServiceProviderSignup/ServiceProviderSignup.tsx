@@ -2,6 +2,7 @@ import { AccountBox, CheckCircle, FreeBreakfast, Message, MonetizationOn } from 
 import { CalloutBoxes } from "../Home"
 import { Grid } from "@mui/material"
 import SignupForm from "./components"
+import React from 'react'
 
 export function ServiceProviderSignup(){
   const callouts = [

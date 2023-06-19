@@ -1,9 +1,9 @@
-import { getAppClientAccessToken } from '../Auth';
+import { getAppClientAccessToken } from '../../functions/Auth';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { getUser } from '../../../graphql/queries';
 
 
-export function ServiceProviderSignupHooks(serviceProviderSignupAttributes, setServiceProviderSignupAttributes) {
+export const ServiceProviderSignupHooks = (serviceProviderSignupAttributes, setServiceProviderSignupAttributes) => {
 
     const checkUserObjectExists = async (userId) => {
         try {

@@ -1,6 +1,7 @@
 import { Box, Button,Divider, List, ListItem, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material"
 import { HomepageCalloutsProps } from "./model"
 import Image from "mui-image"
+import React from 'react'
 
 export const CalloutBoxes = ({ isMobile, callouts }: HomepageCalloutsProps) => {
   return (
@@ -76,4 +77,3 @@ export const CalloutBoxes = ({ isMobile, callouts }: HomepageCalloutsProps) => {
     </Box>
   )
 }
-  
