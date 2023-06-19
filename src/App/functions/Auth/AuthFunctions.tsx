@@ -154,7 +154,7 @@ export const SignupForm = React.forwardRef(() => {
   
   return (
     <div>
-      <Paper sx={{backgroundColor: "rgb(255,255,255,.9)", alignItems:"start", mt:"10%", mr:"10%"}}>
+      <Paper sx={{backgroundColor: "rgb(255,255,255,.9)", alignItems:"start", mt:"10%", mr:"10%"}} data-testid="Signup">
         <Typography variant="h4" sx={{backgroundColor:"rgb(0,0,0,0.6)"}}>Sign up for the newsletter!</Typography>
         <div style={{padding:"10px", backgroundColor:"rgb(0,0,0,0.8)"}}>
           <form onSubmit={handleSubmit}>
@@ -368,9 +368,6 @@ export const AuthProvider = ({ children }) => {
           break;
       }
     });
-
-    // Cleanup listener when the component unmounts
-    return () => Hub.remove('auth', listener);
   }, []);
 
   return (
