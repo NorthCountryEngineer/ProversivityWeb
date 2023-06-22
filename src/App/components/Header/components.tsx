@@ -4,11 +4,11 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import { useState } from "react"
 import { Auth } from "aws-amplify"
-import { ProversivityAppBarHooks } from "./hooks"
+import { ProversivityAppBarHooks } from "./functions"
 import { Box, Stack, Typography } from "@mui/material"
 import { ListItemIcon, ListItemText, Menu } from '@mui/material'
 import { Button, ClickAwayListener, Link, MenuItem } from '@mui/material'
-import { useAuthentication } from "../../functions/Auth"
+import { useAuthentication } from "../../functions/Authenticate"
 import { NoteAdd, ExitToApp, Login, Person, ManageAccounts } from '@mui/icons-material'
 import type { MenuItemProps, HeaderProps } from './model'
 import React from 'react'
@@ -87,7 +87,7 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
  * @param {function} props.handleDrawerOpen - A function to handle the opening of a drawer.
  * @returns {JSX.Element} The rendered FAB button component.
  */
-export const UserManagementFab = React.forwardRef(({ drawerFabHidden, handleDrawerOpen }: any) => {
+export const UserManagementFab = ({ drawerFabHidden, handleDrawerOpen }: any) => {
   return (
     <Button
       variant="text"
@@ -102,7 +102,7 @@ export const UserManagementFab = React.forwardRef(({ drawerFabHidden, handleDraw
       aria-label="add"
     />
   )
-})
+}
   
    
 
@@ -172,7 +172,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
     if(isAuthenticated){
       toggleDrawer()
     }else{
-      window.location.href="/Login"
+      window.location.href="/Auth"
     }
   }
 

@@ -1,12 +1,12 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { RouterProvider } from 'react-router-dom'
 import theme from './App/theme/BaseTheme'
-import { Header } from './App/components/Header'
+import { Header } from './App/components/Header/Header'
 import { AppHooks } from './App/App.hooks'
 import { homePageStyleProps } from './App/models/Service/PropTypes'
 import { router } from './App/router'
 import { useEffect, useState } from 'react'
-import { AuthProvider } from './App/functions/Auth'
+import { AuthProvider } from './App/functions/Authenticate'
 import React from 'react'
 
 const App = ()=> {

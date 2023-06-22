@@ -1,9 +1,10 @@
-import { useContext, useEffect, forwardRef } from "react"
+import { useContext, useEffect } from "react"
 import { Grid} from "@mui/material"
-import { AuthContext, SignupForm } from "../../functions/Auth"
+import { AuthContext } from "../../functions/Authenticate"
 import React from 'react'
+import { Newsletter_Signup } from "../../components/Newsletter_Signup"
 
-const Home = forwardRef((props, ref) => {
+export const Home = () => {
 
   const authContext = useContext(AuthContext)
   
@@ -22,11 +23,9 @@ const Home = forwardRef((props, ref) => {
         </Grid>
         <Grid item xs={5} textAlign="center">
           {!isAuthenticated &&
-            <SignupForm />
+            <Newsletter_Signup />
           }
         </Grid>
       </Grid>
   )
-})
-
-export default Home;
+}

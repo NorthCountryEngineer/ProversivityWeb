@@ -7,20 +7,12 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "northcountryengineer3418583f"
+          "resourceName": "nceAuthResource"
         }
       ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
-            {
-              "apiKeyConfig": {
-                "apiKeyExpirationDate": "2024-05-10T19:43:59.386Z",
-                "apiKeyExpirationDays": 365,
-                "description": "TestKeyOnly"
-              },
-              "authenticationType": "API_KEY"
-            },
             {
               "authenticationType": "AWS_IAM"
             }
@@ -28,7 +20,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authnorthcountryengineer3418583f"
+              "userPoolId": "authnceAuthResource"
             }
           }
         }
@@ -38,24 +30,27 @@
     }
   },
   "auth": {
-    "northcountryengineer3418583f": {
+    "nceAuthResource": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "ON",
         "mfaTypes": [
-          "SMS"
+          "SMS",
+          "TOTP"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [],
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "NAME"
         ],
         "socialProviders": [],
         "usernameAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "PHONE_NUMBER"
         ],
         "verificationMechanisms": [
           "EMAIL"

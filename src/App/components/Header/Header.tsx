@@ -8,7 +8,7 @@ const SourceCodeProFont = SourceCodePro().fontFamily
 const drawerWidth = 400
 
 // Define the Header component
-export const Header =React.forwardRef(() => {
+export const Header = () => {
 
   // Render the ProversivityAppBar component with the dynamic title, font, drawer width, and menu items
   return (
@@ -19,4 +19,4 @@ export const Header =React.forwardRef(() => {
       menuItems={menuItems}
     />
   )
-})
+}

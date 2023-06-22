@@ -8,4 +8,3 @@ type User @model @auth(rules: [
   lastName: String
   newsletter: Boolean
 }
-

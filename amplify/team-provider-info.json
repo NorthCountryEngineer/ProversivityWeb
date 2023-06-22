@@ -12,14 +12,14 @@
       "AmplifyAppId": "dm2nhm2kldgw"
     },
     "categories": {
+      "storage": {
+        "nceBlogFiles": {}
+      },
       "auth": {
-        "northcountryengineer3418583f": {}
+        "nceAuthResource": {}
       },
       "api": {
         "northcountryengineer": {}
-      },
-      "storage": {
-        "nceBlogFiles": {}
       }
     }
   }

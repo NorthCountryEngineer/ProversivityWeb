@@ -9,6 +9,7 @@
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
     "jsx": "react",
     "allowJs": true,
-    "checkJs": false
+    "checkJs": false,
+    "types": ["cypress", "@percy/cypress", "node"]
   }
 }

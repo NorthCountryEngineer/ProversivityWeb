@@ -1,11 +1,7 @@
-import { CustomerSignup } from "./views/CustomerSignup";
-import { ServiceProviderSignup } from "./views/ServiceProviderSignup";
 import { Home } from "./views/Home";
-import { Blog } from "./views/Blog";
-import { Auth } from "./functions/Auth";
-import { About } from "./views/About";
 import { createBrowserRouter } from 'react-router-dom';
-import { Admin } from "./views/Admin";
+import React from "react";
+import { Authenticate } from "./views/Authenticate";
 
 export const paths: any = [
   {
@@ -13,36 +9,8 @@ export const paths: any = [
     element: <Home />,
   },
   {
-    path: '/Admin',
-    element: <Admin />,
-  },
-  {
-    path: '/Blog',
-    element: <Blog />,
-  },
-  {
-    path: "/About",
-    element: <About />
-  },
-  {
-    path: "/Auth",
-    element: <Auth />
-  },
-  {
-    path: "/Blog",
-    element: <Blog />
-  },
-  {
-    path: "/Home",
-    element: <Home />
-  },
-  {
-    path: "/ServiceProviderSignup",
-    element: <ServiceProviderSignup />
-  },
-  {
-    path: "/CustomerSignup",
-    element: <CustomerSignup />
+    path: '/Auth',
+    element: <Authenticate />
   }
 ];
 

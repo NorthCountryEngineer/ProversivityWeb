@@ -1,6 +1,6 @@
 projects:
   northcountryengineer:
-    schemaPath: amplify/backend/api/northcountryengineer/build/schema.graphql
+    schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
     excludes:
