@@ -44,12 +44,9 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
     setAnchorEl(null)
   }
 
-  const handleLogout = async () => {
-    await Auth.signOut()
-    localStorage.clear()
-    window.location.href = "/"
-  }
 
+  //You are here. You are figuring out why authentication is happening successfully but isn't persisting after redirect
+  
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <Box sx={{ width: drawerWidth }}>
@@ -68,7 +65,7 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
                 </MenuItem>
             ))}
             
-            <MenuItem onClick={handleLogout}>
+            <MenuItem>
                 <ListItemIcon>
                   <ExitToApp />
                 </ListItemIcon>

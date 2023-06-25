@@ -64,8 +64,7 @@ export const checkEmailAvailability = async (email) => {
 
 export const handleSubmit = async (
   email:string,
-  firstName:string,
-  lastName:string,
+  name:string,
   newsLetter:boolean
 ) => {
   try {
@@ -79,8 +78,7 @@ export const handleSubmit = async (
     if(isEmailAvailable){
       const isUserEntityCreated = await createUserEntity(
         email,
-        firstName,
-        lastName,
+        name,
         newsLetter);
       if (!isUserEntityCreated) {
         throw new Error("Failed to create user entity");
@@ -97,14 +95,12 @@ export const handleSubmit = async (
 
 export const createUserEntity = async (
   email:string,
-  firstName:string,
-  lastName:string,
+  name:string,
   newsLetter:boolean
 ) => {
   const newUser = {
     email: email,
-    firstName: firstName,
-    lastName: lastName,
+    name: name,
     newsletter: newsLetter,
   };
 
@@ -128,14 +124,16 @@ export const createUserEntity = async (
 
 export const createNewAccount = async (
   email:string,
-  password:string
+  password:string,
+  name:string
 ) => {
   try {
     let newAccountCreated = await Auth.signUp({
       username: email,
       password,
       attributes: {
-        email,
+        email:email,
+        name:name
       },
     })
 
@@ -171,43 +169,29 @@ export const verifyAccountAndSignIn = async (
   }
 }
 
-export const openCreateAccountModal = async(
-  email:string,
-  firstName:string,
-  lastName:string,
-  newsLetter:boolean,
-  setCreateAccountModalOpen:any
-) =>{
-  let formSubmissionSuccessful:boolean = await handleSubmit(
-    email,
-    firstName,
-    lastName,
-    newsLetter)
-  if(formSubmissionSuccessful){
-    setCreateAccountModalOpen(true)
-  }
-}
-
 export const handleClickShowPassword = (
   setShowPassword:any
 ) => {
   setShowPassword((showPassword) => !showPassword)
-} //credit: https://mui.com/material-ui/react-text-field/#input-adornments
+} 
+
+export const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  event.preventDefault();
+};
 
 export const handleInitialPasswordSubmit = async(
   email:string,
   password:string,
-  setCreateAccountModalOpen:any,
+  name:string,
   setVerificationModalOpen:any
 ) => {
-  const isAccountCreated = await createNewAccount(email,password)
+  const isAccountCreated = await createNewAccount(email,password,name)
 
   if (!isAccountCreated) {
     throw new Error("Failed to create account")
   }
 
   if(isAccountCreated) {
-    setCreateAccountModalOpen(false)
     setVerificationModalOpen(true)
   }
 }
@@ -283,19 +267,25 @@ export const handleSignUp = async (email, firstName, lastName, password) => {
       },
     })
 
-    // Create Customer or ServiceProvider object based on user type
-    if (true/* Check if the user is a Customer */) {
-      // Create Customer object using Amplify's API
-    } else if (false/* Check if the user is a ServiceProvider */) {
-      // Create ServiceProvider object using Amplify's API
-    }
-
-    // Handle successful sign-up
     console.log('User sign-up successful:', user)
     // Add code for redirection or displaying success message
   } catch (error) {
     console.log('Error signing up:', error)
-    // Add code to display error message to the user
+  }
+}
+
+export const handleSignIn = async (email, password) => {
+  try{
+    const userAuthentication = await Auth.signIn({
+      username: email,
+      password: password
+    })
+
+    console.log('User sign-in successful:', userAuthentication)
+    window.location.href="/"
+
+  } catch(error){
+    console.log('Error signing in:', error)
   }
 }
 
