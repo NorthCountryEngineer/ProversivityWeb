@@ -28,3 +28,11 @@ const App = ()=> {
 }
 
 export default App
+
+/*
+You can access the following resource attributes as environment variables from your Lambda function
+        AUTH_NORTHCOUNTRYENGINEERB272F13E_USERPOOLID
+        ENV
+        REGION
+        STORAGE_NCEBLOGFILES_BUCKETNAME
+        */

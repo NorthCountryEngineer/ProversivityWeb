@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "paths": {
+    "/api/gpt3": {
+      "name": "/api/gpt3",
+      "lambdaFunction": "NceGptInterfaceFunction",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}

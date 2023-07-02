@@ -1,5 +1,20 @@
 {
-  "api": {},
+  "api": {
+    "NceGptInterfaceService": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "NceGptInterfaceFunction"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "northcountryengineerb272f13e": {
       "customAuth": false,
@@ -29,7 +44,47 @@
       "service": "Cognito"
     }
   },
-  "function": {},
+  "function": {
+    "NceGptInterfaceFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "northcountryengineerb272f13e"
+        },
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "nceBlogFiles"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_NceGptInterfaceFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "NceGptInterfaceFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_NceGptInterfaceFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "NceGptInterfaceFunction"
+        }
+      ]
+    }
+  },
   "storage": {
     "nceBlogFiles": {
       "dependsOn": [],

@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-northcountryengineer-dev-173943-unauthRole",
       "StackName": "amplify-northcountryengineer-dev-173943",
       "StackId": "arn:aws:cloudformation:us-east-1:179682925980:stack/amplify-northcountryengineer-dev-173943/b03b6a00-e868-11ed-af5d-0af2c76cc20b",
-      "AmplifyAppId": "dm2nhm2kldgw"
+      "AmplifyAppId": "dm2nhm2kldgw",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-northcountryengineer-dev-173943-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "storage": {
@@ -17,6 +18,15 @@
       },
       "auth": {
         "northcountryengineerb272f13e": {}
+      },
+      "function": {
+        "NceGptInterfaceFunction": {
+          "deploymentBucketName": "amplify-northcountryengineer-dev-173943-deployment",
+          "s3Key": "amplify-builds/NceGptInterfaceFunction-4569345143676f334177-build.zip"
+        }
+      },
+      "api": {
+        "NceGptInterfaceService": {}
       }
     }
   }
