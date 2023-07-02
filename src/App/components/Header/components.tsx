@@ -10,7 +10,7 @@ import { ListItemIcon, ListItemText, Menu } from '@mui/material'
 import { Button, ClickAwayListener, Link, MenuItem } from '@mui/material'
 import { useAuthentication } from "../../functions/Authenticate"
 import { NoteAdd, ExitToApp, Login, Person, ManageAccounts } from '@mui/icons-material'
-import type { MenuItemProps, HeaderProps } from './model'
+import type { MenuItemProps, HeaderProps } from './definitions'
 import React from 'react'
 
 export const menuItems:MenuItemProps[] = [
@@ -46,7 +46,7 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
 
 
   //You are here. You are figuring out why authentication is happening successfully but isn't persisting after redirect
-  
+
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <Box sx={{ width: drawerWidth }}>
@@ -258,25 +258,3 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
     </Box>
   )
 }
-
-
-
-
-/**
- * Header service provider sign in/create account link:
- * 
- * {!isAuthenticated &&
-    <Link href="/ServiceProviderSignup">
-      <Button
-        variant="text"
-        color="primary"
-        sx={{
-          marginTop: '40px',
-          color: "black"
-        }}
-      >
-        <Typography variant="h6">Become a Service Provider</Typography>
-    </Button>
-    </Link>
-  }
- */

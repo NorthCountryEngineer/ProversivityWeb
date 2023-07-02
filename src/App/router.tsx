@@ -1,7 +1,7 @@
 import { Home } from "./views/Home";
 import { createBrowserRouter } from 'react-router-dom';
 import React from "react";
-import { Authenticate } from "./views/Authenticate";
+import Authenticate from "./views/Authenticate/Authenticate";
 
 export const paths: any = [
   {

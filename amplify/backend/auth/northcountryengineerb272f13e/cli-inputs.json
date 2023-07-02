@@ -1,17 +1,16 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "nceAuthIdentityPool",
-    "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "northc7bbed5e6",
-    "userPoolName": "nceAuthUserPool",
+    "identityPoolName": "northcountryengineerb272f13e_identitypool_b272f13e",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "northcb272f13e",
+    "userPoolName": "northcountryengineerb272f13e_userpool_b272f13e",
     "autoVerifiedAttributes": [
       "email"
     ],
-    "mfaConfiguration": "ON",
+    "mfaConfiguration": "OFF",
     "mfaTypes": [
-      "SMS Text Message",
-      "TOTP"
+      "SMS Text Message"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
@@ -33,21 +32,21 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "nceAut7bbed5e6_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "northcb272f13e_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "7bbed5e6",
-    "resourceName": "nceAuthResource",
+    "sharedId": "b272f13e",
+    "resourceName": "northcountryengineerb272f13e",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "manual",
-    "thirdPartyAuth": true,
-    "authProviders": [],
+    "useDefault": "defaultSocial",
+    "hostedUI": true,
     "usernameAttributes": [
-      "email, phone_number"
+      "email"
     ],
-    "userPoolGroups": false,
-    "adminQueries": false,
     "triggers": {},
-    "hostedUI": false,
+    "hostedUIDomainName": "northcountryengineer",
+    "authProvidersUserPool": [],
+    "hostedUIProviderMeta": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://localhost:3000/\",\"https://northcountryengineer.com/\"],\"LogoutURLs\":[\"https://localhost:3000/\",\"https://northcountryengineer.com/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,

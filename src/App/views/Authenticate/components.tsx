@@ -48,8 +48,9 @@ export const SignupForm = () => {
       password, 
       setVerificationModalOpen
     )
+    console.log(submit)
 
-    if(submit) window.location.href = "/"
+    //if(submit) window.location.href = "/"
   }
 
   return (

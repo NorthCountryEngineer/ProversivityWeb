@@ -24,7 +24,7 @@ export const Home = () => {
   }
   
   useEffect(()=>{
-    localStorage.setItem('pageTitle', ['NYC Quality Tech.','NNY Prices.'].join('\n'))
+    //localStorage.setItem('pageTitle', ['NYC Quality Tech.','NNY Prices.'].join('\n'))
     console.log(currentSession())
   },[])
 

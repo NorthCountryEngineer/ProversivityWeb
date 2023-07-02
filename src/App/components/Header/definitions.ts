@@ -8,7 +8,7 @@ export type HeaderProps = {
   dynamicTitle: string
   font: string
   drawerWidth: number
-  menuItems: MenuItem[]
+  menuItems: MenuItemProps[]
 }
 
 export type ProversivityAppBarProps = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { expect } from 'chai';
-import { Authenticate } from '../views/Authenticate/Authenticate';
+import Authenticate from '../views/Authenticate/Authenticate';
 
 describe('Home component', () => {
   it('should render the Signup form when the user is not authenticated', () => {

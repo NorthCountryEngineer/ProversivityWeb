@@ -281,8 +281,10 @@ export const handleSignIn = async (email, password) => {
       password: password
     })
 
+    if(userAuthentication) console.log(Auth.currentAuthenticatedUser())
+
     console.log('User sign-in successful:', userAuthentication)
-    window.location.href="/"
+    //window.location.href="/"
 
   } catch(error){
     console.log('Error signing in:', error)

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { Auth, Hub } from "aws-amplify"
+import { useState } from "react"
 import { useMediaQuery, useTheme } from "@mui/material"
 
 /**
