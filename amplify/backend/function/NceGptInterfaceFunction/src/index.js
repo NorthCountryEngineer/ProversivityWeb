@@ -1,5 +1,4 @@
 const { Configuration, OpenAIApi } = require("openai")
-const { stringify } = require("flatted");
 require('dotenv').config();
 
 const configuration = new Configuration({
@@ -9,9 +8,10 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 console.log(process.env.OPENAI_API_KEY)
+
 exports.handler = async (event) => {
   try {
-    /*const response = await openai.createChatCompletion({
+      const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       temperature: 0.888,
       max_tokens: 2048,
@@ -20,8 +20,7 @@ exports.handler = async (event) => {
       top_p: 1,
       messages: [{role: "system", content: ``}, {role: "user", content: ''}],
   }, { timeout: 60000 });
-    console.log(response.data.choices[0].message)*/
-    console.log(process.env)
+    console.log(response.data.choices[0].message)
 
     //const jsonString = stringify(response);
 
