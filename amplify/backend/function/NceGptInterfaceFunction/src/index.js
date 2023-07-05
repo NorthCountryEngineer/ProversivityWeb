@@ -1,22 +1,33 @@
 const { Configuration, OpenAIApi } = require("openai")
 const { stringify } = require("flatted");
+require('dotenv').config();
 
 const configuration = new Configuration({
   organization: "org-AlH1F2ixUcETeDME3jakUSS2", // Replace with your OpenAI organization ID
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
+console.log(process.env.OPENAI_API_KEY)
 exports.handler = async (event) => {
   try {
-    const response = await openai.listModels();
-    console.log(response)
-    const models = response.data.models.map(model => model.id);
-    const jsonString = stringify(models);
-    console.log(jsonString);
+    /*const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      temperature: 0.888,
+      max_tokens: 2048,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      top_p: 1,
+      messages: [{role: "system", content: ``}, {role: "user", content: ''}],
+  }, { timeout: 60000 });
+    console.log(response.data.choices[0].message)*/
+    console.log(process.env)
+
+    //const jsonString = stringify(response);
+
     return {
       statusCode: 200,
-      body: jsonString,
+      body: "jsonString",
     };
   } catch (error) {
     console.error("Error:", error);
