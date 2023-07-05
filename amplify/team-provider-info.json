@@ -14,7 +14,8 @@
     },
     "categories": {
       "storage": {
-        "nceBlogFiles": {}
+        "nceBlogFiles": {},
+        "NceConversationContextDb": {}
       },
       "auth": {
         "northcountryengineerb272f13e": {}
@@ -22,11 +23,16 @@
       "function": {
         "NceGptInterfaceFunction": {
           "deploymentBucketName": "amplify-northcountryengineer-dev-173943-deployment",
-          "s3Key": "amplify-builds/NceGptInterfaceFunction-4569345143676f334177-build.zip"
+          "s3Key": "amplify-builds/NceGptInterfaceFunction-454a5139794236494f44-build.zip"
+        },
+        "NceConversationContextManagementService": {
+          "deploymentBucketName": "amplify-northcountryengineer-dev-173943-deployment",
+          "s3Key": "amplify-builds/NceConversationContextManagementService-4d67596f706d7a6d6349-build.zip"
         }
       },
       "api": {
-        "NceGptInterfaceService": {}
+        "NceGptInterfaceService": {},
+        "NceConversationContextManagementService": {}
       }
     }
   }

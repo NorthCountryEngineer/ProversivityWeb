@@ -1,0 +1,10 @@
+{
+  "resourceName": "NceConversationContextDb",
+  "tableName": "NceConversationContextDb",
+  "partitionKey": {
+    "fieldName": "conversationID",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

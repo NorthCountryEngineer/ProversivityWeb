@@ -10,6 +10,8 @@ const openai = new OpenAIApi(configuration);
 console.log(process.env.OPENAI_API_KEY)
 
 exports.handler = async (event) => {
+  console.log(event, process.env.OPENAI_API_KEY)
+
   try {
       const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -18,11 +20,9 @@ exports.handler = async (event) => {
       frequency_penalty: 0,
       presence_penalty: 0,
       top_p: 1,
-      messages: [{role: "system", content: ``}, {role: "user", content: ''}],
+      messages: [{role: "user", content: event.body}],
   }, { timeout: 60000 });
     console.log(response.data.choices[0].message)
-
-    //const jsonString = stringify(response);
 
     return {
       statusCode: 200,
@@ -32,7 +32,7 @@ exports.handler = async (event) => {
     console.error("Error:", error);
     return {
       statusCode: 500,
-      body: "An error occurred while fetching data from OpenAI API.",
+      body: `An error occurred while fetching data from OpenAI API: ${error}`,
     };
   }
 };

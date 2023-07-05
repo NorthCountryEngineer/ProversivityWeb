@@ -1,5 +1,19 @@
 {
   "api": {
+    "NceConversationContextManagementService": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "NceConversationContextManagementService"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "NceGptInterfaceService": {
       "dependsOn": [
         {
@@ -45,6 +59,25 @@
     }
   },
   "function": {
+    "NceConversationContextManagementService": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "NceConversationContextDb"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "NceGptInterfaceFunction": {
       "build": true,
       "dependsOn": [
@@ -68,6 +101,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_NceConversationContextManagementService_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "NceConversationContextManagementService"
+        }
+      ]
+    },
+    "AMPLIFY_function_NceConversationContextManagementService_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "NceConversationContextManagementService"
+        }
+      ]
+    },
     "AMPLIFY_function_NceGptInterfaceFunction_deploymentBucketName": {
       "usedBy": [
         {
@@ -86,6 +135,10 @@
     }
   },
   "storage": {
+    "NceConversationContextDb": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
     "nceBlogFiles": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
