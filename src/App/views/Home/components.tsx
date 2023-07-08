@@ -1,30 +1,98 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@mui/material';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 
 export const HomeCustomerConversation = () => {
-  const [message, setMessage] = useState(''); // State to store the user's message
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Get the user's access token
+        const currentSession = await Auth.currentSession();
+        const accessToken = currentSession.getAccessToken().getJwtToken();
+        console.log(accessToken)
+
+        // Make the API request with the user's access token
+        const response = await API.get('NceConversationContextManagementService', '/', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          },
+          body: {
+            conversationID:"test-conversation-id3",
+          }
+        });
+
+        console.log(response); // Access the "test" attribute in the response
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return <></>;
+};
+
+
+/*export const HomeCustomerConversation = () => {
+  const [message, setMessage] = useState(''); 
+  const [conversationID, setConversationID] = useState(null);
+
+  useEffect(() => {
+    const createNewConversation = async () => {
+      const apiName = 'NceConversationContextManagementService';
+      const path = '/conversation/new';
+
+      try {
+        const myInit = {
+          headers: {
+            Authorization: `Bearer ${(await Auth.currentSession())
+              .getIdToken()
+              .getJwtToken()}`
+          }
+        }
+
+        const response = await API.post(apiName, path, myInit);
+        setConversationID(response.conversationID);
+      } catch (error) {
+        console.error('Error creating new conversation: ', error);
+      }
+    };
+
+    createNewConversation();
+  }, []); 
 
   const handleTextChange = (event) => {
-    setMessage(event.target.value); // Update the message state when the user types
+    setMessage(event.target.value);
   }
 
   const handleSubmit = async () => {
-    // Call the API when the user clicks the submit button
-    const apiName = 'NceConversationContextManagementService'; // Replace with your API name
-    const path = '/conversation/{conversationID}'; // Replace {conversationID} with the actual conversation ID
-    const body = { message }; // The message to be sent to the API
+    if (!conversationID) {
+      return;
+    }
+
+    const apiName = 'NceConversationContextManagementService';
+    const path = `/conversation/${conversationID}`;
+    const session = await Auth.currentSession();
+    const token = session.getIdToken().getJwtToken();
+
+    const init = {
+      body: { message },
+      headers: {
+        Authorization: token,
+      },
+    };
 
     try {
-      await API.post(apiName, path, { body });
-      setMessage(''); // Clear the message state after successfully sending the message
+      await API.post(apiName, path, init);
+      setMessage('');
     } catch (error) {
       console.error('Error sending message: ', error);
     }
   }
 
   return (
-    <>
+    <div style={{backgroundColor:"black"}}>
       <TextField
         value={message}
         onChange={handleTextChange}
@@ -35,6 +103,6 @@ export const HomeCustomerConversation = () => {
       <Button onClick={handleSubmit}>
         Submit
       </Button>
-    </>
-  )
-}
+    </div>
+  );
+}*/

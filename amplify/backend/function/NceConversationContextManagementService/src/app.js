@@ -136,6 +136,31 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res) {
 });
 
 
+app.get("/conversation/test-conversation-id3", async function(req, res) {
+  const conversationID = "test-conversation-id3";
+
+  const getItemParams = {
+    TableName: tableName,
+    Key: {
+      conversationID: conversationID
+    }
+  };
+
+  try {
+    const data = await ddbDocClient.send(new GetCommand(getItemParams));
+    if (data.Item) {
+      res.json(data.Item);
+    } else {
+      res.json({ error: "Conversation not found" });
+    }
+  } catch (err) {
+    res.statusCode = 500;
+    res.json({ error: err.message });
+  }
+});
+
+
+
 /************************************
 * HTTP put method for insert object *
 *************************************/
@@ -222,11 +247,56 @@ app.delete(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res
   }
 });
 
-app.listen(3000, function() {
-  console.log("App started")
+
+/**************************************
+* HTTP post method to create object *
+***************************************/
+
+app.post('/conversation/new', async (req, res) => {
+  // Generate a new UUID for the conversation
+  const conversationID = uuidv4();
+
+  // Prepare the item
+  const newItem = {
+    conversationID,
+    messages: [], // an empty array to store messages
+    createdAt: new Date().toISOString(), // timestamp of conversation creation
+    // add other necessary fields here
+  }
+
+  // Prepare the parameters for the put operation
+  const putItemParams = {
+    TableName: tableName,
+    Item: newItem
+  }
+
+  try {
+    // Put the item into the table
+    await ddbDocClient.send(new PutCommand(putItemParams));
+
+    // Send back the ID of the newly created conversation
+    res.json({ success: 'Create Conversation succeeded!', conversationID });
+  } catch (err) {
+    res.statusCode = 500;
+    res.json({ error: err, url: req.url, body: req.body });
+  }
 });
 
-// Export the app object. When executing the application local this does nothing. However,
-// to port it to AWS Lambda we will create a wrapper around that will load the app from
-// this file
-module.exports = app
+
+// Enable CORS for all routes
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  next();
+});
+
+// Rest of your Lambda code...
+// ...
+
+app.listen(3000, () => {
+  console.log("App started");
+});
+
+// Export the app object. When executing the application locally, this does nothing.
+// However, to port it to AWS Lambda, we will create a wrapper that loads the app from this file.
+module.exports = app;
