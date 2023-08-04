@@ -1,34 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@mui/material';
-import { API, Auth } from 'aws-amplify';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { GraphQLQuery } from '@aws-amplify/api';
+import { listRealEstateProperties } from '../../../graphql/queries';
+import { createRealEstateProperty } from '../../../graphql/mutations';
+
+
+const samplePayload = { name: "My first todo", address: "Hello world!" };
 
 export const HomeCustomerConversation = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Get the user's access token
-        const currentSession = await Auth.currentSession();
-        const accessToken = currentSession.getAccessToken().getJwtToken();
-        console.log(accessToken)
+  
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    isError: isErrorQuery,
+  } = useQuery({
+    queryKey: ["realEstateProperties"],
+    queryFn: async () => {
+      const response:any = await API.graphql({
+        query: listRealEstateProperties,
+      });
+  
+      const allRealEstateProperties =
+        response?.data?.listRealEstateProperties?.items;
+  
+      if (!allRealEstateProperties) return null;
+  
+      return allRealEstateProperties;
+    },
+  });
 
-        // Make the API request with the user's access token
-        const response = await API.get('NceConversationContextManagementService', '/', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          },
-          body: {
-            conversationID:"test-conversation-id3",
-          }
-        });
+  const MakeExampleCall = async() => {
+    console.log("starting")
+    try{
+      const createCall = await API.graphql(graphqlOperation(createRealEstateProperty, {input: samplePayload}))
+      const listCall = await API.graphql(graphqlOperation(listRealEstateProperties))
+      const data = {createCall, listCall}
+      return data
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
 
-        console.log(response); // Access the "test" attribute in the response
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  console.log(isLoading, isSuccess)
+  const exampleCall = MakeExampleCall()
+  console.log(exampleCall)
 
   return <></>;
 };

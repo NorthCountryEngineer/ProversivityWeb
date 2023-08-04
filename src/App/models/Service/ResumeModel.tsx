@@ -1,8 +1,3 @@
-import * as React from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-
-
 //Enums
 export enum DegreeType{
     AA="AA",
@@ -45,21 +40,114 @@ export interface Address {
 }
 
 export interface InitialResume {
+    id: string,
     Author: string
     Skills: string[]
-    Status: ResumeStatus.DRAFT
+    Status: string
     Title: string
-    resumeOverviewId: string
-    resumePersonalDataId: string
-    userProvidedID: string
+    resumeOverview: string
+    resumePersonalData: string
 }
+
 
 export interface Resume extends InitialResume{
     Education: Education
     Experience: Experience
     Overview: Overview
     PersonalData: PersonalData
-    Skills: Array<string>
+    Skills: string[]
+}
+
+
+export const CurrentResumeObject:Resume= {
+    id: "1",
+    Author:"",
+    Status: ResumeStatus.DRAFT,
+    Title: "Generic_Resume_20230804",
+    resumeOverview: ` `,
+    resumePersonalData: ``,
+    Overview: {
+        id: "2",
+        Summary: {
+            id: "3",
+            Summary: ""
+        },
+        Accomplishments: [{
+            id: "4",
+            Accomplishment: ""
+        }]
+    },
+    PersonalData: {
+        Acronyms: "",
+        Address: {
+            Street:"",
+            City:"Remote/Virtual",
+            State:"NY",
+            Zip:""
+        },
+        Contact: {
+            email:"eric.p.yager@northcountryengineer.com",
+            phone:"(315)854-6887"
+        },
+        First: "Eric",
+        JobTitle: "Software Development Manager",
+        Last: "Yager",
+        Middle: "",
+        Owner: "",
+        SocialMedias: [
+            {
+                id: "",
+                type: "LinkedIn",
+                URL: "https://www.linkedin.com/in/eric-yager-pmp"
+            },
+            {
+                id: "",
+                type: "Personal_Webpage",
+                URL: "https://www.northcountryengineer.com"
+            }
+        ],
+        id: "",
+        personalDataAddressId: "",
+        personalDataContactId: "",
+    },
+    Experience: {
+        items: [
+            {
+                Company: "Amazon",
+                Start: new Date(Date.parse('04 Dec 1995 00:00:00 GMT')),
+                End: new Date(Date.parse('04 Dec 1995 00:12:00 GMT')),
+                IsCurrent:true,
+                JobTitle:"Software Development Manager III",
+                Organization:"People Experience Technology (PXT)",
+                Overview:`Engineering lead in Amazon People Experience Technology. Managing two cross functional (engineering and science) teams building internally facing talent management services.`,
+                BulletPoints: [
+                    {
+                        BulletText: "Led tiger team of senior engineers and senior product staff to build requirements and high level design requirements for “Employee Skills Ontology”, a backend service interpreting HR documentation to annotate an ontology of skills for each job role in Amazon",
+                        SubBullet: ""
+                    },
+
+                    {
+                        BulletText: "Worked with design technologists, scientists, and machine learning engineers to build ML engine (training, retraining, model slippage detection, API layer) and UI product for organizational design",
+                        SubBullet: ""
+                    },
+                ]
+            },
+        ]
+    },
+    Education: {
+        items: [
+            {
+                Degree: DegreeType.AA,
+                School:"",
+                Start: new Date(Date.parse('04 Dec 1995 00:12:00 GMT')),
+                End: new Date(Date.parse('04 Dec 1995 00:12:00 GMT')),
+                Overview: "" 
+            }
+        ]
+    },
+    Skills: [
+
+    ]   
 }
 
 export interface Contact {
@@ -71,21 +159,21 @@ export interface PersonalData{
     Acronyms: string
     Address: Address
     Contact: Contact
-    Facebook?: string | unknown
     First: string
-    Github?: string | unknown
     JobTitle: string
     Last: string
-    LinkedIn?: string | unknown
     Middle: string
     Owner: string
-    Reddit?: string | unknown
-    Twitter?: string | unknown
     id: string
-    owner: string
     personalDataAddressId: string
     personalDataContactId: string
-    updatedAt: string
+    SocialMedias: SocialMedia[]
+}
+
+export interface SocialMedia {
+    id: string
+    type: string
+    URL: string
 }
 
 export interface Summary {
@@ -107,13 +195,13 @@ export interface Overview {
 export interface EducationObject {
     Degree: DegreeType
     School: string
-    Start: string
-    End: string
+    Start: Date
+    End: Date
     Overview: string
 }
 
 export interface Education {
-    items: Array<EducationObject>
+    items: EducationObject[]
 }
 
 export interface Skills{
@@ -133,12 +221,12 @@ export interface ExperienceObject {
     IsCurrent: boolean
     JobTitle: string
     Organization: string
-    Title: string
+    Overview: string
     BulletPoints: Bullet[]
 }
 
 export interface Experience {
-    items: Array<ExperienceObject>
+    items: ExperienceObject[]
 }
 
 /**export interface SelectedCellParams {
@@ -181,21 +269,21 @@ export const PersonalDataTemplate:PersonalData = {
     Acronyms: "",
     Address: AddressTemplate,
     Contact: ContactTemplate,
-    Facebook: "",
     First: "",
-    Github: "",
     JobTitle: "",
     Last: "",
-    LinkedIn: "",
     Middle: "",
     Owner: "",
-    Reddit: "",
-    Twitter: "",
+    SocialMedias: [
+        {
+            id: "",
+            type: "",
+            URL: "",
+        },
+    ],
     id: "",
-    owner: "",
     personalDataAddressId: "",
     personalDataContactId: "",
-    updatedAt: ""
 }
 
 export const SummaryTemplate:Summary = {
@@ -227,8 +315,8 @@ export const BulletTemplate:Bullet = {
 export const EducationObjectTemplate:EducationObject = {
     Degree: DegreeType.AA,
     School:"",
-    Start: "",
-    End: "",
+    Start: new Date(Date.parse('04 Dec 1995 00:12:00 GMT')),
+    End: new Date(Date.parse('04 Dec 1995 00:12:00 GMT')),
     Overview: ""
 }
 
@@ -243,7 +331,7 @@ export const ExperienceObjectTemplate:ExperienceObject = {
     IsCurrent:false,
     JobTitle:"",
     Organization:"",
-    Title:"",
+    Overview:"",
     BulletPoints: [BulletTemplate]
 
 }
@@ -263,13 +351,13 @@ export const SharePoolTemplate:SharePool = {
 }
 
 export const InitialResumeTemplate:InitialResume = {
+    id:"",
     Author: "",
     Skills:[""],
     Status: ResumeStatus.DRAFT,
     Title: "",
-    resumeOverviewId: "",
-    resumePersonalDataId: "",
-    userProvidedID: ""
+    resumeOverview: "",
+    resumePersonalData: "",
 }
 
 export const ResumeTemplate:Resume = {

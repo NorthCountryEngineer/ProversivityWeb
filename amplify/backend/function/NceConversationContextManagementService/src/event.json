@@ -1,6 +1,6 @@
 {
   "httpMethod": "GET",
-  "path": "/conversation/object",
+  "path": "/",
   "headers": {
     "Content-Type": "application/json"
   },

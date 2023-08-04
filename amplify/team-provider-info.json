@@ -27,12 +27,14 @@
         },
         "NceConversationContextManagementService": {
           "deploymentBucketName": "amplify-northcountryengineer-dev-173943-deployment",
-          "s3Key": "amplify-builds/NceConversationContextManagementService-4468796e41567a2f6170-build.zip"
+          "s3Key": "amplify-builds/NceConversationContextManagementService-4b634538354433416579-build.zip"
         }
       },
       "api": {
         "NceGptInterfaceService": {},
-        "NceConversationContextManagementService": {}
+        "NceConversationContextManagementService": {},
+        "NceContextManagementGraphQLAPI": {},
+        "northcountryengineer": {}
       }
     }
   }

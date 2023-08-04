@@ -11,10 +11,9 @@ export const createUser = /* GraphQL */ `
       email
       firstName
       lastName
-      newsletter
       createdAt
       updatedAt
-      owner
+      __typename
     }
   }
 `;
@@ -28,10 +27,9 @@ export const updateUser = /* GraphQL */ `
       email
       firstName
       lastName
-      newsletter
       createdAt
       updatedAt
-      owner
+      __typename
     }
   }
 `;
@@ -45,10 +43,54 @@ export const deleteUser = /* GraphQL */ `
       email
       firstName
       lastName
-      newsletter
       createdAt
       updatedAt
-      owner
+      __typename
+    }
+  }
+`;
+export const createRealEstateProperty = /* GraphQL */ `
+  mutation CreateRealEstateProperty(
+    $input: CreateRealEstatePropertyInput!
+    $condition: ModelRealEstatePropertyConditionInput
+  ) {
+    createRealEstateProperty(input: $input, condition: $condition) {
+      id
+      name
+      address
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateRealEstateProperty = /* GraphQL */ `
+  mutation UpdateRealEstateProperty(
+    $input: UpdateRealEstatePropertyInput!
+    $condition: ModelRealEstatePropertyConditionInput
+  ) {
+    updateRealEstateProperty(input: $input, condition: $condition) {
+      id
+      name
+      address
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteRealEstateProperty = /* GraphQL */ `
+  mutation DeleteRealEstateProperty(
+    $input: DeleteRealEstatePropertyInput!
+    $condition: ModelRealEstatePropertyConditionInput
+  ) {
+    deleteRealEstateProperty(input: $input, condition: $condition) {
+      id
+      name
+      address
+      createdAt
+      updatedAt
+      __typename
     }
   }
 `;

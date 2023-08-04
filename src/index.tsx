@@ -3,18 +3,36 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import { Amplify } from 'aws-amplify'
+import { Amplify, Auth } from 'aws-amplify'
 import awsmobile from './aws-exports'
 import '@aws-amplify/ui-react/styles.css'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-Amplify.configure(awsmobile)
+// Create a client
+const queryClient = new QueryClient()
+
+awsmobile.aws_cloud_logic_custom.forEach(endpoint => {
+  if (endpoint.name === 'NceConversationContextManagementService') {
+    endpoint.custom_header = async () => {
+      return {
+        Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+      };
+    };
+  }
+});
+
+Amplify.configure(awsmobile);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 
 root.render(
+  <QueryClientProvider client={queryClient}>
     <App />
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
 )
 
 // If you want to start measuring performance in your app, pass a function
