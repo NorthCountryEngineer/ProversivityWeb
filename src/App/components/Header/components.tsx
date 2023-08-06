@@ -227,23 +227,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
             
           </Grid>
 
-          <Grid item xs={1} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
-            <Link href="/blog">
-              <Button
-                variant="text"
-                color="primary"
-                sx={{
-                  marginTop: '40px',
-                  color: "black"
-                }}
-              >
-                <Typography variant="h6">Blog</Typography>
-             </Button>
-            </Link>
-          </Grid>
-          <Grid item xs={.5} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
-            {dynamicButton()}
-          </Grid>
+
         </Grid>
 
         </Toolbar>

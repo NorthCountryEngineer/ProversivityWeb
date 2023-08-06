@@ -13,7 +13,7 @@ export const Header = () => {
   // Render the ProversivityAppBar component with the dynamic title, font, drawer width, and menu items
   return (
     <ProversivityAppBar 
-      dynamicTitle="North Country Engineer"
+      dynamicTitle="The North Country Engineer"
       font={SourceCodeProFont} 
       drawerWidth={drawerWidth}
       menuItems={menuItems}

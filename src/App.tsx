@@ -11,7 +11,7 @@ import React from 'react'
 
 const App = ()=> {
   
-  const { targetImage} = AppHooks()
+  const { targetImage } = AppHooks()
 
   return (
     <div style={homePageStyleProps(targetImage)}>
@@ -28,11 +28,3 @@ const App = ()=> {
 }
 
 export default App
-
-/*
-You can access the following resource attributes as environment variables from your Lambda function
-        AUTH_NORTHCOUNTRYENGINEERB272F13E_USERPOOLID
-        ENV
-        REGION
-        STORAGE_NCEBLOGFILES_BUCKETNAME
-        */

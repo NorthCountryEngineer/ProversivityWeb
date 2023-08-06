@@ -4,11 +4,11 @@ import { red } from '@mui/material/colors'
 const theme = createTheme({
   palette: {
     primary: {
-      main: 'rgba(255, 255, 255, 0.3)',
-      dark: 'rgba(255, 255, 255, 0.6)',
+      main: 'rgb(255, 255, 255, 0.3)',
+      dark: 'rgb(255, 255, 255, 0.6)',
     },
     secondary: {
-      main: 'rgba(2, 142, 196, 255)',
+      main: 'rgb(2, 142, 196, 255)',
     },
     error: {
       main: red.A400,

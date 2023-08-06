@@ -33,10 +33,10 @@ export enum ResumeStatus {
 
 //Interfaces
 export interface Address {
-    Street?: string | unknown
-    City?: string | unknown
-    State?: string | unknown
-    Zip?: string | unknown
+    Street: string 
+    City: string 
+    State: string 
+    Zip: string 
 }
 
 export interface InitialResume {
@@ -86,8 +86,8 @@ export const CurrentResumeObject:Resume= {
             Zip:""
         },
         Contact: {
-            email:"eric.p.yager@northcountryengineer.com",
-            phone:"(315)854-6887"
+            email:"eric@northcountryengineer.com",
+            phone:"(315) 355-7553"
         },
         First: "Eric",
         JobTitle: "Software Development Manager",
@@ -151,8 +151,8 @@ export const CurrentResumeObject:Resume= {
 }
 
 export interface Contact {
-    email?: string | unknown
-    phone?: string | unknown
+    email: string 
+    phone: string 
 }
 
 export interface PersonalData{
@@ -235,7 +235,7 @@ export interface Experience {
 }
   
 export interface EditToolbarProps {
-    selectedCellParams?: SelectedCellParams
+    selectedCellParams: SelectedCellParams
     cellModesModel: GridCellModesModel
     setCellModesModel: (value: GridCellModesModel) => void
     cellMode: 'view' | 'edit'
