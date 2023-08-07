@@ -8,6 +8,9 @@ import Divider from '@mui/material/Divider';
 
 export const Home = () => {
   const [PersonalData, SetPersonalData] = useState(CurrentResumeObject.PersonalData)
+  const [ExperienceData, SetExperienceData] = useState(CurrentResumeObject.Experience.items)
+
+  let Experience = ExperienceData.map((experience)=>console.log(experience))
 
   return (
 
@@ -63,9 +66,40 @@ export const Home = () => {
             </Grid>
             
           </Grid>
-
-
           <hr />
+
+          <Grid container>
+            <Grid item xs={12}>
+              {
+                ExperienceData.map((Experience)=>{
+                  return(
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <p>{Experience.Company}</p>
+                        <p>{String(Experience.End)}</p>
+                        <p>{Experience.IsCurrent}</p>
+                        <p>{Experience.JobTitle}</p>
+                        <p>{Experience.Location}</p>
+                        <p>{Experience.Organization}</p>
+                        <p>{Experience.Overview}</p>
+                        <p>{String(Experience.Start)}</p>
+                        <p>{Experience.BulletPoints.map((BulletPoint)=>
+                          <p>{BulletPoint.BulletText}</p>
+                        )}</p>
+                      </Grid>
+                    </Grid>
+                  )
+                })
+              }
+              
+              <p style={{margin:"0px", textAlign:"right"}}>
+                
+              </p>
+            </Grid>
+            
+          </Grid>
+
+
          
         </Grid>
 

@@ -33,8 +33,7 @@
       "api": {
         "NceGptInterfaceService": {},
         "NceConversationContextManagementService": {},
-        "NceContextManagementGraphQLAPI": {},
-        "northcountryengineer": {}
+        "NceContextManagementGraphQLAPI": {}
       }
     }
   }
