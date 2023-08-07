@@ -32,8 +32,7 @@
       },
       "api": {
         "NceGptInterfaceService": {},
-        "NceConversationContextManagementService": {},
-        "NceContextManagementGraphQLAPI": {}
+        "NceConversationContextManagementService": {}
       }
     }
   }
