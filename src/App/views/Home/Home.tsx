@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Grid, Stack } from "@mui/material"
+import { Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material"
 import { CurrentResumeObject } from '../../models/Service/ResumeModel'
 import IconButton from '@mui/material/IconButton';
-import { AppBlockingSharp, Delete, Facebook, LinkedIn, Send, WebStories } from '@mui/icons-material';
+import { AppBlockingSharp, Delete, Drafts, Facebook, Inbox, LinkedIn, Send, WebStories } from '@mui/icons-material';
 import ContactPhone from '@mui/icons-material/ContactPhone';
 import Divider from '@mui/material/Divider';
 
@@ -75,17 +75,70 @@ export const Home = () => {
                   return(
                     <Grid container>
                       <Grid item xs={12}>
-                        <p>{Experience.Company}</p>
-                        <p>{String(Experience.End)}</p>
-                        <p>{Experience.IsCurrent}</p>
-                        <p>{Experience.JobTitle}</p>
-                        <p>{Experience.Location}</p>
-                        <p>{Experience.Organization}</p>
-                        <p>{Experience.Overview}</p>
-                        <p>{String(Experience.Start)}</p>
-                        <p>{Experience.BulletPoints.map((BulletPoint)=>
-                          <p>{BulletPoint.BulletText}</p>
-                        )}</p>
+                        <Grid container>
+                          <Grid item xs={6}>
+                            {<p style={{margin:"0px", textAlign:"left"}}>{Experience.Company}  -  {Experience.JobTitle}</p>} 
+                          </Grid>
+                          <Grid item xs={6}>
+                            {
+                              <p style={{margin:"0px", textAlign:"right"}}>
+                                {String(Experience.Start.getMonth())}/{String(Experience.Start.getFullYear())} - {
+                                !Experience.IsCurrent ? 
+                                String(Experience.Start.getMonth()) + "/" + String(Experience.End.getFullYear()) 
+                                  :
+                                  "Current"
+                                } 
+                              </p>
+                            }
+                          </Grid>
+
+                          <Grid item xs={6}>
+                            {<p style={{margin:"0px", textAlign:"left"}}>{Experience.Organization}</p>} 
+                          </Grid>
+                          <Grid item xs={6}>
+                            {
+                              <p style={{margin:"0px", textAlign:"right"}}>
+                                {Experience.Location}
+                              </p>
+                            }
+                          </Grid>
+
+                          <Grid item xs={12}>
+                            <p style={{margin:"0px", marginTop:"15px", textAlign:"left", paddingLeft:"15px", paddingRight:"15px" }}>{Experience.Overview}</p>
+                            <List sx={{paddingLeft:"30px", paddingRight:"30px"}}>
+                              {Experience.BulletPoints.map((Bullet)=>{
+                                return(
+                                  <ListItem disablePadding>
+                                    <ListItem>
+                                      <Typography variant="body1">
+                                        {Bullet.BulletText}
+                                        <List>
+                                          {
+                                            Bullet.SubBullet &&
+                                            Bullet.SubBullet.map((sub)=>
+                                              <ListItem>
+                                                <Typography variant="body2">{sub}</Typography>
+                                              </ListItem>
+                                            )
+                                          }
+                                        </List>         
+                                      </Typography>
+                                    </ListItem>                         
+                                  </ListItem>
+                                )
+                              })}
+                            </List>
+                            <hr />
+                          </Grid>
+
+                        </Grid>
+                       
+                       
+                        
+                       
+                       
+                        
+
                       </Grid>
                     </Grid>
                   )
