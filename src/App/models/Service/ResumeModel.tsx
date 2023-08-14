@@ -118,7 +118,7 @@ export const CurrentResumeObject:Resume= {
                 End: new Date(),
                 IsCurrent:true,
                 Location:"Remote, NY",
-                JobTitle:"Software Development Manager III",
+                JobTitle:"Software Development Manager",
                 Organization:"People Experience Technology (PXT)",
                 Overview:`Engineering lead in Amazon People Experience Technology. Managing two cross functional (engineering and science) teams building internally facing talent management services.`,
 
@@ -140,7 +140,7 @@ export const CurrentResumeObject:Resume= {
                 End: new Date(Date.parse('01 May 2022 00:00:00 GMT')),
                 IsCurrent:false,
                 Location: "Nashville, TN",
-                JobTitle:"Software Development Manager III",
+                JobTitle:"Software Development Manager",
                 Organization:"People Experience Technology (PXT)",
                 Overview:`Grew from engineering leader over two Air safety and financial compliance products to the site tech lead for Air Science and Tech in Amazon’s Nashville Ops Center of Excellence overseeing 4 product teams.`,
                 BulletPoints: [

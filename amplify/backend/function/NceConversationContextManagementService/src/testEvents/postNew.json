@@ -1,9 +1,0 @@
-{
-  "httpMethod": "POST",
-  "path": "/conversation/new",
-  "headers": {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer YourTokenHere"
-  },
-  "body": "{\"conversationID\":\"test-conversation-id3\", \"test\":\"3\"}"
-}

@@ -12,16 +12,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 // Create a client
 const queryClient = new QueryClient()
 
-awsmobile.aws_cloud_logic_custom.forEach(endpoint => {
-  if (endpoint.name === 'NceConversationContextManagementService') {
-    endpoint.custom_header = async () => {
-      return {
-        Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-      };
-    };
-  }
-});
-
 Amplify.configure(awsmobile);
 
 const root = ReactDOM.createRoot(

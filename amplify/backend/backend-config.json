@@ -1,34 +1,5 @@
 {
-  "api": {
-    "NceConversationContextManagementService": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "NceConversationContextManagementService"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
-    "NceGptInterfaceService": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "NceGptInterfaceFunction"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    }
-  },
+  "api": {},
   "auth": {
     "northcountryengineerb272f13e": {
       "customAuth": false,
@@ -58,82 +29,7 @@
       "service": "Cognito"
     }
   },
-  "function": {
-    "NceConversationContextManagementService": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributeEnvMap": {
-            "Arn": "TABLE_ARN",
-            "Name": "TABLE_NAME"
-          },
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "storage",
-          "resourceName": "NceConversationContextDb"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "NceGptInterfaceFunction": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "northcountryengineerb272f13e"
-        },
-        {
-          "attributes": [
-            "BucketName"
-          ],
-          "category": "storage",
-          "resourceName": "nceBlogFiles"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_NceConversationContextManagementService_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "NceConversationContextManagementService"
-        }
-      ]
-    },
-    "AMPLIFY_function_NceConversationContextManagementService_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "NceConversationContextManagementService"
-        }
-      ]
-    },
-    "AMPLIFY_function_NceGptInterfaceFunction_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "NceGptInterfaceFunction"
-        }
-      ]
-    },
-    "AMPLIFY_function_NceGptInterfaceFunction_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "NceGptInterfaceFunction"
-        }
-      ]
-    }
-  },
+  "function": {},
   "storage": {
     "NceConversationContextDb": {
       "providerPlugin": "awscloudformation",

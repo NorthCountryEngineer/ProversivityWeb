@@ -1,15 +1,26 @@
 import React, { useState } from 'react'
-import { Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material"
+import { Box, Grid, List, ListItem,  Modal,  Stack, Typography } from "@mui/material"
 import { CurrentResumeObject } from '../../models/Service/ResumeModel'
 import IconButton from '@mui/material/IconButton';
-import { AppBlockingSharp, Circle, Delete, Drafts, Facebook, FormatListBulleted, Inbox, LinkedIn, Send, WebStories } from '@mui/icons-material';
+import { AppBlocking, AppBlockingSharp, Circle, LinkedIn, Send, WebStories } from '@mui/icons-material';
 import ContactPhone from '@mui/icons-material/ContactPhone';
 
 export const Home = () => {
   const [PersonalData, SetPersonalData] = useState(CurrentResumeObject.PersonalData)
   const [ExperienceData, SetExperienceData] = useState(CurrentResumeObject.Experience.items)
+  const [experienceModalOpen, setExperienceModalOpen] = useState(false)
+  const [currentExperienceView, setCurrentExperienceView] = useState(1)
 
-  let Experience = ExperienceData.map((experience)=>console.log(experience))
+  const loadExperienceModal = (experienceView:number) => {
+    setCurrentExperienceView(experienceView)
+    setExperienceModalOpen(true)
+    console.log(ExperienceData[experienceView])
+    console.log(currentExperienceView, " : ", experienceModalOpen)
+  }
+
+  const closeExperienceModal = () => {
+    setExperienceModalOpen(false)
+  }
 
   return (
 
@@ -26,9 +37,7 @@ export const Home = () => {
               </Typography>
             </Grid>
             <Grid item xs={6} sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-              <Typography variant="h5" sx={{ margin: "0px", textAlign: "right" }}>
-                {/*PersonalData.Address.City*/} {/*PersonalData.Address.State*/}
-              </Typography>
+             
             </Grid>
             <Grid item xs={6}>
               {
@@ -57,7 +66,7 @@ export const Home = () => {
                     if(SocialMedia.type==="Personal_Webpage"){
                       return(
                         <IconButton color="info" href={SocialMedia.URL}  target="_blank">
-                          <AppBlockingSharp fontSize='large' /> 
+                          <WebStories fontSize='large' /> 
                         </IconButton>
                       )
                     }
@@ -73,7 +82,7 @@ export const Home = () => {
           <Grid container>
             <Grid item xs={12}>
               {
-                ExperienceData.map((Experience)=>{
+                ExperienceData.map((Experience,index)=>{
                   return(
                     <Grid container>
                       <Grid item xs={12}>
@@ -81,11 +90,33 @@ export const Home = () => {
                           <Grid item xs={10}>
                             {
                               <Stack direction="row">
-                                <Typography variant="h4" style={{margin:"0px", paddingRight:15, textAlign:"left", display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                                <Typography 
+                                  onClick={()=>loadExperienceModal(index)} 
+                                  variant="h4" 
+                                  style={{
+                                    margin:"0px", 
+                                    paddingRight:15, 
+                                    textAlign:"left", 
+                                    display: 'flex', 
+                                    alignItems: 'flex-end', 
+                                    justifyContent: 'flex-end' 
+                                  }}
+                                >
                                   <b style={{color:"rgb(186,210,231,0.8)"}}>{Experience.Company}</b> 
                                 </Typography>
                               
-                                <Typography variant="overline" style={{margin:"0px", textAlign:"left", display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}><b>{Experience.Organization}</b></Typography>
+                                <Typography 
+                                  variant="overline" 
+                                  style={{
+                                    margin:"0px", 
+                                    textAlign:"left", 
+                                    display: 'flex', 
+                                    alignItems: 'flex-end', 
+                                    justifyContent: 'flex-end' 
+                                  }}
+                                >
+                                  <b>{Experience.Organization}</b>
+                                </Typography>
                               </Stack>
                             } 
                           </Grid>
@@ -150,13 +181,6 @@ export const Home = () => {
                           </Grid>
 
                         </Grid>
-                        
-                        
-                        
-                        
-                        
-                        
-
                       </Grid>
                     </Grid>
                   )
@@ -173,7 +197,24 @@ export const Home = () => {
 
 
         <Grid item xs={1} />
+        <Modal
+          open={experienceModalOpen}
+          onClose={closeExperienceModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </Box>
+        </Modal>
 
       </Grid>
+
+      
   )
 }
