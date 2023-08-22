@@ -1,31 +1,88 @@
 import React, { useState } from 'react'
-import { Box, Grid, List, ListItem,  Modal,  Stack, Typography } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid, List, ListItem,  Modal,  Stack, Tab, Tabs, Typography, styled, useMediaQuery } from "@mui/material"
 import { CurrentResumeObject } from '../../models/Service/ResumeModel'
-import IconButton from '@mui/material/IconButton';
-import { AppBlocking, AppBlockingSharp, Circle, LinkedIn, Send, WebStories } from '@mui/icons-material';
-import ContactPhone from '@mui/icons-material/ContactPhone';
+import IconButton from '@mui/material/IconButton'
+import { AppBlocking, AppBlockingSharp, Circle, Close, LinkedIn, Send, WebStories } from '@mui/icons-material'
+import ContactPhone from '@mui/icons-material/ContactPhone'
+import TabPanel from '@mui/lab/TabPanel';
+import TabContext from '@mui/lab/TabContext';
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
+export interface DialogTitleProps {
+  id: string;
+  children?: React.ReactNode;
+  onClose: () => void;
+}
+
+function BootstrapDialogTitle(props: DialogTitleProps) {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <Close />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+}
 
 export const Home = () => {
   const [PersonalData, SetPersonalData] = useState(CurrentResumeObject.PersonalData)
   const [ExperienceData, SetExperienceData] = useState(CurrentResumeObject.Experience.items)
   const [experienceModalOpen, setExperienceModalOpen] = useState(false)
-  const [currentExperienceView, setCurrentExperienceView] = useState(1)
+  const [currentExperienceView, setCurrentExperienceView] = useState(0)
+  const [value, setValue] = useState('1')
 
   const loadExperienceModal = (experienceView:number) => {
     setCurrentExperienceView(experienceView)
     setExperienceModalOpen(true)
-    console.log(ExperienceData[experienceView])
-    console.log(currentExperienceView, " : ", experienceModalOpen)
   }
 
-  const closeExperienceModal = () => {
-    setExperienceModalOpen(false)
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
   }
+
+  const handleClickOpen = () => {
+    setExperienceModalOpen(true);
+  };
+  const handleClose = () => {
+    setExperienceModalOpen(false);
+  };
 
   return (
+    <Box sx={{ width: '100%', typography: 'body1' }}>
+      <TabContext value={value}>
+      <Box sx={{ width: '100%', backgroundColor:"rgb(0, 0, 0, 0.7)", color:"white" }}>
+        <Tabs value={value} onChange={handleChange} centered>
+          <Tab label="Professional Experience" value="1" sx={{color:'white'}}/>
+          <Tab label="Personal Notes" value="2" sx={{color:'white'}}/>
+          <Tab label="Life on the Farm" value="3" sx={{color:'white'}} />
+        </Tabs>
+      </Box>
+
+      <TabPanel value="1">
 
       <Grid container data-testid="Home"  >
-        <Grid item xs={12} style={{height:"25px"}} />
 
         <Grid item xs={1} />
 
@@ -85,108 +142,41 @@ export const Home = () => {
                 ExperienceData.map((Experience,index)=>{
                   return(
                     <Grid container>
-                      <Grid item xs={12}>
-                        <Grid container>
-                          <Grid item xs={10}>
-                            {
-                              <Stack direction="row">
-                                <Typography 
-                                  onClick={()=>loadExperienceModal(index)} 
-                                  variant="h4" 
-                                  style={{
-                                    margin:"0px", 
-                                    paddingRight:15, 
-                                    textAlign:"left", 
-                                    display: 'flex', 
-                                    alignItems: 'flex-end', 
-                                    justifyContent: 'flex-end' 
-                                  }}
-                                >
-                                  <b style={{color:"rgb(186,210,231,0.8)"}}>{Experience.Company}</b> 
-                                </Typography>
-                              
-                                <Typography 
-                                  variant="overline" 
-                                  style={{
-                                    margin:"0px", 
-                                    textAlign:"left", 
-                                    display: 'flex', 
-                                    alignItems: 'flex-end', 
-                                    justifyContent: 'flex-end' 
-                                  }}
-                                >
-                                  <b>{Experience.Organization}</b>
-                                </Typography>
-                              </Stack>
-                            } 
-                          </Grid>
-                         
-                          <Grid item xs={2}>
-                            {
-                              <p style={{margin:"0px", textAlign:"right"}}>
-                                {String(Experience.Start.getMonth())}/{String(Experience.Start.getFullYear())} - {
-                                !Experience.IsCurrent ? 
-                                String(Experience.Start.getMonth()) + "/" + String(Experience.End.getFullYear()) 
-                                  :
-                                  "Current"
-                                } 
-                              </p>
-                            }
-                          </Grid>
-
-                          <Grid item xs={6}>
-                            { <Typography variant="h5" sx={{margin:"0px", textAlign:"left"}}>
-                                {Experience.JobTitle}
-                              </Typography>} 
-                          </Grid>
-                          <Grid item xs={6}>
-                            {
-                              <Typography variant="h5" sx={{margin:"0px", textAlign:"right"}}>
-                                {Experience.Location}
-                              </Typography>
-                            }
-                          </Grid>
-
-                          <Grid item xs={12}>
-                            <Typography variant="subtitle1" style={{margin:"0px", marginTop:"15px", textAlign:"left", paddingLeft:"15px", paddingRight:"15px" }}>
-                              {Experience.Overview}
+                      <Grid item xs={6}>
+                        {
+                          <Stack direction="row">
+                            <Typography 
+                              onClick={()=>loadExperienceModal(index)} 
+                              variant="h4" 
+                              style={{
+                                margin:"0px", 
+                                paddingRight:15, 
+                                textAlign:"left", 
+                                display: 'flex', 
+                                alignItems: 'flex-end', 
+                                justifyContent: 'flex-end' 
+                              }}
+                            >
+                              <b style={{color:"rgb(186,210,231,0.8)"}}>{Experience.Company}</b> 
                             </Typography>
-
-                            <List sx={{paddingLeft:"60px", paddingRight:"60px"}}>
-                              {Experience.BulletPoints.map((Bullet)=>{
-                                return(
-                                  <ListItem disablePadding sx={{margin:"0px"}}>
-                                    <ListItem>
-                                      <Stack direction="row" alignItems="center" gap={1}>
-                                          
-                                        <Circle sx={{width:"4px", }} /> <Typography sx={{margin:"0px"}} variant="body2">{Bullet.BulletText}</Typography>
-                                          {Bullet.SubBullet[0].length>0 && Bullet.SubBullet.length>1 &&
-                                            <List sx={{margin:"0px"}}>
-                                              {
-                                                Bullet.SubBullet.map((sub)=>
-                                                  <ListItem sx={{margin:"0px"}}>
-                                                    <Typography sx={{margin:"0px"}} variant="body1">{sub}</Typography>
-                                                  </ListItem>
-                                                )
-                                              }
-                                            </List>   
-                                          }      
-                                      </Stack>
-                                    </ListItem>                         
-                                  </ListItem>
-                                )
-                              })}
-                            </List>
-                            <hr />
-                          </Grid>
-
-                        </Grid>
+                        
+                          </Stack>
+                        } 
                       </Grid>
+                      <Grid item xs={6}>
+                    
+                        { <Typography variant="h5" sx={{margin:"0px", textAlign:"left"}}>
+                            {Experience.JobTitle}
+                          </Typography>
+                        } 
+                       
+                      </Grid>
+                      
                     </Grid>
                   )
                 })
               }
-              
+             
               <p style={{margin:"0px", textAlign:"right"}}>
                 
               </p>
@@ -197,23 +187,162 @@ export const Home = () => {
 
 
         <Grid item xs={1} />
-        <Modal
-          open={experienceModalOpen}
-          onClose={closeExperienceModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </Box>
-        </Modal>
+
 
       </Grid>
+      </TabPanel>
+
+      <Dialog
+        fullWidth={true}
+        maxWidth="xl"
+        open={experienceModalOpen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        sx={{backgroundColor:"black"}}
+      >
+        <DialogTitle id="alert-dialog-title">
+          {
+            <Grid container>
+              <Grid item xs={3}>
+                <Typography 
+                  variant="h4" 
+                  style={{
+                    margin:"0px", 
+                    padding:"0px",
+                    paddingRight:15, 
+                    textAlign:"left", 
+                    display: 'flex', 
+                    alignItems: 'flex-end', 
+                    justifyContent: 'flex-end',
+                    color:"InfoText"
+                  }}
+                >
+                  <b>{ExperienceData[currentExperienceView].Company}</b> 
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Stack direction="column" sx={{padding:"0px",margin:"0px"}}>
+                  <Typography 
+                    variant="overline" 
+                    style={{
+                      margin:"0px", 
+                      padding:"0px",
+                      textAlign:"left", 
+                      display: 'flex', 
+                      alignItems: 'flex-start', 
+                      justifyContent: 'flex-start' ,
+                      color:"InfoText"
+                    }}
+                  >
+                    <b>{ExperienceData[currentExperienceView].Organization}</b>
+                  </Typography>
+                  {
+                    <Typography 
+                    variant="overline" 
+                    style={{
+                      margin:"0px", 
+                      padding:"0px",
+                      textAlign:"left", 
+                      display: 'flex', 
+                      alignItems: 'flex-start', 
+                      justifyContent: 'flex-start' ,
+                      color:"InfoText"
+                    }}
+                  >
+                      {String(ExperienceData[currentExperienceView].Start.getMonth())}/{String(ExperienceData[currentExperienceView].Start.getFullYear())} - {
+                      !ExperienceData[currentExperienceView].IsCurrent ? 
+                      String(ExperienceData[currentExperienceView].Start.getMonth()) + "/" + String(ExperienceData[currentExperienceView].End.getFullYear()) 
+                        :
+                        "Current"
+                      } 
+                    </Typography>
+                  }
+                </Stack>
+              </Grid>
+            </Grid>
+          } 
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            
+
+              <Grid container>
+                <Grid item xs={12}>
+                  <Grid container>
+
+                    <Grid item xs={6}>
+                      { <Typography variant="h6" sx={{margin:"0px", textAlign:"left", color:"black"}}>
+                          {ExperienceData[currentExperienceView].JobTitle}
+                        </Typography>} 
+                    </Grid>
+                    <Grid item xs={6}>
+                      {
+                        <Typography variant="h5" sx={{margin:"0px", textAlign:"right", color:"black"}}>
+                          {ExperienceData[currentExperienceView].Location}
+                        </Typography>
+                      }
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Typography variant="subtitle1" style={{margin:"0px", marginTop:"15px", textAlign:"left", paddingLeft:"15px", paddingRight:"15px" }}>
+                        {ExperienceData[currentExperienceView].Overview}
+                      </Typography>
+
+                      <List sx={{paddingLeft:"60px", paddingRight:"60px"}}>
+                        {ExperienceData[currentExperienceView].BulletPoints.map((Bullet)=>{
+                          return(
+                            <ListItem disablePadding sx={{margin:"0px"}}>
+                              <ListItem>
+                                <Stack direction="column" alignItems="flex-start" gap={1}>
+                                    
+                                   <Typography sx={{margin:"0px", color:"black"}} variant="body2">{Bullet.BulletText}</Typography>
+                                    {Bullet.SubBullet[0].length>0 && Bullet.SubBullet.length>1 &&
+                                      <List sx={{margin:"0px"}}>
+                                        {
+                                          Bullet.SubBullet.map((sub)=>
+                                            <ListItem sx={{margin:"0px"}}>
+                                              <Typography sx={{margin:"0px", color:"black"}} variant="body1">{`\u2022 ${sub}`}</Typography>
+                                            </ListItem>
+                                          )
+                                        }
+                                      </List>   
+                                    }      
+                                </Stack>
+                              </ListItem>                         
+                            </ListItem>
+                          )
+                        })}
+                      </List>
+                      <hr />
+                    </Grid>
+
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              
+
+
+
+
+
+
+
+
+
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+
+
+      </TabContext>             
+    </Box>
+
+
 
       
   )

@@ -12,6 +12,7 @@
     "@jest/globals": "^29.5.0",
     "@mui/icons-material": "^5.11.0",
     "@mui/joy": "^5.0.0-beta.1",
+    "@mui/lab": "^5.0.0-alpha.140",
     "@mui/material": "^5.13.0",
     "@mui/system": "^5.4.1",
     "@remotion/google-fonts": "^3.3.51",
