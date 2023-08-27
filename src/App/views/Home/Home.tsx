@@ -1,20 +1,11 @@
-import React, { useState } from 'react'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid, List, ListItem,  Modal,  Stack, Tab, Tabs, Typography, styled, useMediaQuery } from "@mui/material"
+import React, { SyntheticEvent, useState } from 'react'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, List, ListItem, Stack, Tab, Tabs, Typography } from "@mui/material"
 import { CurrentResumeObject } from '../../models/Service/ResumeModel'
 import IconButton from '@mui/material/IconButton'
-import { AppBlocking, AppBlockingSharp, Circle, Close, LinkedIn, Send, WebStories } from '@mui/icons-material'
+import { LinkedIn, Send, WebStories } from '@mui/icons-material'
 import ContactPhone from '@mui/icons-material/ContactPhone'
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}));
 
 export interface DialogTitleProps {
   id: string;
@@ -22,33 +13,10 @@ export interface DialogTitleProps {
   onClose: () => void;
 }
 
-function BootstrapDialogTitle(props: DialogTitleProps) {
-  const { children, onClose, ...other } = props;
-
-  return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-      {children}
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <Close />
-        </IconButton>
-      ) : null}
-    </DialogTitle>
-  );
-}
 
 export const Home = () => {
-  const [PersonalData, SetPersonalData] = useState(CurrentResumeObject.PersonalData)
-  const [ExperienceData, SetExperienceData] = useState(CurrentResumeObject.Experience.items)
+  const PersonalData = CurrentResumeObject.PersonalData
+  const ExperienceData = CurrentResumeObject.Experience.items
   const [experienceModalOpen, setExperienceModalOpen] = useState(false)
   const [currentExperienceView, setCurrentExperienceView] = useState(0)
   const [value, setValue] = useState('1')
@@ -58,13 +26,10 @@ export const Home = () => {
     setExperienceModalOpen(true)
   }
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   }
 
-  const handleClickOpen = () => {
-    setExperienceModalOpen(true);
-  };
   const handleClose = () => {
     setExperienceModalOpen(false);
   };
@@ -126,6 +91,9 @@ export const Home = () => {
                           <WebStories fontSize='large' /> 
                         </IconButton>
                       )
+                    }
+                    else{
+                      return(<></>)
                     }
                   })
                 }
