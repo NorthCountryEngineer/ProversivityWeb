@@ -1,3 +1,9 @@
+import React from 'react';
+import {faAmazon} from '@fortawesome/free-brands-svg-icons'
+import {faHouseLaptop, faBuildingShield} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
 //Enums
 export enum DegreeType{
     AA="AA",
@@ -121,7 +127,6 @@ export const CurrentResumeObject:Resume= {
                 JobTitle:"Software Development Manager",
                 Organization:"People Experience Technology (PXT)",
                 Overview:`Engineering lead in Amazon People Experience Technology. Managing two cross functional (engineering and science) teams building internally facing talent management services.`,
-
                 BulletPoints: [
                     {
                         BulletText: "Led tiger team of senior engineers and senior product staff to build requirements and high level design requirements for “Employee Skills Ontology”, a backend service interpreting HR documentation to annotate an ontology of skills for each job role in Amazon",
@@ -132,7 +137,8 @@ export const CurrentResumeObject:Resume= {
                         BulletText: "Worked with design technologists, scientists, and machine learning engineers to build ML engine (training, retraining, model slippage detection, API layer) and UI product for organizational design",
                         SubBullet: [""]
                     },
-                ]
+                ],
+                Icon: <FontAwesomeIcon icon={faAmazon} />,
             },
             {
                 Company: "Amazon",
@@ -153,7 +159,8 @@ export const CurrentResumeObject:Resume= {
                         BulletText: "Spearheaded the design and oversaw the implementation of a frontend service using AWS services and React which allows users to create and manipulate organizational charts with live machine learning/science inference built into the user experience indicating the “effectiveness” of a proposed team and organization design.",
                         SubBullet: [""]
                     },
-                ]
+                ],
+                Icon: <FontAwesomeIcon icon={faAmazon} />,
             },
             {
                 Company: "Dell Technologies",
@@ -177,7 +184,8 @@ export const CurrentResumeObject:Resume= {
                             "Created a web-based UI enabling users to query, view, and perform CRUD operations on 1Bn+ individual parts throughout the supply chain. Django, Pivotal Cloud Foundry, federated auth, and an Azure SQL database (MSSQL)."
                         ]
                     },
-                ]
+                ],
+                Icon: <FontAwesomeIcon icon={faHouseLaptop} />,
             },
             {
                 Company: "United States Army",
@@ -201,7 +209,8 @@ export const CurrentResumeObject:Resume= {
                         BulletText: `Temporarily assigned to Special Operations Command-South in Miami to head overhaul of information management, including managing 1P and contract resources, for Secret classified reporting, ensuring successful execution and adherence to strict security protocols and data management between austere teams in South America and the central hub in Miami`,
                         SubBullet: [""]
                     },
-                ]
+                ],
+                Icon: <FontAwesomeIcon icon={faBuildingShield} />
             },
         ]
     },
@@ -295,6 +304,7 @@ export interface ExperienceObject {
     Organization: string
     Overview: string
     BulletPoints: Bullet[]
+    Icon: any
 }
 
 export interface Experience {
@@ -405,7 +415,8 @@ export const ExperienceObjectTemplate:ExperienceObject = {
     Location:"",
     Organization:"",
     Overview:"",
-    BulletPoints: [BulletTemplate]
+    BulletPoints: [BulletTemplate],
+    Icon: "",
 
 }
 
