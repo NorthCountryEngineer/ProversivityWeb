@@ -2,6 +2,7 @@ import React from 'react';
 import {faAmazon} from '@fortawesome/free-brands-svg-icons'
 import {faHouseLaptop, faBuildingShield} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CIcon, { cibDell } from '@coreui/icons'
 
 
 //Enums
@@ -185,7 +186,7 @@ export const CurrentResumeObject:Resume= {
                         ]
                     },
                 ],
-                Icon: <FontAwesomeIcon icon={faHouseLaptop} />,
+                Icon: <CIcon icon={cibDell} size="3xl" />,
             },
             {
                 Company: "United States Army",

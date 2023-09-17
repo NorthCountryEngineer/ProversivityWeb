@@ -6,6 +6,8 @@
     "@aws-amplify/cli": "^11.1.0",
     "@aws-amplify/ui-react-storage": "^1.2.4",
     "@babel/preset-env": "^7.22.5",
+    "@coreui/icons": "^3.0.1",
+    "@coreui/icons-react": "^2.2.1",
     "@cypress/code-coverage": "^3.10.7",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
