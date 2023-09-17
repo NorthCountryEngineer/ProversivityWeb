@@ -186,7 +186,7 @@ export const CurrentResumeObject:Resume= {
                         ]
                     },
                 ],
-                Icon: <CIcon icon={cibDell} size="3xl" />,
+                Icon: <FontAwesomeIcon icon={faBuildingShield} />,
             },
             {
                 Company: "United States Army",
