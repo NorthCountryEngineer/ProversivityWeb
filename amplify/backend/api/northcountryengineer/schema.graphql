@@ -1,0 +1,84 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type User @model {
+    id: ID!
+    firstName: String
+    lastName: String
+    email: String
+    role: UserRole
+    dateJoined: AWSDate!
+    meetingsAsManager: [Meeting] @hasMany
+    meetingsAsEmployee: [Meeting] @hasMany
+}
+
+type Meeting @model {
+    id: ID!
+    managerID: ID!
+    manager: User @hasOne
+    employeeID: ID!
+    employee: User @hasOne
+    scheduledTime: AWSTimestamp!
+    duration: Int! # Can represent duration in minutes
+    locationLink: String
+    status: MeetingStatus!
+    agendaItems: [AgendaItem] @hasMany
+    actionItems: [ActionItem] @hasMany
+    notes: [Note] @hasMany
+}
+
+type AgendaItem @model {
+    id: ID!
+    meetingID: ID!
+    meeting: Meeting @hasOne
+    title: String!
+    description: String
+    duration: Int # Can represent duration in minutes
+    order: Int
+    status: AgendaItemStatus!
+}
+
+type ActionItem @model {
+    id: ID!
+    meetingID: ID!
+    meeting: Meeting @hasOne
+    assignedToUserID: ID!
+    assignedToUser: User @hasOne
+    description: String!
+    dueDate: AWSDate
+    status: ActionItemStatus!
+}
+
+type Note @model {
+    id: ID!
+    meetingID: ID!
+    meeting: Meeting @hasOne
+    userID: ID!
+    user: User @hasOne
+    content: String!
+    timestamp: AWSTimestamp!
+}
+
+enum UserRole {
+    MANAGER
+    EMPLOYEE
+}
+
+enum MeetingStatus {
+    SCHEDULED
+    CANCELLED
+    COMPLETED
+}
+
+enum AgendaItemStatus {
+    OPEN
+    DISCUSSED
+    CLOSED
+}
+
+enum ActionItemStatus {
+    ASSIGNED
+    IN_PROGRESS
+    COMPLETED
+}

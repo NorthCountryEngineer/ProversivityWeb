@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import { RouterProvider } from 'react-router-dom'
+import { Navigate, Route, RouterProvider } from 'react-router-dom'
 import theme from './App/theme/BaseTheme'
 import { Header } from './App/components/Header/Header'
 import { AppHooks } from './App/App.hooks'
@@ -8,8 +8,33 @@ import { router } from './App/router'
 import { useEffect, useState } from 'react'
 import { AuthProvider } from './App/functions/Authenticate'
 import React from 'react'
+import { Auth, Hub } from 'aws-amplify'
+import { withAuthenticator } from "@aws-amplify/ui-react"
+
 
 const App = ()=> {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+    .then((user) => {
+      setIsAuthenticated(true)
+    })
+    .catch(() => console.log('User is not authenticated.'))
+    
+    Hub.listen('auth', (data) => {
+      switch (data.payload.event) {
+        case 'signIn':
+          setIsAuthenticated(true)
+          break
+        case 'signOut':
+          setIsAuthenticated(false)
+          break
+        default:
+          break
+      }
+    })
+  }, [])
   
   const { targetImage } = AppHooks()
 

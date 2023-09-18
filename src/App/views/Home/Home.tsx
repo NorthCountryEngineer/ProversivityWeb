@@ -1,39 +1,29 @@
-import React, { SyntheticEvent, useState } from 'react'
-import { TimelineView } from './components'
-import { Box, Tab, Tabs } from '@mui/material';
-import { TabContext, TabPanel } from '@mui/lab';
+import React from "react"
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Unstable_Grid2';
+import { Typography } from "@mui/material";
 
-export interface DialogTitleProps {
-  id: string;
-  children?: React.ReactNode;
-  onClose: () => void;
-}
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: 'rgb(244,244,244,.8)',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 export const Home = () => {
-  const [value, setValue] = useState('1')
-
-  const handleChange = (event: SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  }
-
   return (
-    <>
-      <Box sx={{ width: '100%', typography: 'body1' }}>
-        <TabContext value={value}>
-          <Box sx={{ width: '100%', backgroundColor:"rgb(0, 0, 0, 0.7)", color:"white" }}>
-            <Tabs value={value} onChange={handleChange} centered>
-              <Tab label="Professional Experience" value="1" sx={{color:'white'}}/>
-              <Tab label="Personal Notes" value="2" sx={{color:'white'}}/>
-              <Tab label="Life on the Farm" value="3" sx={{color:'white'}} />
-            </Tabs>
-          </Box>
-          <TabPanel value="1">
-            <TimelineView />
-          </TabPanel>
-        </TabContext>
+    <div>
+      <Typography variant="h2">Service List</Typography>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          <Grid xs={6}>
+            <Item onClick={()=>{window.location.replace("/OneOnOneHelper")}}>1:1 manager</Item>
+          </Grid>
+        </Grid>
       </Box>
-
-
-    </>
-  )
+    </div>
+  );
 }

@@ -1,5 +1,22 @@
 {
-  "api": {},
+  "api": {
+    "northcountryengineer": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "auth": {
     "northcountryengineerb272f13e": {
       "customAuth": false,
@@ -30,15 +47,5 @@
     }
   },
   "function": {},
-  "storage": {
-    "NceConversationContextDb": {
-      "providerPlugin": "awscloudformation",
-      "service": "DynamoDB"
-    },
-    "nceBlogFiles": {
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "S3"
-    }
-  }
+  "storage": {}
 }

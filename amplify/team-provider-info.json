@@ -13,12 +13,11 @@
       "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-northcountryengineer-dev-173943-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
-      "storage": {
-        "nceBlogFiles": {},
-        "NceConversationContextDb": {}
-      },
       "auth": {
         "northcountryengineerb272f13e": {}
+      },
+      "api": {
+        "northcountryengineer": {}
       }
     }
   }
