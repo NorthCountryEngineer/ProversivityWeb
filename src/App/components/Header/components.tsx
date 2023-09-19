@@ -206,12 +206,11 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <AppBar
         position="fixed"
-        color="inherit"
         sx={{
           top: 0,
           height: "115px",
           zIndex: 1110,
-          backgroundColor: "primary.main"
+          backgroundColor: "rgb(0,0,0,0.7)"
         }}
         elevation={0}
       >

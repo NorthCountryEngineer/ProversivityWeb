@@ -6,17 +6,33 @@ type User @model {
     id: ID!
     firstName: String
     lastName: String
-    email: String
+    email: String!
     role: UserRole
-    dateJoined: AWSDate!
-    meetingsAsManager: [Meeting] @hasMany
+    meetingsAsRequestor: [Meeting] @hasMany
     meetingsAsEmployee: [Meeting] @hasMany
+    organizations: [UserOrganization] @hasMany
+}
+
+type Organization @model {
+    id: ID!
+    name: String!
+    description: String
+    users: [UserOrganization] @hasMany
+}
+
+type UserOrganization @model {
+    id: ID!
+    userId: ID!
+    user: User @hasOne
+    organizationId: ID!
+    organization: Organization @hasOne
+    role: OrganizationUserRole
 }
 
 type Meeting @model {
     id: ID!
-    managerID: ID!
-    manager: User @hasOne
+    requestorID: ID!
+    requestor: User @hasOne
     employeeID: ID!
     employee: User @hasOne
     scheduledTime: AWSTimestamp!
@@ -61,7 +77,7 @@ type Note @model {
 }
 
 enum UserRole {
-    MANAGER
+    requestor
     EMPLOYEE
 }
 
@@ -81,4 +97,9 @@ enum ActionItemStatus {
     ASSIGNED
     IN_PROGRESS
     COMPLETED
+}
+
+enum OrganizationUserRole {
+    ADMIN
+    MEMBER
 }

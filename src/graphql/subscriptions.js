@@ -9,11 +9,10 @@ export const onCreateUser = /* GraphQL */ `
       lastName
       email
       role
-      dateJoined
-      meetingsAsManager {
+      meetingsAsRequestor {
         items {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -21,9 +20,9 @@ export const onCreateUser = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
           __typename
         }
@@ -33,7 +32,7 @@ export const onCreateUser = /* GraphQL */ `
       meetingsAsEmployee {
         items {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -41,10 +40,27 @@ export const onCreateUser = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      organizations {
+        items {
+          id
+          userId
+          organizationId
+          role
+          createdAt
+          updatedAt
+          userOrganizationsId
+          organizationUsersId
+          userOrganizationUserId
+          userOrganizationOrganizationId
           __typename
         }
         nextToken
@@ -64,11 +80,10 @@ export const onUpdateUser = /* GraphQL */ `
       lastName
       email
       role
-      dateJoined
-      meetingsAsManager {
+      meetingsAsRequestor {
         items {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -76,9 +91,9 @@ export const onUpdateUser = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
           __typename
         }
@@ -88,7 +103,7 @@ export const onUpdateUser = /* GraphQL */ `
       meetingsAsEmployee {
         items {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -96,10 +111,27 @@ export const onUpdateUser = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      organizations {
+        items {
+          id
+          userId
+          organizationId
+          role
+          createdAt
+          updatedAt
+          userOrganizationsId
+          organizationUsersId
+          userOrganizationUserId
+          userOrganizationOrganizationId
           __typename
         }
         nextToken
@@ -119,11 +151,10 @@ export const onDeleteUser = /* GraphQL */ `
       lastName
       email
       role
-      dateJoined
-      meetingsAsManager {
+      meetingsAsRequestor {
         items {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -131,9 +162,9 @@ export const onDeleteUser = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
           __typename
         }
@@ -143,7 +174,7 @@ export const onDeleteUser = /* GraphQL */ `
       meetingsAsEmployee {
         items {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -151,10 +182,27 @@ export const onDeleteUser = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      organizations {
+        items {
+          id
+          userId
+          organizationId
+          role
+          createdAt
+          updatedAt
+          userOrganizationsId
+          organizationUsersId
+          userOrganizationUserId
+          userOrganizationOrganizationId
           __typename
         }
         nextToken
@@ -166,23 +214,278 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
-export const onCreateMeeting = /* GraphQL */ `
-  subscription OnCreateMeeting($filter: ModelSubscriptionMeetingFilterInput) {
-    onCreateMeeting(filter: $filter) {
+export const onCreateOrganization = /* GraphQL */ `
+  subscription OnCreateOrganization(
+    $filter: ModelSubscriptionOrganizationFilterInput
+  ) {
+    onCreateOrganization(filter: $filter) {
       id
-      managerID
-      manager {
+      name
+      description
+      users {
+        items {
+          id
+          userId
+          organizationId
+          role
+          createdAt
+          updatedAt
+          userOrganizationsId
+          organizationUsersId
+          userOrganizationUserId
+          userOrganizationOrganizationId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateOrganization = /* GraphQL */ `
+  subscription OnUpdateOrganization(
+    $filter: ModelSubscriptionOrganizationFilterInput
+  ) {
+    onUpdateOrganization(filter: $filter) {
+      id
+      name
+      description
+      users {
+        items {
+          id
+          userId
+          organizationId
+          role
+          createdAt
+          updatedAt
+          userOrganizationsId
+          organizationUsersId
+          userOrganizationUserId
+          userOrganizationOrganizationId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteOrganization = /* GraphQL */ `
+  subscription OnDeleteOrganization(
+    $filter: ModelSubscriptionOrganizationFilterInput
+  ) {
+    onDeleteOrganization(filter: $filter) {
+      id
+      name
+      description
+      users {
+        items {
+          id
+          userId
+          organizationId
+          role
+          createdAt
+          updatedAt
+          userOrganizationsId
+          organizationUsersId
+          userOrganizationUserId
+          userOrganizationOrganizationId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateUserOrganization = /* GraphQL */ `
+  subscription OnCreateUserOrganization(
+    $filter: ModelSubscriptionUserOrganizationFilterInput
+  ) {
+    onCreateUserOrganization(filter: $filter) {
+      id
+      userId
+      user {
         id
         firstName
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      organizationId
+      organization {
+        id
+        name
+        description
+        users {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      role
+      createdAt
+      updatedAt
+      userOrganizationsId
+      organizationUsersId
+      userOrganizationUserId
+      userOrganizationOrganizationId
+      __typename
+    }
+  }
+`;
+export const onUpdateUserOrganization = /* GraphQL */ `
+  subscription OnUpdateUserOrganization(
+    $filter: ModelSubscriptionUserOrganizationFilterInput
+  ) {
+    onUpdateUserOrganization(filter: $filter) {
+      id
+      userId
+      user {
+        id
+        firstName
+        lastName
+        email
+        role
+        meetingsAsRequestor {
+          nextToken
+          __typename
+        }
+        meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      organizationId
+      organization {
+        id
+        name
+        description
+        users {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      role
+      createdAt
+      updatedAt
+      userOrganizationsId
+      organizationUsersId
+      userOrganizationUserId
+      userOrganizationOrganizationId
+      __typename
+    }
+  }
+`;
+export const onDeleteUserOrganization = /* GraphQL */ `
+  subscription OnDeleteUserOrganization(
+    $filter: ModelSubscriptionUserOrganizationFilterInput
+  ) {
+    onDeleteUserOrganization(filter: $filter) {
+      id
+      userId
+      user {
+        id
+        firstName
+        lastName
+        email
+        role
+        meetingsAsRequestor {
+          nextToken
+          __typename
+        }
+        meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      organizationId
+      organization {
+        id
+        name
+        description
+        users {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      role
+      createdAt
+      updatedAt
+      userOrganizationsId
+      organizationUsersId
+      userOrganizationUserId
+      userOrganizationOrganizationId
+      __typename
+    }
+  }
+`;
+export const onCreateMeeting = /* GraphQL */ `
+  subscription OnCreateMeeting($filter: ModelSubscriptionMeetingFilterInput) {
+    onCreateMeeting(filter: $filter) {
+      id
+      requestorID
+      requestor {
+        id
+        firstName
+        lastName
+        email
+        role
+        meetingsAsRequestor {
+          nextToken
+          __typename
+        }
+        meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -197,12 +500,15 @@ export const onCreateMeeting = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -269,9 +575,9 @@ export const onCreateMeeting = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userMeetingsAsManagerId
+      userMeetingsAsRequestorId
       userMeetingsAsEmployeeId
-      meetingManagerId
+      meetingRequestorId
       meetingEmployeeId
       __typename
     }
@@ -281,19 +587,22 @@ export const onUpdateMeeting = /* GraphQL */ `
   subscription OnUpdateMeeting($filter: ModelSubscriptionMeetingFilterInput) {
     onUpdateMeeting(filter: $filter) {
       id
-      managerID
-      manager {
+      requestorID
+      requestor {
         id
         firstName
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -308,12 +617,15 @@ export const onUpdateMeeting = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -380,9 +692,9 @@ export const onUpdateMeeting = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userMeetingsAsManagerId
+      userMeetingsAsRequestorId
       userMeetingsAsEmployeeId
-      meetingManagerId
+      meetingRequestorId
       meetingEmployeeId
       __typename
     }
@@ -392,19 +704,22 @@ export const onDeleteMeeting = /* GraphQL */ `
   subscription OnDeleteMeeting($filter: ModelSubscriptionMeetingFilterInput) {
     onDeleteMeeting(filter: $filter) {
       id
-      managerID
-      manager {
+      requestorID
+      requestor {
         id
         firstName
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -419,12 +734,15 @@ export const onDeleteMeeting = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -491,9 +809,9 @@ export const onDeleteMeeting = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userMeetingsAsManagerId
+      userMeetingsAsRequestorId
       userMeetingsAsEmployeeId
-      meetingManagerId
+      meetingRequestorId
       meetingEmployeeId
       __typename
     }
@@ -508,14 +826,13 @@ export const onCreateAgendaItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -527,7 +844,6 @@ export const onCreateAgendaItem = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -550,9 +866,9 @@ export const onCreateAgendaItem = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -578,14 +894,13 @@ export const onUpdateAgendaItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -597,7 +912,6 @@ export const onUpdateAgendaItem = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -620,9 +934,9 @@ export const onUpdateAgendaItem = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -648,14 +962,13 @@ export const onDeleteAgendaItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -667,7 +980,6 @@ export const onDeleteAgendaItem = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -690,9 +1002,9 @@ export const onDeleteAgendaItem = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -718,14 +1030,13 @@ export const onCreateActionItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -737,7 +1048,6 @@ export const onCreateActionItem = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -760,9 +1070,9 @@ export const onCreateActionItem = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -773,12 +1083,15 @@ export const onCreateActionItem = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -807,14 +1120,13 @@ export const onUpdateActionItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -826,7 +1138,6 @@ export const onUpdateActionItem = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -849,9 +1160,9 @@ export const onUpdateActionItem = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -862,12 +1173,15 @@ export const onUpdateActionItem = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -896,14 +1210,13 @@ export const onDeleteActionItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -915,7 +1228,6 @@ export const onDeleteActionItem = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -938,9 +1250,9 @@ export const onDeleteActionItem = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -951,12 +1263,15 @@ export const onDeleteActionItem = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -983,14 +1298,13 @@ export const onCreateNote = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -1002,7 +1316,6 @@ export const onCreateNote = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -1025,9 +1338,9 @@ export const onCreateNote = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -1038,12 +1351,15 @@ export const onCreateNote = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -1069,14 +1385,13 @@ export const onUpdateNote = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -1088,7 +1403,6 @@ export const onUpdateNote = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -1111,9 +1425,9 @@ export const onUpdateNote = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -1124,12 +1438,15 @@ export const onUpdateNote = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -1155,14 +1472,13 @@ export const onDeleteNote = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -1174,7 +1490,6 @@ export const onDeleteNote = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -1197,9 +1512,9 @@ export const onDeleteNote = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -1210,12 +1525,15 @@ export const onDeleteNote = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }

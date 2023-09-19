@@ -9,11 +9,10 @@ export const getUser = /* GraphQL */ `
       lastName
       email
       role
-      dateJoined
-      meetingsAsManager {
+      meetingsAsRequestor {
         items {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -21,9 +20,9 @@ export const getUser = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
           __typename
         }
@@ -33,7 +32,7 @@ export const getUser = /* GraphQL */ `
       meetingsAsEmployee {
         items {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -41,10 +40,27 @@ export const getUser = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      organizations {
+        items {
+          id
+          userId
+          organizationId
+          role
+          createdAt
+          updatedAt
+          userOrganizationsId
+          organizationUsersId
+          userOrganizationUserId
+          userOrganizationOrganizationId
           __typename
         }
         nextToken
@@ -69,12 +85,15 @@ export const listUsers = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -87,23 +106,177 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
-export const getMeeting = /* GraphQL */ `
-  query GetMeeting($id: ID!) {
-    getMeeting(id: $id) {
+export const getOrganization = /* GraphQL */ `
+  query GetOrganization($id: ID!) {
+    getOrganization(id: $id) {
       id
-      managerID
-      manager {
+      name
+      description
+      users {
+        items {
+          id
+          userId
+          organizationId
+          role
+          createdAt
+          updatedAt
+          userOrganizationsId
+          organizationUsersId
+          userOrganizationUserId
+          userOrganizationOrganizationId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listOrganizations = /* GraphQL */ `
+  query ListOrganizations(
+    $filter: ModelOrganizationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOrganizations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        users {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getUserOrganization = /* GraphQL */ `
+  query GetUserOrganization($id: ID!) {
+    getUserOrganization(id: $id) {
+      id
+      userId
+      user {
         id
         firstName
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      organizationId
+      organization {
+        id
+        name
+        description
+        users {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      role
+      createdAt
+      updatedAt
+      userOrganizationsId
+      organizationUsersId
+      userOrganizationUserId
+      userOrganizationOrganizationId
+      __typename
+    }
+  }
+`;
+export const listUserOrganizations = /* GraphQL */ `
+  query ListUserOrganizations(
+    $filter: ModelUserOrganizationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserOrganizations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userId
+        user {
+          id
+          firstName
+          lastName
+          email
+          role
+          createdAt
+          updatedAt
+          __typename
+        }
+        organizationId
+        organization {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+          __typename
+        }
+        role
+        createdAt
+        updatedAt
+        userOrganizationsId
+        organizationUsersId
+        userOrganizationUserId
+        userOrganizationOrganizationId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getMeeting = /* GraphQL */ `
+  query GetMeeting($id: ID!) {
+    getMeeting(id: $id) {
+      id
+      requestorID
+      requestor {
+        id
+        firstName
+        lastName
+        email
+        role
+        meetingsAsRequestor {
+          nextToken
+          __typename
+        }
+        meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -118,12 +291,15 @@ export const getMeeting = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -190,9 +366,9 @@ export const getMeeting = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userMeetingsAsManagerId
+      userMeetingsAsRequestorId
       userMeetingsAsEmployeeId
-      meetingManagerId
+      meetingRequestorId
       meetingEmployeeId
       __typename
     }
@@ -207,14 +383,13 @@ export const listMeetings = /* GraphQL */ `
     listMeetings(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -226,7 +401,6 @@ export const listMeetings = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -249,9 +423,9 @@ export const listMeetings = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -267,14 +441,13 @@ export const getAgendaItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -286,7 +459,6 @@ export const getAgendaItem = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -309,9 +481,9 @@ export const getAgendaItem = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -340,7 +512,7 @@ export const listAgendaItems = /* GraphQL */ `
         meetingID
         meeting {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -348,9 +520,9 @@ export const listAgendaItems = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
           __typename
         }
@@ -377,14 +549,13 @@ export const getActionItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -396,7 +567,6 @@ export const getActionItem = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -419,9 +589,9 @@ export const getActionItem = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -432,12 +602,15 @@ export const getActionItem = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -469,7 +642,7 @@ export const listActionItems = /* GraphQL */ `
         meetingID
         meeting {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -477,9 +650,9 @@ export const listActionItems = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
           __typename
         }
@@ -490,7 +663,6 @@ export const listActionItems = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -517,14 +689,13 @@ export const getNote = /* GraphQL */ `
       meetingID
       meeting {
         id
-        managerID
-        manager {
+        requestorID
+        requestor {
           id
           firstName
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -536,7 +707,6 @@ export const getNote = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
@@ -559,9 +729,9 @@ export const getNote = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userMeetingsAsManagerId
+        userMeetingsAsRequestorId
         userMeetingsAsEmployeeId
-        meetingManagerId
+        meetingRequestorId
         meetingEmployeeId
         __typename
       }
@@ -572,12 +742,15 @@ export const getNote = /* GraphQL */ `
         lastName
         email
         role
-        dateJoined
-        meetingsAsManager {
+        meetingsAsRequestor {
           nextToken
           __typename
         }
         meetingsAsEmployee {
+          nextToken
+          __typename
+        }
+        organizations {
           nextToken
           __typename
         }
@@ -608,7 +781,7 @@ export const listNotes = /* GraphQL */ `
         meetingID
         meeting {
           id
-          managerID
+          requestorID
           employeeID
           scheduledTime
           duration
@@ -616,9 +789,9 @@ export const listNotes = /* GraphQL */ `
           status
           createdAt
           updatedAt
-          userMeetingsAsManagerId
+          userMeetingsAsRequestorId
           userMeetingsAsEmployeeId
-          meetingManagerId
+          meetingRequestorId
           meetingEmployeeId
           __typename
         }
@@ -629,7 +802,6 @@ export const listNotes = /* GraphQL */ `
           lastName
           email
           role
-          dateJoined
           createdAt
           updatedAt
           __typename
