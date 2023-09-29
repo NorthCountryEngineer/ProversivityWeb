@@ -116,9 +116,9 @@ const OneOnOneHelper = () => {
   useEffect(() => {
 
     const paramName = '/amplify/dm2nhm2kldgw/dev/MUI_LICENCE_KEY/us-east-1';
-    console.log('AWS Access Key ID:', process.env.AWS_ACCESS_KEY_ID);
-    console.log('AWS Secret Access Key:', process.env.AWS_SECRET_ACCESS_KEY);
-    console.log('AWS Session Token:', process.env.AWS_SESSION_TOKEN);
+    console.log('AWS Access Key ID:', process.env.REACT_APP_AWS_ACCESS_KEY_ID);
+    console.log('AWS Secret Access Key:', process.env.REACT_APP_AWS_SECRET_ACCESS_KEY);
+    console.log('KEY ID:', process.env.REACT_APP_AWS_ACCESS_KEY_ID);
     console.log(process.env);
 
     const params = {
