@@ -46,6 +46,12 @@
       "service": "Cognito"
     }
   },
+  "awscloudformation": {
+    "configLevel": "project",
+    "profileName": "default",
+    "region": "us-east-1",
+    "useProfile": true
+  },
   "function": {},
   "storage": {}
 }

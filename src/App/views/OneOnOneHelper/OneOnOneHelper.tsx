@@ -8,6 +8,40 @@ import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogContentText from "@mui/material/DialogContentText"
 import { createUser } from "../../../graphql/mutations"
+import { SSM } from "aws-sdk";
+
+
+const ssm = new SSM();
+
+const getParameterWorker = async (name:string, decrypt:boolean):Promise<any> => {
+    const result:any = await ssm
+    .getParameter({ Name: name, WithDecryption: decrypt })
+    .promise();
+    return result.Parameter.Value;
+}
+
+export const getParameter = async (name:string) : Promise<string> => {
+    return getParameterWorker(name,false);
+}
+
+export const createParamValue = (
+  name: string,
+  value: string,
+  type: string = 'SecureString'
+) => {
+  const params: SSM.PutParameterRequest = {
+      Type: type,
+      Name: name,
+      Value: value,
+  };
+  console.log(params)
+
+  let sendParam = ssm.putParameter(params).send();
+  console.log(sendParam)
+};
+
+
+
 
 const OneOnOneHelper = () => {
   const [isUser, setIsUser] = useState<any>(false)
@@ -20,10 +54,20 @@ const OneOnOneHelper = () => {
   const [newOrganizationFieldOpen, setNewOrganizationFieldOpen] = useState(false)
   const [existingOrganizationFieldOpen, setExistingOrganizationFieldOpen] = useState(false)
   const [organization, setOrganization] = useState("")
+  
 
 
   const handleClickOpen = () => { setOpen(true) }
   const handleClose     = () => { setOpen(false) }
+
+
+  // useEffect(()=>{
+  //   AWS.config.update({
+  //     "AWS_SDK_LOAD_CONFIG":1
+  //   });
+  //   let parameterInfo = getParameter("/amplify/dm2nhm2kldgw/dev/MUI_LICENCE_KEY")
+  //   console.log(parameterInfo)
+  // },[])
 
   const handleSubmit = async () => {
     console.log(role)
@@ -70,6 +114,28 @@ const OneOnOneHelper = () => {
   }
 
   useEffect(() => {
+
+    const paramName = '/amplify/dm2nhm2kldgw/dev/MUI_LICENCE_KEY/us-east-1';
+    console.log('AWS Access Key ID:', process.env.AWS_ACCESS_KEY_ID);
+    console.log('AWS Secret Access Key:', process.env.AWS_SECRET_ACCESS_KEY);
+    console.log('AWS Session Token:', process.env.AWS_SESSION_TOKEN);
+    console.log(process.env);
+
+    const params = {
+      Name: paramName,
+      WithDecryption: false // Set to true if the parameter value is encrypted
+    };
+
+    ssm.getParameter(params, function (err, data) {
+      let data2:any = data
+      if (err) {
+        console.error(err, err.stack);
+      } else {
+        const licenseKey = data2.Parameter.Value;
+        console.log(`License Key: ${licenseKey}`);
+      }
+    });
+
     // Fetch user's details from Cognito
     const fetchUserData = async () => {
       try {
@@ -80,7 +146,7 @@ const OneOnOneHelper = () => {
 
         // Fetch user details using the GraphQL query
         const userData:any = await getUserByEmail(email)
-        console.log(userData)
+        //console.log(userData)
 
         setLoadingComplete(true)
 
@@ -89,8 +155,8 @@ const OneOnOneHelper = () => {
       }
     }
 
-    fetchUserData()
-  }, [isUser])
+    // uncomment when ready fetchUserData()
+  }, [])
 
   function switchFields(selection:number){
     if(selection === 1){

@@ -8,11 +8,13 @@ import awsmobile from './aws-exports'
 import '@aws-amplify/ui-react/styles.css'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import AWS from "aws-sdk"
 
 // Create a client
 const queryClient = new QueryClient()
 
 Amplify.configure(awsmobile);
+AWS.config.update({ region: 'us-east-1' });
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
