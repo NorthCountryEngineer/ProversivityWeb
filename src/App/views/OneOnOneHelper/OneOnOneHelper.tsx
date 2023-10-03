@@ -9,8 +9,6 @@ import DialogContent from "@mui/material/DialogContent"
 import DialogContentText from "@mui/material/DialogContentText"
 import { createUser } from "../../../graphql/mutations"
 
-
-
 const OneOnOneHelper = () => {
   const [isUser, setIsUser] = useState<any>(false)
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -28,33 +26,7 @@ const OneOnOneHelper = () => {
   const handleClose     = () => { setOpen(false) }
 
 
-  async function callParametersLambda() {
-    const myInit = { queryStringParameters: {} };
-    try {
-      const getCall = await API.get('credentialsAccessGateway', '/credentialsAccess', myInit);
-      console.log(getCall);
-      return getCall;
-    } catch (error) {
-      console.error(error);
-      throw error; // Rethrow the error if needed
-    }
-  }
-
-  // In your useEffect, you need to await the result
-  async function fetchData() {
-    try {
-      let getCallEffect = await callParametersLambda();
-      console.log(getCallEffect);
-      // Do further processing with getCallEffect here
-    } catch (error) {
-      // Handle errors if the promise is rejected
-      console.error(error);
-    }
-  }
-
-
   const handleSubmit = async () => {
-    console.log(role)
     try {
       const response = await API.graphql({
         query: createUser,
@@ -67,7 +39,6 @@ const OneOnOneHelper = () => {
           }
         }
       });
-      console.log('User created:', response);
       setIsUser(true)
       handleClose(); // close the modal
     } catch (error) {
@@ -85,7 +56,7 @@ const OneOnOneHelper = () => {
       const response:any = await API.graphql(graphqlOperation(listUsers))
   
       if (response.data.listUsers.items.length > 0) {
-        console.log(response)
+        setFirstName(response.data.listUsers.items[0].firstName)
         setIsUser(true)
         return response.data.listUsers.items[0];
       } else {
@@ -99,29 +70,16 @@ const OneOnOneHelper = () => {
 
 
   useEffect(() => {
-    const paramName = '/amplify/dm2nhm2kldgw/dev/MUI_LICENCE_KEY/us-east-1';
-    console.log('AWS Access Key ID:', process.env.REACT_APP_AWS_ACCESS_KEY_ID);
-    console.log('AWS Secret Access Key:', process.env.REACT_APP_AWS_SECRET_ACCESS_KEY);
-    console.log('KEY ID:', process.env.REACT_APP_AWS_ACCESS_KEY_ID);
-    console.log('TEST ID: ', process.env.thisEV)
-    
-    fetchData()
-    
-
-    
-
 
     // Fetch user's details from Cognito
     const fetchUserData = async () => {
       try {
         const currentUser = await Auth.currentAuthenticatedUser()
         const userId = currentUser.attributes.sub // Cognito user ID
-        console.log(currentUser.attributes.email)
         setEmail(currentUser.attributes.email)
 
         // Fetch user details using the GraphQL query
         const userData:any = await getUserByEmail(email)
-        //console.log(userData)
 
         setLoadingComplete(true)
 
@@ -130,7 +88,7 @@ const OneOnOneHelper = () => {
       }
     }
 
-    // uncomment when ready fetchUserData()
+    fetchUserData()
   }, [])
 
   function switchFields(selection:number){

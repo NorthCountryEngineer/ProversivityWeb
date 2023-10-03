@@ -8,33 +8,6 @@ import awsmobile from './aws-exports'
 import '@aws-amplify/ui-react/styles.css'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { LicenseInfo } from '@mui/x-license-pro';
-
-async function callParametersLambda() {
-  const myInit = { queryStringParameters: {} };
-  try {
-    const getCall = await API.get('credentialsAccessGateway', '/credentialsAccess', myInit);
-    console.log(getCall);
-    return getCall;
-  } catch (error) {
-    console.error(error);
-    throw error; // Rethrow the error if needed
-  }
-}
-
-// In your useEffect, you need to await the result
-async function setMUILicenseKey() {
-  try {
-    let getCallEffect = await callParametersLambda()
-    LicenseInfo.setLicenseKey(getCallEffect);
-    console.log("MUI Key set")
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-setMUILicenseKey()
-
 
 const queryClient = new QueryClient()
 

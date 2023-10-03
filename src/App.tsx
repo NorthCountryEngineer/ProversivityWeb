@@ -19,7 +19,6 @@ const App = ()=> {
     const myInit = { queryStringParameters: {} };
     try {
         const getCall = await API.get('credentialsAccessGateway', '/credentialsAccess', myInit);
-        console.log(getCall);
         return getCall;
       } catch (error) {
         console.error(error);
@@ -32,7 +31,6 @@ const App = ()=> {
     try {
       let getCallEffect = await callParametersLambda()
       LicenseInfo.setLicenseKey(getCallEffect);
-      console.log("MUI Key set")
     } catch (error) {
       console.error(error);
     }
