@@ -1,5 +1,19 @@
 {
   "api": {
+    "credentialsAccessGateway": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "secretsManagerAccessService"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "northcountryengineer": {
       "dependsOn": [],
       "output": {
@@ -46,6 +60,39 @@
       "service": "Cognito"
     }
   },
-  "function": {},
+  "function": {
+    "secretsManagerAccessService": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_secretsManagerAccessService_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "secretsManagerAccessService"
+        }
+      ]
+    },
+    "AMPLIFY_function_secretsManagerAccessService_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "secretsManagerAccessService"
+        }
+      ]
+    },
+    "AMPLIFY_function_secretsManagerAccessService_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "secretsManagerAccessService"
+        }
+      ]
+    }
+  },
   "storage": {}
 }

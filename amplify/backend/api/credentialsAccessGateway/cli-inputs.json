@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/credentialsAccess": {
+      "name": "/credentialsAccess",
+      "lambdaFunction": "secretsManagerAccessService",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

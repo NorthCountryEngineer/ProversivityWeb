@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { withAuthenticator } from "@aws-amplify/ui-react"
-import { API, Auth, graphqlOperation } from "aws-amplify"
+import { API, Amplify, Auth, graphqlOperation } from "aws-amplify"
 import { getUser, listUsers } from "../../../graphql/queries"
 import { Button, FormControl, FormControlLabel, FormLabel, Grid, NativeSelect, Radio, RadioGroup, TextField, Typography } from "@mui/material"
 import Dialog from "@mui/material/Dialog"
@@ -8,38 +8,6 @@ import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogContentText from "@mui/material/DialogContentText"
 import { createUser } from "../../../graphql/mutations"
-import { SSM } from "aws-sdk";
-
-
-const ssm = new SSM();
-
-const getParameterWorker = async (name:string, decrypt:boolean):Promise<any> => {
-    const result:any = await ssm
-    .getParameter({ Name: name, WithDecryption: decrypt })
-    .promise();
-    return result.Parameter.Value;
-}
-
-export const getParameter = async (name:string) : Promise<string> => {
-    return getParameterWorker(name,false);
-}
-
-export const createParamValue = (
-  name: string,
-  value: string,
-  type: string = 'SecureString'
-) => {
-  const params: SSM.PutParameterRequest = {
-      Type: type,
-      Name: name,
-      Value: value,
-  };
-  console.log(params)
-
-  let sendParam = ssm.putParameter(params).send();
-  console.log(sendParam)
-};
-
 
 
 
@@ -54,20 +22,36 @@ const OneOnOneHelper = () => {
   const [newOrganizationFieldOpen, setNewOrganizationFieldOpen] = useState(false)
   const [existingOrganizationFieldOpen, setExistingOrganizationFieldOpen] = useState(false)
   const [organization, setOrganization] = useState("")
-  
 
 
   const handleClickOpen = () => { setOpen(true) }
   const handleClose     = () => { setOpen(false) }
 
 
-  // useEffect(()=>{
-  //   AWS.config.update({
-  //     "AWS_SDK_LOAD_CONFIG":1
-  //   });
-  //   let parameterInfo = getParameter("/amplify/dm2nhm2kldgw/dev/MUI_LICENCE_KEY")
-  //   console.log(parameterInfo)
-  // },[])
+  async function callParametersLambda() {
+    const myInit = { queryStringParameters: {} };
+    try {
+      const getCall = await API.get('credentialsAccessGateway', '/credentialsAccess', myInit);
+      console.log(getCall);
+      return getCall;
+    } catch (error) {
+      console.error(error);
+      throw error; // Rethrow the error if needed
+    }
+  }
+
+  // In your useEffect, you need to await the result
+  async function fetchData() {
+    try {
+      let getCallEffect = await callParametersLambda();
+      console.log(getCallEffect);
+      // Do further processing with getCallEffect here
+    } catch (error) {
+      // Handle errors if the promise is rejected
+      console.error(error);
+    }
+  }
+
 
   const handleSubmit = async () => {
     console.log(role)
@@ -113,28 +97,19 @@ const OneOnOneHelper = () => {
     }
   }
 
-  useEffect(() => {
 
+  useEffect(() => {
     const paramName = '/amplify/dm2nhm2kldgw/dev/MUI_LICENCE_KEY/us-east-1';
     console.log('AWS Access Key ID:', process.env.REACT_APP_AWS_ACCESS_KEY_ID);
     console.log('AWS Secret Access Key:', process.env.REACT_APP_AWS_SECRET_ACCESS_KEY);
     console.log('KEY ID:', process.env.REACT_APP_AWS_ACCESS_KEY_ID);
-    console.log(process.env);
+    console.log('TEST ID: ', process.env.thisEV)
+    
+    fetchData()
+    
 
-    const params = {
-      Name: paramName,
-      WithDecryption: false // Set to true if the parameter value is encrypted
-    };
+    
 
-    ssm.getParameter(params, function (err, data) {
-      let data2:any = data
-      if (err) {
-        console.error(err, err.stack);
-      } else {
-        const licenseKey = data2.Parameter.Value;
-        console.log(`License Key: ${licenseKey}`);
-      }
-    });
 
     // Fetch user's details from Cognito
     const fetchUserData = async () => {

@@ -8,12 +8,37 @@ import { router } from './App/router'
 import { useEffect, useState } from 'react'
 import { AuthProvider } from './App/functions/Authenticate'
 import React from 'react'
-import { Auth, Hub } from 'aws-amplify'
-import { withAuthenticator } from "@aws-amplify/ui-react"
+import { API, Auth, Hub } from 'aws-amplify'
+import { LicenseInfo } from '@mui/x-license-pro';
 
 
 const App = ()=> {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  async function callParametersLambda() {
+    const myInit = { queryStringParameters: {} };
+    try {
+        const getCall = await API.get('credentialsAccessGateway', '/credentialsAccess', myInit);
+        console.log(getCall);
+        return getCall;
+      } catch (error) {
+        console.error(error);
+        throw error; // Rethrow the error if needed
+      }
+  }
+
+  // In your useEffect, you need to await the result
+  async function setMUILicenseKey() {
+    try {
+      let getCallEffect = await callParametersLambda()
+      LicenseInfo.setLicenseKey(getCallEffect);
+      console.log("MUI Key set")
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  setMUILicenseKey()
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()

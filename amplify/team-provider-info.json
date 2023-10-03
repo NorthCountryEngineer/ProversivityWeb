@@ -17,7 +17,15 @@
         "northcountryengineerb272f13e": {}
       },
       "api": {
-        "northcountryengineer": {}
+        "northcountryengineer": {},
+        "credentialsAccessGateway": {}
+      },
+      "function": {
+        "secretsManagerAccessService": {
+          "secretsPathAmplifyAppId": "dm2nhm2kldgw",
+          "deploymentBucketName": "amplify-northcountryengineer-dev-173943-deployment",
+          "s3Key": "amplify-builds/secretsManagerAccessService-45334645496668747638-build.zip"
+        }
       }
     }
   }
