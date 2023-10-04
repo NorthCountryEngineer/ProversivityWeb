@@ -1,123 +1,131 @@
-import React, { useEffect, useState } from "react"
-import { withAuthenticator } from "@aws-amplify/ui-react"
-import { API, Amplify, Auth, graphqlOperation } from "aws-amplify"
-import { getUser, listUsers } from "../../../graphql/queries"
-import { Button, FormControl, FormControlLabel, FormLabel, Grid, NativeSelect, Radio, RadioGroup, TextField, Typography } from "@mui/material"
-import Dialog from "@mui/material/Dialog"
-import DialogActions from "@mui/material/DialogActions"
-import DialogContent from "@mui/material/DialogContent"
-import DialogContentText from "@mui/material/DialogContentText"
-import { createUser } from "../../../graphql/mutations"
+import React, { useEffect, useState } from "react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  NativeSelect,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
+} from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+} from "@mui/material";
+
+// Import hooks and functions from their respective files
+import {
+  handleSubmit,
+} from "./hooks";
+
+import { switchFields } from "./functions";
+import { API, Auth, Hub, graphqlOperation } from "aws-amplify";
+import { listUsers } from "../../../graphql/queries";
+
+const initialUserMetaData = {
+  organization: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  role: "",
+};
+
+const initialSwitchBoard = {
+  isUser: false,
+  loadingComplete: false,
+  open: false,
+  newOrganizationFieldOpen: false,
+  existingOrganizationFieldOpen: false,
+};
+
+
 
 const OneOnOneHelper = () => {
-  const [isUser, setIsUser] = useState<any>(false)
-  const [loadingComplete, setLoadingComplete] = useState(false)
-  const [open, setOpen] = useState(false)
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [email, setEmail] = useState("")
-  const [role, setRole] = useState("")
-  const [newOrganizationFieldOpen, setNewOrganizationFieldOpen] = useState(false)
-  const [existingOrganizationFieldOpen, setExistingOrganizationFieldOpen] = useState(false)
-  const [organization, setOrganization] = useState("")
-
-
-  const handleClickOpen = () => { setOpen(true) }
-  const handleClose     = () => { setOpen(false) }
-
-
-  const handleSubmit = async () => {
-    try {
-      const response = await API.graphql({
-        query: createUser,
-        variables: { 
-          input: {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            role: role,
-          }
-        }
-      });
-      setIsUser(true)
-      handleClose(); // close the modal
-    } catch (error) {
-      console.error('Error creating user:', error);
-    }
-  }
-
-  async function getUserByEmail(email: string){
-    try {
-      const variables = {
-        filter: { email: { eq: email } },
-        limit: 1 // Since emails are unique, you can limit the results to 1
-      };
-  
-      const response:any = await API.graphql(graphqlOperation(listUsers))
-  
-      if (response.data.listUsers.items.length > 0) {
-        setFirstName(response.data.listUsers.items[0].firstName)
-        setIsUser(true)
-        return response.data.listUsers.items[0];
-      } else {
-        return null;
-      }
-    } catch (error) {
-      console.error("Error fetching user by email:", error);
-      return null;
-    }
-  }
-
+  const [userMetaData, setUserMetaData] = useState(initialUserMetaData)
+  const [switchBoard, setSwitchBoard] = useState(initialSwitchBoard)
 
   useEffect(() => {
+    let userDataFetch = fetchUserData()
+    if(switchBoard.loadingComplete) getUserByEmail(userMetaData.email)
+    console.log("UserDataFetch: ", userDataFetch)
+  }, [])
 
-    // Fetch user's details from Cognito
+    // Define a generic setter function for userMetaData and switchBoard
+    const setUserData = (key, value) => {
+      try{
+        console.log(key,value)
+        setUserMetaData({ ...userMetaData, [key]: value });
+        return("Done")
+      }catch(error){
+        console.error(error)
+        return(error)
+      }
+    };
+  
+    const setSwitchData = (key, value) => {
+      console.log(key,value)
+      setSwitchBoard({ ...switchBoard, [key]: value });
+    }
+
     const fetchUserData = async () => {
       try {
-        const currentUser = await Auth.currentAuthenticatedUser()
-        const userId = currentUser.attributes.sub // Cognito user ID
-        setEmail(currentUser.attributes.email)
-
-        // Fetch user details using the GraphQL query
-        const userData:any = await getUserByEmail(email)
-
-        setLoadingComplete(true)
-
+          const currentUser = await Auth.currentAuthenticatedUser()
+          setUserMetaData({ ...userMetaData, "email": currentUser.attributes.email})
+          setSwitchBoard({...switchBoard, "loadingComplete": true})
       } catch (error) {
-        console.error("Error fetching user data:", error)
+          setSwitchBoard({...switchBoard, "loadingComplete": true})
+          console.error("Error fetching user data:", error)
+          return(error)
       }
     }
 
-    fetchUserData()
-  }, [])
 
-  function switchFields(selection:number){
-    if(selection === 1){
-      setExistingOrganizationFieldOpen(false)
-      setNewOrganizationFieldOpen(true)
-    }
+
+    async function getUserByEmail(email: string){
+      try {
+        const variables = {
+          filter: { email: { eq: email } },
+          limit: 1
+        };
     
-    if(selection === 2){
-      setExistingOrganizationFieldOpen(true)
-      setNewOrganizationFieldOpen(false)
-    }
+        const response:any = await API.graphql(graphqlOperation(listUsers, variables))
+        console.log("response is: ", response)
+    
+        if (response.data.listUsers.items.length > 0) {
+          setUserMetaData({...userMetaData, "firstName": response.data.listUsers.items[0].firstName})
+          setSwitchBoard({...switchBoard, "isUser": true})
+          return response.data.listUsers.items[0];
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error("Error fetching user by email:", error);
+        return null;
+      }
   }
+
 
   return (
     <div>
-      {loadingComplete ? (
+      {switchBoard.loadingComplete ? (
         <div>
-          {isUser ? (
-            <h1>Hi, {firstName}</h1>
+          {switchBoard.isUser ? (
+            <h1>Hi, {userMetaData.firstName}</h1>
           ) : (
             <div>
               <h2>You aren't signed up yet</h2>
               <Button 
-                onClick={handleClickOpen}
+                onClick={()=>setSwitchBoard({...switchBoard, "open":true})}
               >
                 Click here to Sign up
               </Button>
-              <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" >
+              <Dialog open={switchBoard.open} onClose={()=>setSwitchBoard({...switchBoard, "open":false})} aria-labelledby="form-dialog-title" >
                 <DialogContent>
                   <DialogContentText>
                     <Typography variant="h5">Sign up for the One on One tool </Typography>
@@ -131,9 +139,9 @@ const OneOnOneHelper = () => {
                         label="First Name"
                         type="text"
                         fullWidth
-                        value={firstName}
+                        value={userMetaData.firstName}
                         variant="standard"
-                        onChange={(e) => setFirstName(e.target.value)}
+                        onChange={(e) => setUserMetaData({...userMetaData, "firstName" : e.target.value})}
                         sx={{
                           mt:5
                         }}
@@ -144,9 +152,9 @@ const OneOnOneHelper = () => {
                       label="Last Name"
                       type="text"
                       fullWidth
-                      value={lastName}
+                      value={userMetaData.lastName}
                       variant="standard"
-                      onChange={(e) => setLastName(e.target.value)}
+                      onChange={(e) => setUserMetaData({...userMetaData, "lastName" : e.target.value})}
                       sx={{
                         mt:5
                       }}
@@ -157,9 +165,9 @@ const OneOnOneHelper = () => {
                       label="Email Address"
                       type="email"
                       fullWidth
-                      value={email}
+                      value={userMetaData.email}
                       variant="standard"
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => setUserData("email", e.target.value)}
                       sx={{
                         mt:5
                       }}
@@ -176,7 +184,7 @@ const OneOnOneHelper = () => {
                         row
                         aria-labelledby="demo-row-radio-buttons-group-label"
                         name="row-radio-buttons-group"
-                        onChange={(e)=>setRole(e.target.value)}
+                        onChange={(e) => setUserData("role", e.target.value)}
                       >
                         <FormControlLabel value="requestor" control={<Radio />} label="Lead" />
                         <FormControlLabel value="EMPLOYEE" control={<Radio />} label="Participant" />
@@ -186,17 +194,17 @@ const OneOnOneHelper = () => {
                     <FormControl sx={{ color:"Background", mt:"10%"}} fullWidth >
                       <Grid container spacing={0}>
                         <Grid item xs={6}>
-                          <Button onClick={()=>switchFields(1)}>Create new organization</Button>
+                          <Button onClick={()=>switchFields(1,setSwitchBoard)}>Create new organization</Button>
                         </Grid>
                         <Grid item xs={6}>
-                          <Button onClick={()=>switchFields(2)}>Choose existing organization</Button>
+                          <Button onClick={()=>switchFields(2,setSwitchBoard)}>Choose existing organization</Button>
                         </Grid>
                       </Grid>
                         
 
                       <div style={{height:"100px"}}>
                       {
-                        newOrganizationFieldOpen &&
+                        switchBoard.newOrganizationFieldOpen &&
                           <>
                             <TextField
                               margin="dense"
@@ -204,19 +212,19 @@ const OneOnOneHelper = () => {
                               label="New Organization"
                               type="text"
                               fullWidth
-                              value={organization}
+                              value={userMetaData.organization}
                               variant="standard"
-                              onChange={(e) => setOrganization(e.target.value)}
+                              onChange={(e) => setUserData("organization", e.target.value)}
                             />
                             <Button
-                              onClick={()=>setNewOrganizationFieldOpen(false)}
+                              onChange={(e) => setSwitchData("newOrganizationFieldOpen", false)}
                             >
                               Close
                             </Button>
                           </>
                       }
                       {
-                        existingOrganizationFieldOpen &&
+                        switchBoard.existingOrganizationFieldOpen &&
                         <>
                           <NativeSelect
                             defaultValue={30}
@@ -228,12 +236,12 @@ const OneOnOneHelper = () => {
                           >
                             <option value={"Manager"}></option>
                           </NativeSelect>
-                            <Button
-                              onClick={()=>setExistingOrganizationFieldOpen(false)}
+                          <Button
+                              onChange={(e) => setSwitchData("newOrganizationFieldOpen", false)}
                             >
                               Close
-                            </Button>
-                          </>
+                          </Button>
+                        </>
 
                       }
                       </div>
@@ -243,10 +251,24 @@ const OneOnOneHelper = () => {
                   }
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleClose} color="error">
+                  <Button onClick={()=>setSwitchBoard({...switchBoard, "open":false})} color="error">
                     Cancel
                   </Button>
-                  <Button onClick={handleSubmit} color="info">
+                  <Button
+                    onClick={
+                      () => {
+                        handleSubmit(
+                          userMetaData.firstName,
+                          userMetaData.lastName,
+                          userMetaData.email,
+                          userMetaData.role,
+                          setSwitchData
+                        )
+                        setSwitchBoard({...switchBoard, "open":false})
+                      } 
+                    }
+                    color="info"
+                  >
                     Create User
                   </Button>
                 </DialogActions>

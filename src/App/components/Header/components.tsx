@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import { useState } from "react"
-import { Auth } from "aws-amplify"
+import { Amplify, Auth } from "aws-amplify"
 import { ProversivityAppBarHooks } from "./functions"
 import { Box, Stack, Typography } from "@mui/material"
 import { ListItemIcon, ListItemText, Menu } from '@mui/material'
@@ -65,7 +65,7 @@ export const Sidebar = ({ drawerWidth, drawerOpen, toggleDrawer, font, menuItems
                 </MenuItem>
             ))}
             
-            <MenuItem>
+            <MenuItem onClick={()=>Auth.signOut()}>
                 <ListItemIcon>
                   <ExitToApp />
                 </ListItemIcon>
@@ -173,7 +173,7 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
     }
   }
 
-  const dynamicButton = () => {
+  const DynamicButton = () => {
     try{
       return(
         <Button
@@ -217,13 +217,13 @@ export const ProversivityAppBar = ({ dynamicTitle, font, drawerWidth, menuItems}
         <Toolbar>
           
         <Grid container sx={{ alignItems: justifyContent }}>
-          <Grid item xs={3.5} justifyContent="flex-start">
+          <Grid item xs={3} justifyContent="flex-start">
             <NorthCountryEngineerLogoAndTitle dynamicTitle={dynamicTitle} font={font} />
           </Grid>
-          <Grid item xs={4} />
+          <Grid item xs={8} />
 
-          <Grid item xs={3} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
-            
+          <Grid item xs={1} sx={{ justifyContent: justifyContent, alignContent:"space-around" }}>
+            <DynamicButton /> 
           </Grid>
 
 

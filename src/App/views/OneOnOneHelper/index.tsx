@@ -1,4 +1,5 @@
 export * from './OneOnOneHelper'
 export * from './components'
 export * from './hooks'
+export * from './functions'
 export type {} from './model.d'
