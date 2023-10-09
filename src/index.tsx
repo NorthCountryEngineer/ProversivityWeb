@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import { API, Amplify, Auth } from 'aws-amplify'
+import { Amplify } from 'aws-amplify'
 import awsmobile from './aws-exports'
 import '@aws-amplify/ui-react/styles.css'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

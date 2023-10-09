@@ -10,6 +10,6 @@
     "jsx": "react",
     "allowJs": true,
     "checkJs": false,
-    "types": ["cypress", "@percy/cypress", "node"]
+    "types": ["node", "jest", "@testing-library/jest-dom"],
   }
 }
