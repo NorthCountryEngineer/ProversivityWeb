@@ -23,5 +23,4 @@ export const signInMock = jest.fn((username: string, password: string) => {
 });
 
 // Mock the entire Auth module
-jest.mock('aws-amplify');
-Auth.signIn = signInMock;
+

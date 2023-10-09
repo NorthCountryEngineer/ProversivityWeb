@@ -18,6 +18,7 @@ const OneOnOneHelper = () => {
 
   useEffect(() => {
     fetchUserData()
+    console.log(switchBoard)
   }, [])
 
   return (
