@@ -33,6 +33,7 @@
     "@types/testing-library__react": "^10.2.0",
     "aws-amplify": "^5.2.7",
     "aws-sdk": "^2.1468.0",
+    "cypress-localstorage-commands": "^2.2.4",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "eslint-config-react-app": "^7.0.1",
@@ -53,7 +54,9 @@
     "remove-view": "node src/scripts/removeView.js",
     "create-component": "node src/scripts/createComponent.js",
     "remove-component": "node src/scripts/removeComponent.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tsc --project tsconfig.lint.json",
+    "lint:cypress": "tsc --project cypress/tsconfig.json"
   },
   "eslintConfig": {
     "extends": [
@@ -112,6 +115,9 @@
       "^.+\\.ts?$": "ts-jest"
     },
     "transformIgnorePatterns": [],
+    "roots": [
+      "<rootDir>/src"
+    ],
     "testTimeout": 10000
   }
 }

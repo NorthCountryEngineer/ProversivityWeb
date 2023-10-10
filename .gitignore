@@ -22,6 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 *.env
+*.config.js
+*.config.ts
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
