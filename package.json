@@ -55,7 +55,7 @@
     "create-component": "node src/scripts/createComponent.js",
     "remove-component": "node src/scripts/removeComponent.js",
     "lint": "tsc --project tsconfig.lint.json",
-    "lint:cypress": "tsc --project cypress/tsconfig.json"
+    "test": "cypress run"
   },
   "eslintConfig": {
     "extends": [

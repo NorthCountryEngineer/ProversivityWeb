@@ -11,6 +11,5 @@
     "allowJs": true,
     "checkJs": false,
     "types": ["node", "cypress"],
-    "type": "module"
   }
 }
