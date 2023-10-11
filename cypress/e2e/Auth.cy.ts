@@ -24,7 +24,7 @@ describe('Unauthorized Access Test', () => {
     cy.get('button[type="submit"]').click();
 
     // Now, wait for the "You are not signed up yet" text to appear
-    cy.contains('You are not signed up yet').should('exist');
+    cy.contains('You aren\'t signed up yet').should('exist');
   });
 });
 
