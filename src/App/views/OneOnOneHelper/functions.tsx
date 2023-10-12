@@ -1,8 +1,8 @@
 import { API, Auth, graphqlOperation } from "aws-amplify";
 import { listUsers } from "../../../graphql/queries";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { initialSwitchBoardData, initialUserMetaData } from "./model.d";
-import { createUser } from "../../../graphql/mutations";
+import { createUser, deleteUser } from "../../../graphql/mutations";
 
 export function OneOnOneHelperHooks():{
   userMetaData: typeof initialUserMetaData;
@@ -104,7 +104,27 @@ export function OneOnOneHelperHooks():{
     }
 }
 
-  export  async function retrieveUserEmail(){
-    const currentUser:any = await Auth.currentAuthenticatedUser()
-    return currentUser.attributes.email
+export  async function retrieveUserEmail(){
+  const currentUser:any = await Auth.currentAuthenticatedUser()
+  return currentUser.attributes.email
+}
+
+async function getUserID(userEmail){
+  const currentUser:any = await API.graphql(graphqlOperation(listUsers, { filter: { email: { eq: userEmail } } }))
+  console.log(currentUser.data.listUsers.items[0].id)
+  return currentUser.data.listUsers.items[0].id
+}
+
+async function deleteUserByID(userID){
+  const deleteUserCall = await API.graphql(graphqlOperation(deleteUser, { input: { id: userID } }))
+  console.log(deleteUserCall)
+  return(deleteUserCall)
+}
+
+export async function deleteUserAccount(){
+  const userEmail = "eric.p.yager@gmail.com"
+  const userID = await getUserID(userEmail)
+  const deleteUserCall = await deleteUserByID(userID)
+  if(deleteUserCall) window.location.reload()
+  return(deleteUserCall)
 }

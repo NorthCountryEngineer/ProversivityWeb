@@ -1,54 +1,29 @@
-// ***********************************************************
-// This example support/e2e.ts is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
-
 // Import commands.js using ES2015 syntax:
-import { Auth } from 'aws-amplify';
 import './commands'
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
 
 declare global {
     namespace Cypress {
       interface Chainable {
-        /**
-         * Custom command to type a few random words into input elements
-         * @param count=3
-         * @example cy.get('input').typeRandomWords()
-         */
-        signIn(
-            username: string,
-            password: string
-        ): Chainable<JQuery<HTMLElement>>
+        deleteUser(): Chainable<JQuery<HTMLElement>>
+        loginFromAmplifyLoginPage(): Chainable<JQuery<HTMLElement>>
       }
     }
   }
 
-Cypress.Commands.add("signIn", (username,password) => {
-    cy.then(() => Auth.signIn(username, password)).then((cognitoUser) => {
-      const idToken = cognitoUser.signInUserSession.idToken.jwtToken;
-      const accessToken = cognitoUser.signInUserSession.accessToken.jwtToken;
-  
-      const makeKey = (name) => `CognitoIdentityServiceProvider.${cognitoUser.pool.clientId}.${cognitoUser.username}.${name}`;
-  
-      cy.setLocalStorage(makeKey("accessToken"), accessToken);
-      cy.setLocalStorage(makeKey("idToken"), idToken);
-      cy.setLocalStorage(
-        `CognitoIdentityServiceProvider.${cognitoUser.pool.clientId}.LastAuthUser`,
-        cognitoUser.username
-      );
-    });
-    cy.saveLocalStorage();
-  });
+Cypress.Commands.add('loginFromAmplifyLoginPage', () => {
+
+  // Fill in the username field
+  cy.get('input[name="username"]').type(Cypress.env('username'));
+
+  // Fill in the password field
+  cy.get('input[name="password"]').type(Cypress.env('password'));
+
+  // Click the "Sign in" button
+  cy.get('button[type="submit"]').click();
+})
+
+Cypress.Commands.add('deleteUser', () => {
+  cy.log('Deleting user '+ Cypress.env('username'));
+  cy.get('[data-testid=delete-user-account-button]').should('exist');
+  cy.get('[data-testid=delete-user-account-button]').click();
+});

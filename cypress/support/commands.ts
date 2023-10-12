@@ -51,3 +51,4 @@ const clientId = Cypress. env ("clientId"); const awsconfig = {
 
 Auth.configure (awsconfig);
 
+

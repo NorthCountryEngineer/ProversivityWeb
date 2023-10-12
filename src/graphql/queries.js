@@ -24,10 +24,8 @@ export const getUser = /* GraphQL */ `
           userMeetingsAsEmployeeId
           meetingRequestorId
           meetingEmployeeId
-          __typename
         }
         nextToken
-        __typename
       }
       meetingsAsEmployee {
         items {
@@ -44,10 +42,8 @@ export const getUser = /* GraphQL */ `
           userMeetingsAsEmployeeId
           meetingRequestorId
           meetingEmployeeId
-          __typename
         }
         nextToken
-        __typename
       }
       organizations {
         items {
@@ -61,14 +57,11 @@ export const getUser = /* GraphQL */ `
           organizationUsersId
           userOrganizationUserId
           userOrganizationOrganizationId
-          __typename
         }
         nextToken
-        __typename
       }
       createdAt
       updatedAt
-      __typename
     }
   }
 `;
@@ -87,22 +80,17 @@ export const listUsers = /* GraphQL */ `
         role
         meetingsAsRequestor {
           nextToken
-          __typename
         }
         meetingsAsEmployee {
           nextToken
-          __typename
         }
         organizations {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
-        __typename
       }
       nextToken
-      __typename
     }
   }
 `;
@@ -124,14 +112,11 @@ export const getOrganization = /* GraphQL */ `
           organizationUsersId
           userOrganizationUserId
           userOrganizationOrganizationId
-          __typename
         }
         nextToken
-        __typename
       }
       createdAt
       updatedAt
-      __typename
     }
   }
 `;
@@ -148,14 +133,11 @@ export const listOrganizations = /* GraphQL */ `
         description
         users {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
-        __typename
       }
       nextToken
-      __typename
     }
   }
 `;
@@ -172,19 +154,15 @@ export const getUserOrganization = /* GraphQL */ `
         role
         meetingsAsRequestor {
           nextToken
-          __typename
         }
         meetingsAsEmployee {
           nextToken
-          __typename
         }
         organizations {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
-        __typename
       }
       organizationId
       organization {
@@ -193,11 +171,9 @@ export const getUserOrganization = /* GraphQL */ `
         description
         users {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
-        __typename
       }
       role
       createdAt
@@ -206,7 +182,6 @@ export const getUserOrganization = /* GraphQL */ `
       organizationUsersId
       userOrganizationUserId
       userOrganizationOrganizationId
-      __typename
     }
   }
 `;
@@ -232,7 +207,6 @@ export const listUserOrganizations = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         organizationId
         organization {
@@ -241,7 +215,6 @@ export const listUserOrganizations = /* GraphQL */ `
           description
           createdAt
           updatedAt
-          __typename
         }
         role
         createdAt
@@ -250,10 +223,8 @@ export const listUserOrganizations = /* GraphQL */ `
         organizationUsersId
         userOrganizationUserId
         userOrganizationOrganizationId
-        __typename
       }
       nextToken
-      __typename
     }
   }
 `;
@@ -270,19 +241,15 @@ export const getMeeting = /* GraphQL */ `
         role
         meetingsAsRequestor {
           nextToken
-          __typename
         }
         meetingsAsEmployee {
           nextToken
-          __typename
         }
         organizations {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
-        __typename
       }
       employeeID
       employee {
@@ -293,19 +260,15 @@ export const getMeeting = /* GraphQL */ `
         role
         meetingsAsRequestor {
           nextToken
-          __typename
         }
         meetingsAsEmployee {
           nextToken
-          __typename
         }
         organizations {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
-        __typename
       }
       scheduledTime
       duration
@@ -324,10 +287,8 @@ export const getMeeting = /* GraphQL */ `
           updatedAt
           meetingAgendaItemsId
           agendaItemMeetingId
-          __typename
         }
         nextToken
-        __typename
       }
       actionItems {
         items {
@@ -342,10 +303,8 @@ export const getMeeting = /* GraphQL */ `
           meetingActionItemsId
           actionItemMeetingId
           actionItemAssignedToUserId
-          __typename
         }
         nextToken
-        __typename
       }
       notes {
         items {
@@ -359,10 +318,8 @@ export const getMeeting = /* GraphQL */ `
           meetingNotesId
           noteMeetingId
           noteUserId
-          __typename
         }
         nextToken
-        __typename
       }
       createdAt
       updatedAt
@@ -370,7 +327,6 @@ export const getMeeting = /* GraphQL */ `
       userMeetingsAsEmployeeId
       meetingRequestorId
       meetingEmployeeId
-      __typename
     }
   }
 `;
@@ -392,7 +348,6 @@ export const listMeetings = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         employeeID
         employee {
@@ -403,7 +358,6 @@ export const listMeetings = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         scheduledTime
         duration
@@ -411,15 +365,12 @@ export const listMeetings = /* GraphQL */ `
         status
         agendaItems {
           nextToken
-          __typename
         }
         actionItems {
           nextToken
-          __typename
         }
         notes {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
@@ -427,10 +378,8 @@ export const listMeetings = /* GraphQL */ `
         userMeetingsAsEmployeeId
         meetingRequestorId
         meetingEmployeeId
-        __typename
       }
       nextToken
-      __typename
     }
   }
 `;
@@ -450,7 +399,6 @@ export const getAgendaItem = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         employeeID
         employee {
@@ -461,7 +409,6 @@ export const getAgendaItem = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         scheduledTime
         duration
@@ -469,15 +416,12 @@ export const getAgendaItem = /* GraphQL */ `
         status
         agendaItems {
           nextToken
-          __typename
         }
         actionItems {
           nextToken
-          __typename
         }
         notes {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
@@ -485,7 +429,6 @@ export const getAgendaItem = /* GraphQL */ `
         userMeetingsAsEmployeeId
         meetingRequestorId
         meetingEmployeeId
-        __typename
       }
       title
       description
@@ -496,7 +439,6 @@ export const getAgendaItem = /* GraphQL */ `
       updatedAt
       meetingAgendaItemsId
       agendaItemMeetingId
-      __typename
     }
   }
 `;
@@ -524,7 +466,6 @@ export const listAgendaItems = /* GraphQL */ `
           userMeetingsAsEmployeeId
           meetingRequestorId
           meetingEmployeeId
-          __typename
         }
         title
         description
@@ -535,10 +476,8 @@ export const listAgendaItems = /* GraphQL */ `
         updatedAt
         meetingAgendaItemsId
         agendaItemMeetingId
-        __typename
       }
       nextToken
-      __typename
     }
   }
 `;
@@ -558,7 +497,6 @@ export const getActionItem = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         employeeID
         employee {
@@ -569,7 +507,6 @@ export const getActionItem = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         scheduledTime
         duration
@@ -577,15 +514,12 @@ export const getActionItem = /* GraphQL */ `
         status
         agendaItems {
           nextToken
-          __typename
         }
         actionItems {
           nextToken
-          __typename
         }
         notes {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
@@ -593,7 +527,6 @@ export const getActionItem = /* GraphQL */ `
         userMeetingsAsEmployeeId
         meetingRequestorId
         meetingEmployeeId
-        __typename
       }
       assignedToUserID
       assignedToUser {
@@ -604,19 +537,15 @@ export const getActionItem = /* GraphQL */ `
         role
         meetingsAsRequestor {
           nextToken
-          __typename
         }
         meetingsAsEmployee {
           nextToken
-          __typename
         }
         organizations {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
-        __typename
       }
       description
       dueDate
@@ -626,7 +555,6 @@ export const getActionItem = /* GraphQL */ `
       meetingActionItemsId
       actionItemMeetingId
       actionItemAssignedToUserId
-      __typename
     }
   }
 `;
@@ -654,7 +582,6 @@ export const listActionItems = /* GraphQL */ `
           userMeetingsAsEmployeeId
           meetingRequestorId
           meetingEmployeeId
-          __typename
         }
         assignedToUserID
         assignedToUser {
@@ -665,7 +592,6 @@ export const listActionItems = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         description
         dueDate
@@ -675,10 +601,8 @@ export const listActionItems = /* GraphQL */ `
         meetingActionItemsId
         actionItemMeetingId
         actionItemAssignedToUserId
-        __typename
       }
       nextToken
-      __typename
     }
   }
 `;
@@ -698,7 +622,6 @@ export const getNote = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         employeeID
         employee {
@@ -709,7 +632,6 @@ export const getNote = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         scheduledTime
         duration
@@ -717,15 +639,12 @@ export const getNote = /* GraphQL */ `
         status
         agendaItems {
           nextToken
-          __typename
         }
         actionItems {
           nextToken
-          __typename
         }
         notes {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
@@ -733,7 +652,6 @@ export const getNote = /* GraphQL */ `
         userMeetingsAsEmployeeId
         meetingRequestorId
         meetingEmployeeId
-        __typename
       }
       userID
       user {
@@ -744,19 +662,15 @@ export const getNote = /* GraphQL */ `
         role
         meetingsAsRequestor {
           nextToken
-          __typename
         }
         meetingsAsEmployee {
           nextToken
-          __typename
         }
         organizations {
           nextToken
-          __typename
         }
         createdAt
         updatedAt
-        __typename
       }
       content
       timestamp
@@ -765,7 +679,6 @@ export const getNote = /* GraphQL */ `
       meetingNotesId
       noteMeetingId
       noteUserId
-      __typename
     }
   }
 `;
@@ -793,7 +706,6 @@ export const listNotes = /* GraphQL */ `
           userMeetingsAsEmployeeId
           meetingRequestorId
           meetingEmployeeId
-          __typename
         }
         userID
         user {
@@ -804,7 +716,6 @@ export const listNotes = /* GraphQL */ `
           role
           createdAt
           updatedAt
-          __typename
         }
         content
         timestamp
@@ -813,10 +724,8 @@ export const listNotes = /* GraphQL */ `
         meetingNotesId
         noteMeetingId
         noteUserId
-        __typename
       }
       nextToken
-      __typename
     }
   }
 `;

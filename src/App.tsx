@@ -49,11 +49,9 @@ const App = ()=> {
       switch (data.payload.event) {
         case 'signIn':
           setIsAuthenticated(true)
-          window.location.reload()
           break
         case 'signOut':
           setIsAuthenticated(false)
-          window.location.reload()
           break
         default:
           break

@@ -3,7 +3,7 @@ export const initialUserMetaData: userMetaData  = {
     firstName: "",
     lastName: "",
     email: "",
-    role: "",
+    role: "EMPLOYEE",
   };
   
 export const initialSwitchBoardData: initialSwitchBoard  = {

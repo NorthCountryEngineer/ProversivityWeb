@@ -11,5 +11,10 @@
     "allowJs": true,
     "checkJs": false,
     "types": ["node", "cypress"],
-  }
+  },
+  "exclude": [
+    "node_modules", // Exclude node_modules directory
+    "build",        // Exclude build directory
+    "cypress.config.js" // Exclude cypress.config.js
+  ]
 }

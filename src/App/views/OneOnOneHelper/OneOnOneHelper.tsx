@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Button } from "@mui/material";
-import {OneOnOneSignUpDialogueComponent} from './components'
+import {OneOnOneSignUpDialogueComponent, WelcomeDialogue} from './components'
 import { OneOnOneHelperHooks } from "./functions";
+
 
 const OneOnOneHelper = () => {
 
@@ -25,17 +26,24 @@ const OneOnOneHelper = () => {
     <div>
       {switchBoard.loadingComplete ? (
         <div>
-          {switchBoard.isUser ? ( <h1>Welcome back, {userMetaData.firstName}</h1>) : (
-            <div>
-              <h2>You aren't signed up yet</h2>
-              <Button 
-                onClick={()=>setSignupDialogueOpen(true)}
-              >
-                Click here to Sign up
-              </Button>
-              
-            </div>
-          )}
+          {switchBoard.isUser 
+            ? 
+              (
+                <div data-testid="welcome-existing-user-dialogue">
+                  <WelcomeDialogue userMetaData={userMetaData} />
+                </div>
+              ) : (
+                <div>
+                  <h2>You aren't signed up yet</h2>
+                  <Button 
+                    onClick={()=>setSignupDialogueOpen(true)}
+                    data-testid="sign-up-dialogue-toggle-button"
+                  >
+                    Click here to Sign up
+                  </Button>
+                  
+                </div>
+              )}
         </div>
       ) : (
         <p>Loading...</p>
