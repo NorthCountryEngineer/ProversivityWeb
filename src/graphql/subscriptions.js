@@ -6,7 +6,6 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser(filter: $filter) {
       id
       firstName
-      lastName
       email
       role
       meetingsAsRequestor {
@@ -70,7 +69,6 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser(filter: $filter) {
       id
       firstName
-      lastName
       email
       role
       meetingsAsRequestor {
@@ -134,7 +132,6 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser(filter: $filter) {
       id
       firstName
-      lastName
       email
       role
       meetingsAsRequestor {
@@ -287,7 +284,6 @@ export const onCreateUserOrganization = /* GraphQL */ `
       user {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -333,7 +329,6 @@ export const onUpdateUserOrganization = /* GraphQL */ `
       user {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -379,7 +374,6 @@ export const onDeleteUserOrganization = /* GraphQL */ `
       user {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -423,7 +417,6 @@ export const onCreateMeeting = /* GraphQL */ `
       requestor {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -442,7 +435,6 @@ export const onCreateMeeting = /* GraphQL */ `
       employee {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -525,7 +517,6 @@ export const onUpdateMeeting = /* GraphQL */ `
       requestor {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -544,7 +535,6 @@ export const onUpdateMeeting = /* GraphQL */ `
       employee {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -627,7 +617,6 @@ export const onDeleteMeeting = /* GraphQL */ `
       requestor {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -646,7 +635,6 @@ export const onDeleteMeeting = /* GraphQL */ `
       employee {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -734,7 +722,6 @@ export const onCreateAgendaItem = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -744,7 +731,6 @@ export const onCreateAgendaItem = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -795,7 +781,6 @@ export const onUpdateAgendaItem = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -805,7 +790,6 @@ export const onUpdateAgendaItem = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -856,7 +840,6 @@ export const onDeleteAgendaItem = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -866,7 +849,6 @@ export const onDeleteAgendaItem = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -917,7 +899,6 @@ export const onCreateActionItem = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -927,7 +908,6 @@ export const onCreateActionItem = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -957,7 +937,6 @@ export const onCreateActionItem = /* GraphQL */ `
       assignedToUser {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -996,7 +975,6 @@ export const onUpdateActionItem = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1006,7 +984,6 @@ export const onUpdateActionItem = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1036,7 +1013,6 @@ export const onUpdateActionItem = /* GraphQL */ `
       assignedToUser {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -1075,7 +1051,6 @@ export const onDeleteActionItem = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1085,7 +1060,6 @@ export const onDeleteActionItem = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1115,7 +1089,6 @@ export const onDeleteActionItem = /* GraphQL */ `
       assignedToUser {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -1152,7 +1125,6 @@ export const onCreateNote = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1162,7 +1134,6 @@ export const onCreateNote = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1192,7 +1163,6 @@ export const onCreateNote = /* GraphQL */ `
       user {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -1228,7 +1198,6 @@ export const onUpdateNote = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1238,7 +1207,6 @@ export const onUpdateNote = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1268,7 +1236,6 @@ export const onUpdateNote = /* GraphQL */ `
       user {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -1304,7 +1271,6 @@ export const onDeleteNote = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1314,7 +1280,6 @@ export const onDeleteNote = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -1344,7 +1309,6 @@ export const onDeleteNote = /* GraphQL */ `
       user {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {

@@ -1,7 +1,6 @@
 export const initialUserMetaData: userMetaData  = {
     organization: "",
     firstName: "",
-    lastName: "",
     email: "",
     role: "EMPLOYEE",
   };
@@ -17,7 +16,6 @@ export const initialSwitchBoardData: initialSwitchBoard  = {
 type userMetaData = {
     organization: string,
     firstName: string,
-    lastName: string,
     email: string,
     role: string,
 }

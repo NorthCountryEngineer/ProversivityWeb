@@ -6,16 +6,12 @@ import { initialSwitchBoardData, initialUserMetaData } from "./model.d";
 import { createUser } from "../../../graphql/mutations";
 
 
-function WelcomeDialogue({
+function OneOnOneAuthenticatedUserView({
   userMetaData
 }) {
   return(
     <>
       <h1>Welcome back, {userMetaData.firstName}</h1>
-      <button 
-        data-testid="delete-user-account-button"
-        onClick={deleteUserAccount}
-      > Delete My Account </button>
     </>
     
   )
@@ -40,7 +36,6 @@ function OneOnOneSignUpDialogueComponent({
             variables: { 
               input: {
                 firstName: userMetaData.firstName,
-                lastName: userMetaData.lastName,
                 email: userMetaData.email,
                 role: userMetaData.role,
               }
@@ -96,20 +91,7 @@ function OneOnOneSignUpDialogueComponent({
                         }}
                         data-testid="sign-up-dialog-firstName"
                     />
-                    <TextField
-                      margin="dense"
-                      id="lastName"
-                      label="Last Name"
-                      type="text"
-                      fullWidth
-                      value={userMetaData.lastName}
-                      variant="standard"
-                      onChange={(e) => setMetaData({...metaData, "lastName" : e.target.value})}
-                      sx={{
-                        mt:5
-                      }}
-                      data-testid="sign-up-dialog-lastName"
-                    />
+
                     <TextField
                       margin="dense"
                       id="email"
@@ -201,4 +183,4 @@ function OneOnOneSignUpDialogueComponent({
     )
 }
 
-export {WelcomeDialogue,OneOnOneSignUpDialogueComponent}
+export {OneOnOneAuthenticatedUserView}

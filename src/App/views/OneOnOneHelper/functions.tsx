@@ -1,18 +1,18 @@
-import { API, Auth, graphqlOperation } from "aws-amplify";
-import { listUsers } from "../../../graphql/queries";
-import { useEffect, useState } from "react";
-import { initialSwitchBoardData, initialUserMetaData } from "./model.d";
-import { createUser, deleteUser } from "../../../graphql/mutations";
+import { API, Auth, graphqlOperation } from "aws-amplify"
+import { listUsers } from "../../../graphql/queries"
+import { useEffect, useState } from "react"
+import { initialSwitchBoardData, initialUserMetaData } from "./model.d"
+import { createUser, deleteUser } from "../../../graphql/mutations"
 
 export function OneOnOneHelperHooks():{
-  userMetaData: typeof initialUserMetaData;
-  setUserMetaData: React.Dispatch<React.SetStateAction<typeof initialUserMetaData>>;
-  switchBoard: typeof initialSwitchBoardData;
-  setSwitchBoard: React.Dispatch<React.SetStateAction<typeof initialSwitchBoardData>>;
-  setUserData: (key: string, value: any) => void;
-  setSwitchData: (key: string, value: any) => void;
-  fetchUserData: () => Promise<void>;
-  switchFields: (selection: number, setSwitchBoard: React.Dispatch<React.SetStateAction<typeof initialSwitchBoardData>>) => void;
+  userMetaData: typeof initialUserMetaData
+  setUserMetaData: React.Dispatch<React.SetStateAction<typeof initialUserMetaData>>
+  switchBoard: typeof initialSwitchBoardData
+  setSwitchBoard: React.Dispatch<React.SetStateAction<typeof initialSwitchBoardData>>
+  setUserData: (key: string, value: any) => void
+  setSwitchData: (key: string, value: any) => void
+  fetchUserData: () => Promise<void>
+  switchFields: (selection: number, setSwitchBoard: React.Dispatch<React.SetStateAction<typeof initialSwitchBoardData>>) => void
 } {
     const [userMetaData, setUserMetaData] = useState(initialUserMetaData)
     const [switchBoard, setSwitchBoard] = useState(initialSwitchBoardData)
@@ -40,54 +40,81 @@ export function OneOnOneHelperHooks():{
       // Define a generic setter function for userMetaData and switchBoard
     const setUserData = (key, value) => {
         try{
-            setUserMetaData({ ...userMetaData, [key]: value });
+            setUserMetaData({ ...userMetaData, [key]: value })
             return("Done")
         }catch(error){
             console.error(error)
             return(error)
         }
-    };
+    }
 
     const setSwitchData = (key, value) => {
-        setSwitchBoard({ ...switchBoard, [key]: value });
+        setSwitchBoard({ ...switchBoard, [key]: value })
     }
 
     const fetchUserData = async () => {
-        try {
-          const currentUser = await Auth.currentAuthenticatedUser();
-          console.log(currentUser);
-      
-          const variables = {
-            filter: { email: { eq: currentUser.attributes.email } },
-            limit: 1,
-          };
-      
-          const listUsersCall:any = await API.graphql(graphqlOperation(listUsers, variables));
-          console.log("list users call: ", listUsersCall);
-      
-          // Use a temporary variable to update state in a batch
+      try {
           let tempSwitchBoard = { ...switchBoard };
           let tempUserMetaData = { ...userMetaData };
-      
-          tempUserMetaData.email = currentUser.attributes.email;
-          tempUserMetaData.firstName = currentUser.attributes.name;
-          tempUserMetaData.lastName = currentUser.attributes.name;
-      
-          if (listUsersCall.data.listUsers.items.length > 0) {
-            tempSwitchBoard.isUser = true;
-            tempSwitchBoard.loadingComplete = true;
+  
+          const currentUser = await Auth.currentAuthenticatedUser();
+  
+
+          console.log(currentUser)
+          // Fetch user data and update tempUserMetaData
+          await fetchUserAttributes(currentUser, tempUserMetaData);
+  
+          // Check if the user exists in your system
+          if (await doesUserExist(tempUserMetaData.email)) {
+              tempSwitchBoard.isUser = true;
+              tempSwitchBoard.loadingComplete = true;
           } else {
-            tempSwitchBoard.loadingComplete = true;
+              // Create the user if they don't exist
+              await createUserIfNotExists(tempUserMetaData);
+              tempSwitchBoard.loadingComplete = true;
           }
-      
+  
           // Update the state once after all changes are made
           setSwitchBoard(tempSwitchBoard);
           setUserMetaData(tempUserMetaData);
-        } catch (error) {
+      } catch (error) {
           setSwitchBoard({ ...switchBoard, loadingComplete: true });
           console.error("Error fetching user data:", error);
-        }
       }
+  }
+
+
+    const fetchUserAttributes = async (currentUser, tempUserMetaData) => {
+      tempUserMetaData.email = currentUser.attributes.email
+      tempUserMetaData.firstName = currentUser.attributes.name
+    }
+    
+    const doesUserExist = async (email) => {
+      const variables = {
+          filter: { email: { eq: email } },
+          limit: 1,
+      }
+  
+      const listUsersCall:any = await API.graphql(graphqlOperation(listUsers, variables))
+      return listUsersCall.data.listUsers.items.length > 0
+    }
+    
+    const createUserIfNotExists = async (tempUserMetaData) => {
+      try {
+          await API.graphql({
+              query: createUser,
+              variables: {
+                  input: {
+                      firstName: tempUserMetaData.firstName,
+                      email: tempUserMetaData.email,
+                      role: userMetaData.role,
+                  },
+              },
+          })
+      } catch (error) {
+          console.error('Error creating user:', error)
+      }
+    }
 
 
       
@@ -117,14 +144,19 @@ async function getUserID(userEmail){
 
 async function deleteUserByID(userID){
   const deleteUserCall = await API.graphql(graphqlOperation(deleteUser, { input: { id: userID } }))
-  console.log(deleteUserCall)
   return(deleteUserCall)
 }
 
 export async function deleteUserAccount(){
   const userEmail = "eric.p.yager@gmail.com"
-  const userID = await getUserID(userEmail)
-  const deleteUserCall = await deleteUserByID(userID)
-  if(deleteUserCall) window.location.reload()
-  return(deleteUserCall)
+  try{
+    const userID = await getUserID(userEmail)
+    const deleteUserCall = await deleteUserByID(userID)
+    if(deleteUserCall) window.location.reload()
+    return(deleteUserCall)
+  }
+  catch(error){
+    console.error(error)
+    return(error)
+  }
 }

@@ -6,7 +6,6 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       firstName
-      lastName
       email
       role
       meetingsAsRequestor {
@@ -75,7 +74,6 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -149,7 +147,6 @@ export const getUserOrganization = /* GraphQL */ `
       user {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -202,7 +199,6 @@ export const listUserOrganizations = /* GraphQL */ `
         user {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -236,7 +232,6 @@ export const getMeeting = /* GraphQL */ `
       requestor {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -255,7 +250,6 @@ export const getMeeting = /* GraphQL */ `
       employee {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -343,7 +337,6 @@ export const listMeetings = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -353,7 +346,6 @@ export const listMeetings = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -394,7 +386,6 @@ export const getAgendaItem = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -404,7 +395,6 @@ export const getAgendaItem = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -492,7 +482,6 @@ export const getActionItem = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -502,7 +491,6 @@ export const getActionItem = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -532,7 +520,6 @@ export const getActionItem = /* GraphQL */ `
       assignedToUser {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -587,7 +574,6 @@ export const listActionItems = /* GraphQL */ `
         assignedToUser {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -617,7 +603,6 @@ export const getNote = /* GraphQL */ `
         requestor {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -627,7 +612,6 @@ export const getNote = /* GraphQL */ `
         employee {
           id
           firstName
-          lastName
           email
           role
           createdAt
@@ -657,7 +641,6 @@ export const getNote = /* GraphQL */ `
       user {
         id
         firstName
-        lastName
         email
         role
         meetingsAsRequestor {
@@ -711,7 +694,6 @@ export const listNotes = /* GraphQL */ `
         user {
           id
           firstName
-          lastName
           email
           role
           createdAt
