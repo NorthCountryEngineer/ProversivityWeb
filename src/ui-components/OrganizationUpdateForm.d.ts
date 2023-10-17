@@ -7,7 +7,6 @@
 import * as React from "react";
 import { AutocompleteProps, GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { Organization, UserOrganization } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -16,12 +15,12 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type OrganizationUpdateFormInputValues = {
     name?: string;
     description?: string;
-    users?: UserOrganization[];
+    users?: any[];
 };
 export declare type OrganizationUpdateFormValidationValues = {
     name?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
-    users?: ValidationFunction<UserOrganization>;
+    users?: ValidationFunction<any>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type OrganizationUpdateFormOverridesProps = {
@@ -34,7 +33,7 @@ export declare type OrganizationUpdateFormProps = React.PropsWithChildren<{
     overrides?: OrganizationUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    organization?: Organization;
+    organization?: any;
     onSubmit?: (fields: OrganizationUpdateFormInputValues) => OrganizationUpdateFormInputValues;
     onSuccess?: (fields: OrganizationUpdateFormInputValues) => void;
     onError?: (fields: OrganizationUpdateFormInputValues, errorMessage: string) => void;

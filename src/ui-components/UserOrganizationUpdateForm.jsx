@@ -20,13 +20,17 @@ import {
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import {
-  getOverrideProps,
-  useDataStoreBinding,
-} from "@aws-amplify/ui-react/internal";
-import { UserOrganization, User, Organization } from "../models";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import {
+  getOrganization,
+  getUser,
+  getUserOrganization,
+  listOrganizations,
+  listUsers,
+} from "../graphql/queries";
+import { updateUserOrganization } from "../graphql/mutations";
 function ArrayField({
   items = [],
   onChange,
@@ -39,6 +43,7 @@ function ArrayField({
   defaultFieldValue,
   lengthLimit,
   getBadgeText,
+  runValidationTasks,
   errorMessage,
 }) {
   const labelElement = <Text>{label}</Text>;
@@ -62,6 +67,7 @@ function ArrayField({
     setSelectedBadgeIndex(undefined);
   };
   const addItem = async () => {
+    const { hasError } = runValidationTasks();
     if (
       currentFieldValue !== undefined &&
       currentFieldValue !== null &&
@@ -171,12 +177,7 @@ function ArrayField({
               }}
             ></Button>
           )}
-          <Button
-            size="small"
-            variation="link"
-            isDisabled={hasError}
-            onClick={addItem}
-          >
+          <Button size="small" variation="link" onClick={addItem}>
             {selectedBadgeIndex !== undefined ? "Save" : "Add"}
           </Button>
         </Flex>
@@ -208,19 +209,40 @@ export default function UserOrganizationUpdateForm(props) {
   };
   const [userId, setUserId] = React.useState(initialValues.userId);
   const [user, setUser] = React.useState(initialValues.user);
+  const [userLoading, setUserLoading] = React.useState(false);
+  const [userRecords, setUserRecords] = React.useState([]);
   const [organizationId, setOrganizationId] = React.useState(
     initialValues.organizationId
   );
   const [organization, setOrganization] = React.useState(
     initialValues.organization
   );
+  const [organizationLoading, setOrganizationLoading] = React.useState(false);
+  const [organizationRecords, setOrganizationRecords] = React.useState([]);
   const [role, setRole] = React.useState(initialValues.role);
   const [userOrganizationsId, setUserOrganizationsId] = React.useState(
     initialValues.userOrganizationsId
   );
+  const [userOrganizationsIdLoading, setUserOrganizationsIdLoading] =
+    React.useState(false);
+  const [userOrganizationsIdRecords, setUserOrganizationsIdRecords] =
+    React.useState([]);
+  const [
+    selectedUserOrganizationsIdRecords,
+    setSelectedUserOrganizationsIdRecords,
+  ] = React.useState([]);
   const [organizationUsersId, setOrganizationUsersId] = React.useState(
     initialValues.organizationUsersId
   );
+  const [organizationUsersIdLoading, setOrganizationUsersIdLoading] =
+    React.useState(false);
+  const [organizationUsersIdRecords, setOrganizationUsersIdRecords] =
+    React.useState([]);
+  const [
+    selectedOrganizationUsersIdRecords,
+    setSelectedOrganizationUsersIdRecords,
+  ] = React.useState([]);
+  const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userOrganizationRecord
@@ -256,21 +278,44 @@ export default function UserOrganizationUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(UserOrganization, idProp)
+        ? (
+            await API.graphql({
+              query: getUserOrganization.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getUserOrganization
         : userOrganizationModelProp;
-      setUserOrganizationRecord(record);
       const userRecord = record ? await record.user : undefined;
       setUser(userRecord);
       const organizationRecord = record ? await record.organization : undefined;
       setOrganization(organizationRecord);
       const userOrganizationsIdRecord = record
-        ? await record.userOrganizationsId
+        ? record.userOrganizationsId
+        : undefined;
+      const userRecord = userOrganizationsIdRecord
+        ? (
+            await API.graphql({
+              query: getUser.replaceAll("__typename", ""),
+              variables: { id: userOrganizationsIdRecord },
+            })
+          )?.data?.getUser
         : undefined;
       setUserOrganizationsId(userOrganizationsIdRecord);
+      setSelectedUserOrganizationsIdRecords([userRecord]);
       const organizationUsersIdRecord = record
-        ? await record.organizationUsersId
+        ? record.organizationUsersId
+        : undefined;
+      const organizationRecord = organizationUsersIdRecord
+        ? (
+            await API.graphql({
+              query: getOrganization.replaceAll("__typename", ""),
+              variables: { id: organizationUsersIdRecord },
+            })
+          )?.data?.getOrganization
         : undefined;
       setOrganizationUsersId(organizationUsersIdRecord);
+      setSelectedOrganizationUsersIdRecords([organizationRecord]);
+      setUserOrganizationRecord(record);
     };
     queryData();
   }, [idProp, userOrganizationModelProp]);
@@ -318,14 +363,6 @@ export default function UserOrganizationUpdateForm(props) {
       ? organization.map((r) => getIDValue.organization?.(r))
       : getIDValue.organization?.(organization)
   );
-  const userRecords = useDataStoreBinding({
-    type: "collection",
-    model: User,
-  }).items;
-  const organizationRecords = useDataStoreBinding({
-    type: "collection",
-    model: Organization,
-  }).items;
   const getDisplayValue = {
     user: (r) => `${r?.firstName ? r?.firstName + " - " : ""}${r?.id}`,
     organization: (r) => `${r?.name ? r?.name + " - " : ""}${r?.id}`,
@@ -359,6 +396,124 @@ export default function UserOrganizationUpdateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const fetchUserRecords = async (value) => {
+    setUserLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ firstName: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listUsers.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listUsers?.items;
+      var loaded = result.filter(
+        (item) => !userIdSet.has(getIDValue.user?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setUserRecords(newOptions.slice(0, autocompleteLength));
+    setUserLoading(false);
+  };
+  const fetchOrganizationRecords = async (value) => {
+    setOrganizationLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ name: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listOrganizations.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listOrganizations?.items;
+      var loaded = result.filter(
+        (item) => !organizationIdSet.has(getIDValue.organization?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setOrganizationRecords(newOptions.slice(0, autocompleteLength));
+    setOrganizationLoading(false);
+  };
+  const fetchUserOrganizationsIdRecords = async (value) => {
+    setUserOrganizationsIdLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ firstName: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listUsers.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listUsers?.items;
+      var loaded = result.filter((item) => userOrganizationsId !== item.id);
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setUserOrganizationsIdRecords(newOptions.slice(0, autocompleteLength));
+    setUserOrganizationsIdLoading(false);
+  };
+  const fetchOrganizationUsersIdRecords = async (value) => {
+    setOrganizationUsersIdLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ name: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listOrganizations.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listOrganizations?.items;
+      var loaded = result.filter((item) => organizationUsersId !== item.id);
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setOrganizationUsersIdRecords(newOptions.slice(0, autocompleteLength));
+    setOrganizationUsersIdLoading(false);
+  };
+  React.useEffect(() => {
+    fetchUserRecords("");
+    fetchOrganizationRecords("");
+    fetchUserOrganizationsIdRecords("");
+    fetchOrganizationUsersIdRecords("");
+  }, []);
   return (
     <Grid
       as="form"
@@ -369,12 +524,12 @@ export default function UserOrganizationUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           userId,
-          user,
+          user: user ?? null,
           organizationId,
-          organization,
-          role,
-          userOrganizationsId,
-          organizationUsersId,
+          organization: organization ?? null,
+          role: role ?? null,
+          userOrganizationsId: userOrganizationsId ?? null,
+          organizationUsersId: organizationUsersId ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -408,21 +563,36 @@ export default function UserOrganizationUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            UserOrganization.copyOf(userOrganizationRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          const modelFieldsToSave = {
+            userId: modelFields.userId,
+            userOrganizationUserId: modelFields?.user?.id ?? null,
+            organizationId: modelFields.organizationId,
+            userOrganizationOrganizationId:
+              modelFields?.organization?.id ?? null,
+            role: modelFields.role ?? null,
+            userOrganizationsId: modelFields.userOrganizationsId ?? null,
+            organizationUsersId: modelFields.organizationUsersId ?? null,
+          };
+          await API.graphql({
+            query: updateUserOrganization.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: userOrganizationRecord.id,
+                ...modelFieldsToSave,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -484,10 +654,13 @@ export default function UserOrganizationUpdateForm(props) {
         label={"User"}
         items={user ? [user] : []}
         hasError={errors?.user?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("user", currentUserValue)
+        }
         errorMessage={errors?.user?.errorMessage}
         getBadgeText={getDisplayValue.user}
         setFieldValue={(model) => {
-          setCurrentUserDisplayValue(getDisplayValue.user(model));
+          setCurrentUserDisplayValue(model ? getDisplayValue.user(model) : "");
           setCurrentUserValue(model);
         }}
         inputFieldRef={userRef}
@@ -505,6 +678,7 @@ export default function UserOrganizationUpdateForm(props) {
               id: getIDValue.user?.(r),
               label: getDisplayValue.user?.(r),
             }))}
+          isLoading={userLoading}
           onSelect={({ id, label }) => {
             setCurrentUserValue(
               userRecords.find((r) =>
@@ -522,6 +696,7 @@ export default function UserOrganizationUpdateForm(props) {
           defaultValue={user}
           onChange={(e) => {
             let { value } = e.target;
+            fetchUserRecords(value);
             if (errors.user?.hasError) {
               runValidationTasks("user", value);
             }
@@ -591,11 +766,14 @@ export default function UserOrganizationUpdateForm(props) {
         label={"Organization"}
         items={organization ? [organization] : []}
         hasError={errors?.organization?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("organization", currentOrganizationValue)
+        }
         errorMessage={errors?.organization?.errorMessage}
         getBadgeText={getDisplayValue.organization}
         setFieldValue={(model) => {
           setCurrentOrganizationDisplayValue(
-            getDisplayValue.organization(model)
+            model ? getDisplayValue.organization(model) : ""
           );
           setCurrentOrganizationValue(model);
         }}
@@ -614,6 +792,7 @@ export default function UserOrganizationUpdateForm(props) {
               id: getIDValue.organization?.(r),
               label: getDisplayValue.organization?.(r),
             }))}
+          isLoading={organizationLoading}
           onSelect={({ id, label }) => {
             setCurrentOrganizationValue(
               organizationRecords.find((r) =>
@@ -631,6 +810,7 @@ export default function UserOrganizationUpdateForm(props) {
           defaultValue={organization}
           onChange={(e) => {
             let { value } = e.target;
+            fetchOrganizationRecords(value);
             if (errors.organization?.hasError) {
               runValidationTasks("organization", value);
             }
@@ -712,19 +892,39 @@ export default function UserOrganizationUpdateForm(props) {
         label={"User organizations id"}
         items={userOrganizationsId ? [userOrganizationsId] : []}
         hasError={errors?.userOrganizationsId?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks(
+            "userOrganizationsId",
+            currentUserOrganizationsIdValue
+          )
+        }
         errorMessage={errors?.userOrganizationsId?.errorMessage}
         getBadgeText={(value) =>
-          getDisplayValue.userOrganizationsId(
-            userRecords.find((r) => r.id === value)
-          )
+          value
+            ? getDisplayValue.userOrganizationsId(
+                userOrganizationsIdRecords.find((r) => r.id === value) ??
+                  selectedUserOrganizationsIdRecords.find((r) => r.id === value)
+              )
+            : ""
         }
         setFieldValue={(value) => {
           setCurrentUserOrganizationsIdDisplayValue(
-            getDisplayValue.userOrganizationsId(
-              userRecords.find((r) => r.id === value)
-            )
+            value
+              ? getDisplayValue.userOrganizationsId(
+                  userOrganizationsIdRecords.find((r) => r.id === value) ??
+                    selectedUserOrganizationsIdRecords.find(
+                      (r) => r.id === value
+                    )
+                )
+              : ""
           );
           setCurrentUserOrganizationsIdValue(value);
+          const selectedRecord = userOrganizationsIdRecords.find(
+            (r) => r.id === value
+          );
+          if (selectedRecord) {
+            setSelectedUserOrganizationsIdRecords([selectedRecord]);
+          }
         }}
         inputFieldRef={userOrganizationsIdRef}
         defaultFieldValue={""}
@@ -735,7 +935,7 @@ export default function UserOrganizationUpdateForm(props) {
           isReadOnly={false}
           placeholder="Search User"
           value={currentUserOrganizationsIdDisplayValue}
-          options={userRecords
+          options={userOrganizationsIdRecords
             .filter(
               (r, i, arr) =>
                 arr.findIndex((member) => member?.id === r?.id) === i
@@ -744,6 +944,7 @@ export default function UserOrganizationUpdateForm(props) {
               id: r?.id,
               label: getDisplayValue.userOrganizationsId?.(r),
             }))}
+          isLoading={userOrganizationsIdLoading}
           onSelect={({ id, label }) => {
             setCurrentUserOrganizationsIdValue(id);
             setCurrentUserOrganizationsIdDisplayValue(label);
@@ -755,6 +956,7 @@ export default function UserOrganizationUpdateForm(props) {
           defaultValue={userOrganizationsId}
           onChange={(e) => {
             let { value } = e.target;
+            fetchUserOrganizationsIdRecords(value);
             if (errors.userOrganizationsId?.hasError) {
               runValidationTasks("userOrganizationsId", value);
             }
@@ -798,19 +1000,39 @@ export default function UserOrganizationUpdateForm(props) {
         label={"Organization users id"}
         items={organizationUsersId ? [organizationUsersId] : []}
         hasError={errors?.organizationUsersId?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks(
+            "organizationUsersId",
+            currentOrganizationUsersIdValue
+          )
+        }
         errorMessage={errors?.organizationUsersId?.errorMessage}
         getBadgeText={(value) =>
-          getDisplayValue.organizationUsersId(
-            organizationRecords.find((r) => r.id === value)
-          )
+          value
+            ? getDisplayValue.organizationUsersId(
+                organizationUsersIdRecords.find((r) => r.id === value) ??
+                  selectedOrganizationUsersIdRecords.find((r) => r.id === value)
+              )
+            : ""
         }
         setFieldValue={(value) => {
           setCurrentOrganizationUsersIdDisplayValue(
-            getDisplayValue.organizationUsersId(
-              organizationRecords.find((r) => r.id === value)
-            )
+            value
+              ? getDisplayValue.organizationUsersId(
+                  organizationUsersIdRecords.find((r) => r.id === value) ??
+                    selectedOrganizationUsersIdRecords.find(
+                      (r) => r.id === value
+                    )
+                )
+              : ""
           );
           setCurrentOrganizationUsersIdValue(value);
+          const selectedRecord = organizationUsersIdRecords.find(
+            (r) => r.id === value
+          );
+          if (selectedRecord) {
+            setSelectedOrganizationUsersIdRecords([selectedRecord]);
+          }
         }}
         inputFieldRef={organizationUsersIdRef}
         defaultFieldValue={""}
@@ -821,7 +1043,7 @@ export default function UserOrganizationUpdateForm(props) {
           isReadOnly={false}
           placeholder="Search Organization"
           value={currentOrganizationUsersIdDisplayValue}
-          options={organizationRecords
+          options={organizationUsersIdRecords
             .filter(
               (r, i, arr) =>
                 arr.findIndex((member) => member?.id === r?.id) === i
@@ -830,6 +1052,7 @@ export default function UserOrganizationUpdateForm(props) {
               id: r?.id,
               label: getDisplayValue.organizationUsersId?.(r),
             }))}
+          isLoading={organizationUsersIdLoading}
           onSelect={({ id, label }) => {
             setCurrentOrganizationUsersIdValue(id);
             setCurrentOrganizationUsersIdDisplayValue(label);
@@ -841,6 +1064,7 @@ export default function UserOrganizationUpdateForm(props) {
           defaultValue={organizationUsersId}
           onChange={(e) => {
             let { value } = e.target;
+            fetchOrganizationUsersIdRecords(value);
             if (errors.organizationUsersId?.hasError) {
               runValidationTasks("organizationUsersId", value);
             }

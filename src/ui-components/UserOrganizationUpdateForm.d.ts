@@ -7,7 +7,6 @@
 import * as React from "react";
 import { AutocompleteProps, GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { UserOrganization, User, Organization } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -15,18 +14,18 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type UserOrganizationUpdateFormInputValues = {
     userId?: string;
-    user?: User;
+    user?: any;
     organizationId?: string;
-    organization?: Organization;
+    organization?: any;
     role?: string;
     userOrganizationsId?: string;
     organizationUsersId?: string;
 };
 export declare type UserOrganizationUpdateFormValidationValues = {
     userId?: ValidationFunction<string>;
-    user?: ValidationFunction<User>;
+    user?: ValidationFunction<any>;
     organizationId?: ValidationFunction<string>;
-    organization?: ValidationFunction<Organization>;
+    organization?: ValidationFunction<any>;
     role?: ValidationFunction<string>;
     userOrganizationsId?: ValidationFunction<string>;
     organizationUsersId?: ValidationFunction<string>;
@@ -46,7 +45,7 @@ export declare type UserOrganizationUpdateFormProps = React.PropsWithChildren<{
     overrides?: UserOrganizationUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    userOrganization?: UserOrganization;
+    userOrganization?: any;
     onSubmit?: (fields: UserOrganizationUpdateFormInputValues) => UserOrganizationUpdateFormInputValues;
     onSuccess?: (fields: UserOrganizationUpdateFormInputValues) => void;
     onError?: (fields: UserOrganizationUpdateFormInputValues, errorMessage: string) => void;

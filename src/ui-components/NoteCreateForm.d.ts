@@ -7,7 +7,6 @@
 import * as React from "react";
 import { AutocompleteProps, GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { Meeting, User } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -15,18 +14,18 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type NoteCreateFormInputValues = {
     meetingID?: string;
-    meeting?: Meeting;
+    meeting?: any;
     userID?: string;
-    user?: User;
+    user?: any;
     content?: string;
     timestamp?: number;
     meetingNotesId?: string;
 };
 export declare type NoteCreateFormValidationValues = {
     meetingID?: ValidationFunction<string>;
-    meeting?: ValidationFunction<Meeting>;
+    meeting?: ValidationFunction<any>;
     userID?: ValidationFunction<string>;
-    user?: ValidationFunction<User>;
+    user?: ValidationFunction<any>;
     content?: ValidationFunction<string>;
     timestamp?: ValidationFunction<number>;
     meetingNotesId?: ValidationFunction<string>;

@@ -20,13 +20,11 @@ import {
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import {
-  getOverrideProps,
-  useDataStoreBinding,
-} from "@aws-amplify/ui-react/internal";
-import { AgendaItem, Meeting } from "../models";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { listMeetings } from "../graphql/queries";
+import { createAgendaItem } from "../graphql/mutations";
 function ArrayField({
   items = [],
   onChange,
@@ -39,6 +37,7 @@ function ArrayField({
   defaultFieldValue,
   lengthLimit,
   getBadgeText,
+  runValidationTasks,
   errorMessage,
 }) {
   const labelElement = <Text>{label}</Text>;
@@ -62,6 +61,7 @@ function ArrayField({
     setSelectedBadgeIndex(undefined);
   };
   const addItem = async () => {
+    const { hasError } = runValidationTasks();
     if (
       currentFieldValue !== undefined &&
       currentFieldValue !== null &&
@@ -171,12 +171,7 @@ function ArrayField({
               }}
             ></Button>
           )}
-          <Button
-            size="small"
-            variation="link"
-            isDisabled={hasError}
-            onClick={addItem}
-          >
+          <Button size="small" variation="link" onClick={addItem}>
             {selectedBadgeIndex !== undefined ? "Save" : "Add"}
           </Button>
         </Flex>
@@ -208,6 +203,8 @@ export default function AgendaItemCreateForm(props) {
   };
   const [meetingID, setMeetingID] = React.useState(initialValues.meetingID);
   const [meeting, setMeeting] = React.useState(initialValues.meeting);
+  const [meetingLoading, setMeetingLoading] = React.useState(false);
+  const [meetingRecords, setMeetingRecords] = React.useState([]);
   const [title, setTitle] = React.useState(initialValues.title);
   const [description, setDescription] = React.useState(
     initialValues.description
@@ -218,6 +215,15 @@ export default function AgendaItemCreateForm(props) {
   const [meetingAgendaItemsId, setMeetingAgendaItemsId] = React.useState(
     initialValues.meetingAgendaItemsId
   );
+  const [meetingAgendaItemsIdLoading, setMeetingAgendaItemsIdLoading] =
+    React.useState(false);
+  const [meetingAgendaItemsIdRecords, setMeetingAgendaItemsIdRecords] =
+    React.useState([]);
+  const [
+    selectedMeetingAgendaItemsIdRecords,
+    setSelectedMeetingAgendaItemsIdRecords,
+  ] = React.useState([]);
+  const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setMeetingID(initialValues.meetingID);
@@ -256,10 +262,6 @@ export default function AgendaItemCreateForm(props) {
       ? meeting.map((r) => getIDValue.meeting?.(r))
       : getIDValue.meeting?.(meeting)
   );
-  const meetingRecords = useDataStoreBinding({
-    type: "collection",
-    model: Meeting,
-  }).items;
   const getDisplayValue = {
     meeting: (r) =>
       `${r?.scheduledTime ? r?.scheduledTime + " - " : ""}${r?.id}`,
@@ -293,6 +295,72 @@ export default function AgendaItemCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const fetchMeetingRecords = async (value) => {
+    setMeetingLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [
+            { scheduledTime: { contains: value } },
+            { id: { contains: value } },
+          ],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listMeetings.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listMeetings?.items;
+      var loaded = result.filter(
+        (item) => !meetingIdSet.has(getIDValue.meeting?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setMeetingRecords(newOptions.slice(0, autocompleteLength));
+    setMeetingLoading(false);
+  };
+  const fetchMeetingAgendaItemsIdRecords = async (value) => {
+    setMeetingAgendaItemsIdLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [
+            { scheduledTime: { contains: value } },
+            { id: { contains: value } },
+          ],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listMeetings.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listMeetings?.items;
+      var loaded = result.filter((item) => meetingAgendaItemsId !== item.id);
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setMeetingAgendaItemsIdRecords(newOptions.slice(0, autocompleteLength));
+    setMeetingAgendaItemsIdLoading(false);
+  };
+  React.useEffect(() => {
+    fetchMeetingRecords("");
+    fetchMeetingAgendaItemsIdRecords("");
+  }, []);
   return (
     <Grid
       as="form"
@@ -343,11 +411,28 @@ export default function AgendaItemCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(new AgendaItem(modelFields));
+          const modelFieldsToSave = {
+            meetingID: modelFields.meetingID,
+            agendaItemMeetingId: modelFields?.meeting?.id,
+            title: modelFields.title,
+            description: modelFields.description,
+            duration: modelFields.duration,
+            order: modelFields.order,
+            status: modelFields.status,
+            meetingAgendaItemsId: modelFields.meetingAgendaItemsId,
+          };
+          await API.graphql({
+            query: createAgendaItem.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                ...modelFieldsToSave,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -356,7 +441,8 @@ export default function AgendaItemCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -420,10 +506,15 @@ export default function AgendaItemCreateForm(props) {
         label={"Meeting"}
         items={meeting ? [meeting] : []}
         hasError={errors?.meeting?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("meeting", currentMeetingValue)
+        }
         errorMessage={errors?.meeting?.errorMessage}
         getBadgeText={getDisplayValue.meeting}
         setFieldValue={(model) => {
-          setCurrentMeetingDisplayValue(getDisplayValue.meeting(model));
+          setCurrentMeetingDisplayValue(
+            model ? getDisplayValue.meeting(model) : ""
+          );
           setCurrentMeetingValue(model);
         }}
         inputFieldRef={meetingRef}
@@ -441,6 +532,7 @@ export default function AgendaItemCreateForm(props) {
               id: getIDValue.meeting?.(r),
               label: getDisplayValue.meeting?.(r),
             }))}
+          isLoading={meetingLoading}
           onSelect={({ id, label }) => {
             setCurrentMeetingValue(
               meetingRecords.find((r) =>
@@ -457,6 +549,7 @@ export default function AgendaItemCreateForm(props) {
           }}
           onChange={(e) => {
             let { value } = e.target;
+            fetchMeetingRecords(value);
             if (errors.meeting?.hasError) {
               runValidationTasks("meeting", value);
             }
@@ -677,19 +770,41 @@ export default function AgendaItemCreateForm(props) {
         label={"Meeting agenda items id"}
         items={meetingAgendaItemsId ? [meetingAgendaItemsId] : []}
         hasError={errors?.meetingAgendaItemsId?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks(
+            "meetingAgendaItemsId",
+            currentMeetingAgendaItemsIdValue
+          )
+        }
         errorMessage={errors?.meetingAgendaItemsId?.errorMessage}
         getBadgeText={(value) =>
-          getDisplayValue.meetingAgendaItemsId(
-            meetingRecords.find((r) => r.id === value)
-          )
+          value
+            ? getDisplayValue.meetingAgendaItemsId(
+                meetingAgendaItemsIdRecords.find((r) => r.id === value) ??
+                  selectedMeetingAgendaItemsIdRecords.find(
+                    (r) => r.id === value
+                  )
+              )
+            : ""
         }
         setFieldValue={(value) => {
           setCurrentMeetingAgendaItemsIdDisplayValue(
-            getDisplayValue.meetingAgendaItemsId(
-              meetingRecords.find((r) => r.id === value)
-            )
+            value
+              ? getDisplayValue.meetingAgendaItemsId(
+                  meetingAgendaItemsIdRecords.find((r) => r.id === value) ??
+                    selectedMeetingAgendaItemsIdRecords.find(
+                      (r) => r.id === value
+                    )
+                )
+              : ""
           );
           setCurrentMeetingAgendaItemsIdValue(value);
+          const selectedRecord = meetingAgendaItemsIdRecords.find(
+            (r) => r.id === value
+          );
+          if (selectedRecord) {
+            setSelectedMeetingAgendaItemsIdRecords([selectedRecord]);
+          }
         }}
         inputFieldRef={meetingAgendaItemsIdRef}
         defaultFieldValue={""}
@@ -700,7 +815,7 @@ export default function AgendaItemCreateForm(props) {
           isReadOnly={false}
           placeholder="Search Meeting"
           value={currentMeetingAgendaItemsIdDisplayValue}
-          options={meetingRecords
+          options={meetingAgendaItemsIdRecords
             .filter(
               (r, i, arr) =>
                 arr.findIndex((member) => member?.id === r?.id) === i
@@ -709,6 +824,7 @@ export default function AgendaItemCreateForm(props) {
               id: r?.id,
               label: getDisplayValue.meetingAgendaItemsId?.(r),
             }))}
+          isLoading={meetingAgendaItemsIdLoading}
           onSelect={({ id, label }) => {
             setCurrentMeetingAgendaItemsIdValue(id);
             setCurrentMeetingAgendaItemsIdDisplayValue(label);
@@ -719,6 +835,7 @@ export default function AgendaItemCreateForm(props) {
           }}
           onChange={(e) => {
             let { value } = e.target;
+            fetchMeetingAgendaItemsIdRecords(value);
             if (errors.meetingAgendaItemsId?.hasError) {
               runValidationTasks("meetingAgendaItemsId", value);
             }

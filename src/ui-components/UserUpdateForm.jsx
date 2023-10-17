@@ -15,18 +15,26 @@ import {
   Grid,
   Icon,
   ScrollView,
-  SelectField,
   Text,
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import {
-  getOverrideProps,
-  useDataStoreBinding,
-} from "@aws-amplify/ui-react/internal";
-import { User, Meeting, UserOrganization } from "../models";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import {
+  getUser,
+  listOrganizations,
+  listRelationships,
+  listUserOrganizations,
+  userOrganizationsByUserId,
+} from "../graphql/queries";
+import { API } from "aws-amplify";
+import {
+  createUserOrganizations,
+  deleteUserOrganizations,
+  updateRelationship,
+  updateUser,
+} from "../graphql/mutations";
 function ArrayField({
   items = [],
   onChange,
@@ -39,6 +47,7 @@ function ArrayField({
   defaultFieldValue,
   lengthLimit,
   getBadgeText,
+  runValidationTasks,
   errorMessage,
 }) {
   const labelElement = <Text>{label}</Text>;
@@ -62,6 +71,7 @@ function ArrayField({
     setSelectedBadgeIndex(undefined);
   };
   const addItem = async () => {
+    const { hasError } = runValidationTasks();
     if (
       currentFieldValue !== undefined &&
       currentFieldValue !== null &&
@@ -171,12 +181,7 @@ function ArrayField({
               }}
             ></Button>
           )}
-          <Button
-            size="small"
-            variation="link"
-            isDisabled={hasError}
-            onClick={addItem}
-          >
+          <Button size="small" variation="link" onClick={addItem}>
             {selectedBadgeIndex !== undefined ? "Save" : "Add"}
           </Button>
         </Flex>
@@ -200,98 +205,86 @@ export default function UserUpdateForm(props) {
   const initialValues = {
     firstName: "",
     email: "",
-    role: "",
-    meetingsAsRequestor: [],
-    meetingsAsEmployee: [],
+    relationships: [],
     organizations: [],
   };
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
   const [email, setEmail] = React.useState(initialValues.email);
-  const [role, setRole] = React.useState(initialValues.role);
-  const [meetingsAsRequestor, setMeetingsAsRequestor] = React.useState(
-    initialValues.meetingsAsRequestor
+  const [relationships, setRelationships] = React.useState(
+    initialValues.relationships
   );
-  const [meetingsAsEmployee, setMeetingsAsEmployee] = React.useState(
-    initialValues.meetingsAsEmployee
-  );
+  const [relationshipsLoading, setRelationshipsLoading] = React.useState(false);
+  const [relationshipsRecords, setRelationshipsRecords] = React.useState([]);
   const [organizations, setOrganizations] = React.useState(
     initialValues.organizations
   );
+  const [organizationsLoading, setOrganizationsLoading] = React.useState(false);
+  const [organizationsRecords, setOrganizationsRecords] = React.useState([]);
+  const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
       ? {
           ...initialValues,
           ...userRecord,
-          meetingsAsRequestor: linkedMeetingsAsRequestor,
-          meetingsAsEmployee: linkedMeetingsAsEmployee,
+          relationships: linkedRelationships,
           organizations: linkedOrganizations,
         }
       : initialValues;
     setFirstName(cleanValues.firstName);
     setEmail(cleanValues.email);
-    setRole(cleanValues.role);
-    setMeetingsAsRequestor(cleanValues.meetingsAsRequestor ?? []);
-    setCurrentMeetingsAsRequestorValue(undefined);
-    setCurrentMeetingsAsRequestorDisplayValue("");
-    setMeetingsAsEmployee(cleanValues.meetingsAsEmployee ?? []);
-    setCurrentMeetingsAsEmployeeValue(undefined);
-    setCurrentMeetingsAsEmployeeDisplayValue("");
+    setRelationships(cleanValues.relationships ?? []);
+    setCurrentRelationshipsValue(undefined);
+    setCurrentRelationshipsDisplayValue("");
     setOrganizations(cleanValues.organizations ?? []);
     setCurrentOrganizationsValue(undefined);
     setCurrentOrganizationsDisplayValue("");
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(userModelProp);
-  const [linkedMeetingsAsRequestor, setLinkedMeetingsAsRequestor] =
-    React.useState([]);
-  const canUnlinkMeetingsAsRequestor = true;
-  const [linkedMeetingsAsEmployee, setLinkedMeetingsAsEmployee] =
-    React.useState([]);
-  const canUnlinkMeetingsAsEmployee = true;
+  const [linkedRelationships, setLinkedRelationships] = React.useState([]);
+  const canUnlinkRelationships = true;
   const [linkedOrganizations, setLinkedOrganizations] = React.useState([]);
-  const canUnlinkOrganizations = true;
+  const canUnlinkOrganizations = false;
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(User, idProp)
+        ? (
+            await API.graphql({
+              query: getUser.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getUser
         : userModelProp;
-      setUserRecord(record);
-      const linkedMeetingsAsRequestor = record
-        ? await record.meetingsAsRequestor.toArray()
-        : [];
-      setLinkedMeetingsAsRequestor(linkedMeetingsAsRequestor);
-      const linkedMeetingsAsEmployee = record
-        ? await record.meetingsAsEmployee.toArray()
-        : [];
-      setLinkedMeetingsAsEmployee(linkedMeetingsAsEmployee);
+      const linkedRelationships = record?.relationships?.items ?? [];
+      setLinkedRelationships(linkedRelationships);
       const linkedOrganizations = record
-        ? await record.organizations.toArray()
+        ? (
+            await API.graphql({
+              query: userOrganizationsByUserId.replaceAll("__typename", ""),
+              variables: {
+                userId: record.id,
+              },
+            })
+          ).data.userOrganizationsByUserId.items.map((t) => t.organization)
         : [];
       setLinkedOrganizations(linkedOrganizations);
+      setUserRecord(record);
     };
     queryData();
   }, [idProp, userModelProp]);
   React.useEffect(resetStateValues, [
     userRecord,
-    linkedMeetingsAsRequestor,
-    linkedMeetingsAsEmployee,
+    linkedRelationships,
     linkedOrganizations,
   ]);
   const [
-    currentMeetingsAsRequestorDisplayValue,
-    setCurrentMeetingsAsRequestorDisplayValue,
+    currentRelationshipsDisplayValue,
+    setCurrentRelationshipsDisplayValue,
   ] = React.useState("");
-  const [currentMeetingsAsRequestorValue, setCurrentMeetingsAsRequestorValue] =
+  const [currentRelationshipsValue, setCurrentRelationshipsValue] =
     React.useState(undefined);
-  const meetingsAsRequestorRef = React.createRef();
-  const [
-    currentMeetingsAsEmployeeDisplayValue,
-    setCurrentMeetingsAsEmployeeDisplayValue,
-  ] = React.useState("");
-  const [currentMeetingsAsEmployeeValue, setCurrentMeetingsAsEmployeeValue] =
-    React.useState(undefined);
-  const meetingsAsEmployeeRef = React.createRef();
+  const relationshipsRef = React.createRef();
   const [
     currentOrganizationsDisplayValue,
     setCurrentOrganizationsDisplayValue,
@@ -300,46 +293,27 @@ export default function UserUpdateForm(props) {
     React.useState(undefined);
   const organizationsRef = React.createRef();
   const getIDValue = {
-    meetingsAsRequestor: (r) => JSON.stringify({ id: r?.id }),
-    meetingsAsEmployee: (r) => JSON.stringify({ id: r?.id }),
+    relationships: (r) => JSON.stringify({ id: r?.id }),
     organizations: (r) => JSON.stringify({ id: r?.id }),
   };
-  const meetingsAsRequestorIdSet = new Set(
-    Array.isArray(meetingsAsRequestor)
-      ? meetingsAsRequestor.map((r) => getIDValue.meetingsAsRequestor?.(r))
-      : getIDValue.meetingsAsRequestor?.(meetingsAsRequestor)
-  );
-  const meetingsAsEmployeeIdSet = new Set(
-    Array.isArray(meetingsAsEmployee)
-      ? meetingsAsEmployee.map((r) => getIDValue.meetingsAsEmployee?.(r))
-      : getIDValue.meetingsAsEmployee?.(meetingsAsEmployee)
+  const relationshipsIdSet = new Set(
+    Array.isArray(relationships)
+      ? relationships.map((r) => getIDValue.relationships?.(r))
+      : getIDValue.relationships?.(relationships)
   );
   const organizationsIdSet = new Set(
     Array.isArray(organizations)
       ? organizations.map((r) => getIDValue.organizations?.(r))
       : getIDValue.organizations?.(organizations)
   );
-  const meetingRecords = useDataStoreBinding({
-    type: "collection",
-    model: Meeting,
-  }).items;
-  const userOrganizationRecords = useDataStoreBinding({
-    type: "collection",
-    model: UserOrganization,
-  }).items;
   const getDisplayValue = {
-    meetingsAsRequestor: (r) =>
-      `${r?.scheduledTime ? r?.scheduledTime + " - " : ""}${r?.id}`,
-    meetingsAsEmployee: (r) =>
-      `${r?.scheduledTime ? r?.scheduledTime + " - " : ""}${r?.id}`,
-    organizations: (r) => `${r?.role ? r?.role + " - " : ""}${r?.id}`,
+    relationships: (r) => `${r?.name ? r?.name + " - " : ""}${r?.id}`,
+    organizations: (r) => `${r?.name ? r?.name + " - " : ""}${r?.id}`,
   };
   const validations = {
     firstName: [],
     email: [{ type: "Required" }],
-    role: [],
-    meetingsAsRequestor: [],
-    meetingsAsEmployee: [],
+    relationships: [],
     organizations: [],
   };
   const runValidationTasks = async (
@@ -359,6 +333,68 @@ export default function UserUpdateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const fetchRelationshipsRecords = async (value) => {
+    setRelationshipsLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ name: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listRelationships.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listRelationships?.items;
+      var loaded = result.filter(
+        (item) => !relationshipsIdSet.has(getIDValue.relationships?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setRelationshipsRecords(newOptions.slice(0, autocompleteLength));
+    setRelationshipsLoading(false);
+  };
+  const fetchOrganizationsRecords = async (value) => {
+    setOrganizationsLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ name: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listOrganizations.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listOrganizations?.items;
+      var loaded = result.filter(
+        (item) => !organizationsIdSet.has(getIDValue.organizations?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setOrganizationsRecords(newOptions.slice(0, autocompleteLength));
+    setOrganizationsLoading(false);
+  };
+  React.useEffect(() => {
+    fetchRelationshipsRecords("");
+    fetchOrganizationsRecords("");
+  }, []);
   return (
     <Grid
       as="form"
@@ -368,12 +404,10 @@ export default function UserUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          firstName,
+          firstName: firstName ?? null,
           email,
-          role,
-          meetingsAsRequestor,
-          meetingsAsEmployee,
-          organizations,
+          relationships: relationships ?? null,
+          organizations: organizations ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -407,165 +441,162 @@ export default function UserUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
           const promises = [];
-          const meetingsAsRequestorToLink = [];
-          const meetingsAsRequestorToUnLink = [];
-          const meetingsAsRequestorSet = new Set();
-          const linkedMeetingsAsRequestorSet = new Set();
-          meetingsAsRequestor.forEach((r) =>
-            meetingsAsRequestorSet.add(getIDValue.meetingsAsRequestor?.(r))
+          const relationshipsToLink = [];
+          const relationshipsToUnLink = [];
+          const relationshipsSet = new Set();
+          const linkedRelationshipsSet = new Set();
+          relationships.forEach((r) =>
+            relationshipsSet.add(getIDValue.relationships?.(r))
           );
-          linkedMeetingsAsRequestor.forEach((r) =>
-            linkedMeetingsAsRequestorSet.add(
-              getIDValue.meetingsAsRequestor?.(r)
-            )
+          linkedRelationships.forEach((r) =>
+            linkedRelationshipsSet.add(getIDValue.relationships?.(r))
           );
-          linkedMeetingsAsRequestor.forEach((r) => {
-            if (
-              !meetingsAsRequestorSet.has(getIDValue.meetingsAsRequestor?.(r))
-            ) {
-              meetingsAsRequestorToUnLink.push(r);
+          linkedRelationships.forEach((r) => {
+            if (!relationshipsSet.has(getIDValue.relationships?.(r))) {
+              relationshipsToUnLink.push(r);
             }
           });
-          meetingsAsRequestor.forEach((r) => {
-            if (
-              !linkedMeetingsAsRequestorSet.has(
-                getIDValue.meetingsAsRequestor?.(r)
-              )
-            ) {
-              meetingsAsRequestorToLink.push(r);
+          relationships.forEach((r) => {
+            if (!linkedRelationshipsSet.has(getIDValue.relationships?.(r))) {
+              relationshipsToLink.push(r);
             }
           });
-          meetingsAsRequestorToUnLink.forEach((original) => {
-            if (!canUnlinkMeetingsAsRequestor) {
+          relationshipsToUnLink.forEach((original) => {
+            if (!canUnlinkRelationships) {
               throw Error(
-                `Meeting ${original.id} cannot be unlinked from User because userMeetingsAsRequestorId is a required field.`
+                `Relationship ${original.id} cannot be unlinked from User because userRelationshipsId is a required field.`
               );
             }
             promises.push(
-              DataStore.save(
-                Meeting.copyOf(original, (updated) => {
-                  updated.userMeetingsAsRequestorId = null;
-                })
-              )
+              API.graphql({
+                query: updateRelationship.replaceAll("__typename", ""),
+                variables: {
+                  input: {
+                    id: original.id,
+                    userRelationshipsId: null,
+                  },
+                },
+              })
             );
           });
-          meetingsAsRequestorToLink.forEach((original) => {
+          relationshipsToLink.forEach((original) => {
             promises.push(
-              DataStore.save(
-                Meeting.copyOf(original, (updated) => {
-                  updated.userMeetingsAsRequestorId = userRecord.id;
-                })
-              )
+              API.graphql({
+                query: updateRelationship.replaceAll("__typename", ""),
+                variables: {
+                  input: {
+                    id: original.id,
+                    userRelationshipsId: userRecord.id,
+                  },
+                },
+              })
             );
           });
-          const meetingsAsEmployeeToLink = [];
-          const meetingsAsEmployeeToUnLink = [];
-          const meetingsAsEmployeeSet = new Set();
-          const linkedMeetingsAsEmployeeSet = new Set();
-          meetingsAsEmployee.forEach((r) =>
-            meetingsAsEmployeeSet.add(getIDValue.meetingsAsEmployee?.(r))
-          );
-          linkedMeetingsAsEmployee.forEach((r) =>
-            linkedMeetingsAsEmployeeSet.add(getIDValue.meetingsAsEmployee?.(r))
-          );
-          linkedMeetingsAsEmployee.forEach((r) => {
-            if (
-              !meetingsAsEmployeeSet.has(getIDValue.meetingsAsEmployee?.(r))
-            ) {
-              meetingsAsEmployeeToUnLink.push(r);
-            }
-          });
-          meetingsAsEmployee.forEach((r) => {
-            if (
-              !linkedMeetingsAsEmployeeSet.has(
-                getIDValue.meetingsAsEmployee?.(r)
-              )
-            ) {
-              meetingsAsEmployeeToLink.push(r);
-            }
-          });
-          meetingsAsEmployeeToUnLink.forEach((original) => {
-            if (!canUnlinkMeetingsAsEmployee) {
-              throw Error(
-                `Meeting ${original.id} cannot be unlinked from User because userMeetingsAsEmployeeId is a required field.`
-              );
-            }
-            promises.push(
-              DataStore.save(
-                Meeting.copyOf(original, (updated) => {
-                  updated.userMeetingsAsEmployeeId = null;
-                })
-              )
-            );
-          });
-          meetingsAsEmployeeToLink.forEach((original) => {
-            promises.push(
-              DataStore.save(
-                Meeting.copyOf(original, (updated) => {
-                  updated.userMeetingsAsEmployeeId = userRecord.id;
-                })
-              )
-            );
-          });
-          const organizationsToLink = [];
-          const organizationsToUnLink = [];
-          const organizationsSet = new Set();
-          const linkedOrganizationsSet = new Set();
-          organizations.forEach((r) =>
-            organizationsSet.add(getIDValue.organizations?.(r))
-          );
-          linkedOrganizations.forEach((r) =>
-            linkedOrganizationsSet.add(getIDValue.organizations?.(r))
-          );
-          linkedOrganizations.forEach((r) => {
-            if (!organizationsSet.has(getIDValue.organizations?.(r))) {
-              organizationsToUnLink.push(r);
-            }
-          });
+          const organizationsToLinkMap = new Map();
+          const organizationsToUnLinkMap = new Map();
+          const organizationsMap = new Map();
+          const linkedOrganizationsMap = new Map();
           organizations.forEach((r) => {
-            if (!linkedOrganizationsSet.has(getIDValue.organizations?.(r))) {
-              organizationsToLink.push(r);
+            const count = organizationsMap.get(getIDValue.organizations?.(r));
+            const newCount = count ? count + 1 : 1;
+            organizationsMap.set(getIDValue.organizations?.(r), newCount);
+          });
+          linkedOrganizations.forEach((r) => {
+            const count = linkedOrganizationsMap.get(
+              getIDValue.organizations?.(r)
+            );
+            const newCount = count ? count + 1 : 1;
+            linkedOrganizationsMap.set(getIDValue.organizations?.(r), newCount);
+          });
+          linkedOrganizationsMap.forEach((count, id) => {
+            const newCount = organizationsMap.get(id);
+            if (newCount) {
+              const diffCount = count - newCount;
+              if (diffCount > 0) {
+                organizationsToUnLinkMap.set(id, diffCount);
+              }
+            } else {
+              organizationsToUnLinkMap.set(id, count);
             }
           });
-          organizationsToUnLink.forEach((original) => {
-            if (!canUnlinkOrganizations) {
-              throw Error(
-                `UserOrganization ${original.id} cannot be unlinked from User because userOrganizationsId is a required field.`
+          organizationsMap.forEach((count, id) => {
+            const originalCount = linkedOrganizationsMap.get(id);
+            if (originalCount) {
+              const diffCount = count - originalCount;
+              if (diffCount > 0) {
+                organizationsToLinkMap.set(id, diffCount);
+              }
+            } else {
+              organizationsToLinkMap.set(id, count);
+            }
+          });
+          organizationsToUnLinkMap.forEach(async (count, id) => {
+            const recordKeys = JSON.parse(id);
+            const userOrganizationsRecords = (
+              await API.graphql({
+                query: listUserOrganizations.replaceAll("__typename", ""),
+                variables: {
+                  filter: {
+                    and: [
+                      { organizationId: { eq: recordKeys.id } },
+                      { userId: { eq: userRecord.id } },
+                    ],
+                  },
+                },
+              })
+            )?.data?.listUserOrganizations?.items;
+            for (let i = 0; i < count; i++) {
+              promises.push(
+                API.graphql({
+                  query: deleteUserOrganizations.replaceAll("__typename", ""),
+                  variables: {
+                    input: {
+                      id: userOrganizationsRecords[i].id,
+                    },
+                  },
+                })
               );
             }
-            promises.push(
-              DataStore.save(
-                UserOrganization.copyOf(original, (updated) => {
-                  updated.userOrganizationsId = null;
-                })
-              )
-            );
           });
-          organizationsToLink.forEach((original) => {
-            promises.push(
-              DataStore.save(
-                UserOrganization.copyOf(original, (updated) => {
-                  updated.userOrganizationsId = userRecord.id;
-                })
+          organizationsToLinkMap.forEach((count, id) => {
+            const organizationToLink = organizationRecords.find((r) =>
+              Object.entries(JSON.parse(id)).every(
+                ([key, value]) => r[key] === value
               )
             );
+            for (let i = count; i > 0; i--) {
+              promises.push(
+                API.graphql({
+                  query: createUserOrganizations.replaceAll("__typename", ""),
+                  variables: {
+                    input: {
+                      userId: userRecord.id,
+                      organizationId: organizationToLink.id,
+                    },
+                  },
+                })
+              );
+            }
           });
           const modelFieldsToSave = {
-            firstName: modelFields.firstName,
+            firstName: modelFields.firstName ?? null,
             email: modelFields.email,
-            role: modelFields.role,
           };
           promises.push(
-            DataStore.save(
-              User.copyOf(userRecord, (updated) => {
-                Object.assign(updated, modelFieldsToSave);
-              })
-            )
+            API.graphql({
+              query: updateUser.replaceAll("__typename", ""),
+              variables: {
+                input: {
+                  id: userRecord.id,
+                  ...modelFieldsToSave,
+                },
+              },
+            })
           );
           await Promise.all(promises);
           if (onSuccess) {
@@ -573,7 +604,8 @@ export default function UserUpdateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -591,9 +623,7 @@ export default function UserUpdateForm(props) {
             const modelFields = {
               firstName: value,
               email,
-              role,
-              meetingsAsRequestor,
-              meetingsAsEmployee,
+              relationships,
               organizations,
             };
             const result = onChange(modelFields);
@@ -620,9 +650,7 @@ export default function UserUpdateForm(props) {
             const modelFields = {
               firstName,
               email: value,
-              role,
-              meetingsAsRequestor,
-              meetingsAsEmployee,
+              relationships,
               organizations,
             };
             const result = onChange(modelFields);
@@ -638,46 +666,6 @@ export default function UserUpdateForm(props) {
         hasError={errors.email?.hasError}
         {...getOverrideProps(overrides, "email")}
       ></TextField>
-      <SelectField
-        label="Role"
-        placeholder="Please select an option"
-        isDisabled={false}
-        value={role}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              email,
-              role: value,
-              meetingsAsRequestor,
-              meetingsAsEmployee,
-              organizations,
-            };
-            const result = onChange(modelFields);
-            value = result?.role ?? value;
-          }
-          if (errors.role?.hasError) {
-            runValidationTasks("role", value);
-          }
-          setRole(value);
-        }}
-        onBlur={() => runValidationTasks("role", role)}
-        errorMessage={errors.role?.errorMessage}
-        hasError={errors.role?.hasError}
-        {...getOverrideProps(overrides, "role")}
-      >
-        <option
-          children="Requestor"
-          value="requestor"
-          {...getOverrideProps(overrides, "roleoption0")}
-        ></option>
-        <option
-          children="Employee"
-          value="EMPLOYEE"
-          {...getOverrideProps(overrides, "roleoption1")}
-        ></option>
-      </SelectField>
       <ArrayField
         onChange={async (items) => {
           let values = items;
@@ -685,83 +673,83 @@ export default function UserUpdateForm(props) {
             const modelFields = {
               firstName,
               email,
-              role,
-              meetingsAsRequestor: values,
-              meetingsAsEmployee,
+              relationships: values,
               organizations,
             };
             const result = onChange(modelFields);
-            values = result?.meetingsAsRequestor ?? values;
+            values = result?.relationships ?? values;
           }
-          setMeetingsAsRequestor(values);
-          setCurrentMeetingsAsRequestorValue(undefined);
-          setCurrentMeetingsAsRequestorDisplayValue("");
+          setRelationships(values);
+          setCurrentRelationshipsValue(undefined);
+          setCurrentRelationshipsDisplayValue("");
         }}
-        currentFieldValue={currentMeetingsAsRequestorValue}
-        label={"Meetings as requestor"}
-        items={meetingsAsRequestor}
-        hasError={errors?.meetingsAsRequestor?.hasError}
-        errorMessage={errors?.meetingsAsRequestor?.errorMessage}
-        getBadgeText={getDisplayValue.meetingsAsRequestor}
+        currentFieldValue={currentRelationshipsValue}
+        label={"Relationships"}
+        items={relationships}
+        hasError={errors?.relationships?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("relationships", currentRelationshipsValue)
+        }
+        errorMessage={errors?.relationships?.errorMessage}
+        getBadgeText={getDisplayValue.relationships}
         setFieldValue={(model) => {
-          setCurrentMeetingsAsRequestorDisplayValue(
-            getDisplayValue.meetingsAsRequestor(model)
+          setCurrentRelationshipsDisplayValue(
+            model ? getDisplayValue.relationships(model) : ""
           );
-          setCurrentMeetingsAsRequestorValue(model);
+          setCurrentRelationshipsValue(model);
         }}
-        inputFieldRef={meetingsAsRequestorRef}
+        inputFieldRef={relationshipsRef}
         defaultFieldValue={""}
       >
         <Autocomplete
-          label="Meetings as requestor"
+          label="Relationships"
           isRequired={false}
           isReadOnly={false}
-          placeholder="Search Meeting"
-          value={currentMeetingsAsRequestorDisplayValue}
-          options={meetingRecords
+          placeholder="Search Relationship"
+          value={currentRelationshipsDisplayValue}
+          options={relationshipsRecords
             .filter(
-              (r) =>
-                !meetingsAsRequestorIdSet.has(
-                  getIDValue.meetingsAsRequestor?.(r)
-                )
+              (r) => !relationshipsIdSet.has(getIDValue.relationships?.(r))
             )
             .map((r) => ({
-              id: getIDValue.meetingsAsRequestor?.(r),
-              label: getDisplayValue.meetingsAsRequestor?.(r),
+              id: getIDValue.relationships?.(r),
+              label: getDisplayValue.relationships?.(r),
             }))}
+          isLoading={relationshipsLoading}
           onSelect={({ id, label }) => {
-            setCurrentMeetingsAsRequestorValue(
-              meetingRecords.find((r) =>
+            setCurrentRelationshipsValue(
+              relationshipsRecords.find((r) =>
                 Object.entries(JSON.parse(id)).every(
                   ([key, value]) => r[key] === value
                 )
               )
             );
-            setCurrentMeetingsAsRequestorDisplayValue(label);
-            runValidationTasks("meetingsAsRequestor", label);
+            setCurrentRelationshipsDisplayValue(label);
+            runValidationTasks("relationships", label);
           }}
           onClear={() => {
-            setCurrentMeetingsAsRequestorDisplayValue("");
+            setCurrentRelationshipsDisplayValue("");
           }}
           onChange={(e) => {
             let { value } = e.target;
-            if (errors.meetingsAsRequestor?.hasError) {
-              runValidationTasks("meetingsAsRequestor", value);
+            fetchRelationshipsRecords(value);
+            if (errors.relationships?.hasError) {
+              runValidationTasks("relationships", value);
             }
-            setCurrentMeetingsAsRequestorDisplayValue(value);
-            setCurrentMeetingsAsRequestorValue(undefined);
+            setCurrentRelationshipsDisplayValue(value);
+            setCurrentRelationshipsValue(undefined);
           }}
           onBlur={() =>
             runValidationTasks(
-              "meetingsAsRequestor",
-              currentMeetingsAsRequestorDisplayValue
+              "relationships",
+              currentRelationshipsDisplayValue
             )
           }
-          errorMessage={errors.meetingsAsRequestor?.errorMessage}
-          hasError={errors.meetingsAsRequestor?.hasError}
-          ref={meetingsAsRequestorRef}
+          errorMessage={errors.relationships?.errorMessage}
+          hasError={errors.relationships?.hasError}
+          ref={relationshipsRef}
           labelHidden={true}
-          {...getOverrideProps(overrides, "meetingsAsRequestor")}
+          {...getOverrideProps(overrides, "relationships")}
         ></Autocomplete>
       </ArrayField>
       <ArrayField
@@ -771,93 +759,7 @@ export default function UserUpdateForm(props) {
             const modelFields = {
               firstName,
               email,
-              role,
-              meetingsAsRequestor,
-              meetingsAsEmployee: values,
-              organizations,
-            };
-            const result = onChange(modelFields);
-            values = result?.meetingsAsEmployee ?? values;
-          }
-          setMeetingsAsEmployee(values);
-          setCurrentMeetingsAsEmployeeValue(undefined);
-          setCurrentMeetingsAsEmployeeDisplayValue("");
-        }}
-        currentFieldValue={currentMeetingsAsEmployeeValue}
-        label={"Meetings as employee"}
-        items={meetingsAsEmployee}
-        hasError={errors?.meetingsAsEmployee?.hasError}
-        errorMessage={errors?.meetingsAsEmployee?.errorMessage}
-        getBadgeText={getDisplayValue.meetingsAsEmployee}
-        setFieldValue={(model) => {
-          setCurrentMeetingsAsEmployeeDisplayValue(
-            getDisplayValue.meetingsAsEmployee(model)
-          );
-          setCurrentMeetingsAsEmployeeValue(model);
-        }}
-        inputFieldRef={meetingsAsEmployeeRef}
-        defaultFieldValue={""}
-      >
-        <Autocomplete
-          label="Meetings as employee"
-          isRequired={false}
-          isReadOnly={false}
-          placeholder="Search Meeting"
-          value={currentMeetingsAsEmployeeDisplayValue}
-          options={meetingRecords
-            .filter(
-              (r) =>
-                !meetingsAsEmployeeIdSet.has(getIDValue.meetingsAsEmployee?.(r))
-            )
-            .map((r) => ({
-              id: getIDValue.meetingsAsEmployee?.(r),
-              label: getDisplayValue.meetingsAsEmployee?.(r),
-            }))}
-          onSelect={({ id, label }) => {
-            setCurrentMeetingsAsEmployeeValue(
-              meetingRecords.find((r) =>
-                Object.entries(JSON.parse(id)).every(
-                  ([key, value]) => r[key] === value
-                )
-              )
-            );
-            setCurrentMeetingsAsEmployeeDisplayValue(label);
-            runValidationTasks("meetingsAsEmployee", label);
-          }}
-          onClear={() => {
-            setCurrentMeetingsAsEmployeeDisplayValue("");
-          }}
-          onChange={(e) => {
-            let { value } = e.target;
-            if (errors.meetingsAsEmployee?.hasError) {
-              runValidationTasks("meetingsAsEmployee", value);
-            }
-            setCurrentMeetingsAsEmployeeDisplayValue(value);
-            setCurrentMeetingsAsEmployeeValue(undefined);
-          }}
-          onBlur={() =>
-            runValidationTasks(
-              "meetingsAsEmployee",
-              currentMeetingsAsEmployeeDisplayValue
-            )
-          }
-          errorMessage={errors.meetingsAsEmployee?.errorMessage}
-          hasError={errors.meetingsAsEmployee?.hasError}
-          ref={meetingsAsEmployeeRef}
-          labelHidden={true}
-          {...getOverrideProps(overrides, "meetingsAsEmployee")}
-        ></Autocomplete>
-      </ArrayField>
-      <ArrayField
-        onChange={async (items) => {
-          let values = items;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              email,
-              role,
-              meetingsAsRequestor,
-              meetingsAsEmployee,
+              relationships,
               organizations: values,
             };
             const result = onChange(modelFields);
@@ -871,11 +773,14 @@ export default function UserUpdateForm(props) {
         label={"Organizations"}
         items={organizations}
         hasError={errors?.organizations?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("organizations", currentOrganizationsValue)
+        }
         errorMessage={errors?.organizations?.errorMessage}
         getBadgeText={getDisplayValue.organizations}
         setFieldValue={(model) => {
           setCurrentOrganizationsDisplayValue(
-            getDisplayValue.organizations(model)
+            model ? getDisplayValue.organizations(model) : ""
           );
           setCurrentOrganizationsValue(model);
         }}
@@ -886,19 +791,16 @@ export default function UserUpdateForm(props) {
           label="Organizations"
           isRequired={false}
           isReadOnly={false}
-          placeholder="Search UserOrganization"
+          placeholder="Search Organization"
           value={currentOrganizationsDisplayValue}
-          options={userOrganizationRecords
-            .filter(
-              (r) => !organizationsIdSet.has(getIDValue.organizations?.(r))
-            )
-            .map((r) => ({
-              id: getIDValue.organizations?.(r),
-              label: getDisplayValue.organizations?.(r),
-            }))}
+          options={organizationsRecords.map((r) => ({
+            id: getIDValue.organizations?.(r),
+            label: getDisplayValue.organizations?.(r),
+          }))}
+          isLoading={organizationsLoading}
           onSelect={({ id, label }) => {
             setCurrentOrganizationsValue(
-              userOrganizationRecords.find((r) =>
+              organizationsRecords.find((r) =>
                 Object.entries(JSON.parse(id)).every(
                   ([key, value]) => r[key] === value
                 )
@@ -912,6 +814,7 @@ export default function UserUpdateForm(props) {
           }}
           onChange={(e) => {
             let { value } = e.target;
+            fetchOrganizationsRecords(value);
             if (errors.organizations?.hasError) {
               runValidationTasks("organizations", value);
             }

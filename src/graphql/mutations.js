@@ -10,60 +10,17 @@ export const createUser = /* GraphQL */ `
       id
       firstName
       email
-      role
-      meetingsAsRequestor {
-        items {
-          id
-          requestorID
-          employeeID
-          scheduledTime
-          duration
-          locationLink
-          status
-          createdAt
-          updatedAt
-          userMeetingsAsRequestorId
-          userMeetingsAsEmployeeId
-          meetingRequestorId
-          meetingEmployeeId
-        }
+      relationships {
         nextToken
-      }
-      meetingsAsEmployee {
-        items {
-          id
-          requestorID
-          employeeID
-          scheduledTime
-          duration
-          locationLink
-          status
-          createdAt
-          updatedAt
-          userMeetingsAsRequestorId
-          userMeetingsAsEmployeeId
-          meetingRequestorId
-          meetingEmployeeId
-        }
-        nextToken
+        __typename
       }
       organizations {
-        items {
-          id
-          userId
-          organizationId
-          role
-          createdAt
-          updatedAt
-          userOrganizationsId
-          organizationUsersId
-          userOrganizationUserId
-          userOrganizationOrganizationId
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -76,60 +33,17 @@ export const updateUser = /* GraphQL */ `
       id
       firstName
       email
-      role
-      meetingsAsRequestor {
-        items {
-          id
-          requestorID
-          employeeID
-          scheduledTime
-          duration
-          locationLink
-          status
-          createdAt
-          updatedAt
-          userMeetingsAsRequestorId
-          userMeetingsAsEmployeeId
-          meetingRequestorId
-          meetingEmployeeId
-        }
+      relationships {
         nextToken
-      }
-      meetingsAsEmployee {
-        items {
-          id
-          requestorID
-          employeeID
-          scheduledTime
-          duration
-          locationLink
-          status
-          createdAt
-          updatedAt
-          userMeetingsAsRequestorId
-          userMeetingsAsEmployeeId
-          meetingRequestorId
-          meetingEmployeeId
-        }
-        nextToken
+        __typename
       }
       organizations {
-        items {
-          id
-          userId
-          organizationId
-          role
-          createdAt
-          updatedAt
-          userOrganizationsId
-          organizationUsersId
-          userOrganizationUserId
-          userOrganizationOrganizationId
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -142,60 +56,17 @@ export const deleteUser = /* GraphQL */ `
       id
       firstName
       email
-      role
-      meetingsAsRequestor {
-        items {
-          id
-          requestorID
-          employeeID
-          scheduledTime
-          duration
-          locationLink
-          status
-          createdAt
-          updatedAt
-          userMeetingsAsRequestorId
-          userMeetingsAsEmployeeId
-          meetingRequestorId
-          meetingEmployeeId
-        }
+      relationships {
         nextToken
-      }
-      meetingsAsEmployee {
-        items {
-          id
-          requestorID
-          employeeID
-          scheduledTime
-          duration
-          locationLink
-          status
-          createdAt
-          updatedAt
-          userMeetingsAsRequestorId
-          userMeetingsAsEmployeeId
-          meetingRequestorId
-          meetingEmployeeId
-        }
-        nextToken
+        __typename
       }
       organizations {
-        items {
-          id
-          userId
-          organizationId
-          role
-          createdAt
-          updatedAt
-          userOrganizationsId
-          organizationUsersId
-          userOrganizationUserId
-          userOrganizationOrganizationId
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -209,22 +80,12 @@ export const createOrganization = /* GraphQL */ `
       name
       description
       users {
-        items {
-          id
-          userId
-          organizationId
-          role
-          createdAt
-          updatedAt
-          userOrganizationsId
-          organizationUsersId
-          userOrganizationUserId
-          userOrganizationOrganizationId
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -238,22 +99,12 @@ export const updateOrganization = /* GraphQL */ `
       name
       description
       users {
-        items {
-          id
-          userId
-          organizationId
-          role
-          createdAt
-          updatedAt
-          userOrganizationsId
-          organizationUsersId
-          userOrganizationUserId
-          userOrganizationOrganizationId
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -267,160 +118,126 @@ export const deleteOrganization = /* GraphQL */ `
       name
       description
       users {
-        items {
-          id
-          userId
-          organizationId
-          role
-          createdAt
-          updatedAt
-          userOrganizationsId
-          organizationUsersId
-          userOrganizationUserId
-          userOrganizationOrganizationId
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
-export const createUserOrganization = /* GraphQL */ `
-  mutation CreateUserOrganization(
-    $input: CreateUserOrganizationInput!
-    $condition: ModelUserOrganizationConditionInput
+export const createRelationship = /* GraphQL */ `
+  mutation CreateRelationship(
+    $input: CreateRelationshipInput!
+    $condition: ModelRelationshipConditionInput
   ) {
-    createUserOrganization(input: $input, condition: $condition) {
+    createRelationship(input: $input, condition: $condition) {
       id
-      userId
-      user {
+      name
+      description
+      requestor {
         id
         firstName
         email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
         createdAt
         updatedAt
+        __typename
       }
-      organizationId
-      organization {
+      employee {
         id
-        name
-        description
-        users {
-          nextToken
-        }
+        firstName
+        email
         createdAt
         updatedAt
+        __typename
       }
-      role
+      meetings {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      userOrganizationsId
-      organizationUsersId
-      userOrganizationUserId
-      userOrganizationOrganizationId
+      userRelationshipsId
+      relationshipRequestorId
+      relationshipEmployeeId
+      __typename
     }
   }
 `;
-export const updateUserOrganization = /* GraphQL */ `
-  mutation UpdateUserOrganization(
-    $input: UpdateUserOrganizationInput!
-    $condition: ModelUserOrganizationConditionInput
+export const updateRelationship = /* GraphQL */ `
+  mutation UpdateRelationship(
+    $input: UpdateRelationshipInput!
+    $condition: ModelRelationshipConditionInput
   ) {
-    updateUserOrganization(input: $input, condition: $condition) {
+    updateRelationship(input: $input, condition: $condition) {
       id
-      userId
-      user {
+      name
+      description
+      requestor {
         id
         firstName
         email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
         createdAt
         updatedAt
+        __typename
       }
-      organizationId
-      organization {
+      employee {
         id
-        name
-        description
-        users {
-          nextToken
-        }
+        firstName
+        email
         createdAt
         updatedAt
+        __typename
       }
-      role
+      meetings {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      userOrganizationsId
-      organizationUsersId
-      userOrganizationUserId
-      userOrganizationOrganizationId
+      userRelationshipsId
+      relationshipRequestorId
+      relationshipEmployeeId
+      __typename
     }
   }
 `;
-export const deleteUserOrganization = /* GraphQL */ `
-  mutation DeleteUserOrganization(
-    $input: DeleteUserOrganizationInput!
-    $condition: ModelUserOrganizationConditionInput
+export const deleteRelationship = /* GraphQL */ `
+  mutation DeleteRelationship(
+    $input: DeleteRelationshipInput!
+    $condition: ModelRelationshipConditionInput
   ) {
-    deleteUserOrganization(input: $input, condition: $condition) {
+    deleteRelationship(input: $input, condition: $condition) {
       id
-      userId
-      user {
+      name
+      description
+      requestor {
         id
         firstName
         email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
         createdAt
         updatedAt
+        __typename
       }
-      organizationId
-      organization {
+      employee {
         id
-        name
-        description
-        users {
-          nextToken
-        }
+        firstName
+        email
         createdAt
         updatedAt
+        __typename
       }
-      role
+      meetings {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      userOrganizationsId
-      organizationUsersId
-      userOrganizationUserId
-      userOrganizationOrganizationId
+      userRelationshipsId
+      relationshipRequestorId
+      relationshipEmployeeId
+      __typename
     }
   }
 `;
@@ -431,99 +248,26 @@ export const createMeeting = /* GraphQL */ `
   ) {
     createMeeting(input: $input, condition: $condition) {
       id
-      requestorID
-      requestor {
-        id
-        firstName
-        email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      employeeID
-      employee {
-        id
-        firstName
-        email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       scheduledTime
       duration
       locationLink
       status
       agendaItems {
-        items {
-          id
-          meetingID
-          title
-          description
-          duration
-          order
-          status
-          createdAt
-          updatedAt
-          meetingAgendaItemsId
-          agendaItemMeetingId
-        }
         nextToken
+        __typename
       }
       actionItems {
-        items {
-          id
-          meetingID
-          assignedToUserID
-          description
-          dueDate
-          status
-          createdAt
-          updatedAt
-          meetingActionItemsId
-          actionItemMeetingId
-          actionItemAssignedToUserId
-        }
         nextToken
+        __typename
       }
       notes {
-        items {
-          id
-          meetingID
-          userID
-          content
-          timestamp
-          createdAt
-          updatedAt
-          meetingNotesId
-          noteMeetingId
-          noteUserId
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
-      userMeetingsAsRequestorId
-      userMeetingsAsEmployeeId
-      meetingRequestorId
-      meetingEmployeeId
+      relationshipMeetingsId
+      __typename
     }
   }
 `;
@@ -534,99 +278,26 @@ export const updateMeeting = /* GraphQL */ `
   ) {
     updateMeeting(input: $input, condition: $condition) {
       id
-      requestorID
-      requestor {
-        id
-        firstName
-        email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      employeeID
-      employee {
-        id
-        firstName
-        email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       scheduledTime
       duration
       locationLink
       status
       agendaItems {
-        items {
-          id
-          meetingID
-          title
-          description
-          duration
-          order
-          status
-          createdAt
-          updatedAt
-          meetingAgendaItemsId
-          agendaItemMeetingId
-        }
         nextToken
+        __typename
       }
       actionItems {
-        items {
-          id
-          meetingID
-          assignedToUserID
-          description
-          dueDate
-          status
-          createdAt
-          updatedAt
-          meetingActionItemsId
-          actionItemMeetingId
-          actionItemAssignedToUserId
-        }
         nextToken
+        __typename
       }
       notes {
-        items {
-          id
-          meetingID
-          userID
-          content
-          timestamp
-          createdAt
-          updatedAt
-          meetingNotesId
-          noteMeetingId
-          noteUserId
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
-      userMeetingsAsRequestorId
-      userMeetingsAsEmployeeId
-      meetingRequestorId
-      meetingEmployeeId
+      relationshipMeetingsId
+      __typename
     }
   }
 `;
@@ -637,99 +308,26 @@ export const deleteMeeting = /* GraphQL */ `
   ) {
     deleteMeeting(input: $input, condition: $condition) {
       id
-      requestorID
-      requestor {
-        id
-        firstName
-        email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      employeeID
-      employee {
-        id
-        firstName
-        email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       scheduledTime
       duration
       locationLink
       status
       agendaItems {
-        items {
-          id
-          meetingID
-          title
-          description
-          duration
-          order
-          status
-          createdAt
-          updatedAt
-          meetingAgendaItemsId
-          agendaItemMeetingId
-        }
         nextToken
+        __typename
       }
       actionItems {
-        items {
-          id
-          meetingID
-          assignedToUserID
-          description
-          dueDate
-          status
-          createdAt
-          updatedAt
-          meetingActionItemsId
-          actionItemMeetingId
-          actionItemAssignedToUserId
-        }
         nextToken
+        __typename
       }
       notes {
-        items {
-          id
-          meetingID
-          userID
-          content
-          timestamp
-          createdAt
-          updatedAt
-          meetingNotesId
-          noteMeetingId
-          noteUserId
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
-      userMeetingsAsRequestorId
-      userMeetingsAsEmployeeId
-      meetingRequestorId
-      meetingEmployeeId
+      relationshipMeetingsId
+      __typename
     }
   }
 `;
@@ -743,43 +341,14 @@ export const createAgendaItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        requestorID
-        requestor {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
-        employeeID
-        employee {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
         scheduledTime
         duration
         locationLink
         status
-        agendaItems {
-          nextToken
-        }
-        actionItems {
-          nextToken
-        }
-        notes {
-          nextToken
-        }
         createdAt
         updatedAt
-        userMeetingsAsRequestorId
-        userMeetingsAsEmployeeId
-        meetingRequestorId
-        meetingEmployeeId
+        relationshipMeetingsId
+        __typename
       }
       title
       description
@@ -790,6 +359,7 @@ export const createAgendaItem = /* GraphQL */ `
       updatedAt
       meetingAgendaItemsId
       agendaItemMeetingId
+      __typename
     }
   }
 `;
@@ -803,43 +373,14 @@ export const updateAgendaItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        requestorID
-        requestor {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
-        employeeID
-        employee {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
         scheduledTime
         duration
         locationLink
         status
-        agendaItems {
-          nextToken
-        }
-        actionItems {
-          nextToken
-        }
-        notes {
-          nextToken
-        }
         createdAt
         updatedAt
-        userMeetingsAsRequestorId
-        userMeetingsAsEmployeeId
-        meetingRequestorId
-        meetingEmployeeId
+        relationshipMeetingsId
+        __typename
       }
       title
       description
@@ -850,6 +391,7 @@ export const updateAgendaItem = /* GraphQL */ `
       updatedAt
       meetingAgendaItemsId
       agendaItemMeetingId
+      __typename
     }
   }
 `;
@@ -863,43 +405,14 @@ export const deleteAgendaItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        requestorID
-        requestor {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
-        employeeID
-        employee {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
         scheduledTime
         duration
         locationLink
         status
-        agendaItems {
-          nextToken
-        }
-        actionItems {
-          nextToken
-        }
-        notes {
-          nextToken
-        }
         createdAt
         updatedAt
-        userMeetingsAsRequestorId
-        userMeetingsAsEmployeeId
-        meetingRequestorId
-        meetingEmployeeId
+        relationshipMeetingsId
+        __typename
       }
       title
       description
@@ -910,6 +423,7 @@ export const deleteAgendaItem = /* GraphQL */ `
       updatedAt
       meetingAgendaItemsId
       agendaItemMeetingId
+      __typename
     }
   }
 `;
@@ -923,61 +437,23 @@ export const createActionItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        requestorID
-        requestor {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
-        employeeID
-        employee {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
         scheduledTime
         duration
         locationLink
         status
-        agendaItems {
-          nextToken
-        }
-        actionItems {
-          nextToken
-        }
-        notes {
-          nextToken
-        }
         createdAt
         updatedAt
-        userMeetingsAsRequestorId
-        userMeetingsAsEmployeeId
-        meetingRequestorId
-        meetingEmployeeId
+        relationshipMeetingsId
+        __typename
       }
       assignedToUserID
       assignedToUser {
         id
         firstName
         email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
         createdAt
         updatedAt
+        __typename
       }
       description
       dueDate
@@ -987,6 +463,7 @@ export const createActionItem = /* GraphQL */ `
       meetingActionItemsId
       actionItemMeetingId
       actionItemAssignedToUserId
+      __typename
     }
   }
 `;
@@ -1000,61 +477,23 @@ export const updateActionItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        requestorID
-        requestor {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
-        employeeID
-        employee {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
         scheduledTime
         duration
         locationLink
         status
-        agendaItems {
-          nextToken
-        }
-        actionItems {
-          nextToken
-        }
-        notes {
-          nextToken
-        }
         createdAt
         updatedAt
-        userMeetingsAsRequestorId
-        userMeetingsAsEmployeeId
-        meetingRequestorId
-        meetingEmployeeId
+        relationshipMeetingsId
+        __typename
       }
       assignedToUserID
       assignedToUser {
         id
         firstName
         email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
         createdAt
         updatedAt
+        __typename
       }
       description
       dueDate
@@ -1064,6 +503,7 @@ export const updateActionItem = /* GraphQL */ `
       meetingActionItemsId
       actionItemMeetingId
       actionItemAssignedToUserId
+      __typename
     }
   }
 `;
@@ -1077,61 +517,23 @@ export const deleteActionItem = /* GraphQL */ `
       meetingID
       meeting {
         id
-        requestorID
-        requestor {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
-        employeeID
-        employee {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
         scheduledTime
         duration
         locationLink
         status
-        agendaItems {
-          nextToken
-        }
-        actionItems {
-          nextToken
-        }
-        notes {
-          nextToken
-        }
         createdAt
         updatedAt
-        userMeetingsAsRequestorId
-        userMeetingsAsEmployeeId
-        meetingRequestorId
-        meetingEmployeeId
+        relationshipMeetingsId
+        __typename
       }
       assignedToUserID
       assignedToUser {
         id
         firstName
         email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
         createdAt
         updatedAt
+        __typename
       }
       description
       dueDate
@@ -1141,6 +543,7 @@ export const deleteActionItem = /* GraphQL */ `
       meetingActionItemsId
       actionItemMeetingId
       actionItemAssignedToUserId
+      __typename
     }
   }
 `;
@@ -1154,61 +557,23 @@ export const createNote = /* GraphQL */ `
       meetingID
       meeting {
         id
-        requestorID
-        requestor {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
-        employeeID
-        employee {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
         scheduledTime
         duration
         locationLink
         status
-        agendaItems {
-          nextToken
-        }
-        actionItems {
-          nextToken
-        }
-        notes {
-          nextToken
-        }
         createdAt
         updatedAt
-        userMeetingsAsRequestorId
-        userMeetingsAsEmployeeId
-        meetingRequestorId
-        meetingEmployeeId
+        relationshipMeetingsId
+        __typename
       }
       userID
       user {
         id
         firstName
         email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
         createdAt
         updatedAt
+        __typename
       }
       content
       timestamp
@@ -1217,6 +582,7 @@ export const createNote = /* GraphQL */ `
       meetingNotesId
       noteMeetingId
       noteUserId
+      __typename
     }
   }
 `;
@@ -1230,61 +596,23 @@ export const updateNote = /* GraphQL */ `
       meetingID
       meeting {
         id
-        requestorID
-        requestor {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
-        employeeID
-        employee {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
         scheduledTime
         duration
         locationLink
         status
-        agendaItems {
-          nextToken
-        }
-        actionItems {
-          nextToken
-        }
-        notes {
-          nextToken
-        }
         createdAt
         updatedAt
-        userMeetingsAsRequestorId
-        userMeetingsAsEmployeeId
-        meetingRequestorId
-        meetingEmployeeId
+        relationshipMeetingsId
+        __typename
       }
       userID
       user {
         id
         firstName
         email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
         createdAt
         updatedAt
+        __typename
       }
       content
       timestamp
@@ -1293,6 +621,7 @@ export const updateNote = /* GraphQL */ `
       meetingNotesId
       noteMeetingId
       noteUserId
+      __typename
     }
   }
 `;
@@ -1306,61 +635,23 @@ export const deleteNote = /* GraphQL */ `
       meetingID
       meeting {
         id
-        requestorID
-        requestor {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
-        employeeID
-        employee {
-          id
-          firstName
-          email
-          role
-          createdAt
-          updatedAt
-        }
         scheduledTime
         duration
         locationLink
         status
-        agendaItems {
-          nextToken
-        }
-        actionItems {
-          nextToken
-        }
-        notes {
-          nextToken
-        }
         createdAt
         updatedAt
-        userMeetingsAsRequestorId
-        userMeetingsAsEmployeeId
-        meetingRequestorId
-        meetingEmployeeId
+        relationshipMeetingsId
+        __typename
       }
       userID
       user {
         id
         firstName
         email
-        role
-        meetingsAsRequestor {
-          nextToken
-        }
-        meetingsAsEmployee {
-          nextToken
-        }
-        organizations {
-          nextToken
-        }
         createdAt
         updatedAt
+        __typename
       }
       content
       timestamp
@@ -1369,6 +660,100 @@ export const deleteNote = /* GraphQL */ `
       meetingNotesId
       noteMeetingId
       noteUserId
+      __typename
+    }
+  }
+`;
+export const createUserOrganizations = /* GraphQL */ `
+  mutation CreateUserOrganizations(
+    $input: CreateUserOrganizationsInput!
+    $condition: ModelUserOrganizationsConditionInput
+  ) {
+    createUserOrganizations(input: $input, condition: $condition) {
+      id
+      userId
+      organizationId
+      user {
+        id
+        firstName
+        email
+        createdAt
+        updatedAt
+        __typename
+      }
+      organization {
+        id
+        name
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateUserOrganizations = /* GraphQL */ `
+  mutation UpdateUserOrganizations(
+    $input: UpdateUserOrganizationsInput!
+    $condition: ModelUserOrganizationsConditionInput
+  ) {
+    updateUserOrganizations(input: $input, condition: $condition) {
+      id
+      userId
+      organizationId
+      user {
+        id
+        firstName
+        email
+        createdAt
+        updatedAt
+        __typename
+      }
+      organization {
+        id
+        name
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteUserOrganizations = /* GraphQL */ `
+  mutation DeleteUserOrganizations(
+    $input: DeleteUserOrganizationsInput!
+    $condition: ModelUserOrganizationsConditionInput
+  ) {
+    deleteUserOrganizations(input: $input, condition: $condition) {
+      id
+      userId
+      organizationId
+      user {
+        id
+        firstName
+        email
+        createdAt
+        updatedAt
+        __typename
+      }
+      organization {
+        id
+        name
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
     }
   }
 `;

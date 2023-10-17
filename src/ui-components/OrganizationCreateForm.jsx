@@ -19,13 +19,14 @@ import {
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import {
-  getOverrideProps,
-  useDataStoreBinding,
-} from "@aws-amplify/ui-react/internal";
-import { Organization, UserOrganization } from "../models";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { listUsers } from "../graphql/queries";
+import {
+  createOrganization,
+  createUserOrganizations,
+} from "../graphql/mutations";
 function ArrayField({
   items = [],
   onChange,
@@ -38,6 +39,7 @@ function ArrayField({
   defaultFieldValue,
   lengthLimit,
   getBadgeText,
+  runValidationTasks,
   errorMessage,
 }) {
   const labelElement = <Text>{label}</Text>;
@@ -61,6 +63,7 @@ function ArrayField({
     setSelectedBadgeIndex(undefined);
   };
   const addItem = async () => {
+    const { hasError } = runValidationTasks();
     if (
       currentFieldValue !== undefined &&
       currentFieldValue !== null &&
@@ -170,12 +173,7 @@ function ArrayField({
               }}
             ></Button>
           )}
-          <Button
-            size="small"
-            variation="link"
-            isDisabled={hasError}
-            onClick={addItem}
-          >
+          <Button size="small" variation="link" onClick={addItem}>
             {selectedBadgeIndex !== undefined ? "Save" : "Add"}
           </Button>
         </Flex>
@@ -205,6 +203,9 @@ export default function OrganizationCreateForm(props) {
     initialValues.description
   );
   const [users, setUsers] = React.useState(initialValues.users);
+  const [usersLoading, setUsersLoading] = React.useState(false);
+  const [usersRecords, setUsersRecords] = React.useState([]);
+  const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
@@ -226,12 +227,8 @@ export default function OrganizationCreateForm(props) {
       ? users.map((r) => getIDValue.users?.(r))
       : getIDValue.users?.(users)
   );
-  const userOrganizationRecords = useDataStoreBinding({
-    type: "collection",
-    model: UserOrganization,
-  }).items;
   const getDisplayValue = {
-    users: (r) => `${r?.role ? r?.role + " - " : ""}${r?.id}`,
+    users: (r) => `${r?.firstName ? r?.firstName + " - " : ""}${r?.id}`,
   };
   const validations = {
     name: [{ type: "Required" }],
@@ -255,6 +252,38 @@ export default function OrganizationCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const fetchUsersRecords = async (value) => {
+    setUsersLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ firstName: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listUsers.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listUsers?.items;
+      var loaded = result.filter(
+        (item) => !usersIdSet.has(getIDValue.users?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setUsersRecords(newOptions.slice(0, autocompleteLength));
+    setUsersLoading(false);
+  };
+  React.useEffect(() => {
+    fetchUsersRecords("");
+  }, []);
   return (
     <Grid
       as="form"
@@ -300,26 +329,37 @@ export default function OrganizationCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
           const modelFieldsToSave = {
             name: modelFields.name,
             description: modelFields.description,
           };
-          const organization = await DataStore.save(
-            new Organization(modelFieldsToSave)
-          );
+          const organization = (
+            await API.graphql({
+              query: createOrganization.replaceAll("__typename", ""),
+              variables: {
+                input: {
+                  ...modelFieldsToSave,
+                },
+              },
+            })
+          )?.data?.createOrganization;
           const promises = [];
           promises.push(
-            ...users.reduce((promises, original) => {
+            ...users.reduce((promises, user) => {
               promises.push(
-                DataStore.save(
-                  UserOrganization.copyOf(original, (updated) => {
-                    updated.organizationUsersId = organization.id;
-                  })
-                )
+                API.graphql({
+                  query: createUserOrganizations.replaceAll("__typename", ""),
+                  variables: {
+                    input: {
+                      organizationId: organization.id,
+                      userId: User.id,
+                    },
+                  },
+                })
               );
               return promises;
             }, [])
@@ -333,7 +373,8 @@ export default function OrganizationCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -412,10 +453,15 @@ export default function OrganizationCreateForm(props) {
         label={"Users"}
         items={users}
         hasError={errors?.users?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("users", currentUsersValue)
+        }
         errorMessage={errors?.users?.errorMessage}
         getBadgeText={getDisplayValue.users}
         setFieldValue={(model) => {
-          setCurrentUsersDisplayValue(getDisplayValue.users(model));
+          setCurrentUsersDisplayValue(
+            model ? getDisplayValue.users(model) : ""
+          );
           setCurrentUsersValue(model);
         }}
         inputFieldRef={usersRef}
@@ -425,17 +471,16 @@ export default function OrganizationCreateForm(props) {
           label="Users"
           isRequired={false}
           isReadOnly={false}
-          placeholder="Search UserOrganization"
+          placeholder="Search User"
           value={currentUsersDisplayValue}
-          options={userOrganizationRecords
-            .filter((r) => !usersIdSet.has(getIDValue.users?.(r)))
-            .map((r) => ({
-              id: getIDValue.users?.(r),
-              label: getDisplayValue.users?.(r),
-            }))}
+          options={usersRecords.map((r) => ({
+            id: getIDValue.users?.(r),
+            label: getDisplayValue.users?.(r),
+          }))}
+          isLoading={usersLoading}
           onSelect={({ id, label }) => {
             setCurrentUsersValue(
-              userOrganizationRecords.find((r) =>
+              usersRecords.find((r) =>
                 Object.entries(JSON.parse(id)).every(
                   ([key, value]) => r[key] === value
                 )
@@ -449,6 +494,7 @@ export default function OrganizationCreateForm(props) {
           }}
           onChange={(e) => {
             let { value } = e.target;
+            fetchUsersRecords(value);
             if (errors.users?.hasError) {
               runValidationTasks("users", value);
             }

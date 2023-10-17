@@ -19,13 +19,16 @@ import {
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import {
-  getOverrideProps,
-  useDataStoreBinding,
-} from "@aws-amplify/ui-react/internal";
-import { Note, Meeting, User } from "../models";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import {
+  getMeeting,
+  getNote,
+  listMeetings,
+  listUsers,
+} from "../graphql/queries";
+import { updateNote } from "../graphql/mutations";
 function ArrayField({
   items = [],
   onChange,
@@ -38,6 +41,7 @@ function ArrayField({
   defaultFieldValue,
   lengthLimit,
   getBadgeText,
+  runValidationTasks,
   errorMessage,
 }) {
   const labelElement = <Text>{label}</Text>;
@@ -61,6 +65,7 @@ function ArrayField({
     setSelectedBadgeIndex(undefined);
   };
   const addItem = async () => {
+    const { hasError } = runValidationTasks();
     if (
       currentFieldValue !== undefined &&
       currentFieldValue !== null &&
@@ -170,12 +175,7 @@ function ArrayField({
               }}
             ></Button>
           )}
-          <Button
-            size="small"
-            variation="link"
-            isDisabled={hasError}
-            onClick={addItem}
-          >
+          <Button size="small" variation="link" onClick={addItem}>
             {selectedBadgeIndex !== undefined ? "Save" : "Add"}
           </Button>
         </Flex>
@@ -207,13 +207,23 @@ export default function NoteUpdateForm(props) {
   };
   const [meetingID, setMeetingID] = React.useState(initialValues.meetingID);
   const [meeting, setMeeting] = React.useState(initialValues.meeting);
+  const [meetingLoading, setMeetingLoading] = React.useState(false);
+  const [meetingRecords, setMeetingRecords] = React.useState([]);
   const [userID, setUserID] = React.useState(initialValues.userID);
   const [user, setUser] = React.useState(initialValues.user);
+  const [userLoading, setUserLoading] = React.useState(false);
+  const [userRecords, setUserRecords] = React.useState([]);
   const [content, setContent] = React.useState(initialValues.content);
   const [timestamp, setTimestamp] = React.useState(initialValues.timestamp);
   const [meetingNotesId, setMeetingNotesId] = React.useState(
     initialValues.meetingNotesId
   );
+  const [meetingNotesIdLoading, setMeetingNotesIdLoading] =
+    React.useState(false);
+  const [meetingNotesIdRecords, setMeetingNotesIdRecords] = React.useState([]);
+  const [selectedMeetingNotesIdRecords, setSelectedMeetingNotesIdRecords] =
+    React.useState([]);
+  const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = noteRecord
@@ -238,17 +248,29 @@ export default function NoteUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Note, idProp)
+        ? (
+            await API.graphql({
+              query: getNote.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getNote
         : noteModelProp;
-      setNoteRecord(record);
       const meetingRecord = record ? await record.meeting : undefined;
       setMeeting(meetingRecord);
       const userRecord = record ? await record.user : undefined;
       setUser(userRecord);
-      const meetingNotesIdRecord = record
-        ? await record.meetingNotesId
+      const meetingNotesIdRecord = record ? record.meetingNotesId : undefined;
+      const meetingRecord = meetingNotesIdRecord
+        ? (
+            await API.graphql({
+              query: getMeeting.replaceAll("__typename", ""),
+              variables: { id: meetingNotesIdRecord },
+            })
+          )?.data?.getMeeting
         : undefined;
       setMeetingNotesId(meetingNotesIdRecord);
+      setSelectedMeetingNotesIdRecords([meetingRecord]);
+      setNoteRecord(record);
     };
     queryData();
   }, [idProp, noteModelProp]);
@@ -288,14 +310,6 @@ export default function NoteUpdateForm(props) {
       ? user.map((r) => getIDValue.user?.(r))
       : getIDValue.user?.(user)
   );
-  const meetingRecords = useDataStoreBinding({
-    type: "collection",
-    model: Meeting,
-  }).items;
-  const userRecords = useDataStoreBinding({
-    type: "collection",
-    model: User,
-  }).items;
   const getDisplayValue = {
     meeting: (r) =>
       `${r?.scheduledTime ? r?.scheduledTime + " - " : ""}${r?.id}`,
@@ -329,6 +343,102 @@ export default function NoteUpdateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const fetchMeetingRecords = async (value) => {
+    setMeetingLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [
+            { scheduledTime: { contains: value } },
+            { id: { contains: value } },
+          ],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listMeetings.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listMeetings?.items;
+      var loaded = result.filter(
+        (item) => !meetingIdSet.has(getIDValue.meeting?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setMeetingRecords(newOptions.slice(0, autocompleteLength));
+    setMeetingLoading(false);
+  };
+  const fetchUserRecords = async (value) => {
+    setUserLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ firstName: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listUsers.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listUsers?.items;
+      var loaded = result.filter(
+        (item) => !userIdSet.has(getIDValue.user?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setUserRecords(newOptions.slice(0, autocompleteLength));
+    setUserLoading(false);
+  };
+  const fetchMeetingNotesIdRecords = async (value) => {
+    setMeetingNotesIdLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [
+            { scheduledTime: { contains: value } },
+            { id: { contains: value } },
+          ],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listMeetings.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listMeetings?.items;
+      var loaded = result.filter((item) => meetingNotesId !== item.id);
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setMeetingNotesIdRecords(newOptions.slice(0, autocompleteLength));
+    setMeetingNotesIdLoading(false);
+  };
+  React.useEffect(() => {
+    fetchMeetingRecords("");
+    fetchUserRecords("");
+    fetchMeetingNotesIdRecords("");
+  }, []);
   return (
     <Grid
       as="form"
@@ -339,12 +449,12 @@ export default function NoteUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           meetingID,
-          meeting,
+          meeting: meeting ?? null,
           userID,
-          user,
+          user: user ?? null,
           content,
           timestamp,
-          meetingNotesId,
+          meetingNotesId: meetingNotesId ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -378,24 +488,35 @@ export default function NoteUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            Note.copyOf(noteRecord, (updated) => {
-              Object.assign(updated, modelFields);
-              if (!modelFields.user) {
-                updated.noteUserId = undefined;
-              }
-            })
-          );
+          const modelFieldsToSave = {
+            meetingID: modelFields.meetingID,
+            noteMeetingId: modelFields?.meeting?.id ?? null,
+            userID: modelFields.userID,
+            noteUserId: modelFields?.user?.id ?? null,
+            content: modelFields.content,
+            timestamp: modelFields.timestamp,
+            meetingNotesId: modelFields.meetingNotesId ?? null,
+          };
+          await API.graphql({
+            query: updateNote.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: noteRecord.id,
+                ...modelFieldsToSave,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -457,10 +578,15 @@ export default function NoteUpdateForm(props) {
         label={"Meeting"}
         items={meeting ? [meeting] : []}
         hasError={errors?.meeting?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("meeting", currentMeetingValue)
+        }
         errorMessage={errors?.meeting?.errorMessage}
         getBadgeText={getDisplayValue.meeting}
         setFieldValue={(model) => {
-          setCurrentMeetingDisplayValue(getDisplayValue.meeting(model));
+          setCurrentMeetingDisplayValue(
+            model ? getDisplayValue.meeting(model) : ""
+          );
           setCurrentMeetingValue(model);
         }}
         inputFieldRef={meetingRef}
@@ -478,6 +604,7 @@ export default function NoteUpdateForm(props) {
               id: getIDValue.meeting?.(r),
               label: getDisplayValue.meeting?.(r),
             }))}
+          isLoading={meetingLoading}
           onSelect={({ id, label }) => {
             setCurrentMeetingValue(
               meetingRecords.find((r) =>
@@ -495,6 +622,7 @@ export default function NoteUpdateForm(props) {
           defaultValue={meeting}
           onChange={(e) => {
             let { value } = e.target;
+            fetchMeetingRecords(value);
             if (errors.meeting?.hasError) {
               runValidationTasks("meeting", value);
             }
@@ -566,10 +694,13 @@ export default function NoteUpdateForm(props) {
         label={"User"}
         items={user ? [user] : []}
         hasError={errors?.user?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("user", currentUserValue)
+        }
         errorMessage={errors?.user?.errorMessage}
         getBadgeText={getDisplayValue.user}
         setFieldValue={(model) => {
-          setCurrentUserDisplayValue(getDisplayValue.user(model));
+          setCurrentUserDisplayValue(model ? getDisplayValue.user(model) : "");
           setCurrentUserValue(model);
         }}
         inputFieldRef={userRef}
@@ -587,6 +718,7 @@ export default function NoteUpdateForm(props) {
               id: getIDValue.user?.(r),
               label: getDisplayValue.user?.(r),
             }))}
+          isLoading={userLoading}
           onSelect={({ id, label }) => {
             setCurrentUserValue(
               userRecords.find((r) =>
@@ -604,6 +736,7 @@ export default function NoteUpdateForm(props) {
           defaultValue={user}
           onChange={(e) => {
             let { value } = e.target;
+            fetchUserRecords(value);
             if (errors.user?.hasError) {
               runValidationTasks("user", value);
             }
@@ -706,19 +839,34 @@ export default function NoteUpdateForm(props) {
         label={"Meeting notes id"}
         items={meetingNotesId ? [meetingNotesId] : []}
         hasError={errors?.meetingNotesId?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("meetingNotesId", currentMeetingNotesIdValue)
+        }
         errorMessage={errors?.meetingNotesId?.errorMessage}
         getBadgeText={(value) =>
-          getDisplayValue.meetingNotesId(
-            meetingRecords.find((r) => r.id === value)
-          )
+          value
+            ? getDisplayValue.meetingNotesId(
+                meetingNotesIdRecords.find((r) => r.id === value) ??
+                  selectedMeetingNotesIdRecords.find((r) => r.id === value)
+              )
+            : ""
         }
         setFieldValue={(value) => {
           setCurrentMeetingNotesIdDisplayValue(
-            getDisplayValue.meetingNotesId(
-              meetingRecords.find((r) => r.id === value)
-            )
+            value
+              ? getDisplayValue.meetingNotesId(
+                  meetingNotesIdRecords.find((r) => r.id === value) ??
+                    selectedMeetingNotesIdRecords.find((r) => r.id === value)
+                )
+              : ""
           );
           setCurrentMeetingNotesIdValue(value);
+          const selectedRecord = meetingNotesIdRecords.find(
+            (r) => r.id === value
+          );
+          if (selectedRecord) {
+            setSelectedMeetingNotesIdRecords([selectedRecord]);
+          }
         }}
         inputFieldRef={meetingNotesIdRef}
         defaultFieldValue={""}
@@ -729,7 +877,7 @@ export default function NoteUpdateForm(props) {
           isReadOnly={false}
           placeholder="Search Meeting"
           value={currentMeetingNotesIdDisplayValue}
-          options={meetingRecords
+          options={meetingNotesIdRecords
             .filter(
               (r, i, arr) =>
                 arr.findIndex((member) => member?.id === r?.id) === i
@@ -738,6 +886,7 @@ export default function NoteUpdateForm(props) {
               id: r?.id,
               label: getDisplayValue.meetingNotesId?.(r),
             }))}
+          isLoading={meetingNotesIdLoading}
           onSelect={({ id, label }) => {
             setCurrentMeetingNotesIdValue(id);
             setCurrentMeetingNotesIdDisplayValue(label);
@@ -749,6 +898,7 @@ export default function NoteUpdateForm(props) {
           defaultValue={meetingNotesId}
           onChange={(e) => {
             let { value } = e.target;
+            fetchMeetingNotesIdRecords(value);
             if (errors.meetingNotesId?.hasError) {
               runValidationTasks("meetingNotesId", value);
             }

@@ -6,36 +6,30 @@ type User @model {
     id: ID!
     firstName: String
     email: String!
-    role: UserRole
-    meetingsAsRequestor: [Meeting] @hasMany
-    meetingsAsEmployee: [Meeting] @hasMany
-    organizations: [UserOrganization] @hasMany
+    relationships: [Relationship] @hasMany
+    organizations: [Organization] @manyToMany (relationName: "UserOrganizations")
 }
 
 type Organization @model {
     id: ID!
     name: String!
     description: String
-    users: [UserOrganization] @hasMany
+    users: [User] @manyToMany (relationName: "UserOrganizations")
 }
 
-type UserOrganization @model {
+type Relationship @model {
     id: ID!
-    userId: ID!
-    user: User @hasOne
-    organizationId: ID!
-    organization: Organization @hasOne
-    role: OrganizationUserRole
+    name: String # You can add metadata specific to the relationship here
+    description: String
+    requestor: User @hasOne
+    employee: User @hasOne
+    meetings: [Meeting] @hasMany
 }
 
 type Meeting @model {
     id: ID!
-    requestorID: ID!
-    requestor: User @hasOne
-    employeeID: ID!
-    employee: User @hasOne
     scheduledTime: AWSTimestamp!
-    duration: Int! # Can represent duration in minutes
+    duration: Int! # duration in minutes
     locationLink: String
     status: MeetingStatus!
     agendaItems: [AgendaItem] @hasMany
@@ -73,11 +67,6 @@ type Note @model {
     user: User @hasOne
     content: String!
     timestamp: AWSTimestamp!
-}
-
-enum UserRole {
-    requestor
-    EMPLOYEE
 }
 
 enum MeetingStatus {

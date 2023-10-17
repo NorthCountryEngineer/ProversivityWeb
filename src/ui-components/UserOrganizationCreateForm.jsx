@@ -20,13 +20,11 @@ import {
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import {
-  getOverrideProps,
-  useDataStoreBinding,
-} from "@aws-amplify/ui-react/internal";
-import { UserOrganization, User, Organization } from "../models";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { listOrganizations, listUsers } from "../graphql/queries";
+import { createUserOrganization } from "../graphql/mutations";
 function ArrayField({
   items = [],
   onChange,
@@ -39,6 +37,7 @@ function ArrayField({
   defaultFieldValue,
   lengthLimit,
   getBadgeText,
+  runValidationTasks,
   errorMessage,
 }) {
   const labelElement = <Text>{label}</Text>;
@@ -62,6 +61,7 @@ function ArrayField({
     setSelectedBadgeIndex(undefined);
   };
   const addItem = async () => {
+    const { hasError } = runValidationTasks();
     if (
       currentFieldValue !== undefined &&
       currentFieldValue !== null &&
@@ -171,12 +171,7 @@ function ArrayField({
               }}
             ></Button>
           )}
-          <Button
-            size="small"
-            variation="link"
-            isDisabled={hasError}
-            onClick={addItem}
-          >
+          <Button size="small" variation="link" onClick={addItem}>
             {selectedBadgeIndex !== undefined ? "Save" : "Add"}
           </Button>
         </Flex>
@@ -207,19 +202,40 @@ export default function UserOrganizationCreateForm(props) {
   };
   const [userId, setUserId] = React.useState(initialValues.userId);
   const [user, setUser] = React.useState(initialValues.user);
+  const [userLoading, setUserLoading] = React.useState(false);
+  const [userRecords, setUserRecords] = React.useState([]);
   const [organizationId, setOrganizationId] = React.useState(
     initialValues.organizationId
   );
   const [organization, setOrganization] = React.useState(
     initialValues.organization
   );
+  const [organizationLoading, setOrganizationLoading] = React.useState(false);
+  const [organizationRecords, setOrganizationRecords] = React.useState([]);
   const [role, setRole] = React.useState(initialValues.role);
   const [userOrganizationsId, setUserOrganizationsId] = React.useState(
     initialValues.userOrganizationsId
   );
+  const [userOrganizationsIdLoading, setUserOrganizationsIdLoading] =
+    React.useState(false);
+  const [userOrganizationsIdRecords, setUserOrganizationsIdRecords] =
+    React.useState([]);
+  const [
+    selectedUserOrganizationsIdRecords,
+    setSelectedUserOrganizationsIdRecords,
+  ] = React.useState([]);
   const [organizationUsersId, setOrganizationUsersId] = React.useState(
     initialValues.organizationUsersId
   );
+  const [organizationUsersIdLoading, setOrganizationUsersIdLoading] =
+    React.useState(false);
+  const [organizationUsersIdRecords, setOrganizationUsersIdRecords] =
+    React.useState([]);
+  const [
+    selectedOrganizationUsersIdRecords,
+    setSelectedOrganizationUsersIdRecords,
+  ] = React.useState([]);
+  const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setUserId(initialValues.userId);
@@ -276,14 +292,6 @@ export default function UserOrganizationCreateForm(props) {
       ? organization.map((r) => getIDValue.organization?.(r))
       : getIDValue.organization?.(organization)
   );
-  const userRecords = useDataStoreBinding({
-    type: "collection",
-    model: User,
-  }).items;
-  const organizationRecords = useDataStoreBinding({
-    type: "collection",
-    model: Organization,
-  }).items;
   const getDisplayValue = {
     user: (r) => `${r?.firstName ? r?.firstName + " - " : ""}${r?.id}`,
     organization: (r) => `${r?.name ? r?.name + " - " : ""}${r?.id}`,
@@ -317,6 +325,124 @@ export default function UserOrganizationCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const fetchUserRecords = async (value) => {
+    setUserLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ firstName: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listUsers.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listUsers?.items;
+      var loaded = result.filter(
+        (item) => !userIdSet.has(getIDValue.user?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setUserRecords(newOptions.slice(0, autocompleteLength));
+    setUserLoading(false);
+  };
+  const fetchOrganizationRecords = async (value) => {
+    setOrganizationLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ name: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listOrganizations.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listOrganizations?.items;
+      var loaded = result.filter(
+        (item) => !organizationIdSet.has(getIDValue.organization?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setOrganizationRecords(newOptions.slice(0, autocompleteLength));
+    setOrganizationLoading(false);
+  };
+  const fetchUserOrganizationsIdRecords = async (value) => {
+    setUserOrganizationsIdLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ firstName: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listUsers.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listUsers?.items;
+      var loaded = result.filter((item) => userOrganizationsId !== item.id);
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setUserOrganizationsIdRecords(newOptions.slice(0, autocompleteLength));
+    setUserOrganizationsIdLoading(false);
+  };
+  const fetchOrganizationUsersIdRecords = async (value) => {
+    setOrganizationUsersIdLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ name: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listOrganizations.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listOrganizations?.items;
+      var loaded = result.filter((item) => organizationUsersId !== item.id);
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setOrganizationUsersIdRecords(newOptions.slice(0, autocompleteLength));
+    setOrganizationUsersIdLoading(false);
+  };
+  React.useEffect(() => {
+    fetchUserRecords("");
+    fetchOrganizationRecords("");
+    fetchUserOrganizationsIdRecords("");
+    fetchOrganizationUsersIdRecords("");
+  }, []);
   return (
     <Grid
       as="form"
@@ -366,11 +492,27 @@ export default function UserOrganizationCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(new UserOrganization(modelFields));
+          const modelFieldsToSave = {
+            userId: modelFields.userId,
+            userOrganizationUserId: modelFields?.user?.id,
+            organizationId: modelFields.organizationId,
+            userOrganizationOrganizationId: modelFields?.organization?.id,
+            role: modelFields.role,
+            userOrganizationsId: modelFields.userOrganizationsId,
+            organizationUsersId: modelFields.organizationUsersId,
+          };
+          await API.graphql({
+            query: createUserOrganization.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                ...modelFieldsToSave,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -379,7 +521,8 @@ export default function UserOrganizationCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -441,10 +584,13 @@ export default function UserOrganizationCreateForm(props) {
         label={"User"}
         items={user ? [user] : []}
         hasError={errors?.user?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("user", currentUserValue)
+        }
         errorMessage={errors?.user?.errorMessage}
         getBadgeText={getDisplayValue.user}
         setFieldValue={(model) => {
-          setCurrentUserDisplayValue(getDisplayValue.user(model));
+          setCurrentUserDisplayValue(model ? getDisplayValue.user(model) : "");
           setCurrentUserValue(model);
         }}
         inputFieldRef={userRef}
@@ -462,6 +608,7 @@ export default function UserOrganizationCreateForm(props) {
               id: getIDValue.user?.(r),
               label: getDisplayValue.user?.(r),
             }))}
+          isLoading={userLoading}
           onSelect={({ id, label }) => {
             setCurrentUserValue(
               userRecords.find((r) =>
@@ -478,6 +625,7 @@ export default function UserOrganizationCreateForm(props) {
           }}
           onChange={(e) => {
             let { value } = e.target;
+            fetchUserRecords(value);
             if (errors.user?.hasError) {
               runValidationTasks("user", value);
             }
@@ -547,11 +695,14 @@ export default function UserOrganizationCreateForm(props) {
         label={"Organization"}
         items={organization ? [organization] : []}
         hasError={errors?.organization?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("organization", currentOrganizationValue)
+        }
         errorMessage={errors?.organization?.errorMessage}
         getBadgeText={getDisplayValue.organization}
         setFieldValue={(model) => {
           setCurrentOrganizationDisplayValue(
-            getDisplayValue.organization(model)
+            model ? getDisplayValue.organization(model) : ""
           );
           setCurrentOrganizationValue(model);
         }}
@@ -570,6 +721,7 @@ export default function UserOrganizationCreateForm(props) {
               id: getIDValue.organization?.(r),
               label: getDisplayValue.organization?.(r),
             }))}
+          isLoading={organizationLoading}
           onSelect={({ id, label }) => {
             setCurrentOrganizationValue(
               organizationRecords.find((r) =>
@@ -586,6 +738,7 @@ export default function UserOrganizationCreateForm(props) {
           }}
           onChange={(e) => {
             let { value } = e.target;
+            fetchOrganizationRecords(value);
             if (errors.organization?.hasError) {
               runValidationTasks("organization", value);
             }
@@ -667,19 +820,39 @@ export default function UserOrganizationCreateForm(props) {
         label={"User organizations id"}
         items={userOrganizationsId ? [userOrganizationsId] : []}
         hasError={errors?.userOrganizationsId?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks(
+            "userOrganizationsId",
+            currentUserOrganizationsIdValue
+          )
+        }
         errorMessage={errors?.userOrganizationsId?.errorMessage}
         getBadgeText={(value) =>
-          getDisplayValue.userOrganizationsId(
-            userRecords.find((r) => r.id === value)
-          )
+          value
+            ? getDisplayValue.userOrganizationsId(
+                userOrganizationsIdRecords.find((r) => r.id === value) ??
+                  selectedUserOrganizationsIdRecords.find((r) => r.id === value)
+              )
+            : ""
         }
         setFieldValue={(value) => {
           setCurrentUserOrganizationsIdDisplayValue(
-            getDisplayValue.userOrganizationsId(
-              userRecords.find((r) => r.id === value)
-            )
+            value
+              ? getDisplayValue.userOrganizationsId(
+                  userOrganizationsIdRecords.find((r) => r.id === value) ??
+                    selectedUserOrganizationsIdRecords.find(
+                      (r) => r.id === value
+                    )
+                )
+              : ""
           );
           setCurrentUserOrganizationsIdValue(value);
+          const selectedRecord = userOrganizationsIdRecords.find(
+            (r) => r.id === value
+          );
+          if (selectedRecord) {
+            setSelectedUserOrganizationsIdRecords([selectedRecord]);
+          }
         }}
         inputFieldRef={userOrganizationsIdRef}
         defaultFieldValue={""}
@@ -690,7 +863,7 @@ export default function UserOrganizationCreateForm(props) {
           isReadOnly={false}
           placeholder="Search User"
           value={currentUserOrganizationsIdDisplayValue}
-          options={userRecords
+          options={userOrganizationsIdRecords
             .filter(
               (r, i, arr) =>
                 arr.findIndex((member) => member?.id === r?.id) === i
@@ -699,6 +872,7 @@ export default function UserOrganizationCreateForm(props) {
               id: r?.id,
               label: getDisplayValue.userOrganizationsId?.(r),
             }))}
+          isLoading={userOrganizationsIdLoading}
           onSelect={({ id, label }) => {
             setCurrentUserOrganizationsIdValue(id);
             setCurrentUserOrganizationsIdDisplayValue(label);
@@ -709,6 +883,7 @@ export default function UserOrganizationCreateForm(props) {
           }}
           onChange={(e) => {
             let { value } = e.target;
+            fetchUserOrganizationsIdRecords(value);
             if (errors.userOrganizationsId?.hasError) {
               runValidationTasks("userOrganizationsId", value);
             }
@@ -752,19 +927,39 @@ export default function UserOrganizationCreateForm(props) {
         label={"Organization users id"}
         items={organizationUsersId ? [organizationUsersId] : []}
         hasError={errors?.organizationUsersId?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks(
+            "organizationUsersId",
+            currentOrganizationUsersIdValue
+          )
+        }
         errorMessage={errors?.organizationUsersId?.errorMessage}
         getBadgeText={(value) =>
-          getDisplayValue.organizationUsersId(
-            organizationRecords.find((r) => r.id === value)
-          )
+          value
+            ? getDisplayValue.organizationUsersId(
+                organizationUsersIdRecords.find((r) => r.id === value) ??
+                  selectedOrganizationUsersIdRecords.find((r) => r.id === value)
+              )
+            : ""
         }
         setFieldValue={(value) => {
           setCurrentOrganizationUsersIdDisplayValue(
-            getDisplayValue.organizationUsersId(
-              organizationRecords.find((r) => r.id === value)
-            )
+            value
+              ? getDisplayValue.organizationUsersId(
+                  organizationUsersIdRecords.find((r) => r.id === value) ??
+                    selectedOrganizationUsersIdRecords.find(
+                      (r) => r.id === value
+                    )
+                )
+              : ""
           );
           setCurrentOrganizationUsersIdValue(value);
+          const selectedRecord = organizationUsersIdRecords.find(
+            (r) => r.id === value
+          );
+          if (selectedRecord) {
+            setSelectedOrganizationUsersIdRecords([selectedRecord]);
+          }
         }}
         inputFieldRef={organizationUsersIdRef}
         defaultFieldValue={""}
@@ -775,7 +970,7 @@ export default function UserOrganizationCreateForm(props) {
           isReadOnly={false}
           placeholder="Search Organization"
           value={currentOrganizationUsersIdDisplayValue}
-          options={organizationRecords
+          options={organizationUsersIdRecords
             .filter(
               (r, i, arr) =>
                 arr.findIndex((member) => member?.id === r?.id) === i
@@ -784,6 +979,7 @@ export default function UserOrganizationCreateForm(props) {
               id: r?.id,
               label: getDisplayValue.organizationUsersId?.(r),
             }))}
+          isLoading={organizationUsersIdLoading}
           onSelect={({ id, label }) => {
             setCurrentOrganizationUsersIdValue(id);
             setCurrentOrganizationUsersIdDisplayValue(label);
@@ -794,6 +990,7 @@ export default function UserOrganizationCreateForm(props) {
           }}
           onChange={(e) => {
             let { value } = e.target;
+            fetchOrganizationUsersIdRecords(value);
             if (errors.organizationUsersId?.hasError) {
               runValidationTasks("organizationUsersId", value);
             }

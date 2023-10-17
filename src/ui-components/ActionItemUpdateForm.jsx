@@ -20,13 +20,16 @@ import {
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import {
-  getOverrideProps,
-  useDataStoreBinding,
-} from "@aws-amplify/ui-react/internal";
-import { ActionItem, Meeting, User } from "../models";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import {
+  getActionItem,
+  getMeeting,
+  listMeetings,
+  listUsers,
+} from "../graphql/queries";
+import { updateActionItem } from "../graphql/mutations";
 function ArrayField({
   items = [],
   onChange,
@@ -39,6 +42,7 @@ function ArrayField({
   defaultFieldValue,
   lengthLimit,
   getBadgeText,
+  runValidationTasks,
   errorMessage,
 }) {
   const labelElement = <Text>{label}</Text>;
@@ -62,6 +66,7 @@ function ArrayField({
     setSelectedBadgeIndex(undefined);
   };
   const addItem = async () => {
+    const { hasError } = runValidationTasks();
     if (
       currentFieldValue !== undefined &&
       currentFieldValue !== null &&
@@ -171,12 +176,7 @@ function ArrayField({
               }}
             ></Button>
           )}
-          <Button
-            size="small"
-            variation="link"
-            isDisabled={hasError}
-            onClick={addItem}
-          >
+          <Button size="small" variation="link" onClick={addItem}>
             {selectedBadgeIndex !== undefined ? "Save" : "Add"}
           </Button>
         </Flex>
@@ -209,12 +209,17 @@ export default function ActionItemUpdateForm(props) {
   };
   const [meetingID, setMeetingID] = React.useState(initialValues.meetingID);
   const [meeting, setMeeting] = React.useState(initialValues.meeting);
+  const [meetingLoading, setMeetingLoading] = React.useState(false);
+  const [meetingRecords, setMeetingRecords] = React.useState([]);
   const [assignedToUserID, setAssignedToUserID] = React.useState(
     initialValues.assignedToUserID
   );
   const [assignedToUser, setAssignedToUser] = React.useState(
     initialValues.assignedToUser
   );
+  const [assignedToUserLoading, setAssignedToUserLoading] =
+    React.useState(false);
+  const [assignedToUserRecords, setAssignedToUserRecords] = React.useState([]);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
@@ -223,6 +228,15 @@ export default function ActionItemUpdateForm(props) {
   const [meetingActionItemsId, setMeetingActionItemsId] = React.useState(
     initialValues.meetingActionItemsId
   );
+  const [meetingActionItemsIdLoading, setMeetingActionItemsIdLoading] =
+    React.useState(false);
+  const [meetingActionItemsIdRecords, setMeetingActionItemsIdRecords] =
+    React.useState([]);
+  const [
+    selectedMeetingActionItemsIdRecords,
+    setSelectedMeetingActionItemsIdRecords,
+  ] = React.useState([]);
+  const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = actionItemRecord
@@ -255,9 +269,13 @@ export default function ActionItemUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(ActionItem, idProp)
+        ? (
+            await API.graphql({
+              query: getActionItem.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getActionItem
         : actionItemModelProp;
-      setActionItemRecord(record);
       const meetingRecord = record ? await record.meeting : undefined;
       setMeeting(meetingRecord);
       const assignedToUserRecord = record
@@ -265,9 +283,19 @@ export default function ActionItemUpdateForm(props) {
         : undefined;
       setAssignedToUser(assignedToUserRecord);
       const meetingActionItemsIdRecord = record
-        ? await record.meetingActionItemsId
+        ? record.meetingActionItemsId
+        : undefined;
+      const meetingRecord = meetingActionItemsIdRecord
+        ? (
+            await API.graphql({
+              query: getMeeting.replaceAll("__typename", ""),
+              variables: { id: meetingActionItemsIdRecord },
+            })
+          )?.data?.getMeeting
         : undefined;
       setMeetingActionItemsId(meetingActionItemsIdRecord);
+      setSelectedMeetingActionItemsIdRecords([meetingRecord]);
+      setActionItemRecord(record);
     };
     queryData();
   }, [idProp, actionItemModelProp]);
@@ -312,14 +340,6 @@ export default function ActionItemUpdateForm(props) {
       ? assignedToUser.map((r) => getIDValue.assignedToUser?.(r))
       : getIDValue.assignedToUser?.(assignedToUser)
   );
-  const meetingRecords = useDataStoreBinding({
-    type: "collection",
-    model: Meeting,
-  }).items;
-  const userRecords = useDataStoreBinding({
-    type: "collection",
-    model: User,
-  }).items;
   const getDisplayValue = {
     meeting: (r) =>
       `${r?.scheduledTime ? r?.scheduledTime + " - " : ""}${r?.id}`,
@@ -355,6 +375,102 @@ export default function ActionItemUpdateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
+  const fetchMeetingRecords = async (value) => {
+    setMeetingLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [
+            { scheduledTime: { contains: value } },
+            { id: { contains: value } },
+          ],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listMeetings.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listMeetings?.items;
+      var loaded = result.filter(
+        (item) => !meetingIdSet.has(getIDValue.meeting?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setMeetingRecords(newOptions.slice(0, autocompleteLength));
+    setMeetingLoading(false);
+  };
+  const fetchAssignedToUserRecords = async (value) => {
+    setAssignedToUserLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [{ firstName: { contains: value } }, { id: { contains: value } }],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listUsers.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listUsers?.items;
+      var loaded = result.filter(
+        (item) => !assignedToUserIdSet.has(getIDValue.assignedToUser?.(item))
+      );
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setAssignedToUserRecords(newOptions.slice(0, autocompleteLength));
+    setAssignedToUserLoading(false);
+  };
+  const fetchMeetingActionItemsIdRecords = async (value) => {
+    setMeetingActionItemsIdLoading(true);
+    const newOptions = [];
+    let newNext = "";
+    while (newOptions.length < autocompleteLength && newNext != null) {
+      const variables = {
+        limit: autocompleteLength * 5,
+        filter: {
+          or: [
+            { scheduledTime: { contains: value } },
+            { id: { contains: value } },
+          ],
+        },
+      };
+      if (newNext) {
+        variables["nextToken"] = newNext;
+      }
+      const result = (
+        await API.graphql({
+          query: listMeetings.replaceAll("__typename", ""),
+          variables,
+        })
+      )?.data?.listMeetings?.items;
+      var loaded = result.filter((item) => meetingActionItemsId !== item.id);
+      newOptions.push(...loaded);
+      newNext = result.nextToken;
+    }
+    setMeetingActionItemsIdRecords(newOptions.slice(0, autocompleteLength));
+    setMeetingActionItemsIdLoading(false);
+  };
+  React.useEffect(() => {
+    fetchMeetingRecords("");
+    fetchAssignedToUserRecords("");
+    fetchMeetingActionItemsIdRecords("");
+  }, []);
   return (
     <Grid
       as="form"
@@ -365,13 +481,13 @@ export default function ActionItemUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           meetingID,
-          meeting,
+          meeting: meeting ?? null,
           assignedToUserID,
-          assignedToUser,
+          assignedToUser: assignedToUser ?? null,
           description,
-          dueDate,
+          dueDate: dueDate ?? null,
           status,
-          meetingActionItemsId,
+          meetingActionItemsId: meetingActionItemsId ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -405,24 +521,36 @@ export default function ActionItemUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            ActionItem.copyOf(actionItemRecord, (updated) => {
-              Object.assign(updated, modelFields);
-              if (!modelFields.assignedToUser) {
-                updated.actionItemAssignedToUserId = undefined;
-              }
-            })
-          );
+          const modelFieldsToSave = {
+            meetingID: modelFields.meetingID,
+            actionItemMeetingId: modelFields?.meeting?.id ?? null,
+            assignedToUserID: modelFields.assignedToUserID,
+            actionItemAssignedToUserId: modelFields?.assignedToUser?.id ?? null,
+            description: modelFields.description,
+            dueDate: modelFields.dueDate ?? null,
+            status: modelFields.status,
+            meetingActionItemsId: modelFields.meetingActionItemsId ?? null,
+          };
+          await API.graphql({
+            query: updateActionItem.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: actionItemRecord.id,
+                ...modelFieldsToSave,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
@@ -486,10 +614,15 @@ export default function ActionItemUpdateForm(props) {
         label={"Meeting"}
         items={meeting ? [meeting] : []}
         hasError={errors?.meeting?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("meeting", currentMeetingValue)
+        }
         errorMessage={errors?.meeting?.errorMessage}
         getBadgeText={getDisplayValue.meeting}
         setFieldValue={(model) => {
-          setCurrentMeetingDisplayValue(getDisplayValue.meeting(model));
+          setCurrentMeetingDisplayValue(
+            model ? getDisplayValue.meeting(model) : ""
+          );
           setCurrentMeetingValue(model);
         }}
         inputFieldRef={meetingRef}
@@ -507,6 +640,7 @@ export default function ActionItemUpdateForm(props) {
               id: getIDValue.meeting?.(r),
               label: getDisplayValue.meeting?.(r),
             }))}
+          isLoading={meetingLoading}
           onSelect={({ id, label }) => {
             setCurrentMeetingValue(
               meetingRecords.find((r) =>
@@ -524,6 +658,7 @@ export default function ActionItemUpdateForm(props) {
           defaultValue={meeting}
           onChange={(e) => {
             let { value } = e.target;
+            fetchMeetingRecords(value);
             if (errors.meeting?.hasError) {
               runValidationTasks("meeting", value);
             }
@@ -597,11 +732,14 @@ export default function ActionItemUpdateForm(props) {
         label={"Assigned to user"}
         items={assignedToUser ? [assignedToUser] : []}
         hasError={errors?.assignedToUser?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("assignedToUser", currentAssignedToUserValue)
+        }
         errorMessage={errors?.assignedToUser?.errorMessage}
         getBadgeText={getDisplayValue.assignedToUser}
         setFieldValue={(model) => {
           setCurrentAssignedToUserDisplayValue(
-            getDisplayValue.assignedToUser(model)
+            model ? getDisplayValue.assignedToUser(model) : ""
           );
           setCurrentAssignedToUserValue(model);
         }}
@@ -614,7 +752,7 @@ export default function ActionItemUpdateForm(props) {
           isReadOnly={false}
           placeholder="Search User"
           value={currentAssignedToUserDisplayValue}
-          options={userRecords
+          options={assignedToUserRecords
             .filter(
               (r) => !assignedToUserIdSet.has(getIDValue.assignedToUser?.(r))
             )
@@ -622,9 +760,10 @@ export default function ActionItemUpdateForm(props) {
               id: getIDValue.assignedToUser?.(r),
               label: getDisplayValue.assignedToUser?.(r),
             }))}
+          isLoading={assignedToUserLoading}
           onSelect={({ id, label }) => {
             setCurrentAssignedToUserValue(
-              userRecords.find((r) =>
+              assignedToUserRecords.find((r) =>
                 Object.entries(JSON.parse(id)).every(
                   ([key, value]) => r[key] === value
                 )
@@ -639,6 +778,7 @@ export default function ActionItemUpdateForm(props) {
           defaultValue={assignedToUser}
           onChange={(e) => {
             let { value } = e.target;
+            fetchAssignedToUserRecords(value);
             if (errors.assignedToUser?.hasError) {
               runValidationTasks("assignedToUser", value);
             }
@@ -793,19 +933,41 @@ export default function ActionItemUpdateForm(props) {
         label={"Meeting action items id"}
         items={meetingActionItemsId ? [meetingActionItemsId] : []}
         hasError={errors?.meetingActionItemsId?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks(
+            "meetingActionItemsId",
+            currentMeetingActionItemsIdValue
+          )
+        }
         errorMessage={errors?.meetingActionItemsId?.errorMessage}
         getBadgeText={(value) =>
-          getDisplayValue.meetingActionItemsId(
-            meetingRecords.find((r) => r.id === value)
-          )
+          value
+            ? getDisplayValue.meetingActionItemsId(
+                meetingActionItemsIdRecords.find((r) => r.id === value) ??
+                  selectedMeetingActionItemsIdRecords.find(
+                    (r) => r.id === value
+                  )
+              )
+            : ""
         }
         setFieldValue={(value) => {
           setCurrentMeetingActionItemsIdDisplayValue(
-            getDisplayValue.meetingActionItemsId(
-              meetingRecords.find((r) => r.id === value)
-            )
+            value
+              ? getDisplayValue.meetingActionItemsId(
+                  meetingActionItemsIdRecords.find((r) => r.id === value) ??
+                    selectedMeetingActionItemsIdRecords.find(
+                      (r) => r.id === value
+                    )
+                )
+              : ""
           );
           setCurrentMeetingActionItemsIdValue(value);
+          const selectedRecord = meetingActionItemsIdRecords.find(
+            (r) => r.id === value
+          );
+          if (selectedRecord) {
+            setSelectedMeetingActionItemsIdRecords([selectedRecord]);
+          }
         }}
         inputFieldRef={meetingActionItemsIdRef}
         defaultFieldValue={""}
@@ -816,7 +978,7 @@ export default function ActionItemUpdateForm(props) {
           isReadOnly={false}
           placeholder="Search Meeting"
           value={currentMeetingActionItemsIdDisplayValue}
-          options={meetingRecords
+          options={meetingActionItemsIdRecords
             .filter(
               (r, i, arr) =>
                 arr.findIndex((member) => member?.id === r?.id) === i
@@ -825,6 +987,7 @@ export default function ActionItemUpdateForm(props) {
               id: r?.id,
               label: getDisplayValue.meetingActionItemsId?.(r),
             }))}
+          isLoading={meetingActionItemsIdLoading}
           onSelect={({ id, label }) => {
             setCurrentMeetingActionItemsIdValue(id);
             setCurrentMeetingActionItemsIdDisplayValue(label);
@@ -836,6 +999,7 @@ export default function ActionItemUpdateForm(props) {
           defaultValue={meetingActionItemsId}
           onChange={(e) => {
             let { value } = e.target;
+            fetchMeetingActionItemsIdRecords(value);
             if (errors.meetingActionItemsId?.hasError) {
               runValidationTasks("meetingActionItemsId", value);
             }
