@@ -7,6 +7,7 @@
 import * as React from "react";
 import { AutocompleteProps, GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { ActionItem, AgendaItem, Note } from "../API.ts";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -17,9 +18,9 @@ export declare type MeetingCreateFormInputValues = {
     duration?: number;
     locationLink?: string;
     status?: string;
-    agendaItems?: any[];
-    actionItems?: any[];
-    notes?: any[];
+    agendaItems?: AgendaItem[];
+    actionItems?: ActionItem[];
+    notes?: Note[];
     relationshipMeetingsId?: string;
 };
 export declare type MeetingCreateFormValidationValues = {
@@ -27,9 +28,9 @@ export declare type MeetingCreateFormValidationValues = {
     duration?: ValidationFunction<number>;
     locationLink?: ValidationFunction<string>;
     status?: ValidationFunction<string>;
-    agendaItems?: ValidationFunction<any>;
-    actionItems?: ValidationFunction<any>;
-    notes?: ValidationFunction<any>;
+    agendaItems?: ValidationFunction<AgendaItem>;
+    actionItems?: ValidationFunction<ActionItem>;
+    notes?: ValidationFunction<Note>;
     relationshipMeetingsId?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;

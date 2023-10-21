@@ -2,7 +2,7 @@ export const initialUserMetaData: userMetaData  = {
     organization: "",
     firstName: "",
     email: "",
-    role: "EMPLOYEE",
+    cognitoID: "",
   };
   
 export const initialSwitchBoardData: initialSwitchBoard  = {

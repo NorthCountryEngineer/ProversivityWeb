@@ -4,11 +4,13 @@
 
 export type CreateUserInput = {
   id?: string | null,
+  cognitoID: string,
   firstName?: string | null,
   email: string,
 };
 
 export type ModelUserConditionInput = {
+  cognitoID?: ModelIDInput | null,
   firstName?: ModelStringInput | null,
   email?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
@@ -16,7 +18,7 @@ export type ModelUserConditionInput = {
   not?: ModelUserConditionInput | null,
 };
 
-export type ModelStringInput = {
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -56,9 +58,26 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
 export type User = {
   __typename: "User",
   id: string,
+  cognitoID: string,
   firstName?: string | null,
   email: string,
   relationships?: ModelRelationshipConnection | null,
@@ -226,6 +245,7 @@ export type Organization = {
 
 export type UpdateUserInput = {
   id: string,
+  cognitoID?: string | null,
   firstName?: string | null,
   email?: string | null,
 };
@@ -276,22 +296,6 @@ export type ModelRelationshipConditionInput = {
   userRelationshipsId?: ModelIDInput | null,
   relationshipRequestorId?: ModelIDInput | null,
   relationshipEmployeeId?: ModelIDInput | null,
-};
-
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
 };
 
 export type UpdateRelationshipInput = {
@@ -516,6 +520,7 @@ export type DeleteUserOrganizationsInput = {
 
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
+  cognitoID?: ModelIDInput | null,
   firstName?: ModelStringInput | null,
   email?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
@@ -629,6 +634,7 @@ export enum ModelSortDirection {
 
 export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  cognitoID?: ModelSubscriptionIDInput | null,
   firstName?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
@@ -753,6 +759,7 @@ export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
     id: string,
+    cognitoID: string,
     firstName?: string | null,
     email: string,
     relationships?:  {
@@ -777,6 +784,7 @@ export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
     id: string,
+    cognitoID: string,
     firstName?: string | null,
     email: string,
     relationships?:  {
@@ -801,6 +809,7 @@ export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
     id: string,
+    cognitoID: string,
     firstName?: string | null,
     email: string,
     relationships?:  {
@@ -890,6 +899,7 @@ export type CreateRelationshipMutation = {
     requestor?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -898,6 +908,7 @@ export type CreateRelationshipMutation = {
     employee?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -929,6 +940,7 @@ export type UpdateRelationshipMutation = {
     requestor?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -937,6 +949,7 @@ export type UpdateRelationshipMutation = {
     employee?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -968,6 +981,7 @@ export type DeleteRelationshipMutation = {
     requestor?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -976,6 +990,7 @@ export type DeleteRelationshipMutation = {
     employee?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1210,6 +1225,7 @@ export type CreateActionItemMutation = {
     assignedToUser?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1251,6 +1267,7 @@ export type UpdateActionItemMutation = {
     assignedToUser?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1292,6 +1309,7 @@ export type DeleteActionItemMutation = {
     assignedToUser?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1333,6 +1351,7 @@ export type CreateNoteMutation = {
     user?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1373,6 +1392,7 @@ export type UpdateNoteMutation = {
     user?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1413,6 +1433,7 @@ export type DeleteNoteMutation = {
     user?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1442,6 +1463,7 @@ export type CreateUserOrganizationsMutation = {
     user:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1474,6 +1496,7 @@ export type UpdateUserOrganizationsMutation = {
     user:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1506,6 +1529,7 @@ export type DeleteUserOrganizationsMutation = {
     user:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1532,6 +1556,7 @@ export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
     id: string,
+    cognitoID: string,
     firstName?: string | null,
     email: string,
     relationships?:  {
@@ -1559,6 +1584,7 @@ export type ListUsersQuery = {
     items:  Array< {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1621,6 +1647,7 @@ export type GetRelationshipQuery = {
     requestor?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1629,6 +1656,7 @@ export type GetRelationshipQuery = {
     employee?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1807,6 +1835,7 @@ export type GetActionItemQuery = {
     assignedToUser?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1874,6 +1903,7 @@ export type GetNoteQuery = {
     user?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -1928,6 +1958,7 @@ export type GetUserOrganizationsQuery = {
     user:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2021,6 +2052,7 @@ export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
     id: string,
+    cognitoID: string,
     firstName?: string | null,
     email: string,
     relationships?:  {
@@ -2044,6 +2076,7 @@ export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
     id: string,
+    cognitoID: string,
     firstName?: string | null,
     email: string,
     relationships?:  {
@@ -2067,6 +2100,7 @@ export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
     id: string,
+    cognitoID: string,
     firstName?: string | null,
     email: string,
     relationships?:  {
@@ -2152,6 +2186,7 @@ export type OnCreateRelationshipSubscription = {
     requestor?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2160,6 +2195,7 @@ export type OnCreateRelationshipSubscription = {
     employee?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2190,6 +2226,7 @@ export type OnUpdateRelationshipSubscription = {
     requestor?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2198,6 +2235,7 @@ export type OnUpdateRelationshipSubscription = {
     employee?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2228,6 +2266,7 @@ export type OnDeleteRelationshipSubscription = {
     requestor?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2236,6 +2275,7 @@ export type OnDeleteRelationshipSubscription = {
     employee?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2463,6 +2503,7 @@ export type OnCreateActionItemSubscription = {
     assignedToUser?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2503,6 +2544,7 @@ export type OnUpdateActionItemSubscription = {
     assignedToUser?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2543,6 +2585,7 @@ export type OnDeleteActionItemSubscription = {
     assignedToUser?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2583,6 +2626,7 @@ export type OnCreateNoteSubscription = {
     user?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2622,6 +2666,7 @@ export type OnUpdateNoteSubscription = {
     user?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2661,6 +2706,7 @@ export type OnDeleteNoteSubscription = {
     user?:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2689,6 +2735,7 @@ export type OnCreateUserOrganizationsSubscription = {
     user:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2720,6 +2767,7 @@ export type OnUpdateUserOrganizationsSubscription = {
     user:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,
@@ -2751,6 +2799,7 @@ export type OnDeleteUserOrganizationsSubscription = {
     user:  {
       __typename: "User",
       id: string,
+      cognitoID: string,
       firstName?: string | null,
       email: string,
       createdAt: string,

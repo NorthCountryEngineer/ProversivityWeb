@@ -67,3 +67,92 @@ test('renders the "create account" view when user is authenticated but has not s
     expect(screen.getByText('Click here to Sign up')).toBeInTheDocument();
   })
 })
+
+
+
+
+query listUsersCall {
+  listUsers {
+    items {
+      email
+      firstName
+      id
+      organizationsAsLeader {
+        items {
+          id
+        }
+      }
+      organizationsAsMember {
+        items {
+          id
+        }
+      }
+      relationships {
+        items {
+          id
+        }
+      }
+    }
+  }
+}
+
+mutation createOrganizationCall {
+  createOrganization(input: {name: "Eric's org", description: "Eric's org"}) {
+    id
+  }
+}
+
+mutation createUserOrganizationsCall {
+  createUserOrganizations(
+    input: {userId: "2f5b76f2-f981-46d6-8fbe-4e900b2fe05c", organizationId: "84b25a8f-4b8f-489a-8e34-4763ce408136"}
+  ) {
+    id
+  }
+}
+
+query listOrganizationsCall {
+  listOrganizations {
+    items {
+      id
+      name
+      organizationOwnerId
+      userOrganizationsAsLeaderId
+      users {
+        items {
+          id
+        }
+      }
+    }
+  }
+}
+
+mutation createUserCall {
+  createUser(input: {email: "second@outlook.com", firstName: "Second"}) {
+    id
+  }
+}
+
+mutation createRelationshipCall {
+  createRelationship(
+    input: {relationshipEmployeeId: "2f5b76f2-f981-46d6-8fbe-4e900b2fe05c", relationshipRequestorId: "006b91ec-30c2-4144-99ca-1b9a362421e1"}
+  ) {
+    id
+  }
+}
+
+query listRelationshipsCall {
+  listRelationships {
+    items {
+      id
+      name
+      relationshipEmployeeId
+      relationshipRequestorId
+      requestor {
+        id
+      }
+      employee {
+        id
+      }
+    }
+  }
+}

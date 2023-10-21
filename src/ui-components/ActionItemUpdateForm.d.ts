@@ -7,6 +7,7 @@
 import * as React from "react";
 import { AutocompleteProps, GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { ActionItem, Meeting, User } from "../API.ts";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -14,9 +15,9 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ActionItemUpdateFormInputValues = {
     meetingID?: string;
-    meeting?: any;
+    meeting?: Meeting;
     assignedToUserID?: string;
-    assignedToUser?: any;
+    assignedToUser?: User;
     description?: string;
     dueDate?: string;
     status?: string;
@@ -24,9 +25,9 @@ export declare type ActionItemUpdateFormInputValues = {
 };
 export declare type ActionItemUpdateFormValidationValues = {
     meetingID?: ValidationFunction<string>;
-    meeting?: ValidationFunction<any>;
+    meeting?: ValidationFunction<Meeting>;
     assignedToUserID?: ValidationFunction<string>;
-    assignedToUser?: ValidationFunction<any>;
+    assignedToUser?: ValidationFunction<User>;
     description?: ValidationFunction<string>;
     dueDate?: ValidationFunction<string>;
     status?: ValidationFunction<string>;
@@ -48,7 +49,7 @@ export declare type ActionItemUpdateFormProps = React.PropsWithChildren<{
     overrides?: ActionItemUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    actionItem?: any;
+    actionItem?: ActionItem;
     onSubmit?: (fields: ActionItemUpdateFormInputValues) => ActionItemUpdateFormInputValues;
     onSuccess?: (fields: ActionItemUpdateFormInputValues) => void;
     onError?: (fields: ActionItemUpdateFormInputValues, errorMessage: string) => void;

@@ -58,14 +58,14 @@ export function OneOnOneHelperHooks():{
           let tempUserMetaData = { ...userMetaData };
   
           const currentUser = await Auth.currentAuthenticatedUser();
-  
 
-          console.log(currentUser)
           // Fetch user data and update tempUserMetaData
           await fetchUserAttributes(currentUser, tempUserMetaData);
+
+          const doesUserExistCall = await doesUserExist(tempUserMetaData.email)
   
           // Check if the user exists in your system
-          if (await doesUserExist(tempUserMetaData.email)) {
+          if (doesUserExistCall) {
               tempSwitchBoard.isUser = true;
               tempSwitchBoard.loadingComplete = true;
           } else {
@@ -76,6 +76,7 @@ export function OneOnOneHelperHooks():{
   
           // Update the state once after all changes are made
           setSwitchBoard(tempSwitchBoard);
+          console.log("Temp meta: ", tempUserMetaData)
           setUserMetaData(tempUserMetaData);
       } catch (error) {
           setSwitchBoard({ ...switchBoard, loadingComplete: true });
@@ -87,12 +88,12 @@ export function OneOnOneHelperHooks():{
     const fetchUserAttributes = async (currentUser, tempUserMetaData) => {
       tempUserMetaData.email = currentUser.attributes.email
       tempUserMetaData.firstName = currentUser.attributes.name
+      tempUserMetaData.cognitoID = currentUser.attributes.sub
     }
     
     const doesUserExist = async (email) => {
       const variables = {
           filter: { email: { eq: email } },
-          limit: 1,
       }
   
       const listUsersCall:any = await API.graphql(graphqlOperation(listUsers, variables))
@@ -101,13 +102,14 @@ export function OneOnOneHelperHooks():{
     
     const createUserIfNotExists = async (tempUserMetaData) => {
       try {
+        console.log(tempUserMetaData)
           await API.graphql({
               query: createUser,
               variables: {
                   input: {
                       firstName: tempUserMetaData.firstName,
                       email: tempUserMetaData.email,
-                      role: userMetaData.role,
+                      cognitoID: tempUserMetaData.cognitoID
                   },
               },
           })
@@ -115,8 +117,6 @@ export function OneOnOneHelperHooks():{
           console.error('Error creating user:', error)
       }
     }
-
-
       
   
     return {

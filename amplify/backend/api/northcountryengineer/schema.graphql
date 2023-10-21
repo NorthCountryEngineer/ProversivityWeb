@@ -4,6 +4,7 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 
 type User @model {
     id: ID!
+    cognitoID: ID!
     firstName: String
     email: String!
     relationships: [Relationship] @hasMany
@@ -19,7 +20,7 @@ type Organization @model {
 
 type Relationship @model {
     id: ID!
-    name: String # You can add metadata specific to the relationship here
+    name: String
     description: String
     requestor: User @hasOne
     employee: User @hasOne

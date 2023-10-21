@@ -7,26 +7,30 @@
 import * as React from "react";
 import { AutocompleteProps, GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { Organization, Relationship, User } from "../API.ts";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type UserUpdateFormInputValues = {
+    cognitoID?: string;
     firstName?: string;
     email?: string;
-    relationships?: any[];
-    organizations?: any[];
+    relationships?: Relationship[];
+    organizations?: Organization[];
 };
 export declare type UserUpdateFormValidationValues = {
+    cognitoID?: ValidationFunction<string>;
     firstName?: ValidationFunction<string>;
     email?: ValidationFunction<string>;
-    relationships?: ValidationFunction<any>;
-    organizations?: ValidationFunction<any>;
+    relationships?: ValidationFunction<Relationship>;
+    organizations?: ValidationFunction<Organization>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserUpdateFormOverridesProps = {
     UserUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    cognitoID?: PrimitiveOverrideProps<TextFieldProps>;
     firstName?: PrimitiveOverrideProps<TextFieldProps>;
     email?: PrimitiveOverrideProps<TextFieldProps>;
     relationships?: PrimitiveOverrideProps<AutocompleteProps>;
@@ -36,7 +40,7 @@ export declare type UserUpdateFormProps = React.PropsWithChildren<{
     overrides?: UserUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    user?: any;
+    user?: User;
     onSubmit?: (fields: UserUpdateFormInputValues) => UserUpdateFormInputValues;
     onSuccess?: (fields: UserUpdateFormInputValues) => void;
     onError?: (fields: UserUpdateFormInputValues, errorMessage: string) => void;

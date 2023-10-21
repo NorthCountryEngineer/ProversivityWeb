@@ -7,6 +7,7 @@
 import * as React from "react";
 import { AutocompleteProps, GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { ActionItem, AgendaItem, Meeting, Note } from "../API.ts";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -17,9 +18,9 @@ export declare type MeetingUpdateFormInputValues = {
     duration?: number;
     locationLink?: string;
     status?: string;
-    agendaItems?: any[];
-    actionItems?: any[];
-    notes?: any[];
+    agendaItems?: AgendaItem[];
+    actionItems?: ActionItem[];
+    notes?: Note[];
     relationshipMeetingsId?: string;
 };
 export declare type MeetingUpdateFormValidationValues = {
@@ -27,9 +28,9 @@ export declare type MeetingUpdateFormValidationValues = {
     duration?: ValidationFunction<number>;
     locationLink?: ValidationFunction<string>;
     status?: ValidationFunction<string>;
-    agendaItems?: ValidationFunction<any>;
-    actionItems?: ValidationFunction<any>;
-    notes?: ValidationFunction<any>;
+    agendaItems?: ValidationFunction<AgendaItem>;
+    actionItems?: ValidationFunction<ActionItem>;
+    notes?: ValidationFunction<Note>;
     relationshipMeetingsId?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -48,7 +49,7 @@ export declare type MeetingUpdateFormProps = React.PropsWithChildren<{
     overrides?: MeetingUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    meeting?: any;
+    meeting?: Meeting;
     onSubmit?: (fields: MeetingUpdateFormInputValues) => MeetingUpdateFormInputValues;
     onSuccess?: (fields: MeetingUpdateFormInputValues) => void;
     onError?: (fields: MeetingUpdateFormInputValues, errorMessage: string) => void;

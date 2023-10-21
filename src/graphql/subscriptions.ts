@@ -11,6 +11,7 @@ type GeneratedSubscription<InputType, OutputType> = string & {
 export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
   onCreateUser(filter: $filter) {
     id
+    cognitoID
     firstName
     email
     relationships {
@@ -33,6 +34,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
 export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
   onUpdateUser(filter: $filter) {
     id
+    cognitoID
     firstName
     email
     relationships {
@@ -55,6 +57,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
 export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
   onDeleteUser(filter: $filter) {
     id
+    cognitoID
     firstName
     email
     relationships {
@@ -143,6 +146,7 @@ export const onCreateRelationship = /* GraphQL */ `subscription OnCreateRelation
     description
     requestor {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -151,6 +155,7 @@ export const onCreateRelationship = /* GraphQL */ `subscription OnCreateRelation
     }
     employee {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -182,6 +187,7 @@ export const onUpdateRelationship = /* GraphQL */ `subscription OnUpdateRelation
     description
     requestor {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -190,6 +196,7 @@ export const onUpdateRelationship = /* GraphQL */ `subscription OnUpdateRelation
     }
     employee {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -221,6 +228,7 @@ export const onDeleteRelationship = /* GraphQL */ `subscription OnDeleteRelation
     description
     requestor {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -229,6 +237,7 @@ export const onDeleteRelationship = /* GraphQL */ `subscription OnDeleteRelation
     }
     employee {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -457,6 +466,7 @@ export const onCreateActionItem = /* GraphQL */ `subscription OnCreateActionItem
     assignedToUserID
     assignedToUser {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -498,6 +508,7 @@ export const onUpdateActionItem = /* GraphQL */ `subscription OnUpdateActionItem
     assignedToUserID
     assignedToUser {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -539,6 +550,7 @@ export const onDeleteActionItem = /* GraphQL */ `subscription OnDeleteActionItem
     assignedToUserID
     assignedToUser {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -578,6 +590,7 @@ export const onCreateNote = /* GraphQL */ `subscription OnCreateNote($filter: Mo
     userID
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -616,6 +629,7 @@ export const onUpdateNote = /* GraphQL */ `subscription OnUpdateNote($filter: Mo
     userID
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -654,6 +668,7 @@ export const onDeleteNote = /* GraphQL */ `subscription OnDeleteNote($filter: Mo
     userID
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -683,6 +698,7 @@ export const onCreateUserOrganizations = /* GraphQL */ `subscription OnCreateUse
     organizationId
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -715,6 +731,7 @@ export const onUpdateUserOrganizations = /* GraphQL */ `subscription OnUpdateUse
     organizationId
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -747,6 +764,7 @@ export const onDeleteUserOrganizations = /* GraphQL */ `subscription OnDeleteUse
     organizationId
     user {
       id
+      cognitoID
       firstName
       email
       createdAt

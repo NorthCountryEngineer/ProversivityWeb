@@ -58,3 +58,121 @@ jest.mock('../functions', () => {
       })).toBeInTheDocument();
     })
   })
+
+
+
+
+
+
+  createUserOrganizations(
+    input: {userId: "2f5b76f2-f981-46d6-8fbe-4e900b2fe05c", organizationId: "84b25a8f-4b8f-489a-8e34-4763ce408136"}
+  ) {
+    id
+  }
+
+
+
+  # This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type User @model {
+    id: ID!
+    firstName: String
+    email: String!
+    role: UserRole
+    # relationships: [Relationship] @hasMany
+    organizationsAsMember: [Organization] @manyToMany (relationName: "UserOrganizations")
+    organizationsAsLeader: [Organization] @hasMany
+
+}
+
+type Organization @model {
+    id: ID!
+    name: String!
+    description: String
+    owner: User @hasOne
+    users: [User] @manyToMany (relationName: "UserOrganizations")
+}
+
+# type Relationship @model {
+#     id: ID!
+#     name: String # You can add metadata specific to the relationship here
+#     description: String
+#     requestor: User @hasOne
+#     employee: User @hasOne
+#     meetings: [Meeting] @hasMany # A relationship can have multiple meetings
+# }
+
+type Meeting @model {
+    id: ID!
+    scheduledTime: AWSTimestamp!
+    duration: Int! # duration in minutes
+    locationLink: String
+    status: MeetingStatus!
+    agendaItems: [AgendaItem] @hasMany
+    actionItems: [ActionItem] @hasMany
+    notes: [Note] @hasMany
+}
+
+type AgendaItem @model {
+    id: ID!
+    meetingID: ID!
+    meeting: Meeting @hasOne
+    title: String!
+    description: String
+    duration: Int # Can represent duration in minutes
+    order: Int
+    status: AgendaItemStatus!
+}
+
+type ActionItem @model {
+    id: ID!
+    meetingID: ID!
+    meeting: Meeting @hasOne
+    assignedToUserID: ID!
+    assignedToUser: User @hasOne
+    description: String!
+    dueDate: AWSDate
+    status: ActionItemStatus!
+}
+
+type Note @model {
+    id: ID!
+    meetingID: ID!
+    meeting: Meeting @hasOne
+    userID: ID!
+    user: User @hasOne
+    content: String!
+    timestamp: AWSTimestamp!
+}
+
+
+
+enum UserRole {
+    requestor
+    EMPLOYEE
+}
+
+enum MeetingStatus {
+    SCHEDULED
+    CANCELLED
+    COMPLETED
+}
+
+enum AgendaItemStatus {
+    OPEN
+    DISCUSSED
+    CLOSED
+}
+
+enum ActionItemStatus {
+    ASSIGNED
+    IN_PROGRESS
+    COMPLETED
+}
+
+enum OrganizationUserRole {
+    ADMIN
+    MEMBER
+}

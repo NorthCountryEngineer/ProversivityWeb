@@ -14,6 +14,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
 ) {
   createUser(input: $input, condition: $condition) {
     id
+    cognitoID
     firstName
     email
     relationships {
@@ -39,6 +40,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
 ) {
   updateUser(input: $input, condition: $condition) {
     id
+    cognitoID
     firstName
     email
     relationships {
@@ -64,6 +66,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
 ) {
   deleteUser(input: $input, condition: $condition) {
     id
+    cognitoID
     firstName
     email
     relationships {
@@ -156,6 +159,7 @@ export const createRelationship = /* GraphQL */ `mutation CreateRelationship(
     description
     requestor {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -164,6 +168,7 @@ export const createRelationship = /* GraphQL */ `mutation CreateRelationship(
     }
     employee {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -196,6 +201,7 @@ export const updateRelationship = /* GraphQL */ `mutation UpdateRelationship(
     description
     requestor {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -204,6 +210,7 @@ export const updateRelationship = /* GraphQL */ `mutation UpdateRelationship(
     }
     employee {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -236,6 +243,7 @@ export const deleteRelationship = /* GraphQL */ `mutation DeleteRelationship(
     description
     requestor {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -244,6 +252,7 @@ export const deleteRelationship = /* GraphQL */ `mutation DeleteRelationship(
     }
     employee {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -485,6 +494,7 @@ export const createActionItem = /* GraphQL */ `mutation CreateActionItem(
     assignedToUserID
     assignedToUser {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -527,6 +537,7 @@ export const updateActionItem = /* GraphQL */ `mutation UpdateActionItem(
     assignedToUserID
     assignedToUser {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -569,6 +580,7 @@ export const deleteActionItem = /* GraphQL */ `mutation DeleteActionItem(
     assignedToUserID
     assignedToUser {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -611,6 +623,7 @@ export const createNote = /* GraphQL */ `mutation CreateNote(
     userID
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -652,6 +665,7 @@ export const updateNote = /* GraphQL */ `mutation UpdateNote(
     userID
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -693,6 +707,7 @@ export const deleteNote = /* GraphQL */ `mutation DeleteNote(
     userID
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -723,6 +738,7 @@ export const createUserOrganizations = /* GraphQL */ `mutation CreateUserOrganiz
     organizationId
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -756,6 +772,7 @@ export const updateUserOrganizations = /* GraphQL */ `mutation UpdateUserOrganiz
     organizationId
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -789,6 +806,7 @@ export const deleteUserOrganizations = /* GraphQL */ `mutation DeleteUserOrganiz
     organizationId
     user {
       id
+      cognitoID
       firstName
       email
       createdAt

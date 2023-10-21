@@ -11,6 +11,7 @@ type GeneratedQuery<InputType, OutputType> = string & {
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
+    cognitoID
     firstName
     email
     relationships {
@@ -35,6 +36,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -93,6 +95,7 @@ export const getRelationship = /* GraphQL */ `query GetRelationship($id: ID!) {
     description
     requestor {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -101,6 +104,7 @@ export const getRelationship = /* GraphQL */ `query GetRelationship($id: ID!) {
     }
     employee {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -279,6 +283,7 @@ export const getActionItem = /* GraphQL */ `query GetActionItem($id: ID!) {
     assignedToUserID
     assignedToUser {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -346,6 +351,7 @@ export const getNote = /* GraphQL */ `query GetNote($id: ID!) {
     userID
     user {
       id
+      cognitoID
       firstName
       email
       createdAt
@@ -394,6 +400,7 @@ export const getUserOrganizations = /* GraphQL */ `query GetUserOrganizations($i
     organizationId
     user {
       id
+      cognitoID
       firstName
       email
       createdAt

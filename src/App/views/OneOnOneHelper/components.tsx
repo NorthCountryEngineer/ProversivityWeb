@@ -1,20 +1,115 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, FormControl, FormControlLabel, FormLabel, Grid, NativeSelect, Radio, RadioGroup, TextField, Typography } from "@mui/material"
-import { API } from "aws-amplify";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, NativeSelect, Radio, RadioGroup, Select, TextField, Typography } from "@mui/material"
+import { API, graphqlOperation } from "aws-amplify";
 import { retrieveUserEmail,deleteUserAccount } from "./functions"
 import { initialSwitchBoardData, initialUserMetaData } from "./model.d";
-import { createUser } from "../../../graphql/mutations";
-
+import { createUser, createRelationship } from "../../../graphql/mutations";
+import { listRelationships, listUsers } from "../../../graphql/queries";
 
 function OneOnOneAuthenticatedUserView({
   userMetaData
 }) {
-  return(
+  const [relationshipData, setRelationshipData] = useState({
+    name: '',
+    description: '',
+    relationshipRequestorId: userMetaData.cognitoID,
+    relationshipEmployeeId: '',
+  });
+
+  const [userList, setUserList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    console.log("User meta from auth user view: ", userMetaData)
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response:any = await API.graphql(graphqlOperation(listUsers));
+      // const relationshipListCall = await API.graphql(graphqlOperation(listRelationships, {input: {}}))
+      // console.log("Relationship list call: ", relationshipListCall)
+      const users = response.data.listUsers.items;
+      console.log('Users:', users);
+      setUserList(users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    console.log(e)
+    const { name, value } = e.target;
+    setRelationshipData({ ...relationshipData, [name]: value });
+  }
+
+  const createNewRelationship = async () => {
+    try {
+      let listRelationshipCall = await API.graphql(graphqlOperation(listRelationships, {input: {}}))
+      console.log("List Relationships: ", listRelationshipCall)
+      const response = await API.graphql(
+        graphqlOperation(createRelationship, {input: relationshipData})
+      );
+      console.log('Relationship created:', response);
+    } catch (error) {
+      console.error('Error creating relationship:', error);
+    }
+  };
+
+  return (
     <>
       <h1>Welcome back, {userMetaData.firstName}</h1>
+      <form>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Name"
+              name="name"
+              value={relationshipData.name}
+              onChange={handleInputChange}
+              style={{backgroundColor:"Highlight"}}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Description"
+              name="description"
+              value={relationshipData.description}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel>Employee</InputLabel>
+              <Select
+                name="relationshipEmployeeId"
+                value={relationshipData.relationshipEmployeeId}
+                onChange={handleInputChange}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {userList.map((user:any) => (
+                  <MenuItem key={user.id} value={user.id}>
+                    {user.firstName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={createNewRelationship}
+        >
+          Create Relationship
+        </Button>
+      </form>
     </>
-    
-  )
+  );
 }
 
 function OneOnOneSignUpDialogueComponent({

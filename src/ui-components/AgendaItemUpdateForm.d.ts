@@ -7,6 +7,7 @@
 import * as React from "react";
 import { AutocompleteProps, GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { AgendaItem, Meeting } from "../API.ts";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -14,7 +15,7 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type AgendaItemUpdateFormInputValues = {
     meetingID?: string;
-    meeting?: any;
+    meeting?: Meeting;
     title?: string;
     description?: string;
     duration?: number;
@@ -24,7 +25,7 @@ export declare type AgendaItemUpdateFormInputValues = {
 };
 export declare type AgendaItemUpdateFormValidationValues = {
     meetingID?: ValidationFunction<string>;
-    meeting?: ValidationFunction<any>;
+    meeting?: ValidationFunction<Meeting>;
     title?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     duration?: ValidationFunction<number>;
@@ -48,7 +49,7 @@ export declare type AgendaItemUpdateFormProps = React.PropsWithChildren<{
     overrides?: AgendaItemUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    agendaItem?: any;
+    agendaItem?: AgendaItem;
     onSubmit?: (fields: AgendaItemUpdateFormInputValues) => AgendaItemUpdateFormInputValues;
     onSuccess?: (fields: AgendaItemUpdateFormInputValues) => void;
     onError?: (fields: AgendaItemUpdateFormInputValues, errorMessage: string) => void;

@@ -20,6 +20,7 @@ import {
   useTheme,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { User } from "../API.ts";
 import { fetchByPath, validateField } from "./utils";
 import { API } from "aws-amplify";
 import { listUsers } from "../graphql/queries";

@@ -3,23 +3,19 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Button } from "@mui/material";
 import { OneOnOneAuthenticatedUserView} from './components'
 import { OneOnOneHelperHooks } from "./functions";
-
+import RelationshipCreateForm from "../../../ui-components/RelationshipCreateForm";
 
 const OneOnOneHelper = () => {
 
-  const [signupDialogueOpen, setSignupDialogueOpen] = useState(false)
   const {
     userMetaData, 
-    setUserMetaData,
     switchBoard, 
-    setUserData, 
     fetchUserData,
   } = OneOnOneHelperHooks()
 
 
   useEffect(() => {
     fetchUserData()
-    console.log(switchBoard)
   }, [])
 
   return (

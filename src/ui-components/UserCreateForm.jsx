@@ -20,6 +20,7 @@ import {
   useTheme,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { Organization } from "../API.ts";
 import { fetchByPath, validateField } from "./utils";
 import { API } from "aws-amplify";
 import { listOrganizations, listRelationships } from "../graphql/queries";
@@ -195,11 +196,13 @@ export default function UserCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
+    cognitoID: "",
     firstName: "",
     email: "",
     relationships: [],
     organizations: [],
   };
+  const [cognitoID, setCognitoID] = React.useState(initialValues.cognitoID);
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
   const [email, setEmail] = React.useState(initialValues.email);
   const [relationships, setRelationships] = React.useState(
@@ -215,6 +218,7 @@ export default function UserCreateForm(props) {
   const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
+    setCognitoID(initialValues.cognitoID);
     setFirstName(initialValues.firstName);
     setEmail(initialValues.email);
     setRelationships(initialValues.relationships);
@@ -258,6 +262,7 @@ export default function UserCreateForm(props) {
     organizations: (r) => `${r?.name ? r?.name + " - " : ""}${r?.id}`,
   };
   const validations = {
+    cognitoID: [{ type: "Required" }],
     firstName: [],
     email: [{ type: "Required" }],
     relationships: [],
@@ -351,6 +356,7 @@ export default function UserCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
+          cognitoID,
           firstName,
           email,
           relationships,
@@ -393,6 +399,7 @@ export default function UserCreateForm(props) {
             }
           });
           const modelFieldsToSave = {
+            cognitoID: modelFields.cognitoID,
             firstName: modelFields.firstName,
             email: modelFields.email,
           };
@@ -457,6 +464,34 @@ export default function UserCreateForm(props) {
       {...rest}
     >
       <TextField
+        label="Cognito id"
+        isRequired={true}
+        isReadOnly={false}
+        value={cognitoID}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              cognitoID: value,
+              firstName,
+              email,
+              relationships,
+              organizations,
+            };
+            const result = onChange(modelFields);
+            value = result?.cognitoID ?? value;
+          }
+          if (errors.cognitoID?.hasError) {
+            runValidationTasks("cognitoID", value);
+          }
+          setCognitoID(value);
+        }}
+        onBlur={() => runValidationTasks("cognitoID", cognitoID)}
+        errorMessage={errors.cognitoID?.errorMessage}
+        hasError={errors.cognitoID?.hasError}
+        {...getOverrideProps(overrides, "cognitoID")}
+      ></TextField>
+      <TextField
         label="First name"
         isRequired={false}
         isReadOnly={false}
@@ -465,6 +500,7 @@ export default function UserCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              cognitoID,
               firstName: value,
               email,
               relationships,
@@ -492,6 +528,7 @@ export default function UserCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              cognitoID,
               firstName,
               email: value,
               relationships,
@@ -515,6 +552,7 @@ export default function UserCreateForm(props) {
           let values = items;
           if (onChange) {
             const modelFields = {
+              cognitoID,
               firstName,
               email,
               relationships: values,
@@ -601,6 +639,7 @@ export default function UserCreateForm(props) {
           let values = items;
           if (onChange) {
             const modelFields = {
+              cognitoID,
               firstName,
               email,
               relationships,
