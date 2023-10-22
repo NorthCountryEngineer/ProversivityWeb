@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, NativeSelect, Radio, RadioGroup, Select, TextField, Typography } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, FormControl,  Grid, InputLabel, MenuItem, Modal, NativeSelect, Select, TextField, Typography } from "@mui/material"
 import { API, graphqlOperation } from "aws-amplify";
-import { retrieveUserEmail,deleteUserAccount } from "./functions"
+import { retrieveUserEmail } from "./functions"
 import { initialSwitchBoardData, initialUserMetaData } from "./model.d";
 import { createUser, createRelationship } from "../../../graphql/mutations";
 import { listRelationships, listUsers } from "../../../graphql/queries";
@@ -16,26 +16,37 @@ function OneOnOneAuthenticatedUserView({
     relationshipEmployeeId: '',
   });
 
-  const [userList, setUserList] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [userList, setUserList] = useState([])
+  const [relationshipList, setRelationshipList] = useState([])
+  const [newRelationshipModalOpen, setNewRelationshipModalOpen] = useState(false)
 
   useEffect(() => {
-    console.log("User meta from auth user view: ", userMetaData)
-    fetchUsers();
+    fetchUsers()
+    fetchRelationships()
   }, []);
 
   const fetchUsers = async () => {
     try {
-      const response:any = await API.graphql(graphqlOperation(listUsers));
-      // const relationshipListCall = await API.graphql(graphqlOperation(listRelationships, {input: {}}))
-      // console.log("Relationship list call: ", relationshipListCall)
-      const users = response.data.listUsers.items;
-      console.log('Users:', users);
+      const listUsersCall:any = await API.graphql(graphqlOperation(listUsers));
+      const users = listUsersCall.data.listUsers.items;
       setUserList(users);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
-  };
+  }
+
+  const fetchRelationships = async() => {
+    try {
+      const variables = {filter: { relationshipRequestorId: { eq: userMetaData.cognitoID } }}
+      const listRelationshipsCall:any = await API.graphql(graphqlOperation(listRelationships, variables))
+      const relationships = listRelationshipsCall.data.listRelationships.items;
+      setRelationshipList(relationships)
+      console.log(relationships)
+    } catch (error) {
+      console.error('Error fetching relationships:', error);
+    }
+  }
+  
 
   const handleInputChange = (e) => {
     console.log(e)
@@ -56,58 +67,88 @@ function OneOnOneAuthenticatedUserView({
     }
   };
 
+  const handleNewRelationshipModalButtonClick = () => {
+    setNewRelationshipModalOpen(!newRelationshipModalOpen)
+  }
+
   return (
     <>
-      <h1>Welcome back, {userMetaData.firstName}</h1>
-      <form>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Name"
-              name="name"
-              value={relationshipData.name}
-              onChange={handleInputChange}
-              style={{backgroundColor:"Highlight"}}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Description"
-              name="description"
-              value={relationshipData.description}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel>Employee</InputLabel>
-              <Select
-                name="relationshipEmployeeId"
-                value={relationshipData.relationshipEmployeeId}
+        <Button onClick={handleNewRelationshipModalButtonClick}>Create new series</Button>
+        <Modal 
+          open={newRelationshipModalOpen} 
+          style={{
+          backgroundColor: "Background",
+          width: "80%",
+          height: "30%",
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)" 
+        }}>
+          <>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>             
+              <Button onClick={handleNewRelationshipModalButtonClick}>
+                X
+              </Button></Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Title of series"
+                name="name"
+                value={relationshipData.name}
                 onChange={handleInputChange}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {userList.map((user:any) => (
-                  <MenuItem key={user.id} value={user.id}>
-                    {user.firstName}
+                style={{padding:"5px"}}
+              />
+
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Description of the series"
+                name="description"
+                value={relationshipData.description}
+                onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>Email address for invitation</InputLabel>
+                <Select
+                  name="relationshipEmployeeId"
+                  value={relationshipData.relationshipEmployeeId}
+                  onChange={handleInputChange}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                  {userList.map((user:any) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.firstName}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
           </Grid>
-        </Grid>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={createNewRelationship}
-        >
-          Create Relationship
-        </Button>
-      </form>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={createNewRelationship}
+          >
+            Create Relationship
+          </Button>
+          </>
+        </Modal>  
+      <Grid container>
+        {relationshipList.map((relationship:any) => (
+          <Grid item xs={12}>
+            <Typography variant="button">
+              {relationship.name}
+            </Typography>
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 }
@@ -152,6 +193,7 @@ function OneOnOneSignUpDialogueComponent({
 
     useEffect(()=>{
         getUserEmail()
+
     },[])
 
     useEffect(()=>{
