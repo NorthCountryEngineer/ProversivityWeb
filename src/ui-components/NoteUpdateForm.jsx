@@ -19,8 +19,7 @@ import {
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { fetchByPath, validateField } from "./utils";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { API } from "aws-amplify";
 import {
   getMeeting,
@@ -202,6 +201,7 @@ export default function NoteUpdateForm(props) {
     userID: "",
     user: undefined,
     content: "",
+    test: "",
     timestamp: "",
     meetingNotesId: undefined,
   };
@@ -214,6 +214,7 @@ export default function NoteUpdateForm(props) {
   const [userLoading, setUserLoading] = React.useState(false);
   const [userRecords, setUserRecords] = React.useState([]);
   const [content, setContent] = React.useState(initialValues.content);
+  const [test, setTest] = React.useState(initialValues.test);
   const [timestamp, setTimestamp] = React.useState(initialValues.timestamp);
   const [meetingNotesId, setMeetingNotesId] = React.useState(
     initialValues.meetingNotesId
@@ -238,6 +239,7 @@ export default function NoteUpdateForm(props) {
     setCurrentUserValue(undefined);
     setCurrentUserDisplayValue("");
     setContent(cleanValues.content);
+    setTest(cleanValues.test);
     setTimestamp(cleanValues.timestamp);
     setMeetingNotesId(cleanValues.meetingNotesId);
     setCurrentMeetingNotesIdValue(undefined);
@@ -323,6 +325,7 @@ export default function NoteUpdateForm(props) {
     userID: [{ type: "Required" }],
     user: [],
     content: [{ type: "Required" }],
+    test: [],
     timestamp: [{ type: "Required" }],
     meetingNotesId: [],
   };
@@ -453,6 +456,7 @@ export default function NoteUpdateForm(props) {
           userID,
           user: user ?? null,
           content,
+          test: test ?? null,
           timestamp,
           meetingNotesId: meetingNotesId ?? null,
         };
@@ -498,6 +502,7 @@ export default function NoteUpdateForm(props) {
             userID: modelFields.userID,
             noteUserId: modelFields?.user?.id ?? null,
             content: modelFields.content,
+            test: modelFields.test ?? null,
             timestamp: modelFields.timestamp,
             meetingNotesId: modelFields.meetingNotesId ?? null,
           };
@@ -537,6 +542,7 @@ export default function NoteUpdateForm(props) {
               userID,
               user,
               content,
+              test,
               timestamp,
               meetingNotesId,
             };
@@ -564,6 +570,7 @@ export default function NoteUpdateForm(props) {
               userID,
               user,
               content,
+              test,
               timestamp,
               meetingNotesId,
             };
@@ -653,6 +660,7 @@ export default function NoteUpdateForm(props) {
               userID: value,
               user,
               content,
+              test,
               timestamp,
               meetingNotesId,
             };
@@ -680,6 +688,7 @@ export default function NoteUpdateForm(props) {
               userID,
               user: value,
               content,
+              test,
               timestamp,
               meetingNotesId,
             };
@@ -765,6 +774,7 @@ export default function NoteUpdateForm(props) {
               userID,
               user,
               content: value,
+              test,
               timestamp,
               meetingNotesId,
             };
@@ -780,6 +790,37 @@ export default function NoteUpdateForm(props) {
         errorMessage={errors.content?.errorMessage}
         hasError={errors.content?.hasError}
         {...getOverrideProps(overrides, "content")}
+      ></TextField>
+      <TextField
+        label="Test"
+        isRequired={false}
+        isReadOnly={false}
+        value={test}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              meetingID,
+              meeting,
+              userID,
+              user,
+              content,
+              test: value,
+              timestamp,
+              meetingNotesId,
+            };
+            const result = onChange(modelFields);
+            value = result?.test ?? value;
+          }
+          if (errors.test?.hasError) {
+            runValidationTasks("test", value);
+          }
+          setTest(value);
+        }}
+        onBlur={() => runValidationTasks("test", test)}
+        errorMessage={errors.test?.errorMessage}
+        hasError={errors.test?.hasError}
+        {...getOverrideProps(overrides, "test")}
       ></TextField>
       <TextField
         label="Timestamp"
@@ -799,6 +840,7 @@ export default function NoteUpdateForm(props) {
               userID,
               user,
               content,
+              test,
               timestamp: value,
               meetingNotesId,
             };
@@ -826,6 +868,7 @@ export default function NoteUpdateForm(props) {
               userID,
               user,
               content,
+              test,
               timestamp,
               meetingNotesId: value,
             };

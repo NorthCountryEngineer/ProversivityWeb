@@ -6,8 +6,17 @@
 
 import * as React from "react";
 import { AutocompleteProps, GridProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { Meeting, User } from "../API.ts";
+export declare type EscapeHatchProps = {
+    [elementHierarchy: string]: Record<string, unknown>;
+} | null;
+export declare type VariantValues = {
+    [key: string]: string;
+};
+export declare type Variant = {
+    variantValues: VariantValues;
+    overrides: EscapeHatchProps;
+};
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -19,6 +28,7 @@ export declare type NoteCreateFormInputValues = {
     userID?: string;
     user?: User;
     content?: string;
+    test?: string;
     timestamp?: number;
     meetingNotesId?: string;
 };
@@ -28,6 +38,7 @@ export declare type NoteCreateFormValidationValues = {
     userID?: ValidationFunction<string>;
     user?: ValidationFunction<User>;
     content?: ValidationFunction<string>;
+    test?: ValidationFunction<string>;
     timestamp?: ValidationFunction<number>;
     meetingNotesId?: ValidationFunction<string>;
 };
@@ -39,6 +50,7 @@ export declare type NoteCreateFormOverridesProps = {
     userID?: PrimitiveOverrideProps<TextFieldProps>;
     user?: PrimitiveOverrideProps<AutocompleteProps>;
     content?: PrimitiveOverrideProps<TextFieldProps>;
+    test?: PrimitiveOverrideProps<TextFieldProps>;
     timestamp?: PrimitiveOverrideProps<TextFieldProps>;
     meetingNotesId?: PrimitiveOverrideProps<AutocompleteProps>;
 } & EscapeHatchProps;

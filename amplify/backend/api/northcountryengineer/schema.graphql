@@ -67,6 +67,7 @@ type Note @model {
     userID: ID!
     user: User @hasOne
     content: String!
+    test: String
     timestamp: AWSTimestamp!
 }
 

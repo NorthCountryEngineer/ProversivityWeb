@@ -41,6 +41,7 @@ const App = ()=> {
   useEffect(() => {
     Auth.currentAuthenticatedUser()
     .then((user) => {
+      console.log("USER:", user)
       setIsAuthenticated(true)
     })
     .catch(() => console.log('User is not authenticated.'))

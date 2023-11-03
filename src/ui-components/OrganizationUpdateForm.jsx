@@ -19,8 +19,7 @@ import {
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { fetchByPath, validateField } from "./utils";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import {
   getOrganization,
   listUserOrganizations,

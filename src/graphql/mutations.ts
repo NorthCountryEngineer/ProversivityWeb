@@ -631,6 +631,7 @@ export const createNote = /* GraphQL */ `mutation CreateNote(
       __typename
     }
     content
+    test
     timestamp
     createdAt
     updatedAt
@@ -673,6 +674,7 @@ export const updateNote = /* GraphQL */ `mutation UpdateNote(
       __typename
     }
     content
+    test
     timestamp
     createdAt
     updatedAt
@@ -715,6 +717,7 @@ export const deleteNote = /* GraphQL */ `mutation DeleteNote(
       __typename
     }
     content
+    test
     timestamp
     createdAt
     updatedAt

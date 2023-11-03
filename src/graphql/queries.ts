@@ -359,6 +359,7 @@ export const getNote = /* GraphQL */ `query GetNote($id: ID!) {
       __typename
     }
     content
+    test
     timestamp
     createdAt
     updatedAt
@@ -380,6 +381,7 @@ export const listNotes = /* GraphQL */ `query ListNotes(
       meetingID
       userID
       content
+      test
       timestamp
       createdAt
       updatedAt

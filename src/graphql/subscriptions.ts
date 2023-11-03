@@ -598,6 +598,7 @@ export const onCreateNote = /* GraphQL */ `subscription OnCreateNote($filter: Mo
       __typename
     }
     content
+    test
     timestamp
     createdAt
     updatedAt
@@ -637,6 +638,7 @@ export const onUpdateNote = /* GraphQL */ `subscription OnUpdateNote($filter: Mo
       __typename
     }
     content
+    test
     timestamp
     createdAt
     updatedAt
@@ -676,6 +678,7 @@ export const onDeleteNote = /* GraphQL */ `subscription OnDeleteNote($filter: Mo
       __typename
     }
     content
+    test
     timestamp
     createdAt
     updatedAt

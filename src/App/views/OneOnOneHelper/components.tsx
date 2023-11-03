@@ -1,12 +1,76 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, FormControl,  Grid, InputLabel, MenuItem, Modal, NativeSelect, Select, TextField, Typography } from "@mui/material"
+import { AppBar, Toolbar, IconButton, Button, Dialog, DialogActions, DialogContent, DialogContentText, FormControl,  Grid, InputLabel, MenuItem, Modal, NativeSelect, Select, TextField, Typography, List, Popover, ListItem } from "@mui/material"
 import { API, graphqlOperation } from "aws-amplify";
 import { retrieveUserEmail } from "./functions"
 import { initialSwitchBoardData, initialUserMetaData } from "./model.d";
 import { createUser, createRelationship } from "../../../graphql/mutations";
 import { listRelationships, listUsers } from "../../../graphql/queries";
+import { AddCircleOutline, PeopleAlt } from '@mui/icons-material';
 
-function OneOnOneAuthenticatedUserView({
+export function OneOnOneToolbar({ onAddClick, onManageClick, relationshipList }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  
+  const handleManageClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
+  useEffect(() => {console.log(relationshipList)},[])
+
+  return (
+    <AppBar position="static" sx={{ background: 'black' }}>
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          One on One Manager
+        </Typography>
+        <IconButton
+          color="inherit"
+          aria-label="Create New Series"
+          onClick={onAddClick}
+        >
+          <AddCircleOutline />
+        </IconButton>
+        <IconButton
+          color="inherit"
+          aria-label="Manage Series"
+          onClick={handleManageClick}
+        >
+          <PeopleAlt />
+        </IconButton>
+        <Popover
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          <List>
+            {relationshipList.map((relationship) => (
+              <ListItem key={relationship.id}>
+                <Typography variant="button">
+                  {relationship.name}
+                </Typography>
+              </ListItem>
+            ))}
+          </List>
+        </Popover>
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+export function OneOnOneAuthenticatedUserView({
   userMetaData
 }) {
   const [relationshipData, setRelationshipData] = useState({
@@ -20,6 +84,16 @@ function OneOnOneAuthenticatedUserView({
   const [relationshipList, setRelationshipList] = useState([])
   const [newRelationshipModalOpen, setNewRelationshipModalOpen] = useState(false)
 
+  const handleAddClick = () => {
+    // Open the modal or perform any action you need when "Create New Series" is clicked
+    setNewRelationshipModalOpen(true);
+  };
+
+  const handleManageClick = () => {
+    // Perform any action you need when "Manage Series" is clicked
+    console.log('Manage Series clicked');
+  }
+
   useEffect(() => {
     fetchUsers()
     fetchRelationships()
@@ -27,7 +101,9 @@ function OneOnOneAuthenticatedUserView({
 
   const fetchUsers = async () => {
     try {
+      
       const listUsersCall:any = await API.graphql(graphqlOperation(listUsers));
+      console.log("LIST USERS CALL: ", listUsersCall)
       const users = listUsersCall.data.listUsers.items;
       setUserList(users);
     } catch (error) {
@@ -73,7 +149,11 @@ function OneOnOneAuthenticatedUserView({
 
   return (
     <>
-        <Button onClick={handleNewRelationshipModalButtonClick}>Create new series</Button>
+      <OneOnOneToolbar 
+        onAddClick={handleAddClick} 
+        onManageClick={handleManageClick} 
+        relationshipList={relationshipList}
+      />
         <Modal 
           open={newRelationshipModalOpen} 
           style={{
@@ -140,20 +220,12 @@ function OneOnOneAuthenticatedUserView({
           </Button>
           </>
         </Modal>  
-      <Grid container>
-        {relationshipList.map((relationship:any) => (
-          <Grid item xs={12}>
-            <Typography variant="button">
-              {relationship.name}
-            </Typography>
-          </Grid>
-        ))}
-      </Grid>
+     
     </>
   );
 }
 
-function OneOnOneSignUpDialogueComponent({
+export function OneOnOneSignUpDialogueComponent({
     open,
     setOpen,
     userMetaData,
@@ -319,5 +391,3 @@ function OneOnOneSignUpDialogueComponent({
               </Dialog>
     )
 }
-
-export {OneOnOneAuthenticatedUserView}
